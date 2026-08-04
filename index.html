@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Meru — A modular ERP written in Go</title>
-<meta name="description" content="Project Meru is an open-source, modular ERP built in Go. One static binary, swappable modules, Postgres-first.">
+<title>Project Meru — Sumeru, a modular ERP framework in Go</title>
+<meta name="description" content="Project Meru builds Sumeru: an open-source modular ERP framework in Go. Manifest-based addons, XML views, a Postgres data layer and a server-rendered UI with no build step.">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="css/style.css">
@@ -28,6 +28,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header" id="siteHeader">
+  <div class="read-progress" id="readProgress" aria-hidden="true"><span></span></div>
   <div class="wrap header-inner">
     <a class="brand" href="#top">
       <span class="brand-mark" aria-hidden="true">
@@ -40,11 +41,11 @@
       <a href="#why">Why</a>
       <a href="#features">Features</a>
       <a href="#architecture">Architecture</a>
+      <a href="#getting-started">Getting started</a>
       <a href="#modules">Modules</a>
-      <a href="#principles">Principles</a>
+      <a href="#editions">Editions</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#faq">FAQ</a>
-      <a class="nav-cta" href="https://github.com/projectmeru" target="_blank" rel="noopener">GitHub</a>
     </nav>
 
     <div class="header-tools">
@@ -72,28 +73,57 @@
   <!-- ══ HERO ══ -->
   <section class="hero" id="top">
     <div class="wrap">
-      <p class="eyebrow"><span class="dot"></span> Open source &middot; Pre-alpha &middot; Apache 2.0</p>
-      <h1>The ERP that ships<br>as one binary.</h1>
-      <p class="lede">
-        Project Meru is a modular ERP written in Go. Every business function — accounting,
-        inventory, sales, whatever you write yourself — is a module attached to a small,
-        stable kernel. Compile the ones you need, copy one file to a server, run it.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#features">Explore the features</a>
-        <a class="btn btn-ghost" href="#roadmap">See the roadmap</a>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span> Open source &middot; Pre-alpha &middot; Dual licensed</p>
+          <h1>A modular ERP<br>framework in Go.</h1>
+          <p class="lede">
+            Every business function — contacts, products, CRM, sales, invoicing — is an addon: a folder
+            with a manifest, some Go models and some XML. The kernel discovers it, resolves its
+            dependencies, creates its tables and wires its menus. Postgres underneath, server-rendered
+            HTML on top, no front-end build step anywhere.
+          </p>
+          <p class="naming">
+            <strong>Project&nbsp;Meru</strong> is the initiative. <strong>Sumeru</strong> is the framework
+            it builds — that is the name you will see in the code, the CLI and the repository.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#getting-started">Get started</a>
+            <a class="btn btn-ghost" href="#architecture">Read the architecture</a>
+          </div>
+        </div>
+
+        <div class="terminal" aria-hidden="true">
+          <div class="terminal-bar">
+            <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+            <span class="terminal-title">sumeru_custom_addons</span>
+          </div>
+          <div class="terminal-body"><span class="t-cmd">$ go run . -- -c sumeru.conf -i account</span>
+<span class="t-dim">Base Addon Loaded</span>
+<span class="t-dim">Account Addon Loaded</span>
+<span class="t-ok">installing</span> account 1.0.0
+  resolving depends ... product, contacts
+  syncing schema ..... 4 models
+  loading data ....... 5 files
+<span class="t-ok">installed</span>  account
+
+<span class="t-cmd">$ make run</span>
+Server starting on :9090...
+</div>
+        </div>
       </div>
 
       <div class="hero-stats">
-        <div class="stat"><span class="stat-num" data-count="1">0</span><span class="stat-label">Static binary</span></div>
-        <div class="stat"><span class="stat-num" data-count="14">0</span><span class="stat-label">Planned modules</span></div>
-        <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">Runtime deps</span></div>
-        <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Build phases</span></div>
+        <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Go modules</span></div>
+        <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">Addons today</span></div>
+        <div class="stat"><span class="stat-num" data-count="1">0</span><span class="stat-label">Database</span></div>
+        <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">JS dependencies</span></div>
       </div>
 
       <div class="notice">
-        <strong>Heads up.</strong> Meru is an in-progress project. The kernel and the module
-        contract are being designed in the open — nothing on this page is production-ready yet.
+        <strong>Heads up.</strong> Sumeru is pre-alpha. The framework runs and the lead-to-cash flow works
+        end to end, but there is no release, no upgrade guarantee, and no test suite in the addon repos.
+        Do not run your business on it yet.
       </div>
     </div>
   </section>
@@ -104,55 +134,57 @@
       <p class="kicker">The idea</p>
       <h2>Business software should be boring to operate.</h2>
       <p class="section-lede">
-        An ERP touches money, stock and payroll, so it has to be dependable for a decade.
-        Most of the effort in running one goes not to the business logic but to the
-        machinery around it — the runtime, the workers, the broker, the upgrade window.
-        Meru is an attempt to spend that effort somewhere better.
+        An ERP touches money, stock and payroll, so it has to be dependable for a decade. Most of the
+        effort in running one goes not to the business logic but to the machinery around it — the
+        runtime, the workers, the broker, the upgrade window. Sumeru is an attempt to spend that
+        effort somewhere better.
       </p>
 
       <div class="grid grid-3">
         <div class="card">
           <div class="card-num">01</div>
           <h3>Deployment should be a copy</h3>
-          <p>If getting to a running system takes an afternoon and a wiki page, upgrades
-             will be rare and scary. One artefact, one command, no interpreter to install.</p>
+          <p>If getting to a running system takes an afternoon and a wiki page, upgrades will be rare
+             and scary. Go compiles to one binary; the only thing beside it is Postgres.</p>
         </div>
         <div class="card">
           <div class="card-num">02</div>
           <h3>Customisation should not fork</h3>
-          <p>Every business changes something. If that change means patching core, the
-             next upgrade is expensive — so the install ages in place instead.</p>
+          <p>Every business changes something. If that change means patching core, the next upgrade is
+             expensive — so the install ages in place instead.</p>
         </div>
         <div class="card">
           <div class="card-num">03</div>
           <h3>Your data should stay yours</h3>
-          <p>The schema is the part that outlives the software. It should be readable
-             SQL that any analyst or DBA can query without learning a framework first.</p>
+          <p>The schema is the part that outlives the software. It should be plain Postgres tables that
+             any analyst or DBA can query without learning a framework first.</p>
         </div>
       </div>
 
-      <h2 class="mt-xl">How Meru answers that</h2>
+      <h2 class="mt-xl">How Sumeru answers that</h2>
       <div class="grid grid-2">
         <div class="card card-accent">
-          <h3>Compile it, ship it</h3>
-          <p>Meru builds to a single binary with the modules you selected already inside it.
-             Copy it to a server and run it. No interpreter, no virtual environment, no
-             supervisor tree to keep alive.</p>
+          <h3>Three tiers, cleanly separated</h3>
+          <p>The core framework, the standard business addons and your own workspace are three separate
+             Go modules linked by <code>replace</code> directives. Your customisations live in your own
+             module — you never edit core to add behaviour.</p>
         </div>
         <div class="card card-accent">
-          <h3>Extend without forking</h3>
-          <p>Modules attach to the kernel through a stable Go interface and a published
-             event bus. You change behaviour by adding a module, never by editing core.</p>
+          <h3>Addons integrate through events</h3>
+          <p>No addon imports another addon. Invoicing reacts to a confirmed sales order it has no
+             compile-time knowledge of, guarded by a registry lookup, so the same binary works whether
+             or not Sales is installed.</p>
         </div>
         <div class="card card-accent">
-          <h3>Postgres you can read</h3>
-          <p>Real tables, real foreign keys, migrations written in SQL and checked into the
-             repository. Point any BI tool at it and the schema makes sense on its own.</p>
+          <h3>Tables you can read</h3>
+          <p>A model is a Go struct describing fields; the kernel turns it into a real Postgres table
+             with real columns and indexes. Point any BI tool at it and the schema makes sense.</p>
         </div>
         <div class="card card-accent">
-          <h3>Tenancy in the kernel</h3>
-          <p>Multi-tenant isolation is decided once, at the core, rather than being
-             re-implemented — and occasionally forgotten — by every module.</p>
+          <h3>Conventions checked at startup</h3>
+          <p>Folder name, manifest name, package name, blank imports, XML root elements and declared
+             data files are all validated when the server boots. A malformed addon fails loudly rather
+             than half-installing.</p>
         </div>
       </div>
     </div>
@@ -162,84 +194,86 @@
   <section class="section section-alt" id="features">
     <div class="wrap">
       <p class="kicker">Capabilities</p>
-      <h2>What the platform gives every module</h2>
+      <h2>What the kernel gives every addon</h2>
       <p class="section-lede">
-        A module author writes business logic. Everything below is provided by the kernel,
-        so it works the same way in accounting as it does in a module you wrote last week.
+        An addon author writes business logic. Everything below is provided by the core, so it works
+        the same way in invoicing as it does in an addon you wrote last week.
       </p>
 
       <div class="grid grid-3 feature-grid">
         <div class="feature">
           <div class="feature-icon">⬡</div>
-          <h3>Module registry</h3>
-          <p>Install, upgrade, disable and uninstall modules at runtime. The registry
-             resolves dependency order before anything serves traffic.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⚿</div>
-          <h3>Identity &amp; RBAC</h3>
-          <p>Users, groups, roles and record-level rules. Permissions are declared by the
-             module and enforced by the kernel on every request.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">▦</div>
-          <h3>Typed data layer</h3>
-          <p>Go structs map to Postgres tables with generated queries. Drop to raw SQL
-             whenever the generated query is not the one you want.</p>
+          <h3>Model registry</h3>
+          <p>Models register themselves from <code>init()</code>. The kernel keeps a name-to-model
+             registry — <code>account.move</code>, <code>crm.lead</code> — that addons look each other
+             up through at runtime.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">↻</div>
-          <h3>Migrations</h3>
-          <p>Versioned, reversible, per module. Installing a module runs its migrations;
-             removing it rolls them back cleanly.</p>
+          <h3>Schema sync</h3>
+          <p>Tables and columns are derived from your field definitions and created on boot. Missing
+             columns are added, indexes ensured. It is additive: nothing is dropped behind your back.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">▤</div>
+          <h3>Manifest &amp; discovery</h3>
+          <p>A <code>manifest.json</code> declares name, version, dependencies and data files. The
+             kernel scans every configured addons path and topologically orders what it finds.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">◈</div>
+          <h3>XML views, menus, actions</h3>
+          <p>Tree, form and kanban views, window actions and the menu tree are declared in XML and
+             loaded into the database on install — no template compilation.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚿</div>
+          <h3>Groups, ACLs, record rules</h3>
+          <p>Groups with inheritance, per-model access rights from CSV, and row-level record rules
+             whose domains understand <code>$uid</code> and the active company.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">⇄</div>
           <h3>Event bus</h3>
-          <p>Modules publish domain events and subscribe to each other's without a compile
-             time dependency. Inventory reacts to a sale it has never heard of.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⧗</div>
-          <h3>Background jobs</h3>
-          <p>A durable queue backed by Postgres. Retries, backoff and scheduled jobs, with
-             no extra broker to operate.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">◈</div>
-          <h3>REST &amp; gRPC</h3>
-          <p>Both APIs are generated from the same model definitions, so the contract can
-             never drift between them.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">▤</div>
-          <h3>Server-rendered UI</h3>
-          <p>Go templates with progressive enhancement. There is no mandatory front-end
-             build, and pages work before JavaScript arrives.</p>
+          <p>The ORM publishes <code>record.created</code> and <code>record.updated</code>; the
+             scheduler publishes <code>cron.tick</code>. Addons subscribe without importing each other.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">◉</div>
-          <h3>Audit trail</h3>
-          <p>Who changed what, when, and from where — recorded by the data layer rather
-             than remembered by each developer.</p>
+          <h3>JSON-RPC API</h3>
+          <p><code>POST /api/rpc</code> with an API key exposes <code>search</code>,
+             <code>search_read</code>, <code>read</code>, <code>create</code>, <code>write</code> and
+             <code>unlink</code> against any model you have rights to.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">▦</div>
+          <h3>Server-rendered UI</h3>
+          <p>Go templates plus a render package that builds form, tree and kanban HTML. Plain CSS and
+             native ES modules — no bundler, no minifier, no build step.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">⌸</div>
-          <h3>Multi-tenancy</h3>
-          <p>Schema-per-tenant isolation with a shared binary. One process can serve many
-             organisations without sharing a row.</p>
+          <h3>Multi-company</h3>
+          <p>Companies, per-user company access and a switcher in the top bar. One database serves the
+             whole group, with rules scoping records to the active company.</p>
         </div>
         <div class="feature">
-          <div class="feature-icon">⚑</div>
-          <h3>Localisation</h3>
-          <p>Currencies, tax rules, date formats and translations are module-level data,
-             so a country pack is just another module.</p>
+          <div class="feature-icon">⧗</div>
+          <h3>Scheduler</h3>
+          <p>A minute-tick scheduler runs due <code>sys.cron</code> rows and publishes their events, so
+             recurring work needs no external broker.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">◎</div>
-          <h3>Observability</h3>
-          <p>Structured logs, Prometheus metrics and OpenTelemetry traces are on by
-             default, labelled per module and per tenant.</p>
+          <h3>Logging &amp; audit</h3>
+          <p>Structured JSON logs with optional size-based rotation, an in-app log viewer, and an audit
+             trail recording writes and access denials.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚑</div>
+          <h3>Scaffolding</h3>
+          <p>One command generates a complete addon — manifest, init, models, views, menus, security —
+             already satisfying every startup convention.</p>
         </div>
       </div>
     </div>
@@ -249,126 +283,460 @@
   <section class="section" id="architecture">
     <div class="wrap">
       <p class="kicker">Under the hood</p>
-      <h2>A small kernel and a stable contract</h2>
+      <h2>Three modules, one contract</h2>
       <p class="section-lede">
-        The kernel owns the things that must be consistent across the whole system. Modules
-        own the business. The line between them is one Go interface.
+        Sumeru is not one repository you fork. It is a core Go module, a module of standard business
+        addons, and your own workspace module that imports both. Each tier depends only on the one
+        below it.
       </p>
 
-      <div class="arch">
-        <div class="arch-layer arch-kernel">
-          <span class="arch-title">Meru Kernel</span>
-          <div class="arch-chips">
-            <span>registry</span><span>auth</span><span>tenancy</span><span>data layer</span>
-            <span>migrations</span><span>jobs</span><span>events</span><span>RBAC</span>
+      <div class="arch arch-stack">
+        <div class="arch-tier arch-tier-you">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">sumeru_custom_addons</span>
+            <span class="arch-tier-label">your workspace &middot; runs the server</span>
+          </div>
+          <div class="arch-chips arch-chips-line">
+            <span>main.go</span><span>sumeru.conf</span><span>addonimports/</span><span>addons/…</span>
           </div>
         </div>
-        <div class="arch-connector"><span>module contract</span></div>
-        <div class="arch-modules">
-          <div class="arch-mod">Accounting</div>
-          <div class="arch-mod">Inventory</div>
-          <div class="arch-mod">Sales</div>
-          <div class="arch-mod">CRM</div>
-          <div class="arch-mod">HR</div>
-          <div class="arch-mod arch-mod-you">Your module</div>
+
+        <div class="arch-connector arch-connector-up"><span>replace sumeru_addons</span></div>
+
+        <div class="arch-tier">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">sumeru_addons</span>
+            <span class="arch-tier-label">standard business addons</span>
+          </div>
+          <div class="arch-chips arch-chips-line">
+            <span>contacts</span><span>product</span><span>crm</span><span>sale</span>
+            <span>sale_crm</span><span>account</span><span>purchase</span><span>hr</span>
+          </div>
+        </div>
+
+        <div class="arch-connector arch-connector-up"><span>replace sumeru</span></div>
+
+        <div class="arch-tier arch-tier-core">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">sumeru</span>
+            <span class="arch-tier-label">the core framework</span>
+          </div>
+          <div class="arch-chips arch-chips-line">
+            <span>orm</span><span>module</span><span>engine</span><span>server</span><span>event</span>
+            <span>sdk</span><span>scheduler</span><span>applog</span><span>cache</span>
+          </div>
+          <div class="arch-tier-sub">in-tree apps: base &middot; mail &middot; automation &middot; sumeru_ai</div>
+        </div>
+
+        <div class="arch-connector"><span>lib/pq</span></div>
+
+        <div class="arch-tier arch-tier-db">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">PostgreSQL</span>
+            <span class="arch-tier-label">one database &middot; many companies</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2 mt-lg">
+        <div class="card card-accent">
+          <h3>Nothing imports sideways</h3>
+          <p>No addon imports another addon's Go package. Invoicing subscribes to
+             <code>record.updated</code>, checks whether <code>sale.order</code> is in the registry at
+             all, and only then builds an invoice. Uninstall Sales and Invoicing keeps working.</p>
+        </div>
+        <div class="card card-accent">
+          <h3>Dependencies are declared, not imported</h3>
+          <p>The <code>depends</code> array in the manifest drives install order and nothing else:
+             <code>sale</code> needs <code>product</code>, <code>contacts</code> and <code>crm</code>
+             installed, but never links against them.</p>
         </div>
       </div>
 
       <div class="tabs" id="tabs">
         <div class="tab-buttons" role="tablist">
-          <button class="tab-btn is-active" role="tab" data-tab="contract">The contract</button>
-          <button class="tab-btn" role="tab" data-tab="model">A model</button>
+          <button class="tab-btn is-active" role="tab" data-tab="model">A model</button>
+          <button class="tab-btn" role="tab" data-tab="manifest">The manifest</button>
+          <button class="tab-btn" role="tab" data-tab="views">Views &amp; menus</button>
           <button class="tab-btn" role="tab" data-tab="events">Events</button>
-          <button class="tab-btn" role="tab" data-tab="deploy">Deploy</button>
+          <button class="tab-btn" role="tab" data-tab="security">Security</button>
         </div>
 
-        <div class="tab-panel is-active" data-panel="contract">
-          <pre><code>// Every Meru module satisfies exactly this interface.
-// If it does, the kernel can install, upgrade and remove it.
+        <div class="tab-panel is-active" data-panel="model">
+          <pre><code>// sumeru_addons/account/models/account_journal.go
+//
+// A model is metadata: a name and a list of fields. The kernel turns
+// this into the account_journal table and registers it for lookup.
 
-type Module interface {
-    Name() string                 // "inventory"
-    Version() string              // "0.4.1"
-    Requires() []string           // {"identity", "accounting"}
+package models
 
-    Models() []meru.Model         // tables, indexes, constraints
-    Permissions() []meru.Perm     // declared, enforced by kernel
-    Routes(r meru.Router)         // HTTP + gRPC endpoints
-    Menu() []meru.MenuItem        // where it appears in the UI
+import "sumeru/core/sdk"
 
-    OnInstall(ctx context.Context, tx meru.Tx) error
-    OnUpgrade(ctx context.Context, tx meru.Tx, from string) error
-}</code></pre>
-        </div>
-
-        <div class="tab-panel" data-panel="model">
-          <pre><code>// Models are plain structs. Tags describe the column,
-// and the kernel generates the migration and the queries.
-
-type StockMove struct {
-    meru.Base                     // id, tenant, created/updated, audit
-
-    Product   meru.Ref[Product]   `meru:"required,index"`
-    From      meru.Ref[Location]  `meru:"required"`
-    To        meru.Ref[Location]  `meru:"required"`
-    Quantity  meru.Decimal        `meru:"precision=16,scale=4"`
-    State     MoveState           `meru:"enum,default=draft"`
+type AccountJournal struct {
+    sdk.BaseModel
 }
 
-func (m *StockMove) Validate() error {
-    if m.Quantity.LessOrEqual(meru.Zero) {
-        return meru.Invalid("quantity", "must be positive")
+func (AccountJournal) ModelName() string { return "account.journal" }
+
+func (AccountJournal) Fields() []sdk.FieldDefinition {
+    return []sdk.FieldDefinition{
+        {Name: "name", Type: sdk.Char, String: "Journal Name", Required: true},
+        {Name: "code", Type: sdk.Char, String: "Short Code", Required: true},
+        {Name: "type", Type: sdk.Selection, String: "Type", Selection: [][]string{
+            {"sale", "Sales"},
+            {"purchase", "Purchase"},
+            {"general", "Miscellaneous"},
+            {"bank", "Bank"},
+            {"cash", "Cash"},
+        }, DefaultVal: "general"},
+        {Name: "default_account_id", Type: sdk.Many2One,
+            Relation: "account.account", String: "Default Account"},
+        {Name: "active", Type: sdk.Boolean, String: "Active", DefaultVal: true},
     }
-    return nil
+}
+
+func init() {
+    sdk.RegisterModel(sdk.RegisterModelInput{Model: &AccountJournal{}, Module: "account"})
 }</code></pre>
+        </div>
+
+        <div class="tab-panel" data-panel="manifest">
+          <pre><code>// sumeru_addons/account/manifest.json
+//
+// depends drives install order. data lists the XML and CSV files
+// loaded into the database, in order, when the addon is installed.
+
+{
+  "name": "account",
+  "display_name": "Invoicing",
+  "version": "1.0.0",
+  "summary": "Invoices, bills, and basic accounting",
+  "description": "Customer invoices, vendor bills, chart of accounts, and posted journal entries.",
+  "author": "Sumeru",
+  "depends": ["product", "contacts"],
+  "data": [
+    "security/security.xml",
+    "security/sys.access.csv",
+    "data/account_data.xml",
+    "views/account_views.xml",
+    "views/menus.xml"
+  ],
+  "application": true
+}</code></pre>
+        </div>
+
+        <div class="tab-panel" data-panel="views">
+          <pre><code>&lt;!-- sumeru_addons/account/views/ — every data file uses the &lt;sumeru&gt; root.
+     An action binds a model to view types; a menuitem points at an action. --&gt;
+
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;sumeru&gt;
+    &lt;data&gt;
+        &lt;action id="action_account_moves_out" type="window" model="account.move"
+                name="Customer Invoices" view_mode="tree,form"&gt;
+            &lt;help&gt;Confirm a sales order to auto-create a draft invoice,
+                  then set Status to Posted.&lt;/help&gt;
+        &lt;/action&gt;
+
+        &lt;menuitem id="account_menu_root" name="Invoicing" web_icon="file-text"
+                  sequence="45" groups="account.group_account_invoice"/&gt;
+        &lt;menuitem id="account_menu_customers" name="Customers"
+                  parent="account_menu_root" sequence="10"
+                  groups="account.group_account_invoice"/&gt;
+        &lt;menuitem id="menu_account_invoices" name="Invoices"
+                  parent="account_menu_customers"
+                  action="account.action_account_moves_out"
+                  sequence="1" web_icon="file-text"
+                  groups="account.group_account_invoice"/&gt;
+    &lt;/data&gt;
+&lt;/sumeru&gt;</code></pre>
         </div>
 
         <div class="tab-panel" data-panel="events">
-          <pre><code>// Modules talk through events, never through imports.
-// Inventory has no compile-time knowledge of Sales.
+          <pre><code>// sumeru_addons/account/init.go
+//
+// Invoicing has no compile-time knowledge of Sales. It listens for any
+// record update, filters for sale.order, and checks the registry first —
+// so this addon installs and runs with or without Sales present.
 
-func (m *InventoryModule) OnInstall(ctx context.Context, tx meru.Tx) error {
-    meru.Subscribe(ctx, "sales.order.confirmed", m.reserveStock)
-    return nil
+package account
+
+import (
+    "context"
+    "log"
+
+    "sumeru/core/event"
+    "sumeru/core/orm"
+
+    _ "sumeru_addons/account/models"
+)
+
+func init() {
+    log.Println("Account Addon Loaded")
+    event.Subscribe("record.updated", onSaleOrderToInvoice)
+    event.Subscribe("record.updated", onPurchaseOrderToBill)
+    event.Subscribe("record.updated", onMovePost)
 }
 
-func (m *InventoryModule) reserveStock(ctx context.Context, e meru.Event) error {
-    var order sales.ConfirmedOrder
-    if err := e.Decode(&order); err != nil {
-        return err
+func onSaleOrderToInvoice(ctx context.Context, ev event.Event) error {
+    model, _ := ev.Payload["model"].(string)
+    if model != "sale.order" {
+        return nil
     }
-    return m.reserve(ctx, order.Lines)   // runs in the job queue, with retries
+    id, ok := coerceID(ev.Payload["id"])
+    if !ok {
+        return nil
+    }
+    if _, ok := orm.Registry["sale.order"]; !ok {
+        return nil        // Sales is not installed — nothing to do.
+    }
+    // … confirm state, then create the draft invoice (idempotent).
 }</code></pre>
         </div>
 
-        <div class="tab-panel" data-panel="deploy">
-          <pre><code># Pick your modules and build. The result is one file.
+        <div class="tab-panel" data-panel="security">
+          <pre><code># sumeru_addons/account/security/sys.access.csv
+# Per-model rights, granted to a group. Loaded on install.
 
-$ meru build --modules accounting,inventory,sales,crm
-  resolving dependencies ....... 7 modules
-  compiling .................... 12.4s
-  → ./meru  (38 MB, static)
+id,name,model,group_id,perm_read,perm_write,perm_create,perm_unlink
+access_account_move_user,access_account_move_user,account.move,group_account_invoice,1,1,1,0
+access_account_move_manager,access_account_move_manager,account.move,group_account_manager,1,1,1,1
 
-# Point it at Postgres and start.
 
-$ ./meru migrate --database $DATABASE_URL
-$ ./meru serve   --database $DATABASE_URL --port 8080
+&lt;!-- sumeru_addons/sale/security/sale_rules.xml
+     Row-level rules. A salesperson sees their own orders; a manager,
+     with an empty domain, sees everything. --&gt;
 
-  meru 0.1.0-alpha  listening on :8080
-  modules: accounting inventory sales crm identity tenancy core</code></pre>
+&lt;record id="sale_order_rule_user" model="sys.rule"&gt;
+    &lt;field name="name"&gt;sale.order: own documents&lt;/field&gt;
+    &lt;field name="model"&gt;sale.order&lt;/field&gt;
+    &lt;field name="domain_force"&gt;[["user_id","=","$uid"]]&lt;/field&gt;
+    &lt;field name="active"&gt;true&lt;/field&gt;
+    &lt;field name="groups" eval="[(4, ref('group_sale_user'))]"/&gt;
+&lt;/record&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GETTING STARTED ══ -->
+  <section class="section section-alt" id="getting-started">
+    <div class="wrap">
+      <p class="kicker">Getting started</p>
+      <h2>Two ways in</h2>
+      <p class="section-lede">
+        The same system, read from two directions: the commands that get it running, and the business
+        flow it gives you once it is. Pick the tab that matches your job.
+      </p>
+
+      <div class="tabs" id="startTabs">
+        <div class="tab-buttons" role="tablist">
+          <button class="tab-btn is-active" role="tab" data-tab="engineer">For engineers</button>
+          <button class="tab-btn" role="tab" data-tab="business">For business teams</button>
+        </div>
+
+        <!-- ── Engineer ── -->
+        <div class="tab-panel is-active" data-panel="engineer">
+          <p class="panel-lede">
+            You need Go 1.26+ and PostgreSQL. Nothing else — no Node, no Docker, no message broker.
+            Every command below runs from your workspace module, <code>sumeru_custom_addons</code>.
+          </p>
+
+          <ol class="steps">
+            <li class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h3>Create the database and the config</h3>
+                <pre><code>$ psql -U postgres -c "CREATE DATABASE sumeru;"
+
+$ cd sumeru_custom_addons
+$ cp sumeru.conf.example sumeru.conf
+# edit db_host / db_user / db_password / db_name / http_port</code></pre>
+                <p>Paths inside the INI resolve against the file itself, not your shell. The
+                   <code>addons_path</code> key is what decides which addons exist at all.</p>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h3>Point the workspace at the other two modules</h3>
+                <pre><code>$ make replace-sumeru        SUMERU_ROOT=../sumeru
+$ make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons
+$ make generate</code></pre>
+                <p><code>make generate</code> rewrites <code>addonimports/zimports.go</code>, the blank
+                   imports that link every discovered addon into the binary. Run it whenever you add
+                   an addon.</p>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h3>First boot — the setup wizard</h3>
+                <pre><code>$ make run
+
+Database is not initialized. Starting in SETUP MODE.
+Visit http://localhost:9090/setup to initialize the system.</code></pre>
+                <p>There is <strong>no default admin account</strong>. The wizard at
+                   <code>/setup</code> creates your company and the first user; the email you give it
+                   becomes the login. The server restarts itself when it finishes.</p>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <h3>Install the business addons</h3>
+                <pre><code>$ go run . -- -c sumeru.conf \
+    -i contacts,product,crm,sale,sale_crm,account,purchase,hr \
+    --stop-after-init</code></pre>
+                <p>Install order matters and follows <code>depends</code>. <code>-i all</code> is
+                   rejected on purpose — you name what you want. You can also install from the Apps
+                   screen once you are logged in.</p>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step-num">5</div>
+              <div class="step-body">
+                <h3>Run it</h3>
+                <pre><code>$ make run
+Server starting on :9090...
+
+# open http://localhost:9090/  →  /web/home</code></pre>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="mt-lg">The inner loop for a new addon</h3>
+          <pre><code># scaffold — manifest, init.go, models, views, menus, security
+$ go run ../sumeru/cmd/sumeru-bp -name my_module -out ./addons
+
+# link it into the binary, then install it once
+$ make generate
+$ go run . -- -c sumeru.conf -i my_module --stop-after-init
+
+# after editing any XML or the manifest's data list, reload it
+$ go run . -- -c sumeru.conf -u my_module --stop-after-init
+$ make run</code></pre>
+          <p class="fineprint">
+            Go code changes need a rebuild — that is what <code>make run</code> does. XML changes need
+            <code>-u</code>, because views, menus and access rules live in the database once installed.
+          </p>
+
+          <h3 class="mt-lg">Server flags</h3>
+          <div class="table-scroll">
+            <table class="compare">
+              <thead>
+                <tr><th scope="col">Flag</th><th scope="col">What it does</th><th scope="col">Note</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>-c &lt;path&gt;</code></th><td>Config file to read</td><td>Defaults to <code>sumeru.conf</code></td></tr>
+                <tr><th scope="row"><code>-i &lt;mods&gt;</code></th><td>Install addons, comma-separated</td><td><code>all</code> is rejected</td></tr>
+                <tr><th scope="row"><code>-u &lt;mods&gt;</code></th><td>Reload addon data and schema</td><td><code>-u all</code> is allowed</td></tr>
+                <tr><th scope="row"><code>-d</code>, <code>--database</code></th><td>Override the database name</td><td>Beats the config file</td></tr>
+                <tr><th scope="row"><code>-p</code>, <code>--http-port</code></th><td>Override the listen port</td><td>Beats the config file</td></tr>
+                <tr><th scope="row"><code>--stop-after-init</code></th><td>Exit after install/update</td><td>Only acts with <code>-i</code> or <code>-u</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── Business ── -->
+        <div class="tab-panel" data-panel="business">
+          <p class="panel-lede">
+            No commands here. This is what the system does once it is running, what you can change
+            yourself, and what still needs an engineer.
+          </p>
+
+          <div class="grid grid-3">
+            <div class="card">
+              <div class="card-num">01</div>
+              <h3>You switch apps on</h3>
+              <p>The Apps screen lists every available module — Contacts, Products, CRM, Sales,
+                 Invoicing, Purchase, Employees. Installing one brings its own menus, screens and
+                 permission groups with it. Install only what you use; the rest stays invisible.</p>
+            </div>
+            <div class="card">
+              <div class="card-num">02</div>
+              <h3>Roles decide what people see</h3>
+              <p>Users belong to groups, and groups carry both menu visibility and record access.
+                 A salesperson sees their own orders; a sales manager sees all of them. That rule is
+                 data, not code — it ships with the app and can be adjusted.</p>
+            </div>
+            <div class="card">
+              <div class="card-num">03</div>
+              <h3>One database, several companies</h3>
+              <p>A group of companies runs on a single system with a switcher in the top bar. Users are
+                 granted access to the companies they belong to, and records follow the company they
+                 were created in.</p>
+            </div>
+          </div>
+
+          <h3 class="mt-lg">The flow that works today</h3>
+          <p>Each arrow is automatic. The system reacts to a status change rather than asking someone
+             to re-key the same figures into the next screen — and it will not create a duplicate if
+             the same step fires twice.</p>
+
+          <div class="flow-scroll">
+            <ol class="flow">
+              <li class="flow-step"><span class="flow-label">Lead</span><span class="flow-note">CRM pipeline</span></li>
+              <li class="flow-step"><span class="flow-label">Won</span><span class="flow-note">stage marked won</span></li>
+              <li class="flow-step"><span class="flow-label">Quotation</span><span class="flow-note">draft sales order</span></li>
+              <li class="flow-step"><span class="flow-label">Sales order</span><span class="flow-note">confirmed</span></li>
+              <li class="flow-step"><span class="flow-label">Invoice</span><span class="flow-note">draft, then posted</span></li>
+              <li class="flow-step is-end"><span class="flow-label">Journal entries</span><span class="flow-note">balanced, double-entry</span></li>
+            </ol>
+          </div>
+          <p class="fineprint">
+            Purchasing runs the same way: confirm a purchase order and a vendor bill is drafted against
+            it. Posting a bill or an invoice writes the balanced journal lines behind it.
+          </p>
+
+          <h3 class="mt-lg">Who changes what</h3>
+          <div class="grid grid-2">
+            <div class="card card-accent">
+              <h3>You, from the interface</h3>
+              <p>Companies and users. Groups and who is in them. Chart of accounts and journals. CRM
+                 stages and lost reasons. Product categories and prices. Which apps are installed.
+                 Menus, once an app is on.</p>
+            </div>
+            <div class="card card-accent">
+              <h3>An engineer, in an addon</h3>
+              <p>New fields on an existing screen. A new model or screen entirely. New automation
+                 between apps. Changes to how a document is numbered or validated. Anything that
+                 alters the shape of the data.</p>
+            </div>
+          </div>
+
+          <div class="gaps">
+            <h3>What is genuinely missing</h3>
+            <p>Being honest about the gaps is more useful than a feature list:</p>
+            <ul>
+              <li><strong>Taxes</strong> — no tax engine on any document.</li>
+              <li><strong>Payments</strong> — invoices carry a payment status, but nothing registers a
+                  payment or reconciles a bank statement.</li>
+              <li><strong>Order totals</strong> — sales order amounts are stored, not yet computed from
+                  their lines.</li>
+              <li><strong>Inventory</strong> — no stock, warehouses or manufacturing at all.</li>
+              <li><strong>Reports</strong> — no printable documents, no financial statements.</li>
+              <li><strong>Tests</strong> — the business addons have no automated test suite.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ══ MODULES ══ -->
-  <section class="section section-alt" id="modules">
+  <section class="section" id="modules">
     <div class="wrap">
       <p class="kicker">The catalogue</p>
-      <h2>Modules, planned and in progress</h2>
+      <h2>Addons that exist today</h2>
       <p class="section-lede">
-        Nothing here ships yet. This is the shape of the system as it is being designed —
-        published early so it can be argued with.
+        Four ship inside the core, eight in the standard addons module. Everything here is real code
+        you can read — which is not the same as being finished.
       </p>
 
       <div class="filters" id="filters">
@@ -377,78 +745,83 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
         <button class="chip" data-filter="finance">Finance</button>
         <button class="chip" data-filter="ops">Operations</button>
         <button class="chip" data-filter="people">People</button>
+        <span class="filter-count" id="filterCount" aria-live="polite"></span>
       </div>
 
       <div class="grid grid-3 module-grid" id="moduleGrid">
         <article class="module" data-cat="core">
-          <div class="module-top"><h3>Kernel</h3><span class="badge badge-progress">In progress</span></div>
-          <p>Module registry, dependency resolution, configuration and the boot sequence.</p>
+          <div class="module-top"><h3>base</h3><span class="badge badge-progress">Working</span></div>
+          <p>Partners, users, companies, groups, languages, API keys, sequences, attachments and the
+             system metadata every other addon builds on.</p>
         </article>
         <article class="module" data-cat="core">
-          <div class="module-top"><h3>Identity</h3><span class="badge badge-progress">In progress</span></div>
-          <p>Users, groups, roles, sessions, API tokens and record-level access rules.</p>
+          <div class="module-top"><h3>mail</h3><span class="badge badge-progress">Working</span></div>
+          <p>Messages and the activity log behind the chatter panel. A platform module — it cannot be
+             uninstalled.</p>
         </article>
         <article class="module" data-cat="core">
-          <div class="module-top"><h3>Tenancy</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Schema-per-tenant isolation, provisioning and per-tenant configuration.</p>
+          <div class="module-top"><h3>automation</h3><span class="badge badge-planned">Partial</span></div>
+          <p>Scheduled jobs, server actions and workflow transitions. Cron rows fire; server-action
+             execution is not implemented yet.</p>
         </article>
         <article class="module" data-cat="core">
-          <div class="module-top"><h3>Studio</h3><span class="badge badge-later">Later</span></div>
-          <p>Define models, fields and views from the browser without writing Go.</p>
-        </article>
-        <article class="module" data-cat="finance">
-          <div class="module-top"><h3>Accounting</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Chart of accounts, journals, double-entry ledgers, reconciliation and tax rules.</p>
-        </article>
-        <article class="module" data-cat="finance">
-          <div class="module-top"><h3>Invoicing</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Customer and vendor invoices, payment terms, credit notes and dunning.</p>
-        </article>
-        <article class="module" data-cat="finance">
-          <div class="module-top"><h3>Expenses</h3><span class="badge badge-later">Later</span></div>
-          <p>Employee claims, approval chains, receipts and reimbursement runs.</p>
-        </article>
-        <article class="module" data-cat="finance">
-          <div class="module-top"><h3>Reporting</h3><span class="badge badge-later">Later</span></div>
-          <p>Query builder, saved views, scheduled exports and printable statements.</p>
-        </article>
-        <article class="module" data-cat="ops">
-          <div class="module-top"><h3>Inventory</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Warehouses, locations, stock moves, lots and serial numbers, valuation.</p>
-        </article>
-        <article class="module" data-cat="ops">
-          <div class="module-top"><h3>Sales</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Quotations, sales orders, pricelists, delivery scheduling and returns.</p>
-        </article>
-        <article class="module" data-cat="ops">
-          <div class="module-top"><h3>Purchase</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Requests for quotation, vendor management, purchase orders and receipts.</p>
-        </article>
-        <article class="module" data-cat="ops">
-          <div class="module-top"><h3>Manufacturing</h3><span class="badge badge-later">Later</span></div>
-          <p>Bills of materials, routings, work orders and shop-floor consumption.</p>
+          <div class="module-top"><h3>sumeru_ai</h3><span class="badge badge-later">Placeholder</span></div>
+          <p>A demonstration of the UI extension points — a shell hook and a notebook hook. No model,
+             no language model, no API calls.</p>
         </article>
         <article class="module" data-cat="people">
-          <div class="module-top"><h3>CRM</h3><span class="badge badge-planned">Planned</span></div>
-          <p>Leads, pipelines, activities, scoring and a shared customer timeline.</p>
+          <div class="module-top"><h3>contacts</h3><span class="badge badge-progress">Working</span></div>
+          <p>Customer and vendor directory. Adds no models of its own — it packages views, menus and
+             access rights over the partner model in base.</p>
+        </article>
+        <article class="module" data-cat="ops">
+          <div class="module-top"><h3>product</h3><span class="badge badge-progress">Working</span></div>
+          <p>Products and product categories with sale and cost prices. Deliberately simple: no
+             variants, no units of measure, no taxes.</p>
         </article>
         <article class="module" data-cat="people">
-          <div class="module-top"><h3>HR</h3><span class="badge badge-later">Later</span></div>
-          <p>Employee records, contracts, attendance, leave and payroll hooks.</p>
+          <div class="module-top"><h3>crm</h3><span class="badge badge-progress">Working</span></div>
+          <p>Leads and opportunities, teams, pipeline stages, lost reasons. The richest data model in
+             the set, with per-salesperson record rules.</p>
+        </article>
+        <article class="module" data-cat="ops">
+          <div class="module-top"><h3>sale</h3><span class="badge badge-planned">Partial</span></div>
+          <p>Quotations and sales orders with lines. Confirming an order flags it for invoicing.
+             Amounts are not yet computed from the lines.</p>
+        </article>
+        <article class="module" data-cat="ops">
+          <div class="module-top"><h3>sale_crm</h3><span class="badge badge-progress">Working</span></div>
+          <p>The bridge: when a lead reaches a won stage, it becomes an opportunity and a draft
+             quotation appears against it. Ninety lines, no models.</p>
+        </article>
+        <article class="module" data-cat="finance">
+          <div class="module-top"><h3>account</h3><span class="badge badge-progress">Working</span></div>
+          <p>Chart of accounts, journals, invoices, bills. Posting generates balanced double-entry
+             journal items. The most complete addon in the set.</p>
+        </article>
+        <article class="module" data-cat="finance">
+          <div class="module-top"><h3>purchase</h3><span class="badge badge-planned">Partial</span></div>
+          <p>Requests for quotation and purchase orders. Confirming one drafts a vendor bill on the
+             invoicing side. No receipts — there is no inventory yet.</p>
+        </article>
+        <article class="module" data-cat="people">
+          <div class="module-top"><h3>hr</h3><span class="badge badge-planned">Partial</span></div>
+          <p>Employees, departments and job positions. A directory today: no contracts, attendance,
+             leave or payroll.</p>
         </article>
       </div>
-      <p class="empty-note" id="emptyNote" hidden>No modules in this category yet.</p>
+      <p class="empty-note" id="emptyNote" hidden>No addons in this category yet.</p>
     </div>
   </section>
 
   <!-- ══ PRINCIPLES ══ -->
-  <section class="section" id="principles">
+  <section class="section section-alt" id="principles">
     <div class="wrap">
       <p class="kicker">What we committed to</p>
-      <h2>The decisions behind Meru</h2>
+      <h2>The decisions behind Sumeru</h2>
       <p class="section-lede">
-        These are the calls made early, written down so they can be held against us later.
-        Each one closes off an alternative on purpose.
+        These are the calls made early, written down so they can be held against us later. Each one
+        closes off an alternative on purpose.
       </p>
 
       <div class="table-scroll">
@@ -456,58 +829,144 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
           <thead>
             <tr>
               <th scope="col">Decision</th>
-              <th scope="col">What Meru does</th>
+              <th scope="col">What Sumeru does</th>
               <th scope="col">What that costs</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Distribution</th>
-              <td>A single static binary with modules compiled in</td>
-              <td>Adding your own module means a rebuild</td>
+              <th scope="row">Layout</th>
+              <td>Three Go modules — core, standard addons, your workspace</td>
+              <td>Three <code>replace</code> directives to keep pointed at the right paths</td>
+            </tr>
+            <tr>
+              <th scope="row">Linking</th>
+              <td>Addons are compiled in via generated blank imports</td>
+              <td>Adding one means regenerating and rebuilding — no runtime plugins</td>
             </tr>
             <tr>
               <th scope="row">Database</th>
-              <td>PostgreSQL only, with hand-readable SQL migrations</td>
-              <td>No portability to other engines</td>
+              <td>PostgreSQL only, with plain readable tables</td>
+              <td>No portability to another engine</td>
             </tr>
             <tr>
-              <th scope="row">Queue</th>
-              <td>Durable jobs on Postgres, no external broker</td>
-              <td>Not built for millions of jobs an hour</td>
+              <th scope="row">Schema</th>
+              <td>Derived from field definitions, synced additively at boot</td>
+              <td>No down-migrations; columns and tables are never dropped for you</td>
             </tr>
             <tr>
               <th scope="row">Coupling</th>
-              <td>Modules integrate through events, never imports</td>
-              <td>Cross-module flows are eventually consistent</td>
+              <td>Addons integrate through events and registry lookups</td>
+              <td>Cross-addon flows are eventually consistent, and failures are quiet by design</td>
             </tr>
             <tr>
-              <th scope="row">Typing</th>
-              <td>Models are Go structs, checked at compile time</td>
-              <td>Schema changes need a deploy, not a click</td>
+              <th scope="row">UI</th>
+              <td>Server-rendered HTML, plain CSS, native ES modules</td>
+              <td>Less interactivity than a single-page app, and no component ecosystem</td>
             </tr>
             <tr>
-              <th scope="row">Front end</th>
-              <td>Server-rendered pages, progressive enhancement</td>
-              <td>Less interactivity than a full SPA out of the box</td>
+              <th scope="row">Isolation</th>
+              <td>One database with multiple companies inside it</td>
+              <td>Not multi-tenant — separate customers need separate deployments</td>
             </tr>
             <tr>
-              <th scope="row">Tenancy</th>
-              <td>Schema-per-tenant, enforced by the kernel</td>
-              <td>Very high tenant counts need sharding work</td>
+              <th scope="row">Conventions</th>
+              <td>Folder, package, manifest and XML shape validated at startup</td>
+              <td>The framework fails fast and gives you less freedom in how you lay code out</td>
             </tr>
             <tr>
               <th scope="row">Licence</th>
-              <td>Apache 2.0, one edition, no paid tier held back</td>
-              <td>The project has to fund itself another way</td>
+              <td>Dual: an Apache 2.0 community edition, plus a commercial enterprise edition</td>
+              <td>Some addons will not be open source, and we have to say plainly which</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p class="fineprint">
-        The right-hand column is the honest half. If any of those costs is unacceptable for
-        your business, Meru is the wrong tool and no amount of roadmap will change that.
+        The right-hand column is the honest half. If any of those costs is unacceptable for your
+        business, Sumeru is the wrong tool and no amount of roadmap will change that.
       </p>
+    </div>
+  </section>
+
+  <!-- ══ EDITIONS ══ -->
+  <section class="section" id="editions">
+    <div class="wrap">
+      <p class="kicker">Licensing</p>
+      <h2>Two editions, one codebase</h2>
+      <p class="section-lede">
+        Sumeru is dual licensed. The framework and the standard business addons are open source under
+        Apache 2.0 and always will be — the enterprise edition adds addons and services on top of that
+        same core, never by taking something away from it.
+      </p>
+
+      <div class="editions">
+        <article class="edition">
+          <div class="edition-head">
+            <h3>Community</h3>
+            <span class="badge badge-progress">Available</span>
+          </div>
+          <p class="edition-price">Apache&nbsp;2.0</p>
+          <p class="edition-note">Free forever. Self-hosted. No user limit, no feature gate, no
+             phone-home.</p>
+          <ul class="edition-list">
+            <li class="yes">The whole framework — ORM, module system, UI engine, RBAC</li>
+            <li class="yes">All standard business addons</li>
+            <li class="yes">JSON-RPC API and the addon scaffolder</li>
+            <li class="yes">Multi-company on one database</li>
+            <li class="yes">Commercial use, modification and redistribution</li>
+            <li class="yes">Community support</li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="#getting-started">Start here</a>
+        </article>
+
+        <article class="edition edition-featured">
+          <div class="edition-head">
+            <h3>Enterprise</h3>
+            <span class="badge badge-later">Planned</span>
+          </div>
+          <p class="edition-price">Commercial licence</p>
+          <p class="edition-note">Everything in Community, plus the addons and services that pay for
+             the open-source work.</p>
+          <ul class="edition-list">
+            <li class="yes">Everything in the Community edition</li>
+            <li class="plus">Enterprise addons — advanced reporting, approvals, deeper localisation</li>
+            <li class="plus">Studio: models and views without writing Go</li>
+            <li class="plus">Supported upgrade path between versions</li>
+            <li class="plus">SLA-backed support and implementation help</li>
+            <li class="plus">Indemnification for regulated deployments</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#faq">How this works</a>
+        </article>
+      </div>
+
+      <div class="notice">
+        <strong>Not for sale yet.</strong> Sumeru is pre-alpha and the enterprise edition does not
+        exist as a product today — no addons, no contract, no price list. It is published here so the
+        licensing model is not a surprise later.
+      </div>
+
+      <div class="grid grid-3 mt-lg">
+        <div class="card">
+          <div class="card-num">01</div>
+          <h3>The core stays open</h3>
+          <p>The kernel and the standard addons are Apache 2.0. Nothing that is open today will be
+             moved behind the commercial licence — a rug-pull would break the only reason to build on
+             this.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <h3>You are never locked in</h3>
+          <p>The enterprise addons sit on the same public addon contract that yours do. Stop paying
+             and your data, your schema and your own addons keep working on the community edition.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">03</div>
+          <h3>Your addons are yours</h3>
+          <p>Apache 2.0 imposes no copyleft on what you build against it. Addons you write can be kept
+             private, sold, or released under whatever licence you choose.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -517,52 +976,56 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
       <p class="kicker">Where this is going</p>
       <h2>Roadmap</h2>
       <p class="section-lede">
-        Four phases. Each one has to be genuinely usable before the next one starts —
-        no phase exists only to prepare for a later phase.
+        Four phases. Each one has to be genuinely usable before the next one starts — no phase exists
+        only to prepare for a later phase.
       </p>
 
       <ol class="timeline">
+        <li class="tl-item tl-done">
+          <div class="tl-marker"></div>
+          <div class="tl-body">
+            <div class="tl-head"><h3>Phase 1 — Foundation</h3><span class="badge badge-progress">Mostly done</span></div>
+            <div class="meter" role="img" aria-label="Phase 1 is roughly 85 percent complete">
+              <span class="meter-fill meter-done" style="width:85%"></span>
+            </div>
+            <p>The kernel and the addon contract. This is the part you can read and rely on today.</p>
+            <ul>
+              <li>Model registry, schema sync and the data layer</li>
+              <li>Addon discovery, convention checks, dependency ordering, install and update</li>
+              <li>Groups, access rights and record rules, enforced in the ORM</li>
+              <li>XML view engine, menus, actions and the rendered shell</li>
+              <li>Event bus, scheduler, structured logging and audit</li>
+            </ul>
+          </div>
+        </li>
         <li class="tl-item tl-current">
           <div class="tl-marker"></div>
           <div class="tl-body">
-            <div class="tl-head"><h3>Phase 1 — Foundation</h3><span class="badge badge-progress">Current</span></div>
-            <p>The kernel and the module contract. Registry, dependency resolution,
-               migrations, identity and tenancy. The deliverable is a binary that can
-               install and remove a trivial module without downtime.</p>
+            <div class="tl-head"><h3>Phase 2 — Core business</h3><span class="badge badge-progress">In progress</span></div>
+            <div class="meter" role="img" aria-label="Phase 2 is roughly 45 percent complete">
+              <span class="meter-fill" style="width:45%"></span>
+            </div>
+            <p>The addons that make it an ERP rather than a framework. Lead to cash runs end to end;
+               the money still needs work.</p>
             <ul>
-              <li>Module registry and lifecycle hooks</li>
-              <li>Data layer and reversible migrations</li>
-              <li>Users, roles and record-level rules</li>
-              <li>Schema-per-tenant isolation</li>
+              <li>Done: contacts, products, CRM, sales, invoicing, purchasing, employees</li>
+              <li>Next: computed totals on orders and invoices, per-line invoicing</li>
+              <li>Next: a tax engine, then payments and reconciliation</li>
+              <li>Next: a test suite covering the commercial flow</li>
             </ul>
           </div>
         </li>
         <li class="tl-item">
           <div class="tl-marker"></div>
           <div class="tl-body">
-            <div class="tl-head"><h3>Phase 2 — Core business</h3><span class="badge badge-planned">Next</span></div>
-            <p>The modules that make it an ERP rather than a framework: double-entry
-               accounting, inventory with valuation, and the sales and purchase cycle
-               that connects them.</p>
+            <div class="tl-head"><h3>Phase 3 — Extended</h3><span class="badge badge-planned">Planned</span></div>
+            <p>The functions that surround the core — each one a test of whether the addon contract is
+               good enough for authors outside the project.</p>
             <ul>
-              <li>Chart of accounts, journals, ledgers</li>
-              <li>Warehouses, stock moves, valuation</li>
-              <li>Quotations through to invoicing</li>
-              <li>REST and gRPC surface for all of it</li>
-            </ul>
-          </div>
-        </li>
-        <li class="tl-item">
-          <div class="tl-marker"></div>
-          <div class="tl-body">
-            <div class="tl-head"><h3>Phase 3 — Extended</h3><span class="badge badge-later">Later</span></div>
-            <p>The functions that surround the core — customers, employees and production —
-               each one a test of whether the contract is good enough for outside authors.</p>
-            <ul>
-              <li>CRM pipelines and activity tracking</li>
-              <li>HR records, attendance and leave</li>
-              <li>Manufacturing BOMs and work orders</li>
-              <li>Localisation packs per country</li>
+              <li>Inventory: warehouses, stock moves, valuation</li>
+              <li>Manufacturing: bills of materials and work orders</li>
+              <li>HR beyond a directory: contracts, attendance, leave</li>
+              <li>Localisation packs, and translations wired through the UI</li>
             </ul>
           </div>
         </li>
@@ -570,12 +1033,12 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
           <div class="tl-marker"></div>
           <div class="tl-body">
             <div class="tl-head"><h3>Phase 4 — Platform</h3><span class="badge badge-later">Later</span></div>
-            <p>Turning Meru from a system you deploy into one other people build on.</p>
+            <p>Turning Sumeru from a system you deploy into one other people build on.</p>
             <ul>
-              <li>Studio: models and views without Go</li>
-              <li>Marketplace for third-party modules</li>
-              <li>Reporting and query builder</li>
-              <li>Signed modules and version pinning</li>
+              <li>Studio: models and views defined without writing Go</li>
+              <li>Reporting: query builder, printable documents, statements</li>
+              <li>A distribution story for third-party addons</li>
+              <li>Isolation beyond multi-company, if the demand is real</li>
             </ul>
           </div>
         </li>
@@ -591,60 +1054,83 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
 
       <div class="faq" id="faqList">
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Can I use Meru today?</button>
-          <div class="faq-a"><p>No. Phase 1 is still in progress and there is no release to
-            install. The design is public so that people who run ERPs can push back on it
-            before the decisions are expensive to reverse.</p></div>
+          <button class="faq-q" aria-expanded="false">Project Meru or Sumeru — which is it?</button>
+          <div class="faq-a"><p>Both. Project Meru is the initiative and the home for its public
+            writing; Sumeru is the framework it produces. In the code, the CLI, the configuration file
+            and the Go module names you will only ever see <em>sumeru</em>.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Who is Meru for?</button>
-          <div class="faq-a"><p>Teams who run their own infrastructure, have engineers who can
-            write a little Go, and want the system of record to be something they can read and
-            operate themselves. If you want a hosted product with a sales engineer attached,
-            this is not that.</p></div>
+          <button class="faq-q" aria-expanded="false">Can I use it today?</button>
+          <div class="faq-a"><p>You can run it, and the commercial flow works. But it is pre-alpha:
+            there is no tagged release, no upgrade path between versions, no test suite on the business
+            addons, and gaps as basic as tax. Treat it as something to build on and argue with, not
+            something to migrate onto.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Why Go?</button>
-          <div class="faq-a"><p>Static binaries and a small runtime footprint remove most of the
-            operational work we set out to avoid. Compile-time types catch a class of bug that
-            matters more in accounting than in most software, and goroutines let one process
-            handle concurrency that would otherwise need a worker pool.</p></div>
+          <button class="faq-q" aria-expanded="false">Do I have to recompile to add an addon?</button>
+          <div class="faq-a"><p>Yes. Addons are linked in at build time through a generated file of
+            blank imports, so adding one means running <code>make generate</code> and rebuilding.
+            Installing an already-compiled addon into a database, on the other hand, is a runtime
+            action — from the Apps screen or with <code>-i</code>.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Do I have to recompile to add a module?</button>
-          <div class="faq-a"><p>For first-party modules, no — they are compiled in and enabled
-            per tenant at runtime. For a module you wrote yourself, you rebuild the binary with
-            it included. Loading arbitrary compiled plugins at runtime is deliberately out of
-            scope for Phase 1.</p></div>
+          <button class="faq-q" aria-expanded="false">Is there an API?</button>
+          <div class="faq-a"><p>A JSON-RPC endpoint at <code>POST /api/rpc</code>, authenticated with
+            an API key you generate from your user record. It exposes <code>search</code>,
+            <code>search_read</code>, <code>read</code>, <code>create</code>, <code>write</code> and
+            <code>unlink</code>, and your access rights apply exactly as they do in the UI.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Is it multi-tenant?</button>
+          <div class="faq-a"><p>No. One running server serves one database. What it does support is
+            multiple companies inside that database, with a switcher and per-user company access.
+            Serving separate customers means separate deployments.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">Which database does it need?</button>
-          <div class="faq-a"><p>PostgreSQL 14 or newer, and nothing else. The job queue, the
-            event outbox and tenant isolation all sit on Postgres, so there is no separate
-            broker or cache to operate.</p></div>
+          <div class="faq-a"><p>PostgreSQL, and nothing else. Scheduled jobs and the audit trail live
+            there too, so there is no broker or cache to operate alongside it.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Why Go?</button>
+          <div class="faq-a"><p>A small runtime footprint and a single build artefact remove most of
+            the operational work we set out to avoid. Compile-time types catch a class of bug that
+            matters more in accounting than in most software, and goroutines let one process handle
+            concurrency that would otherwise need a worker pool.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">Is there a front-end framework?</button>
-          <div class="faq-a"><p>Pages are rendered by Go templates and enhanced with a small
-            amount of JavaScript. You can build a SPA against the REST or gRPC API if you want
-            one, but nothing in the platform requires a front-end build step.</p></div>
+          <div class="faq-a"><p>No. Pages are rendered by Go templates and a render package, styled
+            with plain CSS and enhanced by native ES modules. There is no bundler and no build step.
+            If you want a single-page app, build it against the JSON-RPC API.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What licence is it under?</button>
+          <div class="faq-a"><p>Two. The framework and the standard business addons are open source
+            under <strong>Apache 2.0</strong> — free for commercial use, modification and
+            redistribution, with no copyleft on the addons you write against it. A separate
+            <strong>enterprise edition</strong>, under a commercial licence, will add addons and
+            support on top of that same core. Nothing that is open source today will be moved behind
+            the commercial licence.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Do I need the enterprise edition to run a business on it?</button>
+          <div class="faq-a"><p>No. The community edition is a complete system, not a trial: no user
+            cap, no feature flags, no expiry. The enterprise edition exists to fund the open-source
+            work and to serve organisations that need a support contract and an upgrade guarantee.
+            Neither is on sale yet — the project is pre-alpha.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">Can I migrate data in from another system?</button>
-          <div class="faq-a"><p>Not yet, and importers are not a Phase 1 or Phase 2 goal. Once
-            the core modules settle, their schemas are plain Postgres tables, so an import is a
-            normal ETL job rather than a special API.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">What licence will it use?</button>
-          <div class="faq-a"><p>Apache 2.0, with no separate enterprise edition planned. Modules
-            published by third parties can carry whatever licence their authors choose.</p></div>
+          <div class="faq-a"><p>There is a CSV import in the UI, and the tables are plain Postgres, so
+            a bulk import is an ordinary ETL job. Purpose-built migration tooling is not on the near
+            roadmap.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">How can I help?</button>
-          <div class="faq-a"><p>At this stage, design feedback is worth more than code. If you
-            have operated an ERP in production and know exactly where it hurt, open an issue and
-            describe it — that is the input the module contract needs most.</p></div>
+          <div class="faq-a"><p>At this stage, design feedback is worth more than code. If you have
+            operated an ERP in production and know exactly where it hurt, say so — that is the input
+            the addon contract needs most.</p></div>
         </div>
       </div>
     </div>
@@ -654,10 +1140,10 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
   <section class="cta">
     <div class="wrap wrap-narrow">
       <h2>Follow the build</h2>
-      <p>The kernel is being designed in the open. Watch the repository, or open an issue
-         and tell us where the plan is wrong.</p>
+      <p>The kernel and the addon contract are being designed in the open. Start with the architecture,
+         then run it yourself and tell us where the plan is wrong.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/projectmeru" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="btn btn-primary" href="#getting-started">Get started</a>
         <a class="btn btn-ghost" href="#architecture">Read the architecture</a>
       </div>
     </div>
@@ -673,21 +1159,23 @@ $ ./meru serve   --database $DATABASE_URL --port 8080
       </span>
       <div>
         <strong>Project Meru</strong>
-        <p>A modular ERP written in Go.</p>
+        <p>Building Sumeru — a modular ERP framework in Go.</p>
       </div>
     </div>
     <nav class="footer-links">
       <a href="#why">Why</a>
       <a href="#features">Features</a>
       <a href="#architecture">Architecture</a>
+      <a href="#getting-started">Getting started</a>
       <a href="#modules">Modules</a>
       <a href="#principles">Principles</a>
+      <a href="#editions">Editions</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#faq">FAQ</a>
     </nav>
   </div>
   <div class="wrap footer-bottom">
-    <p>Pre-alpha &middot; Apache 2.0 &middot; Built with plain HTML, CSS and JavaScript.</p>
+    <p>Pre-alpha &middot; Community edition under Apache 2.0 &middot; Enterprise edition under a commercial licence</p>
   </div>
 </footer>
 

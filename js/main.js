@@ -14,6 +14,42 @@
   var reduceMotion = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── Theme ─────────────────────────────────────────────────────────────────
+     The initial theme is applied by the inline script in <head> so the page
+     never flashes. This only handles switching it afterwards.
+     ────────────────────────────────────────────────────────────────────────── */
+
+  var root = document.documentElement;
+  var themeToggle = $('#themeToggle');
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    if (themeToggle) {
+      themeToggle.setAttribute(
+        'title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+      );
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('meru-theme', next); } catch (e) { /* private mode */ }
+    });
+    applyTheme(root.getAttribute('data-theme') || 'light');
+  }
+
+  // Follow the system setting until the visitor has made a choice of their own.
+  if (darkQuery && darkQuery.addEventListener) {
+    darkQuery.addEventListener('change', function (e) {
+      var chosen = null;
+      try { chosen = localStorage.getItem('meru-theme'); } catch (err) { /* ignore */ }
+      if (!chosen) { applyTheme(e.matches ? 'dark' : 'light'); }
+    });
+  }
+
   /* ── Mobile navigation ─────────────────────────────────────────────────── */
 
   var nav = $('#nav');
@@ -74,11 +110,20 @@
 
   var header = $('#siteHeader');
   var toTop = $('#toTop');
+  var progressFill = $('#readProgress span');
 
   function onScroll() {
-    var y = window.pageYOffset || document.documentElement.scrollTop;
+    var doc = document.documentElement;
+    var y = window.pageYOffset || doc.scrollTop;
+
     if (header) { header.classList.toggle('is-stuck', y > 4); }
     if (toTop)  { toTop.classList.toggle('is-visible', y > 600); }
+
+    if (progressFill) {
+      var scrollable = doc.scrollHeight - window.innerHeight;
+      var pct = scrollable > 0 ? (y / scrollable) * 100 : 0;
+      progressFill.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    }
   }
 
   // Throttle to one update per animation frame.
@@ -98,8 +143,8 @@
 
   /* ── Code tabs ─────────────────────────────────────────────────────────── */
 
-  var tabs = $('#tabs');
-  if (tabs) {
+  // Each .tabs container is independent — the page has more than one.
+  $$('.tabs').forEach(function (tabs) {
     var buttons = $$('.tab-btn', tabs);
     var panels  = $$('.tab-panel', tabs);
 
@@ -126,13 +171,14 @@
         selectTab(next.getAttribute('data-tab'));
       });
     });
-  }
+  });
 
   /* ── Module filters ────────────────────────────────────────────────────── */
 
   var filters = $('#filters');
   var moduleGrid = $('#moduleGrid');
   var emptyNote = $('#emptyNote');
+  var filterCount = $('#filterCount');
 
   if (filters && moduleGrid) {
     var chips = $$('.chip', filters);
@@ -151,9 +197,68 @@
         });
 
         if (emptyNote) { emptyNote.hidden = shown > 0; }
+        if (filterCount) {
+          filterCount.textContent = want === 'all'
+            ? modules.length + ' addons'
+            : shown + ' of ' + modules.length + ' addons';
+        }
+      });
+    });
+
+    if (filterCount) { filterCount.textContent = modules.length + ' addons'; }
+  }
+
+  /* ── Copy button on every code block ───────────────────────────────────── */
+
+  function canCopy() {
+    return !!(navigator.clipboard && navigator.clipboard.writeText);
+  }
+
+  if (canCopy()) {
+    $$('pre').forEach(function (pre) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.setAttribute('aria-label', 'Copy code to clipboard');
+      wrapper.appendChild(btn);
+
+      var resetTimer = null;
+      btn.addEventListener('click', function () {
+        navigator.clipboard.writeText(pre.textContent).then(function () {
+          btn.textContent = 'Copied';
+          btn.classList.add('is-copied');
+          window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(function () {
+            btn.textContent = 'Copy';
+            btn.classList.remove('is-copied');
+          }, 1600);
+        }).catch(function () {
+          btn.textContent = 'Failed';
+        });
       });
     });
   }
+
+  /* ── Permalink beside each section heading ─────────────────────────────── */
+
+  $$('main section[id]').forEach(function (section) {
+    // Only the section's own title, not a secondary heading further down.
+    var heading = $('.wrap > h2', section);
+    if (!heading) { return; }
+
+    var anchor = document.createElement('a');
+    anchor.className = 'heading-anchor';
+    anchor.href = '#' + section.id;
+    anchor.textContent = '#';
+    anchor.setAttribute('aria-label', 'Link to this section');
+    heading.appendChild(anchor);
+  });
 
   /* ── FAQ accordion ─────────────────────────────────────────────────────── */
 
@@ -205,8 +310,12 @@
   /* ── Reveal blocks as they scroll into view ────────────────────────────── */
 
   var revealTargets = $$(
-    '.card, .feature, .module, .tl-item, .arch-layer, .arch-mod, .table-scroll, .faq-item'
-  );
+    '.card, .feature, .module, .tl-item, .arch-tier, .table-scroll, .faq-item'
+  ).filter(function (el) {
+    // Anything inside a tab panel starts hidden, so it would never intersect
+    // until its tab is opened. Leave those fully visible from the start.
+    return !el.closest('.tab-panel');
+  });
 
   if (revealTargets.length && 'IntersectionObserver' in window && !reduceMotion) {
     revealTargets.forEach(function (el) { el.classList.add('reveal'); });
