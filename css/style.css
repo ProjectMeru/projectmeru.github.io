@@ -208,6 +208,17 @@ img, svg { max-width: 100%; }
 
 .header-tools { display: flex; align-items: center; gap: 8px; }
 
+.gh-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 14px;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  font-size: .9rem; font-weight: 550;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.gh-link:hover { border-color: var(--ink-3); background: var(--bg-alt); text-decoration: none; }
+.gh-link svg { flex: none; }
+
 .theme-toggle, .nav-toggle {
   display: grid; place-items: center;
   width: 38px; height: 38px; padding: 0;
@@ -282,7 +293,8 @@ img, svg { max-width: 100%; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
 .btn {
-  display: inline-block; padding: 12px 24px; border-radius: var(--radius-sm);
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 12px 24px; border-radius: var(--radius-sm);
   font-size: .95rem; font-weight: 560; border: 1px solid transparent; cursor: pointer;
   transition: background-color .15s ease, border-color .15s ease, color .15s ease;
 }
@@ -726,6 +738,12 @@ pre code { font-family: var(--mono); font-size: .855rem; line-height: 1.72; whit
   .nav.is-open { display: flex; }
   .nav a { padding: 11px 12px; }
   .nav .nav-cta { margin: 8px 0 0; text-align: center; }
+}
+
+@media (max-width: 560px) {
+  /* Collapse the GitHub link to its mark so the header stays on one line. */
+  .gh-link { padding: 0; width: 38px; justify-content: center; }
+  .gh-link span { display: none; }
 }
 
 @media (max-width: 640px) {
