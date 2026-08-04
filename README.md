@@ -2,7 +2,7 @@
 
 A modular, open-source ERP built in Go.
 
-Project Meru takes the idea that made Odoo popular — a single platform where every
+Project Meru is a modular ERP written in Go — a single platform where every
 business function is a swappable module — and rebuilds it on a Go core: one static
 binary, predictable memory, and modules that load without a redeploy.
 
@@ -19,14 +19,14 @@ that in RAM, cold starts, and upgrade pain.
 
 Meru's bet is simple:
 
-| Concern | Meru's approach |
-| --- | --- |
-| Deployment | One static binary, no runtime to install |
-| Extensibility | Modules registered against a stable Go interface |
-| Data | Postgres-first, plain SQL and migrations you can read |
-| Multi-tenancy | Tenant isolation in the kernel, not bolted on |
-| API | REST + gRPC generated from the same module schema |
-| UI | Server-rendered pages, no mandatory SPA build step |
+| Concern       | Meru's approach                                       |
+| ------------- | ----------------------------------------------------- |
+| Deployment    | One static binary, no runtime to install              |
+| Extensibility | Modules registered against a stable Go interface      |
+| Data          | Postgres-first, plain SQL and migrations you can read |
+| Multi-tenancy | Tenant isolation in the kernel, not bolted on         |
+| API           | REST + gRPC generated from the same module schema     |
+| UI            | Server-rendered pages, no mandatory SPA build step    |
 
 ## Architecture
 
@@ -68,21 +68,25 @@ upgrade, and uninstall it — including its tables and its permissions.
 ## Planned modules
 
 **Phase 1 — Foundation**
+
 - Kernel: module registry, dependency resolution, migrations
 - Identity: users, roles, permissions, API tokens
 - Tenancy: schema-per-tenant isolation
 
 **Phase 2 — Core business**
+
 - Accounting: chart of accounts, journals, ledgers, tax rules
 - Inventory: warehouses, stock moves, valuation
 - Sales & Purchase: quotations, orders, invoicing
 
 **Phase 3 — Extended**
+
 - CRM: pipelines, activities, lead scoring
 - HR: employees, attendance, payroll hooks
 - Manufacturing: bills of materials, work orders
 
 **Phase 4 — Platform**
+
 - Studio: define models and views without writing Go
 - Marketplace: publish and install third-party modules
 - Reporting: query builder, scheduled exports
