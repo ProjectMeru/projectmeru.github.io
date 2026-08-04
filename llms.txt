@@ -1,0 +1,88 @@
+# Project Meru / Sumeru
+
+> Sumeru is an open-source **modular ERP framework written in Go**. Every business function —
+> contacts, products, CRM, sales, invoicing, purchasing, HR — is an *addon*: a folder holding a
+> `manifest.json`, Go model definitions and XML views. The kernel discovers addons, resolves their
+> dependencies, syncs the PostgreSQL schema, and wires menus and access rights. The interface is
+> server-rendered Go templates with no front-end build step. Project Meru is the initiative;
+> Sumeru is the framework it builds.
+
+**Status: pre-alpha.** The framework runs and the lead-to-cash flow works end to end, but there is
+no tagged release, no upgrade path between versions, and no test suite on the business addons.
+
+- Site: https://projectmeru.github.io/
+- Code: https://github.com/ProjectMeru
+- Licence: dual — community edition under Apache 2.0, enterprise edition under a commercial licence
+  (the enterprise edition does not exist as a product yet)
+
+## Key facts
+
+- **Language / runtime:** Go 1.26+. Requires PostgreSQL and nothing else — no Node, no Docker, no
+  message broker, no cache, no external job queue.
+- **Repository layout:** three `replace`-linked Go modules. `sumeru` (the core framework),
+  `sumeru_addons` (the standard business addons), `sumeru_custom_addons` (your workspace, and the
+  module you actually run the server from).
+- **Kernel packages:** `core/orm`, `core/module`, `core/engine`, `core/server`, `core/event`,
+  `core/sdk`, `core/scheduler`, `core/applog`, `core/cache`, `core/importgen`.
+- **Addon anatomy:** `manifest.json` (name, version, depends, data), `init.go`, `models/*.go`,
+  `views/*.xml`, `security/security.xml` and `security/sys.access.csv`, optional `data/*.xml`.
+- **A model** is metadata — a `ModelName()` and a `Fields()` slice — which the kernel turns into a
+  real PostgreSQL table. Records at runtime are maps, not structs.
+- **Addons never import each other.** They integrate through an event bus (`record.created`,
+  `record.updated`, `cron.tick`) plus registry lookups, so an addon works whether or not its
+  optional counterparts are installed. The manifest's `depends` array drives install order only.
+- **API:** JSON-RPC at `POST /api/rpc` with API-key authentication, exposing `search`,
+  `search_read`, `read`, `create`, `write` and `unlink`. Access rights apply as in the UI.
+- **Security:** groups with inheritance, per-model access rights loaded from CSV, and row-level
+  record rules whose domains understand `$uid` and the active company.
+- **Isolation:** one server serves one database. Multi-*company* is supported inside that database;
+  it is **not** multi-tenant. Separate customers require separate deployments.
+- **Schema handling:** derived from field definitions and synced additively at boot. There are no
+  down-migrations; columns and tables are never dropped automatically.
+
+## Addons that exist today
+
+Core (in the `sumeru` tree): `base` (working), `mail` (working), `automation` (partial — cron fires,
+server-action execution is unimplemented), `sumeru_ai` (placeholder UI hooks only, no language model).
+
+Standard (`sumeru_addons`): `contacts` (working), `product` (working), `crm` (working),
+`sale` (partial), `sale_crm` (working), `account` (working — the most complete), `purchase` (partial),
+`hr` (partial).
+
+**Works today:** Lead → won → quotation → sales order → customer invoice → posted, balanced
+double-entry journal entries. Purchase order → vendor bill.
+
+**Does not exist yet:** taxes, payments and reconciliation, computed order totals, inventory or
+warehouses, manufacturing, printable reports and financial statements, automated tests on the
+business addons.
+
+## Installing and running
+
+```bash
+psql -U postgres -c "CREATE DATABASE sumeru;"
+cd sumeru_custom_addons
+cp sumeru.conf.example sumeru.conf          # edit db_* and http_port
+make replace-sumeru        SUMERU_ROOT=../sumeru
+make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons
+make generate                                # regenerate addon blank imports
+make run                                     # first boot → open /setup
+go run . -- -c sumeru.conf \
+  -i contacts,product,crm,sale,sale_crm,account,purchase,hr --stop-after-init
+make run
+```
+
+There is **no default admin account** — the `/setup` wizard creates the first company and user, and
+the email you give it becomes the login. `-i all` is rejected on purpose.
+
+Creating an addon: `go run ../sumeru/cmd/sumeru-bp -name my_module -out ./addons`, then
+`make generate`, then `-i my_module`. After editing XML, reload with `-u my_module`. Go changes need
+a rebuild; adding an addon requires regenerating imports and rebuilding — there are no runtime plugins.
+
+Server flags: `-c` (config path), `-i` (install addons), `-u` (update addons), `-d` / `--database`,
+`-p` / `--http-port`, `--stop-after-init`.
+
+## Pages
+
+- [Full site](https://projectmeru.github.io/): why the project exists, kernel capabilities,
+  architecture with real code samples, setup for engineers and for business teams, the addon
+  catalogue, design decisions and their costs, licensing, roadmap and FAQ.
