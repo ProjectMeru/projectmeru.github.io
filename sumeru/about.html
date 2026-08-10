@@ -1,237 +1,311 @@
 <!DOCTYPE html>
 <html lang="en-GB">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Sumeru — principles and boundaries | Project Meru</title>
-<meta name="description" content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
-<link rel="canonical" href="https://projectmeru.github.io/sumeru/about.html">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="author" content="Project Meru">
-<meta name="theme-color" content="#050505">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Sumeru">
-<meta property="og:url" content="https://projectmeru.github.io/sumeru/about.html">
-<meta property="og:title" content="About Sumeru — principles and boundaries | Project Meru">
-<meta property="og:description" content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
-<meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
-<meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About Sumeru — principles and boundaries | Project Meru">
-<meta name="twitter:description" content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
-<meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/sumeru.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Sumeru — principles and boundaries | Project Meru</title>
+  <meta name="description"
+    content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/about.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sumeru">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/about.html">
+  <meta property="og:title" content="About Sumeru — principles and boundaries | Project Meru">
+  <meta property="og:description"
+    content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Sumeru — principles and boundaries | Project Meru">
+  <meta name="twitter:description"
+    content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/sumeru.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
 
 </head>
+
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="site-chrome">
-  <div class="chrome-row">
-    <a class="hub-link" href="../index.html">Project Meru</a>
-    <div class="card-nav-container">
-    <nav class="card-nav" id="cardNav" aria-label="Sumeru">
-      <div class="card-nav-top">
-        <a class="card-nav-logo" href="index.html">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 100 100"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-          </span>
-          <span>Sumeru</span>
-        </a>
-        <div class="card-nav-links">
-          <button class="card-nav-trigger" type="button" data-panel="product">Product <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="about">About <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-        </div>
-        <a class="card-nav-cta" href="getting-started.html">Get started</a>
-      </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-chrome">
+    <div class="chrome-row">
+      <a class="hub-link" href="../index.html">Project Meru</a>
+      <div class="card-nav-container">
+        <nav class="card-nav" id="cardNav" aria-label="Sumeru">
+          <div class="card-nav-top">
+            <a class="card-nav-logo" href="index.html">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 100 100">
+                  <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+                    stroke-linejoin="round" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span>Sumeru</span>
+            </a>
+            <div class="card-nav-links">
+              <button class="card-nav-trigger" type="button" data-panel="product">Product <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret"
+                  aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="about">About <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+            </div>
+            <a class="card-nav-cta" href="getting-started.html">Get started</a>
+          </div>
 
-      <div class="card-nav-panel" data-panel="product">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="index.html">
-            <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Overview</span>
-            <span class="nav-box-description">What Sumeru is and why</span>
-          </a>
-          <a class="nav-box" href="addons.html">
-            <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Addons</span>
-            <span class="nav-box-description">Business modules that ship today</span>
-          </a>
-          <a class="nav-box" href="editions.html">
-            <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Editions</span>
-            <span class="nav-box-description">Community and enterprise licensing</span>
-          </a>
-          <a class="nav-box" href="roadmap.html">
-            <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Roadmap</span>
-            <span class="nav-box-description">Where the build is going</span>
-          </a>
-        </div>
-      </div>
+          <div class="card-nav-panel" data-panel="product">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="index.html">
+                <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Overview</span>
+                <span class="nav-box-description">What Sumeru is and why</span>
+              </a>
+              <a class="nav-box" href="addons.html">
+                <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Addons</span>
+                <span class="nav-box-description">Business modules that ship today</span>
+              </a>
+              <a class="nav-box" href="editions.html">
+                <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Editions</span>
+                <span class="nav-box-description">Community and enterprise licensing</span>
+              </a>
+              <a class="nav-box" href="roadmap.html">
+                <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Roadmap</span>
+                <span class="nav-box-description">Where the build is going</span>
+              </a>
+            </div>
+          </div>
 
-      <div class="card-nav-panel" data-panel="docs">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="getting-started.html">
-            <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Getting started</span>
-            <span class="nav-box-description">Install and first boot</span>
-          </a>
-          <a class="nav-box" href="architecture.html">
-            <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Architecture</span>
-            <span class="nav-box-description">Three modules, one contract</span>
-          </a>
-          <a class="nav-box" href="faq.html">
-            <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">FAQ</span>
-            <span class="nav-box-description">Licensing, tenancy, API</span>
-          </a>
-        </div>
-      </div>
+          <div class="card-nav-panel" data-panel="docs">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="getting-started.html">
+                <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Getting started</span>
+                <span class="nav-box-description">Install and first boot</span>
+              </a>
+              <a class="nav-box" href="architecture.html">
+                <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Architecture</span>
+                <span class="nav-box-description">Three modules, one contract</span>
+              </a>
+              <a class="nav-box" href="faq.html">
+                <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">FAQ</span>
+                <span class="nav-box-description">Licensing, tenancy, API</span>
+              </a>
+            </div>
+          </div>
 
-      <div class="card-nav-panel" data-panel="about">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="about.html">
-            <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">About Sumeru</span>
-            <span class="nav-box-description">Principles and boundaries</span>
-          </a>
-        </div>
+          <div class="card-nav-panel" data-panel="about">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="about.html">
+                <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">About Sumeru</span>
+                <span class="nav-box-description">Principles and boundaries</span>
+              </a>
+            </div>
+          </div>
+        </nav>
       </div>
-    </nav>
+    </div>
   </div>
-  </div>
-</div>
-<main id="main">
+  <main id="main">
 
-  <section class="page-hero" id="top">
-    <div class="wrap wrap-narrow">
-      <p class="section-kicker">01 / About</p>
-      <h1 class="page-hero-title">Business software should be boring to operate.</h1>
-      <p class="section-lede">An ERP touches money, stock and payroll, so it has to be dependable for a decade. Most of the effort in running one goes not to the business logic but to the machinery around it. Sumeru is an attempt to spend that effort somewhere better.</p>
-    </div>
-  </section>
+    <section class="page-hero" id="top">
+      <div class="wrap wrap-narrow">
+        <p class="section-kicker">01 / About</p>
+        <h1 class="page-hero-title">Business software should be boring to operate.</h1>
+        <p class="section-lede">An ERP touches money, stock and payroll, so it has to be dependable for a decade. Most
+          of the effort in running one goes not to the business logic but to the machinery around it. Sumeru is an
+          attempt to spend that effort somewhere better.</p>
+      </div>
+    </section>
 
-  <section class="section" id="idea">
-    <div class="wrap">
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-num">01</div>
-          <h3>Deployment should be a copy</h3>
-          <p>If getting to a running system takes an afternoon and a wiki page, upgrades will be rare and scary. Go compiles to one binary; the only thing beside it is Postgres.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">02</div>
-          <h3>Customisation should not fork</h3>
-          <p>Every business changes something. If that change means patching core, the next upgrade is expensive — so the install ages in place instead.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">03</div>
-          <h3>Your data should stay yours</h3>
-          <p>The schema is the part that outlives the software. It should be plain Postgres tables that any analyst or DBA can query without learning a framework first.</p>
+    <section class="section" id="idea">
+      <div class="wrap">
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-num">01</div>
+            <h3>Deployment should be a copy</h3>
+            <p>If getting to a running system takes an afternoon and a wiki page, upgrades will be rare and scary. Go
+              compiles to one binary; the only thing beside it is Postgres.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">02</div>
+            <h3>Customisation should not fork</h3>
+            <p>Every business changes something. If that change means patching core, the next upgrade is expensive — so
+              the install ages in place instead.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">03</div>
+            <h3>Your data should stay yours</h3>
+            <p>The schema is the part that outlives the software. It should be plain Postgres tables that any analyst or
+              DBA can query without learning a framework first.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section-alt" id="answers">
-    <div class="wrap">
-      <p class="section-kicker">How Sumeru answers that</p>
-      <h2>Three tiers, cleanly separated</h2>
-      <div class="grid grid-2 mt-lg">
-        <div class="card card-accent">
-          <h3>Three tiers, cleanly separated</h3>
-          <p>The core framework, the standard business addons and your own workspace are three separate Go modules linked by <code>replace</code> directives. Your customisations live in your own module — you never edit core to add behaviour.</p>
-        </div>
-        <div class="card card-accent">
-          <h3>Addons integrate through events</h3>
-          <p>No addon imports another addon. Invoicing reacts to a confirmed sales order it has no compile-time knowledge of, guarded by a registry lookup, so the same binary works whether or not Sales is installed.</p>
-        </div>
-        <div class="card card-accent">
-          <h3>Tables you can read</h3>
-          <p>A model is a Go struct describing fields; the kernel turns it into a real Postgres table with real columns and indexes. Point any BI tool at it and the schema makes sense.</p>
-        </div>
-        <div class="card card-accent">
-          <h3>Conventions checked at startup</h3>
-          <p>Folder name, manifest name, package name, blank imports, XML root elements and declared data files are all validated when the server boots. A malformed addon fails loudly rather than half-installing.</p>
+    <section class="section section-alt" id="answers">
+      <div class="wrap">
+        <p class="section-kicker">How Sumeru answers that</p>
+        <h2>Three tiers, cleanly separated</h2>
+        <div class="grid grid-2 mt-lg">
+          <div class="card card-accent">
+            <h3>Three tiers, cleanly separated</h3>
+            <p>The core framework, the standard business addons and your own workspace are three separate Go modules
+              linked by <code>replace</code> directives. Your customisations live in your own module — you never edit
+              core to add behaviour.</p>
+          </div>
+          <div class="card card-accent">
+            <h3>Addons integrate through events</h3>
+            <p>No addon imports another addon. Invoicing reacts to a confirmed sales order it has no compile-time
+              knowledge of, guarded by a registry lookup, so the same binary works whether or not Sales is installed.
+            </p>
+          </div>
+          <div class="card card-accent">
+            <h3>Tables you can read</h3>
+            <p>A model is a Go struct describing fields; the kernel turns it into a real Postgres table with real
+              columns and indexes. Point any BI tool at it and the schema makes sense.</p>
+          </div>
+          <div class="card card-accent">
+            <h3>Conventions checked at startup</h3>
+            <p>Folder name, manifest name, package name, blank imports, XML root elements and declared data files are
+              all validated when the server boots. A malformed addon fails loudly rather than half-installing.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="principles">
-    <div class="wrap">
-      <p class="section-kicker">What we committed to</p>
-      <h2>The decisions behind Sumeru</h2>
-      <p class="section-lede">These are the calls made early, written down so they can be held against us later. Each one closes off an alternative on purpose.</p>
-      <div class="table-scroll">
-        <table class="compare">
-          <thead>
-            <tr><th scope="col">Decision</th><th scope="col">What Sumeru does</th><th scope="col">What that costs</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Layout</th><td>Three Go modules — core, standard addons, your workspace</td><td>Three <code>replace</code> directives to keep pointed at the right paths</td></tr>
-            <tr><th scope="row">Linking</th><td>Addons are compiled in via generated blank imports</td><td>Adding one means regenerating and rebuilding — no runtime plugins</td></tr>
-            <tr><th scope="row">Database</th><td>PostgreSQL only, with plain readable tables</td><td>No portability to another engine</td></tr>
-            <tr><th scope="row">Schema</th><td>Derived from field definitions, synced additively at boot</td><td>No down-migrations; columns and tables are never dropped for you</td></tr>
-            <tr><th scope="row">Coupling</th><td>Addons integrate through events and registry lookups</td><td>Cross-addon flows are eventually consistent, and failures are quiet by design</td></tr>
-            <tr><th scope="row">UI</th><td>Server-rendered HTML, plain CSS, native ES modules</td><td>Less interactivity than a single-page app, and no component ecosystem</td></tr>
-            <tr><th scope="row">Isolation</th><td>One database with multiple companies inside it</td><td>Not multi-tenant — separate customers need separate deployments</td></tr>
-            <tr><th scope="row">Conventions</th><td>Folder, package, manifest and XML shape validated at startup</td><td>The framework fails fast and gives you less freedom in how you lay code out</td></tr>
-            <tr><th scope="row">Licence</th><td>Dual: an Apache 2.0 community edition, plus a commercial enterprise edition</td><td>Some addons will not be open source, and we have to say plainly which</td></tr>
-          </tbody>
-        </table>
+    <section class="section" id="principles">
+      <div class="wrap">
+        <p class="section-kicker">What we committed to</p>
+        <h2>The decisions behind Sumeru</h2>
+        <p class="section-lede">These are the calls made early, written down so they can be held against us later. Each
+          one closes off an alternative on purpose.</p>
+        <div class="table-scroll">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col">Decision</th>
+                <th scope="col">What Sumeru does</th>
+                <th scope="col">What that costs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Layout</th>
+                <td>Three Go modules — core, standard addons, your workspace</td>
+                <td>Three <code>replace</code> directives to keep pointed at the right paths</td>
+              </tr>
+              <tr>
+                <th scope="row">Linking</th>
+                <td>Addons are compiled in via generated blank imports</td>
+                <td>Adding one means regenerating and rebuilding — no runtime plugins</td>
+              </tr>
+              <tr>
+                <th scope="row">Database</th>
+                <td>PostgreSQL only, with plain readable tables</td>
+                <td>No portability to another engine</td>
+              </tr>
+              <tr>
+                <th scope="row">Schema</th>
+                <td>Derived from field definitions, synced additively at boot</td>
+                <td>No down-migrations; columns and tables are never dropped for you</td>
+              </tr>
+              <tr>
+                <th scope="row">Coupling</th>
+                <td>Addons integrate through events and registry lookups</td>
+                <td>Cross-addon flows are eventually consistent, and failures are quiet by design</td>
+              </tr>
+              <tr>
+                <th scope="row">UI</th>
+                <td>Server-rendered HTML, plain CSS, native ES modules</td>
+                <td>Less interactivity than a single-page app, and no component ecosystem</td>
+              </tr>
+              <tr>
+                <th scope="row">Isolation</th>
+                <td>One database with multiple companies inside it</td>
+                <td>Not multi-tenant — separate customers need separate deployments</td>
+              </tr>
+              <tr>
+                <th scope="row">Conventions</th>
+                <td>Folder, package, manifest and XML shape validated at startup</td>
+                <td>The framework fails fast and gives you less freedom in how you lay code out</td>
+              </tr>
+              <tr>
+                <th scope="row">Licence</th>
+                <td>Dual: an Apache 2.0 community edition, plus a commercial enterprise edition</td>
+                <td>Some addons will not be open source, and we have to say plainly which</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fineprint">The right-hand column is the honest half. If any of those costs is unacceptable for your
+          business, Sumeru is the wrong tool.</p>
       </div>
-      <p class="fineprint">The right-hand column is the honest half. If any of those costs is unacceptable for your business, Sumeru is the wrong tool.</p>
-    </div>
-  </section>
+    </section>
 
-  <section class="cta">
-    <div class="wrap wrap-narrow">
-      <h2>Read the architecture next</h2>
-      <p>Project Meru is the initiative. Sumeru is the framework — that is the name you will see in the code, the CLI and the repository.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="architecture.html">Architecture</a>
-        <a class="btn btn-ghost" href="../index.html">Project Meru</a>
+    <section class="cta">
+      <div class="wrap wrap-narrow">
+        <h2>Read the architecture next</h2>
+        <p>Project Meru is the initiative. Sumeru is the framework — that is the name you will see in the code, the CLI
+          and the repository.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="architecture.html">Architecture</a>
+          <a class="btn btn-ghost" href="../index.html">Project Meru</a>
+        </div>
       </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <span class="brand-mark" aria-hidden="true" style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg viewBox="0 0 100 100" width="12" height="12"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </span>
-      <div>
-        <strong>Sumeru</strong>
-        <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true"
+          style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 100 100" width="12" height="12">
+            <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+              stroke-linejoin="round" stroke-linecap="round" />
+          </svg>
+        </span>
+        <div>
+          <strong>Sumeru</strong>
+          <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
+        </div>
       </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="getting-started.html">Getting started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="addons.html">Addons</a>
+        <a href="editions.html">Editions</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
     </div>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="getting-started.html">Getting started</a>
-      <a href="architecture.html">Architecture</a>
-      <a href="addons.html">Addons</a>
-      <a href="editions.html">Editions</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="faq.html">FAQ</a>
-      <a href="about.html">About</a>
-      <a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">GitHub ↗</a>
-    </nav>
-  </div>
-  <div class="wrap footer-bottom">
-    <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span id="year"></span></p>
-  </div>
-</footer>
-<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-<script src="js/sumeru.js"></script>
+    <div class="wrap footer-bottom">
+      <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span
+          id="year"></span></p>
+    </div>
+  </footer>
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <script src="js/sumeru.js"></script>
 </body>
+
 </html>

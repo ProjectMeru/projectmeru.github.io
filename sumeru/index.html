@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-GB">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sumeru — modular ERP framework in Go | Project Meru</title>
-<meta name="description" content="Sumeru is an open-source modular ERP framework in Go. Business functions are addons: a manifest, Go models, XML views. PostgreSQL, no build step, Apache 2.0.">
-<link rel="canonical" href="https://projectmeru.github.io/sumeru/">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="author" content="Project Meru">
-<meta name="theme-color" content="#050505">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Sumeru">
-<meta property="og:url" content="https://projectmeru.github.io/sumeru/">
-<meta property="og:title" content="Sumeru — modular ERP framework in Go">
-<meta property="og:description" content="Business functions are addons: a manifest, Go models and XML views. PostgreSQL underneath, server-rendered UI, no build step. Apache 2.0, pre-alpha.">
-<meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
-<meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sumeru — modular ERP framework in Go">
-<meta name="twitter:description" content="Business functions are addons: a manifest, Go models and XML views. PostgreSQL underneath, server-rendered UI, no build step.">
-<meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/sumeru.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-<script type="application/ld+json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sumeru — modular ERP framework in Go | Project Meru</title>
+  <meta name="description"
+    content="Sumeru is an open-source modular ERP framework in Go. Business functions are addons: a manifest, Go models, XML views. PostgreSQL, no build step, Apache 2.0.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sumeru">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/">
+  <meta property="og:title" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:description"
+    content="Business functions are addons: a manifest, Go models and XML views. PostgreSQL underneath, server-rendered UI, no build step. Apache 2.0, pre-alpha.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sumeru — modular ERP framework in Go">
+  <meta name="twitter:description"
+    content="Business functions are addons: a manifest, Go models and XML views. PostgreSQL underneath, server-rendered UI, no build step.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/sumeru.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -41,7 +48,7 @@
       "applicationSubCategory": "Enterprise Resource Planning (ERP)",
       "operatingSystem": "Linux, macOS, Windows",
       "url": "https://projectmeru.github.io/sumeru/",
-      "codeRepository": "https://github.com/ProjectMeru",
+      "codeRepository": "https://github.com/ProjectMeru/sumeru",
       "programmingLanguage": ["Go", "SQL", "XML", "JavaScript"],
       "runtimePlatform": "Go 1.26+",
       "license": "https://www.apache.org/licenses/LICENSE-2.0",
@@ -62,170 +69,180 @@
 }
 </script>
 </head>
+
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="site-chrome">
-  <div class="chrome-row">
-    <a class="hub-link" href="../index.html">Project Meru</a>
-    <div class="card-nav-container">
-    <nav class="card-nav" id="cardNav" aria-label="Sumeru">
-      <div class="card-nav-top">
-        <a class="card-nav-logo" href="index.html">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 100 100"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-          </span>
-          <span>Sumeru</span>
-        </a>
-        <div class="card-nav-links">
-          <button class="card-nav-trigger" type="button" data-panel="product">Product <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="about">About <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-        </div>
-        <a class="card-nav-cta" href="getting-started.html">Get started</a>
-      </div>
-
-      <div class="card-nav-panel" data-panel="product">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="index.html">
-            <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Overview</span>
-            <span class="nav-box-description">What Sumeru is and why</span>
-          </a>
-          <a class="nav-box" href="addons.html">
-            <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Addons</span>
-            <span class="nav-box-description">Business modules that ship today</span>
-          </a>
-          <a class="nav-box" href="editions.html">
-            <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Editions</span>
-            <span class="nav-box-description">Community and enterprise licensing</span>
-          </a>
-          <a class="nav-box" href="roadmap.html">
-            <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Roadmap</span>
-            <span class="nav-box-description">Where the build is going</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="card-nav-panel" data-panel="docs">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="getting-started.html">
-            <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Getting started</span>
-            <span class="nav-box-description">Install and first boot</span>
-          </a>
-          <a class="nav-box" href="architecture.html">
-            <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Architecture</span>
-            <span class="nav-box-description">Three modules, one contract</span>
-          </a>
-          <a class="nav-box" href="faq.html">
-            <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">FAQ</span>
-            <span class="nav-box-description">Licensing, tenancy, API</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="card-nav-panel" data-panel="about">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="about.html">
-            <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">About Sumeru</span>
-            <span class="nav-box-description">Principles and boundaries</span>
-          </a>
-        </div>
-      </div>
-    </nav>
-  </div>
-  </div>
-</div>
-<main id="main">
-
-  <section class="hero" id="top">
-    <div class="wrap">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="dot"></span> Open source · Pre-alpha · Dual licensed</p>
-          <h1>Addons included.<span class="line2">One kernel.</span></h1>
-          <p class="lede">
-            <strong>Sumeru is an open-source, modular ERP framework written in Go.</strong>
-            Every business function — contacts, products, CRM, sales, invoicing — is an addon:
-            a folder with a manifest, some Go models and some XML. The kernel discovers it,
-            resolves its dependencies, creates its tables and wires its menus.
-          </p>
-          <p class="naming">
-            <strong>Project&nbsp;Meru</strong> is the initiative.
-            <strong>Sumeru</strong> is the framework it builds.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="getting-started.html">Get started</a>
-            <a class="btn btn-ghost" href="architecture.html">Read the architecture</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-chrome">
+    <div class="chrome-row">
+      <a class="hub-link" href="../index.html">Project Meru</a>
+      <div class="card-nav-container">
+        <nav class="card-nav" id="cardNav" aria-label="Sumeru">
+          <div class="card-nav-top">
+            <a class="card-nav-logo" href="index.html">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 100 100">
+                  <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+                    stroke-linejoin="round" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span>Sumeru</span>
+            </a>
+            <div class="card-nav-links">
+              <button class="card-nav-trigger" type="button" data-panel="product">Product <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret"
+                  aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="about">About <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+            </div>
+            <a class="card-nav-cta" href="getting-started.html">Get started</a>
           </div>
-        </div>
 
-        <div class="terminal" aria-hidden="true">
-          <div class="terminal-bar">
-            <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-            <span class="terminal-title">sumeru_custom_addons</span>
+          <div class="card-nav-panel" data-panel="product">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="index.html">
+                <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Overview</span>
+                <span class="nav-box-description">What Sumeru is and why</span>
+              </a>
+              <a class="nav-box" href="addons.html">
+                <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Addons</span>
+                <span class="nav-box-description">Business modules that ship today</span>
+              </a>
+              <a class="nav-box" href="editions.html">
+                <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Editions</span>
+                <span class="nav-box-description">Community and enterprise licensing</span>
+              </a>
+              <a class="nav-box" href="roadmap.html">
+                <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Roadmap</span>
+                <span class="nav-box-description">Where the build is going</span>
+              </a>
+            </div>
           </div>
-          <div class="terminal-body"><span class="code-line t-cmd">$ go run . -- -c sumeru.conf -i account</span>
-<span class="code-line t-dim">Base Addon Loaded</span>
-<span class="code-line t-dim">Account Addon Loaded</span>
-<span class="code-line"><span class="t-ok">installing</span> account 1.0.0</span>
-<span class="code-line">  resolving depends ... product, contacts</span>
-<span class="code-line">  syncing schema ..... 4 models</span>
-<span class="code-line">  loading data ....... 5 files</span>
-<span class="code-line"><span class="t-ok">installed</span>  account</span>
 
-<span class="code-line t-cmd">$ make run</span>
-<span class="code-line">Server starting on :9090...</span>
-</div>
-        </div>
-      </div>
+          <div class="card-nav-panel" data-panel="docs">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="getting-started.html">
+                <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Getting started</span>
+                <span class="nav-box-description">Install and first boot</span>
+              </a>
+              <a class="nav-box" href="architecture.html">
+                <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Architecture</span>
+                <span class="nav-box-description">Three modules, one contract</span>
+              </a>
+              <a class="nav-box" href="faq.html">
+                <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">FAQ</span>
+                <span class="nav-box-description">Licensing, tenancy, API</span>
+              </a>
+            </div>
+          </div>
 
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Go modules</span></div>
-        <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">Addons today</span></div>
-        <div class="stat"><span class="stat-num" data-count="1">0</span><span class="stat-label">Database</span></div>
-        <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">JS dependencies</span></div>
-      </div>
-
-      <div class="notice">
-        <strong>Heads up.</strong> Sumeru is pre-alpha. The framework runs and the lead-to-cash flow works
-        end to end, but there is no release, no upgrade guarantee, and no test suite in the addon repos.
-        Do not run your business on it yet.
+          <div class="card-nav-panel" data-panel="about">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="about.html">
+                <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">About Sumeru</span>
+                <span class="nav-box-description">Principles and boundaries</span>
+              </a>
+            </div>
+          </div>
+        </nav>
       </div>
     </div>
-  </section>
+  </div>
+  <main id="main">
 
-<section class="section" id="foundation">
-    <div class="wrap">
-      <p class="section-kicker">01 / Foundation</p>
-      <div class="split">
-        <div class="split-sticky">
-          <h2>One design.<br>Every addon.</h2>
-          <p class="section-lede" style="margin-bottom:0">
-            The ORM, XML views, access rights, event bus and JSON-RPC API ship as one kernel and share
-            one addon contract. Declare a model once — it becomes a table, a form, and an API resource.
-          </p>
-          <div class="chip-row">
-            <span class="chip-soft">Models</span>
-            <span class="chip-soft">Manifests</span>
-            <span class="chip-soft">Views</span>
-            <span class="chip-soft">Security</span>
-            <span class="chip-soft">Events</span>
-            <span class="chip-soft">Schema sync</span>
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="dot"></span> Open source · Pre-alpha · Dual licensed</p>
+            <h1>Addons included.<span class="line2">One kernel.</span></h1>
+            <p class="lede">
+              <strong>Sumeru is an open-source, modular ERP framework written in Go.</strong>
+              Every business function — contacts, products, CRM, sales, invoicing — is an addon:
+              a folder with a manifest, some Go models and some XML. The kernel discovers it,
+              resolves its dependencies, creates its tables and wires its menus.
+            </p>
+            <p class="naming">
+              <strong>Project&nbsp;Meru</strong> is the initiative.
+              <strong>Sumeru</strong> is the framework it builds.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="getting-started.html">Get started</a>
+              <a class="btn btn-ghost" href="architecture.html">Read the architecture</a>
+            </div>
+          </div>
+
+          <div class="terminal" aria-hidden="true">
+            <div class="terminal-bar">
+              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+              <span class="terminal-title">sumeru_custom_addons</span>
+            </div>
+            <div class="terminal-body"><span class="code-line t-cmd">$ go run . -- -c sumeru.conf -i account</span>
+              <span class="code-line t-dim">Base Addon Loaded</span>
+              <span class="code-line t-dim">Account Addon Loaded</span>
+              <span class="code-line"><span class="t-ok">installing</span> account 1.0.0</span>
+              <span class="code-line"> resolving depends ... product, contacts</span>
+              <span class="code-line"> syncing schema ..... 4 models</span>
+              <span class="code-line"> loading data ....... 5 files</span>
+              <span class="code-line"><span class="t-ok">installed</span> account</span>
+
+              <span class="code-line t-cmd">$ make run</span>
+              <span class="code-line">Server starting on :9090...</span>
+            </div>
           </div>
         </div>
-        <div class="code-panel">
-          <div class="code-panel-bar">
-            <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-            <span class="code-panel-title">account_journal.go</span>
+
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Go modules</span>
           </div>
-          <pre><code><span class="code-line">package models</span>
+          <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">Addons today</span>
+          </div>
+          <div class="stat"><span class="stat-num" data-count="1">0</span><span class="stat-label">Database</span></div>
+          <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">JS
+              dependencies</span></div>
+        </div>
+
+        <div class="notice">
+          <strong>Heads up.</strong> Sumeru is pre-alpha. The framework runs and the lead-to-cash flow works
+          end to end, but there is no release, no upgrade guarantee, and no test suite in the addon repos.
+          Do not run your business on it yet.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="foundation">
+      <div class="wrap">
+        <p class="section-kicker">01 / Foundation</p>
+        <div class="split">
+          <div class="split-sticky">
+            <h2>One design.<br>Every addon.</h2>
+            <p class="section-lede" style="margin-bottom:0">
+              The ORM, XML views, access rights, event bus and JSON-RPC API ship as one kernel and share
+              one addon contract. Declare a model once — it becomes a table, a form, and an API resource.
+            </p>
+            <div class="chip-row">
+              <span class="chip-soft">Models</span>
+              <span class="chip-soft">Manifests</span>
+              <span class="chip-soft">Views</span>
+              <span class="chip-soft">Security</span>
+              <span class="chip-soft">Events</span>
+              <span class="chip-soft">Schema sync</span>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-panel-bar">
+              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+              <span class="code-panel-title">account_journal.go</span>
+            </div>
+            <pre><code><span class="code-line">package models</span>
 <span class="code-line"></span>
 <span class="code-line">import "sumeru/core/sdk"</span>
 <span class="code-line"></span>
@@ -244,35 +261,42 @@
 <span class="code-line">        {Name: "active", Type: sdk.Boolean, DefaultVal: true},</span>
 <span class="code-line">    }</span>
 <span class="code-line">}</span></code></pre>
-          <div class="code-panel-note">Typed field metadata becomes a real PostgreSQL table on boot.</div>
+            <div class="code-panel-note">Typed field metadata becomes a real PostgreSQL table on boot.</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section-alt" id="capabilities">
-    <div class="wrap">
-      <p class="section-kicker">02 / Capabilities</p>
-      <h2>One framework.<br>One addon contract.</h2>
-      <p class="section-lede">Every capability is first-party. Nothing to assemble from eleven packages with eleven config styles.</p>
+    <section class="section section-alt" id="capabilities">
+      <div class="wrap">
+        <p class="section-kicker">02 / Capabilities</p>
+        <h2>One framework.<br>One addon contract.</h2>
+        <p class="section-lede">Every capability is first-party. Nothing to assemble from eleven packages with eleven
+          config styles.</p>
 
-      <div class="split">
-        <div class="cap-list" id="capList">
-          <button class="cap-item is-active" type="button" data-cap="orm"><span>Model registry &amp; schema</span><span class="cap-file">orm</span></button>
-          <button class="cap-item" type="button" data-cap="views"><span>XML views &amp; menus</span><span class="cap-file">engine</span></button>
-          <button class="cap-item" type="button" data-cap="acl"><span>Groups, ACLs, rules</span><span class="cap-file">security</span></button>
-          <button class="cap-item" type="button" data-cap="events"><span>Event bus</span><span class="cap-file">event</span></button>
-          <button class="cap-item" type="button" data-cap="api"><span>JSON-RPC API</span><span class="cap-file">server</span></button>
-          <button class="cap-item" type="button" data-cap="scheduler"><span>Scheduler</span><span class="cap-file">scheduler</span></button>
-        </div>
+        <div class="split">
+          <div class="cap-list" id="capList">
+            <button class="cap-item is-active" type="button" data-cap="orm"><span>Model registry &amp;
+                schema</span><span class="cap-file">orm</span></button>
+            <button class="cap-item" type="button" data-cap="views"><span>XML views &amp; menus</span><span
+                class="cap-file">engine</span></button>
+            <button class="cap-item" type="button" data-cap="acl"><span>Groups, ACLs, rules</span><span
+                class="cap-file">security</span></button>
+            <button class="cap-item" type="button" data-cap="events"><span>Event bus</span><span
+                class="cap-file">event</span></button>
+            <button class="cap-item" type="button" data-cap="api"><span>JSON-RPC API</span><span
+                class="cap-file">server</span></button>
+            <button class="cap-item" type="button" data-cap="scheduler"><span>Scheduler</span><span
+                class="cap-file">scheduler</span></button>
+          </div>
 
-        <div>
-          <div class="code-panel" data-cap-panel="orm">
-            <div class="code-panel-bar">
-              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-              <span class="code-panel-title">sdk.RegisterModel</span>
-            </div>
-            <pre><code>func init() {
+          <div>
+            <div class="code-panel" data-cap-panel="orm">
+              <div class="code-panel-bar">
+                <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                <span class="code-panel-title">sdk.RegisterModel</span>
+              </div>
+              <pre><code>func init() {
     sdk.RegisterModel(sdk.RegisterModelInput{
         Model:  &AccountJournal{},
         Module: "account",
@@ -281,13 +305,13 @@
 
 // Tables and columns are derived from Fields()
 // and synced additively on boot.</code></pre>
-          </div>
-          <div class="code-panel" data-cap-panel="views" hidden>
-            <div class="code-panel-bar">
-              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-              <span class="code-panel-title">account_views.xml</span>
             </div>
-            <pre><code>&lt;action id="action_account_moves_out"
+            <div class="code-panel" data-cap-panel="views" hidden>
+              <div class="code-panel-bar">
+                <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                <span class="code-panel-title">account_views.xml</span>
+              </div>
+              <pre><code>&lt;action id="action_account_moves_out"
         type="window" model="account.move"
         name="Customer Invoices"
         view_mode="tree,form"/&gt;
@@ -295,36 +319,36 @@
 &lt;menuitem id="menu_account_invoices"
           name="Invoices"
           action="account.action_account_moves_out"/&gt;</code></pre>
-          </div>
-          <div class="code-panel" data-cap-panel="acl" hidden>
-            <div class="code-panel-bar">
-              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-              <span class="code-panel-title">sys.access.csv</span>
             </div>
-            <pre><code>id,name,model,group_id,perm_read,perm_write,perm_create,perm_unlink
+            <div class="code-panel" data-cap-panel="acl" hidden>
+              <div class="code-panel-bar">
+                <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                <span class="code-panel-title">sys.access.csv</span>
+              </div>
+              <pre><code>id,name,model,group_id,perm_read,perm_write,perm_create,perm_unlink
 access_account_move_user,...,account.move,group_account_invoice,1,1,1,0
 access_account_move_manager,...,account.move,group_account_manager,1,1,1,1
 
 # Row rules understand $uid and the active company.</code></pre>
-          </div>
-          <div class="code-panel" data-cap-panel="events" hidden>
-            <div class="code-panel-bar">
-              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-              <span class="code-panel-title">account/init.go</span>
             </div>
-            <pre><code>func init() {
+            <div class="code-panel" data-cap-panel="events" hidden>
+              <div class="code-panel-bar">
+                <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                <span class="code-panel-title">account/init.go</span>
+              </div>
+              <pre><code>func init() {
     event.Subscribe("record.updated", onSaleOrderToInvoice)
 }
 
 // No compile-time import of sale.
 // Check the registry before acting.</code></pre>
-          </div>
-          <div class="code-panel" data-cap-panel="api" hidden>
-            <div class="code-panel-bar">
-              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-              <span class="code-panel-title">POST /api/rpc</span>
             </div>
-            <pre><code>{
+            <div class="code-panel" data-cap-panel="api" hidden>
+              <div class="code-panel-bar">
+                <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                <span class="code-panel-title">POST /api/rpc</span>
+              </div>
+              <pre><code>{
   "jsonrpc": "2.0",
   "method": "call",
   "params": {
@@ -333,135 +357,189 @@ access_account_move_manager,...,account.move,group_account_manager,1,1,1,1
     "args": [[["stage_id", "=", "won"]], ["name", "partner_id"]]
   }
 }</code></pre>
-          </div>
-          <div class="code-panel" data-cap-panel="scheduler" hidden>
-            <div class="code-panel-bar">
-              <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-              <span class="code-panel-title">sys.cron</span>
             </div>
-            <pre><code>// A minute-tick scheduler runs due sys.cron rows
+            <div class="code-panel" data-cap-panel="scheduler" hidden>
+              <div class="code-panel-bar">
+                <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+                <span class="code-panel-title">sys.cron</span>
+              </div>
+              <pre><code>// A minute-tick scheduler runs due sys.cron rows
 // and publishes cron.tick — no external broker.
 
 // Structured JSON logs and an audit trail
 // live in the same PostgreSQL database.</code></pre>
+            </div>
+
+            <p class="code-panel-note" data-cap-note="orm" style="margin-top:12px;border:0;padding:0">Models register
+              from <code>init()</code>; the kernel keeps a name-to-model registry.</p>
+            <p class="code-panel-note" data-cap-note="views" hidden style="margin-top:12px;border:0;padding:0">Tree,
+              form and kanban views, window actions and menus are declared in XML and loaded on install.</p>
+            <p class="code-panel-note" data-cap-note="acl" hidden style="margin-top:12px;border:0;padding:0">Groups with
+              inheritance, per-model rights from CSV, and row-level record rules.</p>
+            <p class="code-panel-note" data-cap-note="events" hidden style="margin-top:12px;border:0;padding:0">Addons
+              subscribe without importing each other — uninstall Sales and Invoicing keeps working.</p>
+            <p class="code-panel-note" data-cap-note="api" hidden style="margin-top:12px;border:0;padding:0">API keys
+              from your user record; access rights apply exactly as they do in the UI.</p>
+            <p class="code-panel-note" data-cap-note="scheduler" hidden style="margin-top:12px;border:0;padding:0">
+              Recurring work needs no Redis, no Celery, no sidecar workers.</p>
           </div>
-
-          <p class="code-panel-note" data-cap-note="orm" style="margin-top:12px;border:0;padding:0">Models register from <code>init()</code>; the kernel keeps a name-to-model registry.</p>
-          <p class="code-panel-note" data-cap-note="views" hidden style="margin-top:12px;border:0;padding:0">Tree, form and kanban views, window actions and menus are declared in XML and loaded on install.</p>
-          <p class="code-panel-note" data-cap-note="acl" hidden style="margin-top:12px;border:0;padding:0">Groups with inheritance, per-model rights from CSV, and row-level record rules.</p>
-          <p class="code-panel-note" data-cap-note="events" hidden style="margin-top:12px;border:0;padding:0">Addons subscribe without importing each other — uninstall Sales and Invoicing keeps working.</p>
-          <p class="code-panel-note" data-cap-note="api" hidden style="margin-top:12px;border:0;padding:0">API keys from your user record; access rights apply exactly as they do in the UI.</p>
-          <p class="code-panel-note" data-cap-note="scheduler" hidden style="margin-top:12px;border:0;padding:0">Recurring work needs no Redis, no Celery, no sidecar workers.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="systems">
-    <div class="wrap">
-      <p class="section-kicker">03 / Sumeru systems</p>
-      <h2>One idiom,<br>every subsystem.</h2>
-      <p class="section-lede">Dependency-free addon integration, server-rendered UI, and multi-company on a single database — all following the same shape.</p>
+    <section class="section" id="systems">
+      <div class="wrap">
+        <p class="section-kicker">03 / Sumeru systems</p>
+        <h2>One idiom,<br>every subsystem.</h2>
+        <p class="section-lede">Dependency-free addon integration, server-rendered UI, and multi-company on a single
+          database — all following the same shape.</p>
 
-      <div class="grid grid-2">
-        <div class="card">
-          <div class="card-num">01 · Addons</div>
-          <h3>A folder is a product surface</h3>
-          <p>Manifest, models, views, menus, security. The kernel discovers it, topologically orders <code>depends</code>, syncs schema and loads data files.</p>
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="card-num">01 · Addons</div>
+            <h3>A folder is a product surface</h3>
+            <p>Manifest, models, views, menus, security. The kernel discovers it, topologically orders
+              <code>depends</code>, syncs schema and loads data files.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-num">02 · UI</div>
+            <h3>Server-rendered, no build step</h3>
+            <p>Go templates plus a render package. Plain CSS and native ES modules — no bundler, no minifier, no Node
+              toolchain for the product UI.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">03 · Events</div>
+            <h3>Integrate without importing</h3>
+            <p>Invoicing reacts to a confirmed sales order it has no compile-time knowledge of. Registry lookups keep
+              optional counterparts optional.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">04 · Companies</div>
+            <h3>One database, many companies</h3>
+            <p>Switcher in the top bar, per-user company access, record rules scoped to the active company. Not
+              multi-tenant — separate customers need separate deployments.</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-num">02 · UI</div>
-          <h3>Server-rendered, no build step</h3>
-          <p>Go templates plus a render package. Plain CSS and native ES modules — no bundler, no minifier, no Node toolchain for the product UI.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">03 · Events</div>
-          <h3>Integrate without importing</h3>
-          <p>Invoicing reacts to a confirmed sales order it has no compile-time knowledge of. Registry lookups keep optional counterparts optional.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">04 · Companies</div>
-          <h3>One database, many companies</h3>
-          <p>Switcher in the top bar, per-user company access, record rules scoped to the active company. Not multi-tenant — separate customers need separate deployments.</p>
+
+        <p class="mt-xl"
+          style="max-width:40ch;font-size:1.25rem;color:var(--color-text);letter-spacing:-.03em;line-height:1.25">
+          The whole foundation is one product, not eleven packages.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="architecture.html">Explore the architecture</a>
+          <a class="btn btn-ghost" href="addons.html">Browse addons</a>
         </div>
       </div>
+    </section>
 
-      <p class="mt-xl" style="max-width:40ch;font-size:1.25rem;color:var(--color-text);letter-spacing:-.03em;line-height:1.25">
-        The whole foundation is one product, not eleven packages.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="architecture.html">Explore the architecture</a>
-        <a class="btn btn-ghost" href="addons.html">Browse addons</a>
+    <section class="section section-alt" id="foundations">
+      <div class="wrap">
+        <p class="section-kicker">05 / Foundations</p>
+        <h2>Built for the parts<br>that are hard to add later.</h2>
+        <div class="grid grid-3 mt-lg">
+          <div class="card">
+            <div class="card-num">01</div>
+            <h3>Application architecture</h3>
+            <p>Three Go modules, dependency-ordered addon discovery, lifecycle hooks at boot.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">02</div>
+            <h3>Authentication &amp; ACL</h3>
+            <p>Session login, API keys, groups, per-model rights and row-level rules.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">03</div>
+            <h3>Background work</h3>
+            <p>Minute-tick scheduler over <code>sys.cron</code> — no external broker.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">04</div>
+            <h3>Data access</h3>
+            <p>Record models, additive schema sync, domains, transactions on PostgreSQL.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">05</div>
+            <h3>Server-rendered UI</h3>
+            <p>XML views become form, tree and kanban HTML without a front-end build.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">06</div>
+            <h3>JSON-RPC API</h3>
+            <p>The same models and rights, exposed for integrations and custom clients.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">07</div>
+            <h3>Audit &amp; logging</h3>
+            <p>Structured JSON logs, in-app log viewer, writes and access denials recorded.</p>
+          </div>
+          <div class="card">
+            <div class="card-num">08</div>
+            <h3>Scaffolding</h3>
+            <p>One command generates a complete addon that satisfies every startup convention.</p>
+          </div>
+        </div>
+
+        <div class="install-bar">
+          <div>
+            <div
+              style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-dimmed);margin-bottom:6px">
+              terminal</div>
+            <code>$ make run</code>
+          </div>
+          <a class="btn btn-primary" href="getting-started.html">Start building</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section-alt" id="foundations">
-    <div class="wrap">
-      <p class="section-kicker">05 / Foundations</p>
-      <h2>Built for the parts<br>that are hard to add later.</h2>
-      <div class="grid grid-3 mt-lg">
-        <div class="card"><div class="card-num">01</div><h3>Application architecture</h3><p>Three Go modules, dependency-ordered addon discovery, lifecycle hooks at boot.</p></div>
-        <div class="card"><div class="card-num">02</div><h3>Authentication &amp; ACL</h3><p>Session login, API keys, groups, per-model rights and row-level rules.</p></div>
-        <div class="card"><div class="card-num">03</div><h3>Background work</h3><p>Minute-tick scheduler over <code>sys.cron</code> — no external broker.</p></div>
-        <div class="card"><div class="card-num">04</div><h3>Data access</h3><p>Record models, additive schema sync, domains, transactions on PostgreSQL.</p></div>
-        <div class="card"><div class="card-num">05</div><h3>Server-rendered UI</h3><p>XML views become form, tree and kanban HTML without a front-end build.</p></div>
-        <div class="card"><div class="card-num">06</div><h3>JSON-RPC API</h3><p>The same models and rights, exposed for integrations and custom clients.</p></div>
-        <div class="card"><div class="card-num">07</div><h3>Audit &amp; logging</h3><p>Structured JSON logs, in-app log viewer, writes and access denials recorded.</p></div>
-        <div class="card"><div class="card-num">08</div><h3>Scaffolding</h3><p>One command generates a complete addon that satisfies every startup convention.</p></div>
+    <section class="cta" id="start">
+      <div class="wrap wrap-narrow">
+        <p class="section-kicker">06 / Start building</p>
+        <h2>Build the product.<br>Sumeru handles the foundation.</h2>
+        <p>Go 1.26+ · PostgreSQL · Apache 2.0 community edition · Open source on GitHub</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="getting-started.html">Get started</a>
+          <a class="btn btn-ghost" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">View on
+            GitHub</a>
+        </div>
       </div>
+    </section>
 
-      <div class="install-bar">
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true"
+          style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 100 100" width="12" height="12">
+            <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+              stroke-linejoin="round" stroke-linecap="round" />
+          </svg>
+        </span>
         <div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-dimmed);margin-bottom:6px">terminal</div>
-          <code>$ make run</code>
+          <strong>Sumeru</strong>
+          <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
         </div>
-        <a class="btn btn-primary" href="getting-started.html">Start building</a>
       </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="getting-started.html">Getting started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="addons.html">Addons</a>
+        <a href="editions.html">Editions</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
     </div>
-  </section>
-
-  <section class="cta" id="start">
-    <div class="wrap wrap-narrow">
-      <p class="section-kicker">06 / Start building</p>
-      <h2>Build the product.<br>Sumeru handles the foundation.</h2>
-      <p>Go 1.26+ · PostgreSQL · Apache 2.0 community edition · Open source on GitHub</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="getting-started.html">Get started</a>
-        <a class="btn btn-ghost" href="https://github.com/ProjectMeru" target="_blank" rel="noopener">View on GitHub</a>
-      </div>
+    <div class="wrap footer-bottom">
+      <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span
+          id="year"></span></p>
     </div>
-  </section>
-
-
-</main>
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <span class="brand-mark" aria-hidden="true" style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg viewBox="0 0 100 100" width="12" height="12"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </span>
-      <div>
-        <strong>Sumeru</strong>
-        <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
-      </div>
-    </div>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="getting-started.html">Getting started</a>
-      <a href="architecture.html">Architecture</a>
-      <a href="addons.html">Addons</a>
-      <a href="editions.html">Editions</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="faq.html">FAQ</a>
-      <a href="about.html">About</a>
-      <a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">GitHub ↗</a>
-    </nav>
-  </div>
-  <div class="wrap footer-bottom">
-    <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span id="year"></span></p>
-  </div>
-</footer>
-<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-<script src="js/sumeru.js"></script>
+  </footer>
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <script src="js/sumeru.js"></script>
 </body>
+
 </html>

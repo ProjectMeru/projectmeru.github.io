@@ -1,215 +1,247 @@
 <!DOCTYPE html>
 <html lang="en-GB">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sumeru roadmap | Project Meru</title>
-<meta name="description" content="Sumeru roadmap in four phases: foundation, core business, extended, and platform.">
-<link rel="canonical" href="https://projectmeru.github.io/sumeru/roadmap.html">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="author" content="Project Meru">
-<meta name="theme-color" content="#050505">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Sumeru">
-<meta property="og:url" content="https://projectmeru.github.io/sumeru/roadmap.html">
-<meta property="og:title" content="Sumeru roadmap | Project Meru">
-<meta property="og:description" content="Sumeru roadmap in four phases: foundation, core business, extended, and platform.">
-<meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
-<meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sumeru roadmap | Project Meru">
-<meta name="twitter:description" content="Sumeru roadmap in four phases: foundation, core business, extended, and platform.">
-<meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/sumeru.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sumeru roadmap | Project Meru</title>
+  <meta name="description" content="Sumeru roadmap in four phases: foundation, core business, extended, and platform.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/roadmap.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sumeru">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/roadmap.html">
+  <meta property="og:title" content="Sumeru roadmap | Project Meru">
+  <meta property="og:description"
+    content="Sumeru roadmap in four phases: foundation, core business, extended, and platform.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sumeru roadmap | Project Meru">
+  <meta name="twitter:description"
+    content="Sumeru roadmap in four phases: foundation, core business, extended, and platform.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/sumeru.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
 
 </head>
+
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="site-chrome">
-  <div class="chrome-row">
-    <a class="hub-link" href="../index.html">Project Meru</a>
-    <div class="card-nav-container">
-    <nav class="card-nav" id="cardNav" aria-label="Sumeru">
-      <div class="card-nav-top">
-        <a class="card-nav-logo" href="index.html">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 100 100"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-          </span>
-          <span>Sumeru</span>
-        </a>
-        <div class="card-nav-links">
-          <button class="card-nav-trigger" type="button" data-panel="product">Product <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="about">About <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-        </div>
-        <a class="card-nav-cta" href="getting-started.html">Get started</a>
-      </div>
-
-      <div class="card-nav-panel" data-panel="product">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="index.html">
-            <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Overview</span>
-            <span class="nav-box-description">What Sumeru is and why</span>
-          </a>
-          <a class="nav-box" href="addons.html">
-            <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Addons</span>
-            <span class="nav-box-description">Business modules that ship today</span>
-          </a>
-          <a class="nav-box" href="editions.html">
-            <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Editions</span>
-            <span class="nav-box-description">Community and enterprise licensing</span>
-          </a>
-          <a class="nav-box" href="roadmap.html">
-            <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Roadmap</span>
-            <span class="nav-box-description">Where the build is going</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="card-nav-panel" data-panel="docs">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="getting-started.html">
-            <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Getting started</span>
-            <span class="nav-box-description">Install and first boot</span>
-          </a>
-          <a class="nav-box" href="architecture.html">
-            <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Architecture</span>
-            <span class="nav-box-description">Three modules, one contract</span>
-          </a>
-          <a class="nav-box" href="faq.html">
-            <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">FAQ</span>
-            <span class="nav-box-description">Licensing, tenancy, API</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="card-nav-panel" data-panel="about">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="about.html">
-            <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">About Sumeru</span>
-            <span class="nav-box-description">Principles and boundaries</span>
-          </a>
-        </div>
-      </div>
-    </nav>
-  </div>
-  </div>
-</div>
-
-<main id="main">
-
-  <section class="page-hero" id="top">
-    <div class="wrap">
-      <p class="section-kicker">Where this is going</p>
-      <h1 class="page-hero-title">Roadmap.</h1>
-      <p class="section-lede">Four phases. Each one has to be genuinely usable before the next one starts — no phase exists only to prepare for a later phase.</p>
-    </div>
-  </section>
-
-  <section class="section" id="roadmap">
-    <div class="wrap wrap-narrow">
-      <ol class="timeline">
-        <li class="tl-item tl-done">
-          <div class="tl-marker"></div>
-          <div class="tl-body">
-            <div class="tl-head"><h3>Phase 1 — Foundation</h3><span class="badge badge-progress">Mostly done</span></div>
-            <div class="meter" role="img" aria-label="Phase 1 is roughly 85 percent complete"><span class="meter-fill meter-done" style="width:85%"></span></div>
-            <p>The kernel and the addon contract. This is the part you can read and rely on today.</p>
-            <ul>
-              <li>Model registry, schema sync and the data layer</li>
-              <li>Addon discovery, convention checks, dependency ordering, install and update</li>
-              <li>Groups, access rights and record rules, enforced in the ORM</li>
-              <li>XML view engine, menus, actions and the rendered shell</li>
-              <li>Event bus, scheduler, structured logging and audit</li>
-            </ul>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-chrome">
+    <div class="chrome-row">
+      <a class="hub-link" href="../index.html">Project Meru</a>
+      <div class="card-nav-container">
+        <nav class="card-nav" id="cardNav" aria-label="Sumeru">
+          <div class="card-nav-top">
+            <a class="card-nav-logo" href="index.html">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 100 100">
+                  <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+                    stroke-linejoin="round" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span>Sumeru</span>
+            </a>
+            <div class="card-nav-links">
+              <button class="card-nav-trigger" type="button" data-panel="product">Product <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret"
+                  aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="about">About <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+            </div>
+            <a class="card-nav-cta" href="getting-started.html">Get started</a>
           </div>
-        </li>
-        <li class="tl-item tl-current">
-          <div class="tl-marker"></div>
-          <div class="tl-body">
-            <div class="tl-head"><h3>Phase 2 — Core business</h3><span class="badge badge-progress">In progress</span></div>
-            <div class="meter" role="img" aria-label="Phase 2 is roughly 45 percent complete"><span class="meter-fill" style="width:45%"></span></div>
-            <p>The addons that make it an ERP rather than a framework. Lead to cash runs end to end; the money still needs work.</p>
-            <ul>
-              <li>Done: contacts, products, CRM, sales, invoicing, purchasing, employees</li>
-              <li>Next: computed totals on orders and invoices, per-line invoicing</li>
-              <li>Next: a tax engine, then payments and reconciliation</li>
-              <li>Next: a test suite covering the commercial flow</li>
-            </ul>
+
+          <div class="card-nav-panel" data-panel="product">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="index.html">
+                <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Overview</span>
+                <span class="nav-box-description">What Sumeru is and why</span>
+              </a>
+              <a class="nav-box" href="addons.html">
+                <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Addons</span>
+                <span class="nav-box-description">Business modules that ship today</span>
+              </a>
+              <a class="nav-box" href="editions.html">
+                <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Editions</span>
+                <span class="nav-box-description">Community and enterprise licensing</span>
+              </a>
+              <a class="nav-box" href="roadmap.html">
+                <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Roadmap</span>
+                <span class="nav-box-description">Where the build is going</span>
+              </a>
+            </div>
           </div>
-        </li>
-        <li class="tl-item">
-          <div class="tl-marker"></div>
-          <div class="tl-body">
-            <div class="tl-head"><h3>Phase 3 — Extended</h3><span class="badge badge-planned">Planned</span></div>
-            <p>The functions that surround the core — each one a test of whether the addon contract is good enough for authors outside the project.</p>
-            <ul>
-              <li>Inventory: warehouses, stock moves, valuation</li>
-              <li>Manufacturing: bills of materials and work orders</li>
-              <li>HR beyond a directory: contracts, attendance, leave</li>
-              <li>Localisation packs, and translations wired through the UI</li>
-            </ul>
+
+          <div class="card-nav-panel" data-panel="docs">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="getting-started.html">
+                <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Getting started</span>
+                <span class="nav-box-description">Install and first boot</span>
+              </a>
+              <a class="nav-box" href="architecture.html">
+                <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Architecture</span>
+                <span class="nav-box-description">Three modules, one contract</span>
+              </a>
+              <a class="nav-box" href="faq.html">
+                <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">FAQ</span>
+                <span class="nav-box-description">Licensing, tenancy, API</span>
+              </a>
+            </div>
           </div>
-        </li>
-        <li class="tl-item">
-          <div class="tl-marker"></div>
-          <div class="tl-body">
-            <div class="tl-head"><h3>Phase 4 — Platform</h3><span class="badge badge-later">Later</span></div>
-            <p>Turning Sumeru from a system you deploy into one other people build on.</p>
-            <ul>
-              <li>Studio: models and views defined without writing Go</li>
-              <li>Reporting: query builder, printable documents, statements</li>
-              <li>A distribution story for third-party addons</li>
-              <li>Isolation beyond multi-company, if the demand is real</li>
-            </ul>
+
+          <div class="card-nav-panel" data-panel="about">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="about.html">
+                <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">About Sumeru</span>
+                <span class="nav-box-description">Principles and boundaries</span>
+              </a>
+            </div>
           </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <span class="brand-mark" aria-hidden="true" style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg viewBox="0 0 100 100" width="12" height="12"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </span>
-      <div>
-        <strong>Sumeru</strong>
-        <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
+        </nav>
       </div>
     </div>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="getting-started.html">Getting started</a>
-      <a href="architecture.html">Architecture</a>
-      <a href="addons.html">Addons</a>
-      <a href="editions.html">Editions</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="faq.html">FAQ</a>
-      <a href="about.html">About</a>
-      <a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">GitHub ↗</a>
-    </nav>
   </div>
-  <div class="wrap footer-bottom">
-    <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span id="year"></span></p>
-  </div>
-</footer>
-<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-<script src="js/sumeru.js"></script>
+
+  <main id="main">
+
+    <section class="page-hero" id="top">
+      <div class="wrap">
+        <p class="section-kicker">Where this is going</p>
+        <h1 class="page-hero-title">Roadmap.</h1>
+        <p class="section-lede">Four phases. Each one has to be genuinely usable before the next one starts — no phase
+          exists only to prepare for a later phase.</p>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="wrap wrap-narrow">
+        <ol class="timeline">
+          <li class="tl-item tl-done">
+            <div class="tl-marker"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>Phase 1 — Foundation</h3><span class="badge badge-progress">Mostly done</span>
+              </div>
+              <div class="meter" role="img" aria-label="Phase 1 is roughly 85 percent complete"><span
+                  class="meter-fill meter-done" style="width:85%"></span></div>
+              <p>The kernel and the addon contract. This is the part you can read and rely on today.</p>
+              <ul>
+                <li>Model registry, schema sync and the data layer</li>
+                <li>Addon discovery, convention checks, dependency ordering, install and update</li>
+                <li>Groups, access rights and record rules, enforced in the ORM</li>
+                <li>XML view engine, menus, actions and the rendered shell</li>
+                <li>Event bus, scheduler, structured logging and audit</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item tl-current">
+            <div class="tl-marker"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>Phase 2 — Core business</h3><span class="badge badge-progress">In progress</span>
+              </div>
+              <div class="meter" role="img" aria-label="Phase 2 is roughly 45 percent complete"><span class="meter-fill"
+                  style="width:45%"></span></div>
+              <p>The addons that make it an ERP rather than a framework. Lead to cash runs end to end; the money still
+                needs work.</p>
+              <ul>
+                <li>Done: contacts, products, CRM, sales, invoicing, purchasing, employees</li>
+                <li>Next: computed totals on orders and invoices, per-line invoicing</li>
+                <li>Next: a tax engine, then payments and reconciliation</li>
+                <li>Next: a test suite covering the commercial flow</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-marker"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>Phase 3 — Extended</h3><span class="badge badge-planned">Planned</span>
+              </div>
+              <p>The functions that surround the core — each one a test of whether the addon contract is good enough for
+                authors outside the project.</p>
+              <ul>
+                <li>Inventory: warehouses, stock moves, valuation</li>
+                <li>Manufacturing: bills of materials and work orders</li>
+                <li>HR beyond a directory: contracts, attendance, leave</li>
+                <li>Localisation packs, and translations wired through the UI</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-marker"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>Phase 4 — Platform</h3><span class="badge badge-later">Later</span>
+              </div>
+              <p>Turning Sumeru from a system you deploy into one other people build on.</p>
+              <ul>
+                <li>Studio: models and views defined without writing Go</li>
+                <li>Reporting: query builder, printable documents, statements</li>
+                <li>A distribution story for third-party addons</li>
+                <li>Isolation beyond multi-company, if the demand is real</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true"
+          style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 100 100" width="12" height="12">
+            <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+              stroke-linejoin="round" stroke-linecap="round" />
+          </svg>
+        </span>
+        <div>
+          <strong>Sumeru</strong>
+          <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
+        </div>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="getting-started.html">Getting started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="addons.html">Addons</a>
+        <a href="editions.html">Editions</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span
+          id="year"></span></p>
+    </div>
+  </footer>
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <script src="js/sumeru.js"></script>
 </body>
+
 </html>

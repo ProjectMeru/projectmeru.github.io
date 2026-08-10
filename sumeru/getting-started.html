@@ -1,194 +1,214 @@
 <!DOCTYPE html>
 <html lang="en-GB">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Getting started with Sumeru | Project Meru</title>
-<meta name="description" content="Install Sumeru locally: PostgreSQL, config, setup wizard, and business addon install. Go 1.26+, no Node, no broker.">
-<link rel="canonical" href="https://projectmeru.github.io/sumeru/getting-started.html">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="author" content="Project Meru">
-<meta name="theme-color" content="#050505">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Sumeru">
-<meta property="og:url" content="https://projectmeru.github.io/sumeru/getting-started.html">
-<meta property="og:title" content="Getting started with Sumeru | Project Meru">
-<meta property="og:description" content="Install Sumeru locally: PostgreSQL, config, setup wizard, and business addon install. Go 1.26+, no Node, no broker.">
-<meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
-<meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Getting started with Sumeru | Project Meru">
-<meta name="twitter:description" content="Install Sumeru locally: PostgreSQL, config, setup wizard, and business addon install. Go 1.26+, no Node, no broker.">
-<meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/sumeru.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting started with Sumeru | Project Meru</title>
+  <meta name="description"
+    content="Install Sumeru locally: PostgreSQL, config, setup wizard, and business addon install. Go 1.26+, no Node, no broker.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/getting-started.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sumeru">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/getting-started.html">
+  <meta property="og:title" content="Getting started with Sumeru | Project Meru">
+  <meta property="og:description"
+    content="Install Sumeru locally: PostgreSQL, config, setup wizard, and business addon install. Go 1.26+, no Node, no broker.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Getting started with Sumeru | Project Meru">
+  <meta name="twitter:description"
+    content="Install Sumeru locally: PostgreSQL, config, setup wizard, and business addon install. Go 1.26+, no Node, no broker.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/sumeru.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
 
 </head>
+
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="site-chrome">
-  <div class="chrome-row">
-    <a class="hub-link" href="../index.html">Project Meru</a>
-    <div class="card-nav-container">
-    <nav class="card-nav" id="cardNav" aria-label="Sumeru">
-      <div class="card-nav-top">
-        <a class="card-nav-logo" href="index.html">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 100 100"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-          </span>
-          <span>Sumeru</span>
-        </a>
-        <div class="card-nav-links">
-          <button class="card-nav-trigger" type="button" data-panel="product">Product <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-          <button class="card-nav-trigger" type="button" data-panel="about">About <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
-        </div>
-        <a class="card-nav-cta" href="getting-started.html">Get started</a>
-      </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-chrome">
+    <div class="chrome-row">
+      <a class="hub-link" href="../index.html">Project Meru</a>
+      <div class="card-nav-container">
+        <nav class="card-nav" id="cardNav" aria-label="Sumeru">
+          <div class="card-nav-top">
+            <a class="card-nav-logo" href="index.html">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 100 100">
+                  <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+                    stroke-linejoin="round" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span>Sumeru</span>
+            </a>
+            <div class="card-nav-links">
+              <button class="card-nav-trigger" type="button" data-panel="product">Product <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret"
+                  aria-hidden="true"></span></button>
+              <button class="card-nav-trigger" type="button" data-panel="about">About <span
+                  class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+            </div>
+            <a class="card-nav-cta" href="getting-started.html">Get started</a>
+          </div>
 
-      <div class="card-nav-panel" data-panel="product">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="index.html">
-            <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Overview</span>
-            <span class="nav-box-description">What Sumeru is and why</span>
-          </a>
-          <a class="nav-box" href="addons.html">
-            <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Addons</span>
-            <span class="nav-box-description">Business modules that ship today</span>
-          </a>
-          <a class="nav-box" href="editions.html">
-            <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Editions</span>
-            <span class="nav-box-description">Community and enterprise licensing</span>
-          </a>
-          <a class="nav-box" href="roadmap.html">
-            <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Roadmap</span>
-            <span class="nav-box-description">Where the build is going</span>
-          </a>
-        </div>
-      </div>
+          <div class="card-nav-panel" data-panel="product">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="index.html">
+                <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Overview</span>
+                <span class="nav-box-description">What Sumeru is and why</span>
+              </a>
+              <a class="nav-box" href="addons.html">
+                <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Addons</span>
+                <span class="nav-box-description">Business modules that ship today</span>
+              </a>
+              <a class="nav-box" href="editions.html">
+                <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Editions</span>
+                <span class="nav-box-description">Community and enterprise licensing</span>
+              </a>
+              <a class="nav-box" href="roadmap.html">
+                <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Roadmap</span>
+                <span class="nav-box-description">Where the build is going</span>
+              </a>
+            </div>
+          </div>
 
-      <div class="card-nav-panel" data-panel="docs">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="getting-started.html">
-            <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Getting started</span>
-            <span class="nav-box-description">Install and first boot</span>
-          </a>
-          <a class="nav-box" href="architecture.html">
-            <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">Architecture</span>
-            <span class="nav-box-description">Three modules, one contract</span>
-          </a>
-          <a class="nav-box" href="faq.html">
-            <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">FAQ</span>
-            <span class="nav-box-description">Licensing, tenancy, API</span>
-          </a>
-        </div>
-      </div>
+          <div class="card-nav-panel" data-panel="docs">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="getting-started.html">
+                <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Getting started</span>
+                <span class="nav-box-description">Install and first boot</span>
+              </a>
+              <a class="nav-box" href="architecture.html">
+                <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">Architecture</span>
+                <span class="nav-box-description">Three modules, one contract</span>
+              </a>
+              <a class="nav-box" href="faq.html">
+                <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">FAQ</span>
+                <span class="nav-box-description">Licensing, tenancy, API</span>
+              </a>
+            </div>
+          </div>
 
-      <div class="card-nav-panel" data-panel="about">
-        <div class="card-nav-boxes">
-          <a class="nav-box" href="about.html">
-            <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
-            <span class="nav-box-label">About Sumeru</span>
-            <span class="nav-box-description">Principles and boundaries</span>
-          </a>
-        </div>
+          <div class="card-nav-panel" data-panel="about">
+            <div class="card-nav-boxes">
+              <a class="nav-box" href="about.html">
+                <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
+                <span class="nav-box-label">About Sumeru</span>
+                <span class="nav-box-description">Principles and boundaries</span>
+              </a>
+            </div>
+          </div>
+        </nav>
       </div>
-    </nav>
-  </div>
-  </div>
-</div>
-<main id="main">
-
-  <section class="page-hero" id="top">
-    <div class="wrap">
-      <p class="section-kicker">06 / Start building</p>
-      <h1 class="page-hero-title">Two ways in.</h1>
-      <p class="section-lede">The same system, read from two directions: the commands that get it running, and the business flow it gives you once it is.</p>
     </div>
-  </section>
+  </div>
+  <main id="main">
 
-  <section class="section" id="engineers">
-    <div class="wrap">
-      <div class="tabs" id="startTabs">
-        <div class="tab-buttons" role="tablist">
-          <button class="tab-btn is-active" role="tab" data-tab="engineer">For engineers</button>
-          <button class="tab-btn" role="tab" data-tab="business">For business teams</button>
-        </div>
+    <section class="page-hero" id="top">
+      <div class="wrap">
+        <p class="section-kicker">06 / Start building</p>
+        <h1 class="page-hero-title">Two ways in.</h1>
+        <p class="section-lede">The same system, read from two directions: the commands that get it running, and the
+          business flow it gives you once it is.</p>
+      </div>
+    </section>
 
-        <div class="tab-panel is-active" data-panel="engineer">
-          <p class="panel-lede">You need Go 1.26+ and PostgreSQL. Nothing else — no Node, no Docker, no message broker. Every command below runs from your workspace module, <code>sumeru_custom_addons</code>.</p>
+    <section class="section" id="engineers">
+      <div class="wrap">
+        <div class="tabs" id="startTabs">
+          <div class="tab-buttons" role="tablist">
+            <button class="tab-btn is-active" role="tab" data-tab="engineer">For engineers</button>
+            <button class="tab-btn" role="tab" data-tab="business">For business teams</button>
+          </div>
 
-          <ol class="steps">
-            <li class="step">
-              <div class="step-num">1</div>
-              <div class="step-body">
-                <h3>Create the database and the config</h3>
-                <pre><code>$ psql -U postgres -c "CREATE DATABASE sumeru;"
+          <div class="tab-panel is-active" data-panel="engineer">
+            <p class="panel-lede">You need Go 1.26+ and PostgreSQL. Nothing else — no Node, no Docker, no message
+              broker. Every command below runs from your workspace module, <code>sumeru_custom_addons</code>.</p>
+
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                  <h3>Create the database and the config</h3>
+                  <pre><code>$ psql -U postgres -c "CREATE DATABASE sumeru;"
 
 $ cd sumeru_custom_addons
 $ cp sumeru.conf.example sumeru.conf
 # edit db_host / db_user / db_password / db_name / http_port</code></pre>
-                <p>Paths inside the INI resolve against the file itself, not your shell. The <code>addons_path</code> key is what decides which addons exist at all.</p>
-              </div>
-            </li>
-            <li class="step">
-              <div class="step-num">2</div>
-              <div class="step-body">
-                <h3>Point the workspace at the other two modules</h3>
-                <pre><code>$ make replace-sumeru        SUMERU_ROOT=../sumeru
+                  <p>Paths inside the INI resolve against the file itself, not your shell. The <code>addons_path</code>
+                    key is what decides which addons exist at all.</p>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                  <h3>Point the workspace at the other two modules</h3>
+                  <pre><code>$ make replace-sumeru        SUMERU_ROOT=../sumeru
 $ make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons
 $ make generate</code></pre>
-                <p><code>make generate</code> rewrites <code>addonimports/zimports.go</code>, the blank imports that link every discovered addon into the binary. Run it whenever you add an addon.</p>
-              </div>
-            </li>
-            <li class="step">
-              <div class="step-num">3</div>
-              <div class="step-body">
-                <h3>First boot — the setup wizard</h3>
-                <pre><code>$ make run
+                  <p><code>make generate</code> rewrites <code>addonimports/zimports.go</code>, the blank imports that
+                    link every discovered addon into the binary. Run it whenever you add an addon.</p>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                  <h3>First boot — the setup wizard</h3>
+                  <pre><code>$ make run
 
 Database is not initialized. Starting in SETUP MODE.
 Visit http://localhost:9090/setup to initialize the system.</code></pre>
-                <p>There is <strong>no default admin account</strong>. The wizard at <code>/setup</code> creates your company and the first user; the email you give it becomes the login.</p>
-              </div>
-            </li>
-            <li class="step">
-              <div class="step-num">4</div>
-              <div class="step-body">
-                <h3>Install the business addons</h3>
-                <pre><code>$ go run . -- -c sumeru.conf \
+                  <p>There is <strong>no default admin account</strong>. The wizard at <code>/setup</code> creates your
+                    company and the first user; the email you give it becomes the login.</p>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                  <h3>Install the business addons</h3>
+                  <pre><code>$ go run . -- -c sumeru.conf \
     -i contacts,product,crm,sale,sale_crm,account,purchase,hr \
     --stop-after-init</code></pre>
-                <p>Install order matters and follows <code>depends</code>. <code>-i all</code> is rejected on purpose — you name what you want.</p>
-              </div>
-            </li>
-            <li class="step">
-              <div class="step-num">5</div>
-              <div class="step-body">
-                <h3>Run it</h3>
-                <pre><code>$ make run
+                  <p>Install order matters and follows <code>depends</code>. <code>-i all</code> is rejected on purpose
+                    — you name what you want.</p>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-num">5</div>
+                <div class="step-body">
+                  <h3>Run it</h3>
+                  <pre><code>$ make run
 Server starting on :9090...
 
 # open http://localhost:9090/  →  /web/home</code></pre>
-              </div>
-            </li>
-          </ol>
+                </div>
+              </li>
+            </ol>
 
-          <h3 class="mt-lg">The inner loop for a new addon</h3>
-          <pre><code># scaffold — manifest, init.go, models, views, menus, security
+            <h3 class="mt-lg">The inner loop for a new addon</h3>
+            <pre><code># scaffold — manifest, init.go, models, views, menus, security
 $ go run ../sumeru/cmd/sumeru-bp -name my_module -out ./addons
 
 # link it into the binary, then install it once
@@ -198,93 +218,154 @@ $ go run . -- -c sumeru.conf -i my_module --stop-after-init
 # after editing any XML or the manifest's data list, reload it
 $ go run . -- -c sumeru.conf -u my_module --stop-after-init
 $ make run</code></pre>
-          <p class="fineprint">Go code changes need a rebuild — that is what <code>make run</code> does. XML changes need <code>-u</code>, because views, menus and access rules live in the database once installed.</p>
+            <p class="fineprint">Go code changes need a rebuild — that is what <code>make run</code> does. XML changes
+              need <code>-u</code>, because views, menus and access rules live in the database once installed.</p>
 
-          <h3 class="mt-lg">Server flags</h3>
-          <div class="table-scroll">
-            <table class="compare">
-              <thead>
-                <tr><th scope="col">Flag</th><th scope="col">What it does</th><th scope="col">Note</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row"><code>-c &lt;path&gt;</code></th><td>Config file to read</td><td>Defaults to <code>sumeru.conf</code></td></tr>
-                <tr><th scope="row"><code>-i &lt;mods&gt;</code></th><td>Install addons, comma-separated</td><td><code>all</code> is rejected</td></tr>
-                <tr><th scope="row"><code>-u &lt;mods&gt;</code></th><td>Reload addon data and schema</td><td><code>-u all</code> is allowed</td></tr>
-                <tr><th scope="row"><code>-d</code>, <code>--database</code></th><td>Override the database name</td><td>Beats the config file</td></tr>
-                <tr><th scope="row"><code>-p</code>, <code>--http-port</code></th><td>Override the listen port</td><td>Beats the config file</td></tr>
-                <tr><th scope="row"><code>--stop-after-init</code></th><td>Exit after install/update</td><td>Only acts with <code>-i</code> or <code>-u</code></td></tr>
-              </tbody>
-            </table>
+            <h3 class="mt-lg">Server flags</h3>
+            <div class="table-scroll">
+              <table class="compare">
+                <thead>
+                  <tr>
+                    <th scope="col">Flag</th>
+                    <th scope="col">What it does</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><code>-c &lt;path&gt;</code></th>
+                    <td>Config file to read</td>
+                    <td>Defaults to <code>sumeru.conf</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>-i &lt;mods&gt;</code></th>
+                    <td>Install addons, comma-separated</td>
+                    <td><code>all</code> is rejected</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>-u &lt;mods&gt;</code></th>
+                    <td>Reload addon data and schema</td>
+                    <td><code>-u all</code> is allowed</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>-d</code>, <code>--database</code></th>
+                    <td>Override the database name</td>
+                    <td>Beats the config file</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>-p</code>, <code>--http-port</code></th>
+                    <td>Override the listen port</td>
+                    <td>Beats the config file</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>--stop-after-init</code></th>
+                    <td>Exit after install/update</td>
+                    <td>Only acts with <code>-i</code> or <code>-u</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-panel="business">
+            <p class="panel-lede">No commands here. This is what the system does once it is running, what you can change
+              yourself, and what still needs an engineer.</p>
+            <div class="grid grid-3">
+              <div class="card">
+                <div class="card-num">01</div>
+                <h3>You switch apps on</h3>
+                <p>The Apps screen lists every available module. Installing one brings its own menus, screens and
+                  permission groups. Install only what you use.</p>
+              </div>
+              <div class="card">
+                <div class="card-num">02</div>
+                <h3>Roles decide what people see</h3>
+                <p>Users belong to groups, and groups carry both menu visibility and record access. A salesperson sees
+                  their own orders; a manager sees all of them.</p>
+              </div>
+              <div class="card">
+                <div class="card-num">03</div>
+                <h3>One database, several companies</h3>
+                <p>A group of companies runs on a single system with a switcher in the top bar. Records follow the
+                  company they were created in.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-lg">The flow that works today</h3>
+            <p>Each arrow is automatic. The system reacts to a status change rather than asking someone to re-key the
+              same figures into the next screen.</p>
+            <div class="flow-scroll">
+              <ol class="flow">
+                <li class="flow-step"><span class="flow-label">Lead</span><span class="flow-note">CRM pipeline</span>
+                </li>
+                <li class="flow-step"><span class="flow-label">Won</span><span class="flow-note">stage marked won</span>
+                </li>
+                <li class="flow-step"><span class="flow-label">Quotation</span><span class="flow-note">draft sales
+                    order</span></li>
+                <li class="flow-step"><span class="flow-label">Sales order</span><span
+                    class="flow-note">confirmed</span></li>
+                <li class="flow-step"><span class="flow-label">Invoice</span><span class="flow-note">draft, then
+                    posted</span></li>
+                <li class="flow-step is-end"><span class="flow-label">Journal entries</span><span
+                    class="flow-note">balanced, double-entry</span></li>
+              </ol>
+            </div>
+            <p class="fineprint">Purchasing runs the same way: confirm a purchase order and a vendor bill is drafted
+              against it.</p>
+
+            <div class="gaps">
+              <h3>What is genuinely missing</h3>
+              <ul>
+                <li><strong>Taxes</strong> — no tax engine on any document.</li>
+                <li><strong>Payments</strong> — invoices carry a payment status, but nothing registers a payment or
+                  reconciles a bank statement.</li>
+                <li><strong>Order totals</strong> — sales order amounts are stored, not yet computed from their lines.
+                </li>
+                <li><strong>Inventory</strong> — no stock, warehouses or manufacturing at all.</li>
+                <li><strong>Reports</strong> — no printable documents, no financial statements.</li>
+                <li><strong>Tests</strong> — the business addons have no automated test suite.</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div class="tab-panel" data-panel="business">
-          <p class="panel-lede">No commands here. This is what the system does once it is running, what you can change yourself, and what still needs an engineer.</p>
-          <div class="grid grid-3">
-            <div class="card"><div class="card-num">01</div><h3>You switch apps on</h3><p>The Apps screen lists every available module. Installing one brings its own menus, screens and permission groups. Install only what you use.</p></div>
-            <div class="card"><div class="card-num">02</div><h3>Roles decide what people see</h3><p>Users belong to groups, and groups carry both menu visibility and record access. A salesperson sees their own orders; a manager sees all of them.</p></div>
-            <div class="card"><div class="card-num">03</div><h3>One database, several companies</h3><p>A group of companies runs on a single system with a switcher in the top bar. Records follow the company they were created in.</p></div>
-          </div>
-
-          <h3 class="mt-lg">The flow that works today</h3>
-          <p>Each arrow is automatic. The system reacts to a status change rather than asking someone to re-key the same figures into the next screen.</p>
-          <div class="flow-scroll">
-            <ol class="flow">
-              <li class="flow-step"><span class="flow-label">Lead</span><span class="flow-note">CRM pipeline</span></li>
-              <li class="flow-step"><span class="flow-label">Won</span><span class="flow-note">stage marked won</span></li>
-              <li class="flow-step"><span class="flow-label">Quotation</span><span class="flow-note">draft sales order</span></li>
-              <li class="flow-step"><span class="flow-label">Sales order</span><span class="flow-note">confirmed</span></li>
-              <li class="flow-step"><span class="flow-label">Invoice</span><span class="flow-note">draft, then posted</span></li>
-              <li class="flow-step is-end"><span class="flow-label">Journal entries</span><span class="flow-note">balanced, double-entry</span></li>
-            </ol>
-          </div>
-          <p class="fineprint">Purchasing runs the same way: confirm a purchase order and a vendor bill is drafted against it.</p>
-
-          <div class="gaps">
-            <h3>What is genuinely missing</h3>
-            <ul>
-              <li><strong>Taxes</strong> — no tax engine on any document.</li>
-              <li><strong>Payments</strong> — invoices carry a payment status, but nothing registers a payment or reconciles a bank statement.</li>
-              <li><strong>Order totals</strong> — sales order amounts are stored, not yet computed from their lines.</li>
-              <li><strong>Inventory</strong> — no stock, warehouses or manufacturing at all.</li>
-              <li><strong>Reports</strong> — no printable documents, no financial statements.</li>
-              <li><strong>Tests</strong> — the business addons have no automated test suite.</li>
-            </ul>
-          </div>
+        <div class="notice"><strong>Heads up.</strong> Sumeru is pre-alpha. Do not run your business on it yet.</div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true"
+          style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 100 100" width="12" height="12">
+            <path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12"
+              stroke-linejoin="round" stroke-linecap="round" />
+          </svg>
+        </span>
+        <div>
+          <strong>Sumeru</strong>
+          <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
         </div>
       </div>
-
-      <div class="notice"><strong>Heads up.</strong> Sumeru is pre-alpha. Do not run your business on it yet.</div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="getting-started.html">Getting started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="addons.html">Addons</a>
+        <a href="editions.html">Editions</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
     </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <span class="brand-mark" aria-hidden="true" style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg viewBox="0 0 100 100" width="12" height="12"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </span>
-      <div>
-        <strong>Sumeru</strong>
-        <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
-      </div>
+    <div class="wrap footer-bottom">
+      <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span
+          id="year"></span></p>
     </div>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="getting-started.html">Getting started</a>
-      <a href="architecture.html">Architecture</a>
-      <a href="addons.html">Addons</a>
-      <a href="editions.html">Editions</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="faq.html">FAQ</a>
-      <a href="about.html">About</a>
-      <a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">GitHub ↗</a>
-    </nav>
-  </div>
-  <div class="wrap footer-bottom">
-    <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span id="year"></span></p>
-  </div>
-</footer>
-<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-<script src="js/sumeru.js"></script>
+  </footer>
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <script src="js/sumeru.js"></script>
 </body>
+
 </html>
