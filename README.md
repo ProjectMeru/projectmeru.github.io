@@ -24,8 +24,9 @@ This repository is the GitHub Pages site:
 .
 ├── index.html              # Project Meru hub
 ├── about.html              # initiative / naming
-├── css/meru.css            # hub styles (Sillo-family dark)
-├── js/meru.js              # card-nav, reveal
+├── css/meru.css            # hub styles (Sillo-family, light/dark)
+├── js/meru.js              # card-nav, theme, reveal
+├── og.png                  # Open Graph image (1200×630)
 ├── sumeru/
 │   ├── index.html          # product landing
 │   ├── getting-started.html
@@ -35,8 +36,9 @@ This repository is the GitHub Pages site:
 │   ├── roadmap.html
 │   ├── faq.html
 │   ├── about.html
-│   ├── css/sumeru.css      # product styles (teal accent)
-│   └── js/sumeru.js
+│   ├── css/sumeru.css      # product styles (teal accent, light/dark)
+│   ├── js/sumeru.js
+│   └── og.png              # Open Graph image (1200×630)
 ├── sitemap.xml
 ├── robots.txt
 ├── llms.txt
@@ -45,8 +47,9 @@ This repository is the GitHub Pages site:
 
 Hand-written HTML, CSS and JavaScript only. No frameworks, no build step, no bundler.
 
-Both sites share a Sillo-inspired dark visual family: floating pill **card-nav**, Instrument Sans +
-JetBrains Mono, elevated surfaces, numbered sections. Meru uses a blue accent; Sumeru uses teal.
+Both sites share a Sillo-inspired visual family: floating pill **card-nav**, Instrument Sans +
+JetBrains Mono, elevated surfaces, numbered sections, GitHub link, and light/dark theme toggle.
+Meru uses a blue accent; Sumeru uses teal. Dark is the default; the toggle persists per site.
 
 ### Running it locally
 

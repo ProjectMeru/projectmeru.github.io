@@ -13,6 +13,36 @@
   var reduceMotion = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var THEME_KEY = 'sumeru-theme';
+
+  function currentTheme() {
+    var t = document.documentElement.getAttribute('data-theme');
+    return t === 'light' ? 'light' : 'dark';
+  }
+
+  function applyTheme(theme) {
+    var next = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* ignore */ }
+    var meta = $('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute('content', next === 'light' ? '#f3f3f0' : '#050505');
+    }
+    $$('.theme-toggle').forEach(function (btn) {
+      btn.setAttribute('aria-label', next === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+      btn.setAttribute('title', next === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+    });
+  }
+
+  applyTheme(currentTheme());
+
+  $$('.theme-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      applyTheme(currentTheme() === 'light' ? 'dark' : 'light');
+    });
+  });
+
   /* ── Card nav ──────────────────────────────────────────────────────────── */
 
   var nav = $('#cardNav');
@@ -279,7 +309,7 @@
   }
 
   var revealTargets = $$(
-    '.card, .feature, .module, .tl-item, .arch-tier, .edition, .faq-item, .cap-item'
+    '.card, .module, .tl-item, .arch-tier, .edition, .faq-item, .cap-item'
   ).filter(function (el) {
     return !el.closest('.tab-panel') && !el.closest('.card-nav');
   });
