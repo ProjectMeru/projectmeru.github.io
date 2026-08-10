@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumeru architecture — three modules, one contract | Project Meru</title>
+<meta name="description" content="Sumeru is three Go modules: core, standard addons, and your workspace. Models, manifests, views, events and security explained with code.">
+<link rel="canonical" href="https://projectmeru.github.io/sumeru/architecture.html">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Project Meru">
+<meta name="theme-color" content="#050505">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sumeru">
+<meta property="og:url" content="https://projectmeru.github.io/sumeru/architecture.html">
+<meta property="og:title" content="Sumeru architecture — three modules, one contract | Project Meru">
+<meta property="og:description" content="Sumeru is three Go modules: core, standard addons, and your workspace. Models, manifests, views, events and security explained with code.">
+<meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sumeru architecture — three modules, one contract | Project Meru">
+<meta name="twitter:description" content="Sumeru is three Go modules: core, standard addons, and your workspace. Models, manifests, views, events and security explained with code.">
+<meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sumeru.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="site-chrome">
+  <div class="chrome-row">
+    <a class="hub-link" href="../index.html">Project Meru</a>
+    <div class="card-nav-container">
+    <nav class="card-nav" id="cardNav" aria-label="Sumeru">
+      <div class="card-nav-top">
+        <a class="card-nav-logo" href="index.html">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          </span>
+          <span>Sumeru</span>
+        </a>
+        <div class="card-nav-links">
+          <button class="card-nav-trigger" type="button" data-panel="product">Product <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+          <button class="card-nav-trigger" type="button" data-panel="docs">Docs <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+          <button class="card-nav-trigger" type="button" data-panel="about">About <span class="card-nav-trigger-caret" aria-hidden="true"></span></button>
+        </div>
+        <a class="card-nav-cta" href="getting-started.html">Get started</a>
+      </div>
+
+      <div class="card-nav-panel" data-panel="product">
+        <div class="card-nav-boxes">
+          <a class="nav-box" href="index.html">
+            <div class="nav-box-head"><span class="nav-box-tile">01</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">Overview</span>
+            <span class="nav-box-description">What Sumeru is and why</span>
+          </a>
+          <a class="nav-box" href="addons.html">
+            <div class="nav-box-head"><span class="nav-box-tile">02</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">Addons</span>
+            <span class="nav-box-description">Business modules that ship today</span>
+          </a>
+          <a class="nav-box" href="editions.html">
+            <div class="nav-box-head"><span class="nav-box-tile">03</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">Editions</span>
+            <span class="nav-box-description">Community and enterprise licensing</span>
+          </a>
+          <a class="nav-box" href="roadmap.html">
+            <div class="nav-box-head"><span class="nav-box-tile">04</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">Roadmap</span>
+            <span class="nav-box-description">Where the build is going</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card-nav-panel" data-panel="docs">
+        <div class="card-nav-boxes">
+          <a class="nav-box" href="getting-started.html">
+            <div class="nav-box-head"><span class="nav-box-tile">→</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">Getting started</span>
+            <span class="nav-box-description">Install and first boot</span>
+          </a>
+          <a class="nav-box" href="architecture.html">
+            <div class="nav-box-head"><span class="nav-box-tile">◇</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">Architecture</span>
+            <span class="nav-box-description">Three modules, one contract</span>
+          </a>
+          <a class="nav-box" href="faq.html">
+            <div class="nav-box-head"><span class="nav-box-tile">?</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">FAQ</span>
+            <span class="nav-box-description">Licensing, tenancy, API</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card-nav-panel" data-panel="about">
+        <div class="card-nav-boxes">
+          <a class="nav-box" href="about.html">
+            <div class="nav-box-head"><span class="nav-box-tile">※</span><span class="nav-box-arrow">↗</span></div>
+            <span class="nav-box-label">About Sumeru</span>
+            <span class="nav-box-description">Principles and boundaries</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  </div>
+</div>
+<main id="main">
+
+  <section class="page-hero" id="top">
+    <div class="wrap">
+      <p class="section-kicker">03 / Architecture</p>
+      <h1 class="page-hero-title">Three modules, one contract.</h1>
+      <p class="section-lede">Sumeru is not one repository you fork. It is a core Go module, a module of standard business addons, and your own workspace module that imports both.</p>
+    </div>
+  </section>
+
+  <section class="section" id="stack">
+    <div class="wrap">
+      <div class="arch arch-stack">
+        <div class="arch-tier arch-tier-you">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">sumeru_custom_addons</span>
+            <span class="arch-tier-label">your workspace · runs the server</span>
+          </div>
+          <div class="arch-chips arch-chips-line">
+            <span>main.go</span><span>sumeru.conf</span><span>addonimports/</span><span>addons/…</span>
+          </div>
+        </div>
+        <div class="arch-connector"><span>replace sumeru_addons</span></div>
+        <div class="arch-tier">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">sumeru_addons</span>
+            <span class="arch-tier-label">standard business addons</span>
+          </div>
+          <div class="arch-chips">
+            <span>contacts</span><span>product</span><span>crm</span><span>sale</span>
+            <span>sale_crm</span><span>account</span><span>purchase</span><span>hr</span>
+          </div>
+        </div>
+        <div class="arch-connector"><span>replace sumeru</span></div>
+        <div class="arch-tier arch-tier-core">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">sumeru</span>
+            <span class="arch-tier-label">the core framework</span>
+          </div>
+          <div class="arch-chips">
+            <span>orm</span><span>module</span><span>engine</span><span>server</span><span>event</span>
+            <span>sdk</span><span>scheduler</span><span>applog</span><span>cache</span>
+          </div>
+          <div class="arch-tier-sub">in-tree apps: base · mail · automation · sumeru_ai</div>
+        </div>
+        <div class="arch-connector"><span>lib/pq</span></div>
+        <div class="arch-tier arch-tier-db">
+          <div class="arch-tier-head">
+            <span class="arch-tier-name">PostgreSQL</span>
+            <span class="arch-tier-label">one database · many companies</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2 mt-lg">
+        <div class="card card-accent">
+          <h3>Nothing imports sideways</h3>
+          <p>No addon imports another addon's Go package. Invoicing subscribes to <code>record.updated</code>, checks whether <code>sale.order</code> is in the registry, and only then builds an invoice.</p>
+        </div>
+        <div class="card card-accent">
+          <h3>Dependencies are declared, not imported</h3>
+          <p>The <code>depends</code> array in the manifest drives install order and nothing else: <code>sale</code> needs <code>product</code>, <code>contacts</code> and <code>crm</code> installed, but never links against them.</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <div class="tab-buttons" role="tablist">
+          <button class="tab-btn is-active" role="tab" data-tab="model">A model</button>
+          <button class="tab-btn" role="tab" data-tab="manifest">The manifest</button>
+          <button class="tab-btn" role="tab" data-tab="views">Views &amp; menus</button>
+          <button class="tab-btn" role="tab" data-tab="events">Events</button>
+          <button class="tab-btn" role="tab" data-tab="security">Security</button>
+        </div>
+
+        <div class="tab-panel is-active" data-panel="model">
+          <pre><code>// sumeru_addons/account/models/account_journal.go
+package models
+
+import "sumeru/core/sdk"
+
+type AccountJournal struct {
+    sdk.BaseModel
+}
+
+func (AccountJournal) ModelName() string { return "account.journal" }
+
+func (AccountJournal) Fields() []sdk.FieldDefinition {
+    return []sdk.FieldDefinition{
+        {Name: "name", Type: sdk.Char, String: "Journal Name", Required: true},
+        {Name: "code", Type: sdk.Char, String: "Short Code", Required: true},
+        {Name: "active", Type: sdk.Boolean, String: "Active", DefaultVal: true},
+    }
+}
+
+func init() {
+    sdk.RegisterModel(sdk.RegisterModelInput{Model: &AccountJournal{}, Module: "account"})
+}</code></pre>
+        </div>
+
+        <div class="tab-panel" data-panel="manifest">
+          <pre><code>// sumeru_addons/account/manifest.json
+{
+  "name": "account",
+  "display_name": "Invoicing",
+  "version": "1.0.0",
+  "depends": ["product", "contacts"],
+  "data": [
+    "security/security.xml",
+    "security/sys.access.csv",
+    "data/account_data.xml",
+    "views/account_views.xml",
+    "views/menus.xml"
+  ],
+  "application": true
+}</code></pre>
+        </div>
+
+        <div class="tab-panel" data-panel="views">
+          <pre><code>&lt;!-- sumeru_addons/account/views/ --&gt;
+&lt;action id="action_account_moves_out"
+        type="window" model="account.move"
+        name="Customer Invoices" view_mode="tree,form"/&gt;
+
+&lt;menuitem id="menu_account_invoices" name="Invoices"
+          action="account.action_account_moves_out"/&gt;</code></pre>
+        </div>
+
+        <div class="tab-panel" data-panel="events">
+          <pre><code>// sumeru_addons/account/init.go
+func init() {
+    event.Subscribe("record.updated", onSaleOrderToInvoice)
+}
+
+func onSaleOrderToInvoice(ctx context.Context, ev event.Event) error {
+    if model, _ := ev.Payload["model"].(string); model != "sale.order" {
+        return nil
+    }
+    if _, ok := orm.Registry["sale.order"]; !ok {
+        return nil // Sales is not installed
+    }
+    // create draft invoice idempotently
+    return nil
+}</code></pre>
+        </div>
+
+        <div class="tab-panel" data-panel="security">
+          <pre><code># sumeru_addons/account/security/sys.access.csv
+id,name,model,group_id,perm_read,perm_write,perm_create,perm_unlink
+access_account_move_user,...,account.move,group_account_invoice,1,1,1,0
+access_account_move_manager,...,account.move,group_account_manager,1,1,1,1</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true" style="width:22px;height:22px;border-radius:7px;background:var(--color-primary);color:#042f2e;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 100 100" width="12" height="12"><path d="M22 74V26l28 26 28-26v48" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </span>
+      <div>
+        <strong>Sumeru</strong>
+        <p>A modular ERP framework in Go. Part of <a href="../index.html">Project Meru</a>.</p>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="getting-started.html">Getting started</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="addons.html">Addons</a>
+      <a href="editions.html">Editions</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>Pre-alpha · Community edition under Apache 2.0 · Enterprise edition under a commercial licence · <span id="year"></span></p>
+  </div>
+</footer>
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+<script src="js/sumeru.js"></script>
+</body>
+</html>
