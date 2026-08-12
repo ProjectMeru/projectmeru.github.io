@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Project Meru — hub styles (Sillo-family dark)
-   ========================================================================== */
+/* Project Meru - hub styles */
 
 :root {
   --font-sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
@@ -38,6 +36,7 @@
   --wrap: 1120px;
   --radius: 14px;
   --radius-sm: 8px;
+  --chrome-stack: 72px;
   --header-offset: 88px;
 
   color-scheme: dark;
@@ -134,7 +133,7 @@ img, svg { max-width: 100%; display: block; }
 .wrap-narrow { max-width: 760px; }
 .mt-lg { margin-top: 44px; }
 
-/* ── Card nav ────────────────────────────────────────────────────────────── */
+/* Card nav */
 
 .site-chrome {
   position: sticky;
@@ -142,19 +141,21 @@ img, svg { max-width: 100%; display: block; }
   z-index: 99;
   padding: 16px 0 0;
   pointer-events: none;
+  background: transparent;
 }
 .site-chrome > * { pointer-events: auto; }
 
 .card-nav-container {
   position: relative;
-  width: min(94vw, 980px);
+  width: fit-content;
+  max-width: min(94vw, 920px);
   margin: 0 auto;
   z-index: 99;
 }
 
 .card-nav {
   display: block;
-  height: 60px;
+  height: 56px;
   padding: 0;
   border: 1px solid var(--nav-border);
   border-radius: 999px;
@@ -168,16 +169,16 @@ img, svg { max-width: 100%; display: block; }
 }
 .card-nav.open {
   height: auto;
-  border-radius: 24px;
+  border-radius: 22px;
 }
 
 .card-nav-top {
-  height: 60px;
+  height: 56px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 9px 8px 18px;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 6px 8px 6px 14px;
   position: relative;
   z-index: 2;
 }
@@ -233,6 +234,7 @@ img, svg { max-width: 100%; display: block; }
   align-items: center;
   gap: 2px;
   min-width: 0;
+  margin-left: 2px;
 }
 
 .card-nav-trigger {
@@ -271,9 +273,9 @@ img, svg { max-width: 100%; display: block; }
 .card-nav-cta {
   border: none;
   border-radius: 999px;
-  padding: 0 18px;
+  padding: 0 16px;
   height: 100%;
-  min-height: 44px;
+  min-height: 42px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -282,6 +284,7 @@ img, svg { max-width: 100%; display: block; }
   justify-content: center;
   flex: 0 0 auto;
   white-space: nowrap;
+  margin-left: 4px;
   background: var(--color-primary);
   color: var(--color-on-primary);
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
@@ -296,9 +299,9 @@ img, svg { max-width: 100%; display: block; }
 .card-nav-actions {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   flex: 0 0 auto;
-  margin-left: 2px;
+  margin-left: 0;
 }
 .card-nav-icon-link,
 .theme-toggle {
@@ -404,6 +407,19 @@ img, svg { max-width: 100%; display: block; }
   border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
   color: var(--color-primary);
 }
+.nav-box-featured {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+.nav-box-featured .nav-box-tile {
+  background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+  border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  color: var(--color-primary);
+}
+.nav-box-featured .nav-box-label {
+  color: var(--color-primary);
+  font-weight: 650;
+}
 .nav-box-arrow { opacity: .22; font-size: 12px; transition: opacity .22s ease, transform .22s ease; }
 .nav-box:hover .nav-box-arrow { opacity: .8; transform: translate(1px, -1px); }
 .nav-box-label {
@@ -424,6 +440,7 @@ img, svg { max-width: 100%; display: block; }
 
 @media (max-width: 900px) {
   .card-nav-cta { display: none; }
+  .card-nav-actions { margin-left: auto; }
 
   .card-nav.open {
     border-radius: 20px;
@@ -480,6 +497,7 @@ img, svg { max-width: 100%; display: block; }
 }
 
 @media (max-width: 768px) {
+  :root { --chrome-stack: 68px; } /* 12 + nav 56 */
   .site-chrome { padding: 12px 12px 0; }
   .card-nav-container { width: 100%; max-width: none; }
 
@@ -562,7 +580,7 @@ img, svg { max-width: 100%; display: block; }
   .card-nav-trigger-caret { display: none; }
 }
 
-/* ── Buttons ─────────────────────────────────────────────────────────────── */
+/* Buttons */
 
 .btn {
   display: inline-flex;
@@ -589,7 +607,7 @@ img, svg { max-width: 100%; display: block; }
 .btn-ghost:hover { background: var(--fill-ghost-hover); color: var(--color-text); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
-/* ── Sections ────────────────────────────────────────────────────────────── */
+/* Sections */
 
 .section { padding: 96px 0; position: relative; }
 .section-alt {
@@ -614,7 +632,9 @@ img, svg { max-width: 100%; display: block; }
 }
 
 .hero {
-  padding: 72px 0 56px;
+  /* Pull hero wash under sticky chrome; padding keeps content position unchanged */
+  margin-top: calc(-1 * var(--chrome-stack));
+  padding: calc(var(--chrome-stack) + 72px) 0 56px;
   background:
     radial-gradient(ellipse 55% 80% at 50% 0%, color-mix(in srgb, var(--color-primary) 13%, transparent), transparent 62%),
     linear-gradient(135deg, var(--hero-sheen), transparent 38%);
@@ -646,7 +666,7 @@ img, svg { max-width: 100%; display: block; }
 .hero h1 span { color: var(--color-muted); font-weight: 400; }
 .lede { font-size: 1.08rem; max-width: 52ch; }
 
-/* ── Cards / grids ───────────────────────────────────────────────────────── */
+/* Cards / grids */
 
 .grid { display: grid; gap: 14px; }
 .grid-2 { grid-template-columns: 1fr; }
@@ -732,7 +752,7 @@ img, svg { max-width: 100%; display: block; }
   border-color: var(--color-border);
 }
 
-/* ── Code / terminal ─────────────────────────────────────────────────────── */
+/* Code / terminal */
 
 .terminal {
   border: 1px solid var(--color-border-strong);
@@ -787,7 +807,7 @@ pre {
 }
 pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 
-/* ── Footer / misc ───────────────────────────────────────────────────────── */
+/* Footer / misc */
 
 .site-footer {
   border-top: 1px solid var(--color-border);

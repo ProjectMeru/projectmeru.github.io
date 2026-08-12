@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script>
-(function(){try{var k='meru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f3f3f0':'#050505');});}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='meru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Project Meru</title>
@@ -21,7 +21,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:alt" content="Project Meru — open-source software across categories">
+<meta property="og:image:alt" content="Project Meru: open-source software across categories">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About Project Meru">
@@ -89,7 +89,7 @@
       </div>
       <div class="card-nav-panel" data-panel="projects">
         <div class="card-nav-boxes">
-          <a class="nav-box" href="sumeru/">
+          <a class="nav-box nav-box-featured" href="sumeru/">
             <div class="nav-box-head"><span class="nav-box-tile">S</span><span class="nav-box-arrow">↗</span></div>
             <span class="nav-box-label">Sumeru</span>
             <span class="nav-box-description">Modular ERP framework in Go</span>
@@ -137,7 +137,7 @@
       <h1>Project Meru is the initiative.<span style="display:block;color:var(--color-muted);font-weight:400">Products keep their own names.</span></h1>
       <p class="lede">
         Meru is the home for public writing, the GitHub organisation, and the catalogue of projects.
-        <strong>Sumeru</strong> is the first product — that is the name you will see in the code, the CLI and the Go modules.
+        <strong>Sumeru</strong> is the first product. That is the name you will see in the code, the CLI and the Go modules.
       </p>
     </div>
   </section>
@@ -167,7 +167,7 @@
         <div class="card">
           <div class="card-num">01</div>
           <h3>Plain surfaces</h3>
-          <p>Product sites stay HTML, CSS and JS — no build step for the marketing layer, matching the operational taste of the software we write.</p>
+          <p>Product sites stay HTML, CSS and JS: no build step, same as the product UI.</p>
         </div>
         <div class="card">
           <div class="card-num">02</div>

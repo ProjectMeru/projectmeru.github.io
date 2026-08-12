@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f3f3f0':'#050505');});}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sumeru FAQ | Project Meru</title>
@@ -24,7 +24,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:image:alt" content="Sumeru: modular ERP framework in Go">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sumeru FAQ | Project Meru">
@@ -44,7 +44,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Project Meru or Sumeru — which is it?","acceptedAnswer":{"@type":"Answer","text":"Both. Project Meru is the initiative; Sumeru is the framework it produces."}},
+    {"@type":"Question","name":"Project Meru or Sumeru: which is it?","acceptedAnswer":{"@type":"Answer","text":"Both. Project Meru is the initiative; Sumeru is the framework it produces."}},
     {"@type":"Question","name":"Can I use Sumeru today?","acceptedAnswer":{"@type":"Answer","text":"You can run it, but it is pre-alpha: no tagged release, no upgrade path, no test suite on the business addons."}},
     {"@type":"Question","name":"Does Sumeru have an API?","acceptedAnswer":{"@type":"Answer","text":"Yes, JSON-RPC at POST /api/rpc with API-key authentication."}},
     {"@type":"Question","name":"Is Sumeru multi-tenant?","acceptedAnswer":{"@type":"Answer","text":"No. One server serves one database. Multi-company inside that database is supported."}},
@@ -66,7 +66,7 @@
               <span class="brand-mark" aria-hidden="true">
                 <img src="../logo.png" alt="" width="28" height="28" decoding="async">
               </span>
-              <span>Sumeru</span>
+              <span class="brand-name">Sumeru</span>
             </a>
             <div class="card-nav-links">
               <button class="card-nav-trigger" type="button" data-panel="product">Product <span
@@ -159,7 +159,7 @@
       <div class="wrap wrap-narrow">
         <div class="faq" id="faqList">
           <div class="faq-item">
-            <button class="faq-q" aria-expanded="false">Project Meru or Sumeru — which is it?</button>
+            <button class="faq-q" aria-expanded="false">Project Meru or Sumeru. Which is it?</button>
             <div class="faq-a">
               <p>Both. Project Meru is the initiative and the home for its public writing; Sumeru is the framework it
                 produces. In the code, the CLI, the configuration file and the Go module names you will only ever see
@@ -179,7 +179,7 @@
             <div class="faq-a">
               <p>Yes. Addons are linked in at build time through a generated file of blank imports, so adding one means
                 running <code>make generate</code> and rebuilding. Installing an already-compiled addon into a database
-                is a runtime action — from the Apps screen or with <code>-i</code>.</p>
+                is a runtime action. From the Apps screen or with <code>-i</code>.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -234,7 +234,7 @@
               it?</button>
             <div class="faq-a">
               <p>No. The community edition is a complete system, not a trial: no user cap, no feature flags, no expiry.
-                Neither edition is on sale yet — the project is pre-alpha.</p>
+                Neither edition is on sale yet. The project is pre-alpha.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -247,8 +247,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">How can I help?</button>
             <div class="faq-a">
-              <p>At this stage, design feedback is worth more than code. If you have operated an ERP in production and
-                know exactly where it hurt, say so — that is the input the addon contract needs most.</p>
+              <p>Design feedback helps most right now. If you have run an ERP in production, tell us where it failed.</p>
             </div>
           </div>
         </div>

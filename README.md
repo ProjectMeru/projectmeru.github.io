@@ -1,7 +1,7 @@
 # Project Meru
 
 **Project Meru** is an open-source initiative that hosts software across categories.
-**Sumeru** is the first product — a modular ERP framework written in Go.
+**Sumeru** is the first product - a modular ERP framework written in Go.
 
 This repository is the GitHub Pages site:
 
@@ -67,7 +67,7 @@ GitHub Pages serves from the default branch. Pushing to `main` publishes it.
 
 ## Sumeru (product summary)
 
-Every business function — contacts, products, CRM, sales, invoicing — is an addon: a folder with a
+Business functions are addons: contacts, products, CRM, sales, invoicing. Each addon is a folder with a
 manifest, some Go models and some XML. The kernel discovers it, resolves its dependencies, creates
 its tables and wires its menus. PostgreSQL underneath, server-rendered HTML on top, no front-end
 build step.
@@ -86,8 +86,8 @@ Full product docs: [sumeru/](./sumeru/).
 
 Sumeru is dual licensed.
 
-- **Community edition — Apache 2.0.** Framework and standard business addons.
-- **Enterprise edition — commercial licence.** Planned addons and services on the same core. Not
+- **Community edition: Apache 2.0.** Framework and standard business addons.
+- **Enterprise edition: commercial licence.** Planned addons and services on the same core. Not
   available yet.
 
 Nothing that is open source today will be moved behind the commercial licence.

@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Project Meru — hub behaviour
-   ========================================================================== */
+/* Project Meru - hub behaviour */
 
 (function () {
   'use strict';
@@ -43,7 +41,7 @@
     });
   });
 
-  /* ── Card nav ──────────────────────────────────────────────────────────── */
+  /* Card nav */
 
   var nav = $('#cardNav');
   var triggers = $$('.card-nav-trigger', nav);
@@ -103,7 +101,7 @@
     });
   }
 
-  /* ── Back to top ───────────────────────────────────────────────────────── */
+  /* Back to top */
 
   var toTop = $('#toTop');
   function onScroll() {
@@ -124,7 +122,7 @@
     });
   }
 
-  /* ── Reveal ────────────────────────────────────────────────────────────── */
+  /* Reveal */
 
   var revealTargets = $$('.card, .project-card').filter(function (el) {
     return !el.closest('.card-nav');

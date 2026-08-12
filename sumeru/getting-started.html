@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f3f3f0':'#050505');});}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Getting started with Sumeru | Project Meru</title>
@@ -24,7 +24,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:image:alt" content="Sumeru: modular ERP framework in Go">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Getting started with Sumeru | Project Meru">
@@ -66,7 +66,7 @@
               <span class="brand-mark" aria-hidden="true">
                 <img src="../logo.png" alt="" width="28" height="28" decoding="async">
               </span>
-              <span>Sumeru</span>
+              <span class="brand-name">Sumeru</span>
             </a>
             <div class="card-nav-links">
               <button class="card-nav-trigger" type="button" data-panel="product">Product <span
@@ -166,7 +166,7 @@
           </div>
 
           <div class="tab-panel is-active" data-panel="engineer">
-            <p class="panel-lede">You need Go 1.26+ and PostgreSQL. Nothing else — no Node, no Docker, no message
+            <p class="panel-lede">You need Go 1.26+ and PostgreSQL. Nothing else: no Node, no Docker, no message
               broker. Every command below runs from your workspace module, <code>sumeru_custom_addons</code>.</p>
 
             <ol class="steps">
@@ -197,7 +197,7 @@ $ make generate</code></pre>
               <li class="step">
                 <div class="step-num">3</div>
                 <div class="step-body">
-                  <h3>First boot — the setup wizard</h3>
+                  <h3>First boot: the setup wizard</h3>
                   <pre><code>$ make run
 
 Database is not initialized. Starting in SETUP MODE.
@@ -214,7 +214,7 @@ Visit http://localhost:9090/setup to initialize the system.</code></pre>
     -i contacts,product,crm,sale,sale_crm,account,purchase,hr \
     --stop-after-init</code></pre>
                   <p>Install order matters and follows <code>depends</code>. <code>-i all</code> is rejected on purpose
-                    — you name what you want.</p>
+. You name what you want.</p>
                 </div>
               </li>
               <li class="step">
@@ -230,7 +230,7 @@ Server starting on :9090...
             </ol>
 
             <h3 class="mt-lg">The inner loop for a new addon</h3>
-            <pre><code># scaffold — manifest, init.go, models, views, menus, security
+            <pre><code># scaffold: manifest, init.go, models, views, menus, security
 $ go run ../sumeru/cmd/sumeru-bp -name my_module -out ./addons
 
 # link it into the binary, then install it once
@@ -240,7 +240,7 @@ $ go run . -- -c sumeru.conf -i my_module --stop-after-init
 # after editing any XML or the manifest's data list, reload it
 $ go run . -- -c sumeru.conf -u my_module --stop-after-init
 $ make run</code></pre>
-            <p class="fineprint">Go code changes need a rebuild — that is what <code>make run</code> does. XML changes
+            <p class="fineprint">Go code changes need a rebuild. That is what <code>make run</code> does. XML changes
               need <code>-u</code>, because views, menus and access rules live in the database once installed.</p>
 
             <h3 class="mt-lg">Server flags</h3>
@@ -338,14 +338,14 @@ $ make run</code></pre>
             <div class="gaps">
               <h3>What is genuinely missing</h3>
               <ul>
-                <li><strong>Taxes</strong> — no tax engine on any document.</li>
-                <li><strong>Payments</strong> — invoices carry a payment status, but nothing registers a payment or
+                <li><strong>Taxes</strong>: no tax engine on any document.</li>
+                <li><strong>Payments</strong>: invoices carry a payment status, but nothing registers a payment or
                   reconciles a bank statement.</li>
-                <li><strong>Order totals</strong> — sales order amounts are stored, not yet computed from their lines.
+                <li><strong>Order totals</strong>: sales order amounts are stored, not yet computed from their lines.
                 </li>
-                <li><strong>Inventory</strong> — no stock, warehouses or manufacturing at all.</li>
-                <li><strong>Reports</strong> — no printable documents, no financial statements.</li>
-                <li><strong>Tests</strong> — the business addons have no automated test suite.</li>
+                <li><strong>Inventory</strong>: no stock, warehouses or manufacturing at all.</li>
+                <li><strong>Reports</strong>: no printable documents, no financial statements.</li>
+                <li><strong>Tests</strong>: the business addons have no automated test suite.</li>
               </ul>
             </div>
           </div>

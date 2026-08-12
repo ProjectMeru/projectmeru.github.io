@@ -1,11 +1,11 @@
-# Project Meru — https://projectmeru.github.io/
+# Project Meru - https://projectmeru.github.io/
 # Everything here is public documentation for an open-source project.
 # Search engines and AI answer engines are both welcome.
 
 User-agent: *
 Allow: /
 
-# AI crawlers and answer engines — explicitly allowed.
+# AI crawlers and answer engines - explicitly allowed.
 User-agent: GPTBot
 Allow: /
 

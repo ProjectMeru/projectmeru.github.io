@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f3f3f0':'#050505');});}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Sumeru — principles and boundaries | Project Meru</title>
+  <title>About Sumeru: principles and boundaries | Project Meru</title>
   <meta name="description"
     content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/about.html">
@@ -17,17 +17,17 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Sumeru">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/about.html">
-  <meta property="og:title" content="About Sumeru — principles and boundaries | Project Meru">
+  <meta property="og:title" content="About Sumeru: principles and boundaries | Project Meru">
   <meta property="og:description"
     content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
   <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:image:alt" content="Sumeru: modular ERP framework in Go">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Sumeru — principles and boundaries | Project Meru">
+  <meta name="twitter:title" content="About Sumeru: principles and boundaries | Project Meru">
   <meta name="twitter:description"
     content="Why Sumeru exists: boring operations, addon customisation without forking, and plain PostgreSQL tables you can keep.">
   <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
@@ -66,7 +66,7 @@
               <span class="brand-mark" aria-hidden="true">
                 <img src="../logo.png" alt="" width="28" height="28" decoding="async">
               </span>
-              <span>Sumeru</span>
+              <span class="brand-name">Sumeru</span>
             </a>
             <div class="card-nav-links">
               <button class="card-nav-trigger" type="button" data-panel="product">Product <span
@@ -170,7 +170,7 @@
           <div class="card">
             <div class="card-num">02</div>
             <h3>Customisation should not fork</h3>
-            <p>Every business changes something. If that change means patching core, the next upgrade is expensive — so
+            <p>Every business changes something. If that change means patching core, the next upgrade is expensive: so
               the install ages in place instead.</p>
           </div>
           <div class="card">
@@ -189,9 +189,9 @@
         <h2>Three tiers, cleanly separated</h2>
         <div class="grid grid-2 mt-lg">
           <div class="card card-accent">
-            <h3>Three tiers, cleanly separated</h3>
+            <h3>Module layout</h3>
             <p>The core framework, the standard business addons and your own workspace are three separate Go modules
-              linked by <code>replace</code> directives. Your customisations live in your own module — you never edit
+              linked by <code>replace</code> directives. Your customisations live in your own module. You never edit
               core to add behaviour.</p>
           </div>
           <div class="card card-accent">
@@ -218,8 +218,7 @@
       <div class="wrap">
         <p class="section-kicker">What we committed to</p>
         <h2>The decisions behind Sumeru</h2>
-        <p class="section-lede">These are the calls made early, written down so they can be held against us later. Each
-          one closes off an alternative on purpose.</p>
+        <p class="section-lede">Written early so we can stick to them. Each one closes off an alternative on purpose.</p>
         <div class="table-scroll">
           <table class="compare">
             <thead>
@@ -232,13 +231,13 @@
             <tbody>
               <tr>
                 <th scope="row">Layout</th>
-                <td>Three Go modules — core, standard addons, your workspace</td>
+                <td>Three Go modules: core, standard addons, your workspace</td>
                 <td>Three <code>replace</code> directives to keep pointed at the right paths</td>
               </tr>
               <tr>
                 <th scope="row">Linking</th>
                 <td>Addons are compiled in via generated blank imports</td>
-                <td>Adding one means regenerating and rebuilding — no runtime plugins</td>
+                <td>Adding one means regenerating and rebuilding: no runtime plugins</td>
               </tr>
               <tr>
                 <th scope="row">Database</th>
@@ -263,7 +262,7 @@
               <tr>
                 <th scope="row">Isolation</th>
                 <td>One database with multiple companies inside it</td>
-                <td>Not multi-tenant — separate customers need separate deployments</td>
+                <td>Not multi-tenant. Separate customers need separate deployments</td>
               </tr>
               <tr>
                 <th scope="row">Conventions</th>
@@ -286,8 +285,7 @@
     <section class="cta">
       <div class="wrap wrap-narrow">
         <h2>Read the architecture next</h2>
-        <p>Project Meru is the initiative. Sumeru is the framework — that is the name you will see in the code, the CLI
-          and the repository.</p>
+        <p>Sumeru is the framework name in code, CLI and the repository. <a href="faq.html">FAQ</a> covers Meru vs Sumeru.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="architecture.html">Architecture</a>
           <a class="btn btn-ghost" href="../index.html">Project Meru</a>

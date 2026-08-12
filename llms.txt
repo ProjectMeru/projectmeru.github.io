@@ -9,17 +9,17 @@ there is no tagged release, no upgrade path between versions, and no test suite 
 - Hub: https://projectmeru.github.io/
 - Sumeru: https://projectmeru.github.io/sumeru/
 - Code: https://github.com/ProjectMeru
-- Licence (Sumeru): dual — community edition under Apache 2.0, enterprise edition under a commercial
+- Licence (Sumeru): dual licensed. Community edition under Apache 2.0; enterprise edition under a commercial
   licence (the enterprise edition does not exist as a product yet)
 
 ## Naming
 
-- **Project Meru** — the organisation / initiative and this website’s root.
-- **Sumeru** — the ERP framework. In code, CLI, config and Go modules you will only ever see `sumeru`.
+- **Project Meru**: the organisation / initiative and this website’s root.
+- **Sumeru**: the ERP framework. In code, CLI, config and Go modules you will only ever see `sumeru`.
 
-## Sumeru — key facts
+## Sumeru - key facts
 
-- **Language / runtime:** Go 1.26+. Requires PostgreSQL and nothing else — no Node, no Docker, no
+- **Language / runtime:** Go 1.26+. Requires PostgreSQL and nothing else: no Node, no Docker, no
   message broker, no cache, no external job queue.
 - **Repository layout:** three `replace`-linked Go modules. `sumeru` (the core framework),
   `sumeru_addons` (the standard business addons), `sumeru_custom_addons` (your workspace, and the
@@ -28,7 +28,7 @@ there is no tagged release, no upgrade path between versions, and no test suite 
   `core/sdk`, `core/scheduler`, `core/applog`, `core/cache`, `core/importgen`.
 - **Addon anatomy:** `manifest.json` (name, version, depends, data), `init.go`, `models/*.go`,
   `views/*.xml`, `security/security.xml` and `security/sys.access.csv`, optional `data/*.xml`.
-- **A model** is metadata — a `ModelName()` and a `Fields()` slice — which the kernel turns into a
+- **A model** is metadata: a `ModelName()` and a `Fields()` slice, which the kernel turns into a
   real PostgreSQL table. Records at runtime are maps, not structs.
 - **Addons never import each other.** They integrate through an event bus (`record.created`,
   `record.updated`, `cron.tick`) plus registry lookups. The manifest's `depends` array drives
@@ -51,15 +51,15 @@ automated tests on the business addons.
 ## Pages
 
 ### Project Meru hub
-- https://projectmeru.github.io/ — organisation home and project catalogue
-- https://projectmeru.github.io/about.html — initiative, naming, how we ship
+- https://projectmeru.github.io/: organisation home and project catalogue
+- https://projectmeru.github.io/about.html: initiative, naming, how we ship
 
 ### Sumeru product site
-- https://projectmeru.github.io/sumeru/ — product landing
-- https://projectmeru.github.io/sumeru/getting-started.html — install and first boot
-- https://projectmeru.github.io/sumeru/architecture.html — three modules and code samples
-- https://projectmeru.github.io/sumeru/addons.html — addon catalogue
-- https://projectmeru.github.io/sumeru/editions.html — community / enterprise licensing
-- https://projectmeru.github.io/sumeru/roadmap.html — four phases
-- https://projectmeru.github.io/sumeru/faq.html — FAQ
-- https://projectmeru.github.io/sumeru/about.html — principles and decisions
+- https://projectmeru.github.io/sumeru/: product landing
+- https://projectmeru.github.io/sumeru/getting-started.html: install and first boot
+- https://projectmeru.github.io/sumeru/architecture.html: three modules and code samples
+- https://projectmeru.github.io/sumeru/addons.html: addon catalogue
+- https://projectmeru.github.io/sumeru/editions.html: community / enterprise licensing
+- https://projectmeru.github.io/sumeru/roadmap.html: four phases
+- https://projectmeru.github.io/sumeru/faq.html: FAQ
+- https://projectmeru.github.io/sumeru/about.html: principles and decisions

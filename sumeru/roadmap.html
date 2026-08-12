@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f3f3f0':'#050505');});}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sumeru roadmap | Project Meru</title>
@@ -23,7 +23,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Sumeru — modular ERP framework in Go">
+  <meta property="og:image:alt" content="Sumeru: modular ERP framework in Go">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sumeru roadmap | Project Meru">
@@ -65,7 +65,7 @@
               <span class="brand-mark" aria-hidden="true">
                 <img src="../logo.png" alt="" width="28" height="28" decoding="async">
               </span>
-              <span>Sumeru</span>
+              <span class="brand-name">Sumeru</span>
             </a>
             <div class="card-nav-links">
               <button class="card-nav-trigger" type="button" data-panel="product">Product <span
@@ -152,8 +152,7 @@
       <div class="wrap">
         <p class="section-kicker">Where this is going</p>
         <h1 class="page-hero-title">Roadmap.</h1>
-        <p class="section-lede">Four phases. Each one has to be genuinely usable before the next one starts — no phase
-          exists only to prepare for a later phase.</p>
+        <p class="section-lede">Four phases. Each phase must ship usable work before the next starts.</p>
       </div>
     </section>
 
@@ -164,7 +163,7 @@
             <div class="tl-marker"></div>
             <div class="tl-body">
               <div class="tl-head">
-                <h3>Phase 1 — Foundation</h3><span class="badge badge-progress">Mostly done</span>
+                <h3>Phase 1: Foundation</h3><span class="badge badge-progress">Mostly done</span>
               </div>
               <div class="meter" role="img" aria-label="Phase 1 is roughly 85 percent complete"><span
                   class="meter-fill meter-done" style="width:85%"></span></div>
@@ -182,7 +181,7 @@
             <div class="tl-marker"></div>
             <div class="tl-body">
               <div class="tl-head">
-                <h3>Phase 2 — Core business</h3><span class="badge badge-progress">In progress</span>
+                <h3>Phase 2: Core business</h3><span class="badge badge-progress">In progress</span>
               </div>
               <div class="meter" role="img" aria-label="Phase 2 is roughly 45 percent complete"><span class="meter-fill"
                   style="width:45%"></span></div>
@@ -200,10 +199,9 @@
             <div class="tl-marker"></div>
             <div class="tl-body">
               <div class="tl-head">
-                <h3>Phase 3 — Extended</h3><span class="badge badge-planned">Planned</span>
+                <h3>Phase 3: Extended</h3><span class="badge badge-planned">Planned</span>
               </div>
-              <p>The functions that surround the core — each one a test of whether the addon contract is good enough for
-                authors outside the project.</p>
+              <p>Addons that stress the contract with outside authors.</p>
               <ul>
                 <li>Inventory: warehouses, stock moves, valuation</li>
                 <li>Manufacturing: bills of materials and work orders</li>
@@ -216,7 +214,7 @@
             <div class="tl-marker"></div>
             <div class="tl-body">
               <div class="tl-head">
-                <h3>Phase 4 — Platform</h3><span class="badge badge-later">Later</span>
+                <h3>Phase 4: Platform</h3><span class="badge badge-later">Later</span>
               </div>
               <p>Turning Sumeru from a system you deploy into one other people build on.</p>
               <ul>

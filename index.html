@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <script>
-(function(){try{var k='meru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f3f3f0':'#050505');});}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='meru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Meru — open-source software across categories</title>
+<title>Project Meru: open-source software across categories</title>
 <meta name="description" content="Project Meru is an open-source initiative building software across categories. First up: Sumeru, a modular ERP framework in Go.">
 <link rel="canonical" href="https://projectmeru.github.io/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -16,16 +16,16 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Project Meru">
 <meta property="og:url" content="https://projectmeru.github.io/">
-<meta property="og:title" content="Project Meru — open-source software across categories">
+<meta property="og:title" content="Project Meru: open-source software across categories">
 <meta property="og:description" content="An open-source initiative building software across categories. First up: Sumeru, a modular ERP framework in Go.">
 <meta property="og:image" content="https://projectmeru.github.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:alt" content="Project Meru — open-source software across categories">
+<meta property="og:image:alt" content="Project Meru: open-source software across categories">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Project Meru — open-source software across categories">
+<meta name="twitter:title" content="Project Meru: open-source software across categories">
 <meta name="twitter:description" content="An open-source initiative building software across categories. First up: Sumeru, a modular ERP framework in Go.">
 <meta name="twitter:image" content="https://projectmeru.github.io/og.png">
 
@@ -60,7 +60,7 @@
       "@type": "WebPage",
       "@id": "https://projectmeru.github.io/#webpage",
       "url": "https://projectmeru.github.io/",
-      "name": "Project Meru — open-source software across categories",
+      "name": "Project Meru: open-source software across categories",
       "description": "Home of Project Meru: an open-source initiative and catalogue of projects, starting with Sumeru ERP.",
       "isPartOf": { "@id": "https://projectmeru.github.io/#website" },
       "about": { "@id": "https://projectmeru.github.io/#org" },
@@ -103,7 +103,7 @@
 
       <div class="card-nav-panel" data-panel="projects">
         <div class="card-nav-boxes">
-          <a class="nav-box" href="sumeru/">
+          <a class="nav-box nav-box-featured" href="sumeru/">
             <div class="nav-box-head"><span class="nav-box-tile">S</span><span class="nav-box-arrow">↗</span></div>
             <span class="nav-box-label">Sumeru</span>
             <span class="nav-box-description">Modular ERP framework in Go</span>
@@ -153,9 +153,8 @@
           <p class="eyebrow"><span class="dot"></span> Open source · Multi-project · Apache-friendly</p>
           <h1>Project Meru<span style="display:block;color:var(--color-muted);font-weight:400">Software across categories.</span></h1>
           <p class="lede">
-            <strong>Project Meru</strong> is an open-source initiative that will host many projects —
-            each with its own problem space, licence clarity, and product surface.
-            The first is <strong>Sumeru</strong>, a modular ERP framework in Go.
+            <strong>Project Meru</strong> is an open-source hub for multiple projects.
+            First up: <strong>Sumeru</strong>, a modular ERP framework in Go.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="sumeru/">Explore Sumeru</a>
@@ -186,8 +185,7 @@ Modular ERP. One kernel. Addon contract.
       <p class="section-kicker">01 / Projects</p>
       <h2>A catalogue, not a monolith.</h2>
       <p class="section-lede">
-        Each project keeps its own name, docs and roadmap. Meru is the home that ties them together —
-        so you can find the right tool without every product pretending to be the organisation.
+        Meru is the catalogue; each product keeps its own name, docs and roadmap.
       </p>
 
       <div class="grid grid-3">
@@ -205,7 +203,7 @@ Modular ERP. One kernel. Addon contract.
         <div class="card project-card is-soon" aria-disabled="true">
           <span class="badge badge-soon">Coming soon</span>
           <h3>Tooling</h3>
-          <p>Developer utilities and scaffolding that share Meru’s operational taste: small footprints, plain interfaces, boring to run.</p>
+          <p>Small utilities: plain interfaces, easy to run.</p>
           <div class="project-meta">
             <span>Tooling</span>
             <span>Planned</span>
@@ -233,7 +231,7 @@ Modular ERP. One kernel. Addon contract.
         <div class="card">
           <div class="card-num">01</div>
           <h3>Clear names</h3>
-          <p>The organisation is Meru. Products keep their own names — Sumeru in the code, CLI and modules — so search, licences and docs stay unambiguous.</p>
+          <p>The organisation is Meru. Products keep their own names (Sumeru in the code, CLI and modules) so search, licences and docs stay clear.</p>
         </div>
         <div class="card">
           <div class="card-num">02</div>
@@ -242,8 +240,8 @@ Modular ERP. One kernel. Addon contract.
         </div>
         <div class="card">
           <div class="card-num">03</div>
-          <h3>Honest shipping</h3>
-          <p>Pre-alpha means pre-alpha. We would rather publish gaps than hide them behind a feature matrix.</p>
+          <h3>Pre-alpha honesty</h3>
+          <p>We publish gaps instead of hiding them behind a feature matrix.</p>
         </div>
       </div>
     </div>
@@ -282,8 +280,8 @@ Modular ERP. One kernel. Addon contract.
       <p class="section-kicker">04 / Contribute</p>
       <h2>Design feedback first.</h2>
       <p class="section-lede">
-        At this stage, if you have operated production software in these categories and know exactly where it hurt, say so —
-        that is the input the contracts need most.
+        If you have run production software in these categories, tell us where it failed.
+        That feedback shapes the contracts most.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://github.com/ProjectMeru" target="_blank" rel="noopener">GitHub</a>
@@ -295,7 +293,7 @@ Modular ERP. One kernel. Addon contract.
   <section class="cta">
     <div class="wrap wrap-narrow">
       <h2>Start with Sumeru.</h2>
-      <p>The first Project Meru product site — dark, code-forward, and honest about pre-alpha.</p>
+      <p>Pre-alpha product site for Sumeru.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="sumeru/">Open Sumeru</a>
         <a class="btn btn-ghost" href="https://github.com/ProjectMeru" target="_blank" rel="noopener">View on GitHub</a>

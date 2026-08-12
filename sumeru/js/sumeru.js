@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Sumeru — product site behaviour
-   ========================================================================== */
+/* Sumeru - product site behaviour */
 
 (function () {
   'use strict';
@@ -43,7 +41,7 @@
     });
   });
 
-  /* ── Card nav ──────────────────────────────────────────────────────────── */
+  /* Card nav */
 
   var nav = $('#cardNav');
   var triggers = $$('.card-nav-trigger', nav);
@@ -103,7 +101,7 @@
     });
   }
 
-  /* ── Tabs ──────────────────────────────────────────────────────────────── */
+  /* Tabs */
 
   $$('.tabs').forEach(function (tabs) {
     var buttons = $$('.tab-btn', tabs);
@@ -133,7 +131,7 @@
     });
   });
 
-  /* ── Capability switcher ───────────────────────────────────────────────── */
+  /* Capability switcher */
 
   var capList = $('#capList');
   if (capList) {
@@ -160,7 +158,7 @@
     });
   }
 
-  /* ── Module filters ────────────────────────────────────────────────────── */
+  /* Module filters */
 
   var filters = $('#filters');
   var moduleGrid = $('#moduleGrid');
@@ -195,7 +193,7 @@
     if (filterCount) filterCount.textContent = modules.length + ' addons';
   }
 
-  /* ── Copy buttons ──────────────────────────────────────────────────────── */
+  /* Copy buttons */
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     $$('pre').forEach(function (pre) {
@@ -229,7 +227,7 @@
     });
   }
 
-  /* ── FAQ ───────────────────────────────────────────────────────────────── */
+  /* FAQ */
 
   var faqList = $('#faqList');
   if (faqList) {
@@ -242,7 +240,7 @@
     });
   }
 
-  /* ── Heading anchors ───────────────────────────────────────────────────── */
+  /* Heading anchors */
 
   $$('main section[id]').forEach(function (section) {
     var heading = $('.wrap > h2', section) || $('.wrap .page-hero-title', section);
@@ -255,39 +253,7 @@
     heading.appendChild(anchor);
   });
 
-  /* ── Counters ──────────────────────────────────────────────────────────── */
-
-  function countUp(el) {
-    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
-    if (reduceMotion || target === 0) { el.textContent = String(target); return; }
-    var duration = 700;
-    var start = null;
-    function step(now) {
-      if (start === null) start = now;
-      var progress = Math.min((now - start) / duration, 1);
-      el.textContent = String(Math.round(target * progress));
-      if (progress < 1) window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
-  }
-
-  var counters = $$('.stat-num[data-count]');
-  if (counters.length) {
-    if ('IntersectionObserver' in window) {
-      var counterObserver = new IntersectionObserver(function (entries, obs) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          countUp(entry.target);
-          obs.unobserve(entry.target);
-        });
-      }, { threshold: 0.4 });
-      counters.forEach(function (el) { counterObserver.observe(el); });
-    } else {
-      counters.forEach(function (el) { el.textContent = el.getAttribute('data-count'); });
-    }
-  }
-
-  /* ── Scroll / reveal ───────────────────────────────────────────────────── */
+  /* Scroll / reveal */
 
   var toTop = $('#toTop');
   function onScroll() {
