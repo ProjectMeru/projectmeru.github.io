@@ -9,6 +9,7 @@ This repository is the GitHub Pages site:
 | --- | --- |
 | https://projectmeru.github.io/ | Organisation hub and project catalogue |
 | https://projectmeru.github.io/sumeru/ | Sumeru product website |
+| https://projectmeru.github.io/sumeru/docs/ | Sumeru documentation |
 
 > **Sumeru status: pre-alpha.** The framework runs and the lead-to-cash flow works end to end, but
 > there is no tagged release, no upgrade path between versions, and no test suite on the business
@@ -29,13 +30,17 @@ This repository is the GitHub Pages site:
 ├── og.png                  # Open Graph image (1200×630)
 ├── sumeru/
 │   ├── index.html          # product landing
-│   ├── getting-started.html
-│   ├── architecture.html
+│   ├── architecture.html     # visual architecture overview (links to docs)
 │   ├── addons.html
 │   ├── editions.html
 │   ├── roadmap.html
 │   ├── faq.html
 │   ├── about.html
+│   ├── docs/               # install + guides (open via Get started)
+│   │   ├── index.html      # Introduction
+│   │   ├── css/docs.css
+│   │   ├── js/docs.js
+│   │   └── guides/         # start, build, concepts, business, security
 │   ├── css/sumeru.css      # product styles (teal accent, light/dark)
 │   ├── js/sumeru.js
 │   └── og.png              # Open Graph image (1200×630)
@@ -48,7 +53,7 @@ This repository is the GitHub Pages site:
 Hand-written HTML, CSS and JavaScript only. No frameworks, no build step, no bundler.
 
 Both sites share a Sillo-inspired visual family: floating pill **card-nav**, Instrument Sans +
-JetBrains Mono, elevated surfaces, numbered sections, GitHub link, and light/dark theme toggle.
+JetBrains Mono, slightly raised panels, numbered sections, GitHub link, and light/dark theme toggle.
 Meru uses a blue accent; Sumeru uses teal. Dark is the default; the toggle persists per site.
 
 ### Running it locally
@@ -80,7 +85,7 @@ Three Go modules linked by `replace` directives:
 | Standard | `sumeru_addons` | Business addons |
 | Workspace | `sumeru_custom_addons` | Your addons, `sumeru.conf`, and the `main.go` you run |
 
-Full product docs: [sumeru/](./sumeru/).
+Full product docs: [sumeru/docs/](./sumeru/docs/). Product site: [sumeru/](./sumeru/).
 
 ## Licence
 
