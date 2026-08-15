@@ -50,7 +50,9 @@ This repository is the GitHub Pages site:
 └── README.md
 ```
 
-Hand-written HTML, CSS and JavaScript only. No frameworks, no build step, no bundler.
+Hand-written HTML for marketing pages; **documentation content pages are generated** from
+`sumeru_docs/` in the monorepo via `make docs-site` (see `tools/docs-publish/`). Edit markdown
+there, not individual guide HTML under `sumeru/docs/using/`, `build/`, etc.
 
 Both sites share a Sillo-inspired visual family: floating pill **card-nav**, Instrument Sans +
 JetBrains Mono, slightly raised panels, numbered sections, GitHub link, and light/dark theme toggle.

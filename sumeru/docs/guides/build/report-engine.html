@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report engine | Sumeru Docs</title>
+  <meta name="description" content="CSV/PDF export and bulk CSV import for views — XML-only in addons, engine in sumeru core.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/report-engine.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Sumeru Docs">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/build/report-engine.html">
+  <meta property="og:title" content="Report engine | Sumeru Docs">
+  <meta property="og:description" content="CSV/PDF export and bulk CSV import for views — XML-only in addons, engine in sumeru core.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Report engine | Sumeru Docs">
+  <meta name="twitter:description" content="CSV/PDF export and bulk CSV import for views — XML-only in addons, engine in sumeru core.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Report engine",
+  "description": "CSV/PDF export and bulk CSV import for views — XML-only in addons, engine in sumeru core.",
+  "url": "https://projectmeru.github.io/sumeru/docs/guides/build/report-engine.html",
+  "author": {"@type": "Organization", "name": "Project Meru"},
+  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+  <header class="docs-topbar">
+    <button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="docs-brand" href="../../index.html">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span>Docs</span>
+    </a>
+    <a class="docs-product-link" href="../../../index.html">&larr; <span class="full">Sumeru</span></a>
+    <span class="docs-status is-prealpha" title="No tagged release">Pre-alpha</span>
+    <div class="docs-topbar-spacer"></div>
+    <div class="docs-topbar-actions">
+      <a class="docs-icon-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" aria-label="Documentation">
+      <div class="docs-sidebar-group">
+        <p class="docs-sidebar-title">Start here</p>
+        <ul class="docs-sidebar-list">
+          <li><a href="../../index.html">Introduction</a></li>
+          <li><a href="../../guides/start/installation.html">Installation</a></li>
+          <li><a href="../../guides/start/configuration.html">Configuration</a></li>
+          <li><a href="../../guides/start/first-boot.html">First boot</a></li>
+        </ul>
+      </div>
+      <div class="docs-sidebar-group">
+        <p class="docs-sidebar-title">Building an application</p>
+        <ul class="docs-sidebar-list">
+          <li><a href="../../guides/build/creating-an-addon.html">Creating an addon</a></li>
+          <li><a href="../../guides/build/project-structure.html">Project structure</a></li>
+          <li><a href="../../guides/build/manifests-and-depends.html">Manifests & depends</a></li>
+          <li><a href="../../guides/build/models-and-fields.html">Models & fields</a></li>
+          <li><a href="../../guides/build/views-and-menus.html">Views & menus</a></li>
+          <li><a href="../../guides/build/report-engine.html">Report engine</a></li>
+          <li><a href="../../guides/build/security-and-access.html">Security & access</a></li>
+          <li><a href="../../guides/build/data-xml.html">Data XML</a></li>
+          <li><a href="../../guides/build/events-and-automation.html">Events & automation</a></li>
+          <li><a href="../../guides/build/json-rpc-api.html">JSON-RPC API</a></li>
+          <li><a href="../../guides/build/testing.html">Testing</a></li>
+          <li><a href="../../guides/build/deployment.html">Deployment</a></li>
+        </ul>
+      </div>
+      <div class="docs-sidebar-group">
+        <p class="docs-sidebar-title">Core concepts</p>
+        <ul class="docs-sidebar-list">
+          <li><a href="../../guides/concepts/three-modules.html">Three modules</a></li>
+          <li><a href="../../guides/concepts/orm.html">ORM</a></li>
+          <li><a href="../../guides/concepts/module-loader.html">Module loader</a></li>
+          <li><a href="../../guides/concepts/engine-and-server.html">Engine & server</a></li>
+          <li><a href="../../guides/concepts/event-bus.html">Event bus</a></li>
+          <li><a href="../../guides/concepts/scheduler.html">Scheduler</a></li>
+          <li><a href="../../guides/concepts/cache.html">Cache</a></li>
+          <li><a href="../../guides/concepts/sdk.html">SDK</a></li>
+        </ul>
+      </div>
+      <div class="docs-sidebar-group">
+        <p class="docs-sidebar-title">Business guides</p>
+        <ul class="docs-sidebar-list">
+          <li><a href="../../guides/business/overview.html">Overview</a></li>
+          <li><a href="../../guides/business/apps-and-install.html">Apps & install</a></li>
+          <li><a href="../../guides/business/lead-to-cash.html">Lead-to-cash</a></li>
+          <li><a href="../../guides/business/contacts-and-crm.html">Contacts & CRM</a></li>
+          <li><a href="../../guides/business/sales-and-invoicing.html">Sales & invoicing</a></li>
+          <li><a href="../../guides/business/purchase-and-hr.html">Purchase & HR</a></li>
+          <li><a href="../../guides/business/multi-company.html">Multi-company</a></li>
+          <li><a href="../../guides/business/editions-and-licensing.html">Editions & licensing</a></li>
+        </ul>
+      </div>
+      <div class="docs-sidebar-group">
+        <p class="docs-sidebar-title">Security</p>
+        <ul class="docs-sidebar-list">
+          <li><a href="../../guides/security/overview.html">Overview</a></li>
+          <li><a href="../../guides/security/api-keys.html">API keys</a></li>
+          <li><a href="../../guides/security/isolation-model.html">Isolation model</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+<h1>Report engine</h1>
+<p class="docs-lede">CSV/PDF export and bulk CSV import for views — XML-only in addons, engine in sumeru core.</p>
+<p>CSV/PDF <strong>download</strong> and CSV <strong>bulk import</strong> for workspace views. The engine lives <strong>only in <code>sumeru/</code></strong> (<code>core/report/</code>, <code>core/sdk/report.go</code>, web handlers, render + JS). Addons enable features with <strong>XML on views</strong> — no export/import Go code in <code>sumeru_addons/</code> or <code>sumeru_custom_addons/</code>.</p>
+<p>Reporting is <strong>opt-in per view</strong>. If a view has no report XML or widgets, no <strong>Report</strong> toolbar appears.</p>
+
+<h2 id="architecture" data-toc="Architecture">Architecture</h2>
+<p>Addon XML declares capabilities → parser merges them → render adds the toolbar and JS → web handlers call <code>core/report</code>. Bulk import reuses the same engine and opens the <code>sys.bulk.import</code> mapping wizard from the base addon.</p>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Layer</th><th>Location</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td>Engine</td><td><code>sumeru/core/report/</code></td><td>Export CSV/PDF, bulk template, staging, mapping preview, import execution</td></tr>
+    <tr><td>SDK</td><td><code>sumeru/core/sdk/report.go</code></td><td>Stable facade for core and optional addon formatters</td></tr>
+    <tr><td>Web</td><td><code>sumeru/core/server/web/</code></td><td>Session routes for export, template, upload, confirm, cancel</td></tr>
+    <tr><td>Render</td><td><code>sumeru/core/engine/render/</code></td><td>Toolbar on list/form/kanban when capabilities enabled</td></tr>
+    <tr><td>Frontend</td><td><code>core/engine/assets/js/ui/report-exchange.js</code></td><td>Field picker, download, upload → redirect</td></tr>
+    <tr><td>Wizard shell</td><td><code>sumeru/addons/base/</code></td><td><code>sys.bulk.import</code> model + mapping form XML only</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="enable-on-a-view" data-toc="Enable on a view">Enable on a view (XML)</h2>
+<p>Three equivalent ways to declare capabilities. The parser merges them into one capability set. See also <a href="views-and-menus.html#report-exchange-on-views">Report exchange on views</a> for view-level details.</p>
+
+<h3 id="option-1-report-child" data-toc="Option 1 — report child">Option 1 — <code>&lt;report&gt;</code> child (recommended)</h3>
+<div class="docs-codebox is-source is-wrap" data-codebox="report-child">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">List view with report child</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">xml</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_list&quot; model=&quot;crm.lead&quot; type=&quot;list&quot;&gt;&#10;    &lt;report download=&quot;csv,pdf&quot; upload=&quot;bulk&quot; pdf_sizes=&quot;a4,legal,letter&quot; modes=&quot;create,upsert&quot;/&gt;&#10;    &lt;field name=&quot;name&quot;/&gt;&#10;    ...&#10;&lt;/view&gt;">
+      <pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;view id="view_crm_lead_list" model="crm.lead" type="list"&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    &lt;report download="csv,pdf" upload="bulk" pdf_sizes="a4,legal,letter" modes="create,upsert"/&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    &lt;field name="name"/&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">    ...</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">&lt;/view&gt;</span></span></code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="option-2-view-attributes" data-toc="Option 2 — view attributes">Option 2 — View attributes</h3>
+<div class="docs-codebox is-source is-wrap" data-codebox="report-attrs">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">View attributes</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">xml</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;list&quot; model=&quot;product.product&quot;&#10;      report_download=&quot;csv,pdf&quot;&#10;      bulk_upload=&quot;1&quot;&#10;      pdf_sizes=&quot;a4,legal,letter&quot;&#10;      bulk_modes=&quot;create,upsert&quot;&gt;&#10;    &lt;field name=&quot;name&quot;/&gt;&#10;&lt;/view&gt;">
+      <pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;view type="list" model="product.product"</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">      report_download="csv,pdf"</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">      bulk_upload="1"</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">      pdf_sizes="a4,legal,letter"</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">      bulk_modes="create,upsert"&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">    &lt;field name="name"/&gt;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">&lt;/view&gt;</span></span></code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="option-3-header-widgets" data-toc="Option 3 — header widgets">Option 3 — Header widgets (form or list)</h3>
+<div class="docs-codebox is-source is-wrap" data-codebox="report-widgets">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Header widgets</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">xml</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;form&quot; model=&quot;crm.lead&quot;&gt;&#10;    &lt;header&gt;&#10;        &lt;widget type=&quot;report_download&quot; formats=&quot;csv,pdf&quot; pdf_sizes=&quot;a4,legal,letter&quot;/&gt;&#10;        &lt;widget type=&quot;bulk_upload&quot; modes=&quot;create,upsert&quot;/&gt;&#10;    &lt;/header&gt;&#10;    ...&#10;&lt;/view&gt;">
+      <pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;view type="form" model="crm.lead"&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    &lt;header&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">        &lt;widget type="report_download" formats="csv,pdf" pdf_sizes="a4,legal,letter"/&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">        &lt;widget type="bulk_upload" modes="create,upsert"/&gt;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">    &lt;/header&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">    ...</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">&lt;/view&gt;</span></span></code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="xml-reference" data-toc="XML reference">XML reference</h3>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Attribute / element</th><th>Values</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>download</code> / <code>report_download</code> / <code>formats</code></td><td><code>csv</code>, <code>pdf</code> (comma-separated)</td><td>Enable report download formats</td></tr>
+    <tr><td><code>upload</code> / <code>bulk_upload</code></td><td><code>bulk</code>, <code>1</code>, <code>true</code>, <code>yes</code>, <code>on</code></td><td>Enable bulk CSV upload</td></tr>
+    <tr><td><code>pdf_sizes</code></td><td><code>a4</code>, <code>legal</code>, <code>letter</code></td><td>Allowed PDF page sizes (default: all three)</td></tr>
+    <tr><td><code>modes</code> / <code>bulk_modes</code></td><td><code>create</code>, <code>upsert</code></td><td>Import modes offered in UI (default: both)</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Nested arch roots (<code>&lt;list&gt;</code>, <code>&lt;kanban&gt;</code> without wrapping <code>&lt;view&gt;</code>) also support <code>&lt;report&gt;</code> and the view attributes above.</p>
+
+<h2 id="supported-view-types" data-toc="Supported view types">Supported view types</h2>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>View type</th><th>Download scope</th><th>Bulk upload</th></tr></thead>
+  <tbody>
+    <tr><td><strong>list</strong></td><td>Rows matching the window action domain (max 500)</td><td>Yes</td></tr>
+    <tr><td><strong>kanban</strong></td><td>Same as list</td><td>Yes</td></tr>
+    <tr><td><strong>form</strong></td><td>Current record as a single-row export</td><td>Yes (single-row template)</td></tr>
+    <tr><td><strong>pivot</strong></td><td>Not supported in v1</td><td>No</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="download-flow" data-toc="Download flow">Download flow</h2>
+<ol>
+  <li>User opens a view with download enabled.</li>
+  <li>Clicks <strong>Report</strong> in the toolbar → chooses <strong>Download CSV</strong> or <strong>Download PDF</strong>.</li>
+  <li>Field picker opens (defaults = visible view columns); user selects fields.</li>
+  <li>For PDF, user picks page size (A4 / Legal / Letter).</li>
+  <li>Browser downloads the file.</li>
+</ol>
+<p>List/kanban exports respect the <strong>window action domain</strong> (same rows as the current list, capped at 500). Form export uses the open record only.</p>
+
+<h2 id="bulk-upload-flow" data-toc="Bulk upload flow">Bulk upload flow</h2>
+<p>Bulk import <strong>reuses the same engine</strong> as export (field whitelist, coercion, ACL). There is <strong>no silent direct import</strong> — every upload goes through mapping and preview before data is written.</p>
+
+<h3 id="bulk-step-details" data-toc="Step details">Step details</h3>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Step</th><th>What happens</th></tr></thead>
+  <tbody>
+    <tr><td>Field selection</td><td>User picks model fields (same picker as download)</td></tr>
+    <tr><td>Template</td><td><strong>Download import template</strong> → CSV with headers only for selected fields</td></tr>
+    <tr><td>Upload</td><td><code>POST /web/bulk/upload</code> — file staged in <code>sys.attachment</code>, batch row <code>sys.bulk.import</code> created</td></tr>
+    <tr><td>Mapping</td><td>Standard form: <strong>Column mapping</strong> tab — CSV header → model field (or Skip)</td></tr>
+    <tr><td>Preview</td><td><strong>Preview</strong> tab — first 10 rows validated after mapping</td></tr>
+    <tr><td>Confirm</td><td><strong>Confirm import</strong> object action → create-only or upsert per batch mode</td></tr>
+    <tr><td>Result</td><td>Redirect back to source view with created / updated / skipped counts</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Create only</strong> — new rows only. <strong>Create or update (upsert)</strong> — updates when <code>id</code> is mapped and valid; otherwise creates.</p>
+
+<h2 id="http-routes" data-toc="HTTP routes">HTTP routes</h2>
+<p>Session auth required on all routes. POST requests need a CSRF token.</p>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td>GET</td><td><code>/web/export/csv</code></td><td>Download CSV report</td></tr>
+    <tr><td>GET</td><td><code>/web/export/pdf</code></td><td>Download PDF report</td></tr>
+    <tr><td>GET</td><td><code>/web/bulk/template</code></td><td>Header-only CSV template</td></tr>
+    <tr><td>POST</td><td><code>/web/bulk/upload</code></td><td>Stage CSV → redirect to mapping form</td></tr>
+    <tr><td>POST</td><td><code>/web/bulk/confirm</code></td><td>Execute import after mapping</td></tr>
+    <tr><td>POST</td><td><code>/web/bulk/cancel</code></td><td>Discard staged batch</td></tr>
+    <tr><td>POST</td><td><code>/web/import/csv</code></td><td>Legacy alias → same as bulk upload (mapping required)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="limits-and-security" data-toc="Limits and security">Limits and security</h2>
+
+<h3 id="limits" data-toc="Limits">Limits</h3>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Limit</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>Export row cap</td><td>500 rows</td></tr>
+    <tr><td>Upload file size</td><td>8 MB</td></tr>
+    <tr><td>Preview validation</td><td>First 10 rows (full validation); remainder counted in total</td></tr>
+    <tr><td>Staging</td><td>CSV in <code>sys.attachment</code>; batch on <code>sys.bulk.import</code>; cleaned up after confirm/cancel</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="security-checks" data-toc="Security checks">Security checks</h3>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Check</th><th>Requirement</th></tr></thead>
+  <tbody>
+    <tr><td>Authentication</td><td>Signed-in session on all routes</td></tr>
+    <tr><td>POST requests</td><td>CSRF token required</td></tr>
+    <tr><td>Export / preview</td><td><strong>Read</strong> ACL on target model</td></tr>
+    <tr><td>Import</td><td><strong>Create</strong> (and <strong>write</strong> for upsert) ACL on target model</td></tr>
+    <tr><td>Fields</td><td>Whitelist from model <code>Fields()</code> — only declared fields can be exported or imported</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="addon-rules" data-toc="Addon rules">What addons may and may not do</h2>
+<div class="docs-table-wrap">
+<table class="docs-table">
+  <thead><tr><th>Allowed</th><th>Forbidden</th></tr></thead>
+  <tbody>
+    <tr><td>Add <code>&lt;report&gt;</code> or widgets to view XML</td><td>Custom export/bulk HTTP handlers in addons</td></tr>
+    <tr><td><code>sdk.RegisterReportCellFormatter(model, fn)</code> in <code>init()</code></td><td>PDF/CSV libraries in addon <code>go.mod</code></td></tr>
+    <tr><td>Business data in normal models</td><td>Second bulk-upload implementation or copied mapping UI</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="docs-callout is-tip">
+  <p><strong>No Go changes needed.</strong> To enable CRM lead export, add one line to the list view XML and update the module — no export/import Go code in the addon.</p>
+</div>
+<p>Optional cell formatting for exports:</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="report-formatter">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">addons/crm/models/init.go</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import &quot;sumeru/core/sdk&quot;&#10;&#10;func init() {&#10;    sdk.RegisterReportCellFormatter(&quot;crm.lead&quot;, func(model, field string, raw interface{}) string {&#10;        // return display text for export cells&#10;        return sdk.AsString(raw)&#10;    })&#10;}">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">import "sumeru/core/sdk"</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">func init() {</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">    sdk.RegisterReportCellFormatter("crm.lead", func(model, field string, raw interface{}) string {</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">        // return display text for export cells</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">        return sdk.AsString(raw)</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">    })</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">}</span></span></code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="bulk-import-wizard" data-toc="Bulk import wizard">Bulk import wizard (<code>sys.bulk.import</code>)</h2>
+<p>Registered in the <strong>base</strong> addon:</p>
+<ul>
+  <li>Model: <code>sumeru/addons/base/models/sys_bulk_import.go</code> (thin registration only)</li>
+  <li>Views: <code>sumeru/addons/base/views/sys_bulk_import_views.xml</code></li>
+  <li>Logic: <code>core/report/</code> (preview, execute, object actions <code>action_confirm_import</code>, <code>action_cancel_import</code>)</li>
+</ul>
+
+<h2 id="v1-limitations" data-toc="v1 limitations">v1 limitations</h2>
+<ul>
+  <li>Pivot / graph export not supported</li>
+  <li>No XLSX, scheduled reports, or email delivery</li>
+  <li>No direct import without the mapping view</li>
+  <li>Invoice HTML print routes remain separate from this engine</li>
+</ul>
+
+<div class="docs-callout is-tip">
+  <p><strong>Update after XML edits.</strong> Run <code>go run . -- -c sumeru.conf -u my_module --stop-after-init</code> so view capabilities reload.</p>
+</div>
+
+<h2 id="next-step" data-toc="Next step">Next step</h2>
+<p>Gate who can export and import in <a href="security-and-access.html">Security &amp; access</a>.</p>
+<nav class="docs-next" aria-label="Page">
+  <a class="is-prev" href="../../guides/build/views-and-menus.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Views & menus</span></a>
+  <a class="is-next" href="../../guides/build/security-and-access.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Security & access &rarr;</span></a>
+</nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+
+  <script src="../../js/docs.js"></script>
+</body>
+</html>

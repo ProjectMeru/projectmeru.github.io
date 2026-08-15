@@ -87,6 +87,7 @@
           <li><a href="../../guides/build/manifests-and-depends.html">Manifests & depends</a></li>
           <li><a href="../../guides/build/models-and-fields.html">Models & fields</a></li>
           <li><a href="../../guides/build/views-and-menus.html">Views & menus</a></li>
+          <li><a href="../../guides/build/report-engine.html">Report engine</a></li>
           <li><a href="../../guides/build/security-and-access.html">Security & access</a></li>
           <li><a href="../../guides/build/data-xml.html">Data XML</a></li>
           <li><a href="../../guides/build/events-and-automation.html">Events & automation</a></li>
@@ -139,7 +140,11 @@
 <h2 id="role">Role</h2>
 <p><code>core/orm</code> owns the model registry, PostgreSQL access, schema sync from <code>FieldDefinition</code>, security-aware CRUD, and mutation/outbox paths.</p>
 <h2 id="from-fields-to-tables">From Fields to tables</h2>
-<p>On install/startup, registered models sync columns using types such as Char -> text/varchar mappings, Boolean, Integer, relations, and indexes from <code>Index</code>/<code>Unique</code>.</p>
+<p>On install and module update (<code>-i</code> / <code>-u</code>), registered models run <strong>additive schema sync</strong> from <code>Fields()</code>: new columns, indexes, and unique constraints are created. Types map Char → varchar/text, Boolean, Integer, relations, and so on.</p>
+<p><code>dropStaleColumnUniques</code> removes single-column UNIQUE constraints when a field no longer declares <code>Unique: true</code> — it does not drop columns or tables. There is <strong>no</strong> boot-time <code>schema_migrate</code> repair pass; schema changes happen during module load only.</p>
+<div class="docs-callout is-caution">
+  <p><strong>Pre-alpha.</strong> Sync is additive. Renaming or removing fields does not automatically drop old columns. Plan manual SQL on shared databases.</p>
+</div>
 <h2 id="records-as-maps">Records as maps</h2>
 <p>Public APIs search/create/write with maps. Addon authors still declare typed structs for Field metadata via the SDK.</p>
 <h2 id="sdk-boundary">SDK boundary</h2>
