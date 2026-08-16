@@ -36,45 +36,42 @@ there is no tagged release, no upgrade path between versions, and no test suite 
   install order only.
 - **API:** JSON-RPC at `POST /api/rpc` with API-key authentication.
 - **Isolation:** one server serves one database. Multi-company is supported; it is **not** multi-tenant.
+- **Reports:** CSV/PDF export and bulk CSV import are implemented (opt-in per view via XML). Financial statement PDFs are not.
 
-## Addons that exist today
+## Documentation audiences (three paths)
 
-Core: `base`, `mail`, `automation` (partial), `sumeru_ai` (placeholder).
+Source of truth: `sumeru_docs/` in the monorepo. Generated HTML: `make docs-site` from repo root.
 
-Standard: `contacts`, `product`, `crm`, `sale` (partial), `sale_crm`, `account`, `purchase` (partial),
-`hr` (partial).
+| Audience | Docs entry | URL prefix |
+| -------- | ---------- | ---------- |
+| Business users | Using Sumeru hub | https://projectmeru.github.io/sumeru/docs/using/ |
+| Addons developers | Addons hub | https://projectmeru.github.io/sumeru/docs/addons/ |
+| Core developers | Build hub + guides/start | https://projectmeru.github.io/sumeru/docs/build/ |
 
-**Works today:** Lead -> won -> quotation -> sales order -> customer invoice -> posted journal entries.
+## Key documentation pages
 
-**Does not exist yet:** taxes, payments, computed order totals, inventory, manufacturing, reports,
-automated tests on the business addons.
+### Docs home
+- https://projectmeru.github.io/sumeru/docs/: audience chooser + navigation
+- https://projectmeru.github.io/sumeru/docs/reference/feature-matrix.html: implemented vs planned
 
-## Pages
+### Business users (using/)
+- https://projectmeru.github.io/sumeru/docs/using/platform/workspace-basics.html
+- https://projectmeru.github.io/sumeru/docs/using/platform/export-and-import.html
+- https://projectmeru.github.io/sumeru/docs/using/modules/crm.html
+- https://projectmeru.github.io/sumeru/docs/using/workflows/lead-to-cash.html
 
-### Project Meru hub
-- https://projectmeru.github.io/: organisation home and project catalogue
-- https://projectmeru.github.io/about.html: initiative, naming, how we ship
+### Addons developers (addons/)
+- https://projectmeru.github.io/sumeru/docs/addons/howtos/enable-report-on-view.html
+- https://projectmeru.github.io/sumeru/docs/addons/manifest-and-layout.html
 
-### Sumeru product site
+### Core developers (build/, reference/, howtos/, concepts/)
+- https://projectmeru.github.io/sumeru/docs/guides/start/installation.html
+- https://projectmeru.github.io/sumeru/docs/build/report-engine.html
+- https://projectmeru.github.io/sumeru/docs/reference/http-routes.html
+- https://projectmeru.github.io/sumeru/docs/howtos/scaffold-new-addon.html
+- https://projectmeru.github.io/sumeru/docs/concepts/overview.html
+
+### Product site
 - https://projectmeru.github.io/sumeru/: product landing
-- https://projectmeru.github.io/sumeru/architecture.html: visual three-module overview (links into docs Concepts)
+- https://projectmeru.github.io/sumeru/architecture.html: visual three-module overview
 - https://projectmeru.github.io/sumeru/addons.html: addon catalogue
-- https://projectmeru.github.io/sumeru/editions.html: community / enterprise licensing
-- https://projectmeru.github.io/sumeru/roadmap.html: four phases
-- https://projectmeru.github.io/sumeru/faq.html: FAQ
-- https://projectmeru.github.io/sumeru/about.html: principles and decisions
-
-### Sumeru documentation (canonical how-to; open via Get started)
-- https://projectmeru.github.io/sumeru/docs/: Introduction
-- https://projectmeru.github.io/sumeru/docs/guides/start/installation.html: Installation
-- https://projectmeru.github.io/sumeru/docs/guides/start/configuration.html: Configuration
-- https://projectmeru.github.io/sumeru/docs/guides/start/first-boot.html: First boot
-- https://projectmeru.github.io/sumeru/docs/guides/business/overview.html: Business overview
-- https://projectmeru.github.io/sumeru/docs/guides/business/lead-to-cash.html: Lead-to-cash
-- https://projectmeru.github.io/sumeru/docs/guides/build/creating-an-addon.html: scaffold with sumeru-bp
-- https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html: SDK models and FieldDefinition
-- https://projectmeru.github.io/sumeru/docs/guides/build/views-and-menus.html: XML views, menus, inheritance
-- https://projectmeru.github.io/sumeru/docs/guides/build/json-rpc-api.html: JSON-RPC API and curl examples
-- https://projectmeru.github.io/sumeru/docs/guides/build/: other build guides (structure, manifests, security, data, events, testing, deployment)
-- https://projectmeru.github.io/sumeru/docs/guides/concepts/: kernel concepts (developers)
-- https://projectmeru.github.io/sumeru/docs/guides/security/: API keys and isolation
