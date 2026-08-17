@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -101,7 +101,8 @@
         <h1>Scheduler</h1>
         <p class="docs-lede">core/scheduler, cron.tick and how addons register periodic work.</p>
 <h2 id="sys-cron">sys.cron</h2>
-<p><code>core/scheduler</code> ticks on an interval (server starts it about every minute), selects due active cron rows, publishes <code>cron.tick</code>, and optionally a custom <code>event_name</code>.</p>
+<p><code>core/scheduler</code> ticks on an interval (server starts it about every minute), selects due active cron rows inside a transaction with <code>FOR UPDATE SKIP LOCKED</code>, publishes <code>cron.tick</code>, and optionally a custom <code>event_name</code>.</p>
+<p>When running multiple Sumeru instances against one database, row locks prevent duplicate execution of the same cron job. See <a href="../../reference/multi-instance-cron.html">Multi-instance cron</a>.</p>
 <h2 id="addon-registration">Addon registration</h2>
 <p>Addons typically define cron rows via data XML and/or subscribe to <code>cron.tick</code> (as <code>automation</code> does). Interval comes from <code>interval_number</code> (minutes).</p>
 <h2 id="register-cron-handler">RegisterCronHandler</h2>

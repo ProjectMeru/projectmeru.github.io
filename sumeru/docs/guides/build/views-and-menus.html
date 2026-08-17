@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -109,7 +109,7 @@
 </ol>
 <p>List the files in <code>manifest.json</code> -> <code>data</code> in that order (security -> actions -> views -> menus). Root element is always <code>&lt;sumeru&gt;&lt;data&gt;...&lt;/data&gt;&lt;/sumeru&gt;</code>.</p>
 <div class="docs-callout is-note">
-  <p><strong>Pre-alpha.</strong> Attribute names below match shipping <code>sumeru</code> / <code>sumeru_addons</code> XML. Do not assume Odoo-only attributes work unless listed here.</p>
+  <p><strong>Pre-alpha.</strong> Attribute names below match shipping <code>sumeru</code> / <code>sumeru_addons</code> XML. Do not assume attributes work unless listed here.</p>
 </div>
 
 <h2 id="quick-map" data-toc="Quick map">Quick map</h2>
@@ -862,7 +862,7 @@
   </div>
 </div>
 <div class="docs-callout is-caution">
-  <p><strong>Narrow xpath.</strong> Implementation lives in <code>core/engine/viewinherit</code>. Exotic Odoo expressions will fail. Stick to <code>//field[@name='...']</code>.</p>
+  <p><strong>Narrow xpath.</strong> Implementation lives in <code>core/engine/viewinherit</code>. Exotic xpath expressions beyond simple field selectors will fail. Stick to <code>//field[@name='...']</code>.</p>
 </div>
 
 <h2 id="report-exchange-on-views" data-toc="Report exchange on views">Report exchange on views</h2>
@@ -940,7 +940,7 @@
 
 <h2 id="what-not-to-do" data-toc="What not to do">What not to do</h2>
 <ul>
-  <li>Do not use <code>&lt;odoo&gt;</code>. Root must be <code>&lt;sumeru&gt;</code>.</li>
+  <li>Root element must be <code>&lt;sumeru&gt;</code> only — not legacy ERP root tags.</li>
   <li>Do not reuse menu <code>name</code> values across addons.</li>
   <li>Do not list menus before actions in <code>data</code>.</li>
   <li>Do not invent widget names; use the list above.</li>

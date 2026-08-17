@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -140,6 +140,26 @@
     <tr><td><code>Json</code></td><td><code>json</code></td><td>JSON document</td></tr>
   </tbody>
 </table>
+</div>
+<h2 id="computed-fields">Computed fields</h2>
+<p>Register derived values with <code>orm.RegisterCompute</code> in core or addon <code>init()</code>. Computed fields are filled on read via <code>ApplyComputes</code>. This is not runtime model inheritance or automatic write-time recomputation — declare deps explicitly and keep logic in Go.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-compute">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">init.go</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="orm.RegisterCompute(&quot;sale.order&quot;, &quot;amount_display&quot;, []string{&quot;amount_total&quot;}, func(ctx context.Context, rec map[string]interface{}) (interface{}, error) {&#10;    return fmt.Sprintf(&quot;%.2f&quot;, rec[&quot;amount_total&quot;]), nil&#10;})">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">orm.RegisterCompute("sale.order", "amount_display", []string{"amount_total"},</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    func(ctx context.Context, rec map[string]interface{}) (interface{}, error) {</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">        return fmt.Sprintf("%.2f", rec["amount_total"]), nil</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">    })</span></span></code></pre>
+    </div>
+  </div>
 </div>
 <h2 id="fielddefinition">FieldDefinition fields</h2>
 <div class="docs-table-wrap">

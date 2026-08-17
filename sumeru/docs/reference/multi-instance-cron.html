@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reference | Sumeru Docs</title>
-  <meta name="description" content="HTTP routes, SDK API, JSON-RPC, field types, domains, widgets, and kernel contracts.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/index.html">
+  <title>Multi-instance cron | Sumeru Docs</title>
+  <meta name="description" content="Multi-instance cron">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/multi-instance-cron.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
@@ -77,22 +77,29 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Reference</h1>
-        <p class="docs-lede">Quick lookup for core developers: routes, SDK surface, ORM types, and kernel contracts.</p>
-        <h2 id="topics">Topics</h2>
+        <h1>Multi-instance cron</h1>
+        <p class="docs-lede">When you run <strong>more than one Sumeru process</strong> against the same database, each process starts the built-in scheduler (<code>scheduler.Start</code> in <code>core/server/run.go</code>).</p>
+        <h2 id="safe-concurrent-execution">Safe concurrent execution</h2>
+        <p>Due cron rows are selected inside a transaction with:</p>
+        <pre class="docs-pre"><code>SELECT … FROM sys_cron
+WHERE active AND (next_call IS NULL OR next_call &lt;= $now)
+ORDER BY id
+FOR UPDATE SKIP LOCKED
+LIMIT 20</code></pre>
+        <p>Only one instance locks a given row; others skip locked rows. After the handler runs, <code>next_call</code> and <code>last_call</code> are updated in the same transaction.</p>
+        <h2 id="operational-guidelines">Operational guidelines</h2>
+        <ol>
+        <li><strong>Keep clock sync</strong> — use NTP on all app hosts; cron uses UTC.</li>
+        <li><strong>Do not mix different Sumeru versions</strong> on the same database during cron-heavy windows.</li>
+        <li><strong>Long handlers</strong> — if a cron handler exceeds the tick interval, the next window picks up where scheduling left off; avoid blocking handlers longer than a few seconds.</li>
+        <li><strong>Outbox drain</strong> — each replica also runs <code>StartOutboxDrain</code>; rows are drained once via <code>published_at IS NULL</code> updates (idempotent publish).</li>
+        </ol>
+        <p>For heavy cron load, prefer dedicated worker processes with <code>-stop-after-init</code> module ops disabled and HTTP disabled (future <code>sumeru worker</code> CLI), or external queue consumers fed by the outbox queue topic.</p>
+        <h2 id="see-also">See also</h2>
         <ul>
-          <li><a href="http-routes.html">HTTP routes</a> — public, workspace, report exchange, and addon routes</li>
-          <li><a href="sdk-api.html">SDK API</a> — models, queries, report helpers</li>
-          <li><a href="json-rpc.html">JSON-RPC</a> — programmatic API</li>
-          <li><a href="field-types.html">Field types</a> — ORM field types and attributes</li>
-          <li><a href="domain-filters.html">Domain filters</a> — search domains and operators</li>
-          <li><a href="widgets-and-views.html">Widgets &amp; views</a> — view types and widget catalog</li>
-          <li><a href="events-and-cron.html">Events &amp; cron</a> — automation hooks</li>
-          <li><a href="multi-instance-cron.html">Multi-instance cron</a> — row locks when scaling schedulers</li>
-          <li><a href="render-hooks.html">Render hooks</a> — web rendering extension points</li>
-          <li><a href="kernel-addons.html">Kernel addons</a> — built-in modules in the core repo</li>
-          <li><a href="limitations.html">Limitations</a> — stubbed or partial features</li>
-          <li><a href="platform-gaps.html">Platform gaps</a> — closed vs open kernel and catalog gaps</li>
+        <li><a href="events-and-cron.html">Events & cron</a></li>
+        <li><a href="../guides/build/scale-architecture.html">Scale-out architecture</a></li>
+        <li><a href="../guides/concepts/scheduler.html">Scheduler concept</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>

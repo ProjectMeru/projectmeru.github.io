@@ -6,8 +6,8 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>guides/build/tooling.html | Sumeru Docs</title>
-  <meta name="description" content="guides/build/tooling.html">
+  <title>Tooling | Sumeru Docs</title>
+  <meta name="description" content="Tooling">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/tooling.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -87,9 +87,24 @@ go run ./cmd/sumeru -- -c sumeru.conf</code></pre>
         <p>Common flags: <strong><code>-i</code></strong> install, <strong><code>-u</code></strong> update metadata from disk, <strong><code>-p</code></strong> / <strong><code>--http-port</code></strong>, <strong><code>-d</code></strong> database override, <strong><code>--stop-after-init</code></strong> (run install/update then exit). See <strong><code>sumeru/README.md</code></strong> for the full table.</p>
         <pre class="docs-pre is-shell"><code># Install every module not yet installed (dependency order)
 go run ./cmd/sumeru -- -c sumeru.conf -i all --stop-after-init</code></pre>
-        <h2 id="database-and-i18n-utilities">Database and i18n utilities</h2>
-        <pre class="docs-pre is-shell"><code>make db-check      # validate sumeru.conf and PostgreSQL connectivity
-make i18n-export   # export sys.translation rows to translations.csv</code></pre>
+        <h2 id="database-i18n-and-module-utilities">Database, i18n, and module utilities</h2>
+        <pre class="docs-pre is-shell"><code>make db-check       # validate sumeru.conf and PostgreSQL connectivity
+make i18n-export    # export sys.translation rows to translations.csv
+make i18n-import    # import translations.csv into sys.translation
+make migrate        # run pending SQL migrations for all modules
+make module ARGS='list'           # list discovered modules + DB state
+make module ARGS='depends-tree base'
+make module ARGS='install sales'  # install without starting HTTP server
+make shell          # interactive ORM REPL (search, read, create, domain)</code></pre>
+        <p>Standalone binaries (same flags as above):</p>
+        <pre class="docs-pre is-shell"><code>go run ./cmd/sumeru-migrate -- -c sumeru.conf
+go run ./cmd/sumeru-module -- -c sumeru.conf list
+go run ./cmd/sumeru-shell -- -c sumeru.conf
+go run ./cmd/sumeru-i18n-import -- -c sumeru.conf -i translations.csv</code></pre>
+        <h2 id="integration-test-database">Integration test database</h2>
+        <pre class="docs-pre is-shell"><code>make test-db            # docker compose up PostgreSQL on port 5433
+make test-integration   # go test -tags=integration ./test/integration/...</code></pre>
+        <p>Requires Docker. Set <code>SUMERU_TEST_DSN</code> to override the default test connection string.</p>
         <h2 id="refresh-addon-go-imports-zimportsgo">Refresh addon Go imports (<code>zimports.go</code>)</h2>
         <p>Whenever you add an addon package that must register models in <strong><code>init()</code></strong>, regenerate blank imports:</p>
         <pre class="docs-pre is-shell"><code>cd sumeru
@@ -98,7 +113,8 @@ make generate
         <p>This runs <strong><code>cmd/sumeru-import-gen</code></strong> using an INI’s <strong><code>addons_path</code></strong> (in <strong><code>sumeru/</code></strong>, <code>go generate ./cmd/sumeru</code> uses the tracked <strong><code>sumeru.conf.example</code></strong> by default). External workspaces (<strong><code>sumeru_custom_addons</code></strong>) use <strong><code>make generate</code></strong> there with their own <strong><code>-out</code></strong> / <strong><code>-package</code></strong> — see <strong><code>sumeru_custom_addons/README.md</code></strong>.</p>
         <h2 id="scaffold-a-new-addon-sumeru-bp">Scaffold a new addon (<code>sumeru-bp</code>)</h2>
         <p>From the <strong><code>sumeru</code></strong> repo root:</p>
-        <pre class="docs-pre is-shell"><code>go run ./cmd/sumeru-bp -- -bp my_module</code></pre>
+        <pre class="docs-pre is-shell"><code>make bp NAME=my_module
+# or: go run ./cmd/sumeru-bp -- -name my_module</code></pre>
         <p>Creates <strong><code>addons/my_module/</code></strong> with manifest, <strong><code>init.go</code></strong>, <strong><code>models/</code></strong>, starter <strong><code>views/</code></strong>, <strong><code>security/</code></strong> (including <strong><code>sys.access.csv</code></strong>), and static placeholders. Module name must satisfy **<code>^[a-z][a-z0-9_]*$</code>**.</p>
         <p>Then <strong><code>make generate</code></strong> and <strong><code>-i my_module</code></strong> once.</p>
         <h2 id="tests">Tests</h2>
@@ -108,6 +124,11 @@ go test ./...</code></pre>
         <h2 id="formatting">Formatting</h2>
         <pre class="docs-pre is-shell"><code>gofmt -w path/to/file.go</code></pre>
         <p>CI and local hygiene should keep <strong><code>gofmt</code></strong> clean on all committed Go files.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="getting-started/configuration-reference.html">Configuration</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>

@@ -83,41 +83,52 @@
         <tr><td>PostgreSQL ORM + model sync</td><td><strong>Implemented</strong></td><td><code>sumeru/core/orm</code></td></tr>
         <tr><td>Addon manifests + install/update</td><td><strong>Implemented</strong></td><td><code>-i</code> / <code>-u</code> CLI flags; <code>-i all</code> supported</td></tr>
         <tr><td>XML views (list, form, kanban, pivot)</td><td><strong>Implemented</strong></td><td>Workspace at <code>/web</code>; pivot v1 aggregates in HTML</td></tr>
+        <tr><td>List quick search</td><td><strong>Implemented</strong></td><td><code>?q=</code> on list views; <code>ilike</code> across visible columns</td></tr>
         <tr><td>Security groups, ACLs, record rules</td><td><strong>Implemented</strong></td><td><code>sys.access</code>, <code>sys.rule</code></td></tr>
         <tr><td>Web shell (home, apps, settings)</td><td><strong>Implemented</strong></td><td><code>/web/home</code>, <code>/web/apps</code>, <code>/web/settings</code></td></tr>
         <tr><td>Pinned apps + recent apps</td><td><strong>Implemented</strong></td><td>Top bar + localStorage recents</td></tr>
         <tr><td>App launcher (Cmd+K)</td><td><strong>Implemented</strong></td><td>Menu/app name search — not AI</td></tr>
         <tr><td>JSON-RPC API</td><td><strong>Implemented</strong></td><td><code>POST /api/rpc</code>, session or API key</td></tr>
+        <tr><td>JSON-RPC <code>read_group</code> / <code>call</code></td><td><strong>Implemented</strong></td><td>Aggregation + registered object actions</td></tr>
+        <tr><td>Computed fields (Go registry)</td><td><strong>Partial</strong></td><td><code>RegisterCompute</code> on read; no automatic write-time dependency graph</td></tr>
+        <tr><td>Versioned SQL migrations</td><td><strong>Implemented</strong></td><td><code>migrations/*.sql</code> per module; <code>sumeru-migrate</code> CLI</td></tr>
         <tr><td>Setup wizard</td><td><strong>Implemented</strong></td><td><code>/setup</code> before first DB init</td></tr>
         <tr><td>Multi-company switch</td><td><strong>Implemented</strong></td><td>POST <code>/web/company/switch</code></td></tr>
         <tr><td>Mail chatter + activities</td><td><strong>Implemented</strong></td><td>Requires <code>mail</code> addon</td></tr>
+        <tr><td>Transactional email (SMTP)</td><td><strong>Partial</strong></td><td>Password reset when <code>smtp_host</code> / <code>smtp_from</code> configured</td></tr>
         <tr><td>Report download (CSV/PDF)</td><td><strong>Implemented</strong></td><td>Opt-in per view via XML; max 500 rows</td></tr>
         <tr><td>Bulk CSV import with mapping</td><td><strong>Implemented</strong></td><td>Template → upload → <code>sys.bulk.import</code> → confirm</td></tr>
         <tr><td>Legacy CSV import route</td><td><strong>Implemented</strong></td><td><code>POST /web/import/csv</code> → same bulk flow (no direct import)</td></tr>
         <tr><td>Event bus (<code>record.created</code>, <code>record.updated</code>)</td><td><strong>Implemented</strong></td><td>In-process pub/sub</td></tr>
-        <tr><td>Cron scheduler (<code>sys.cron</code>)</td><td><strong>Implemented</strong></td><td>Ticker + events + registered Go handlers by <code>code</code></td></tr>
+        <tr><td>Cron scheduler (<code>sys.cron</code>)</td><td><strong>Implemented</strong></td><td>Ticker + <code>SKIP LOCKED</code>; registered Go handlers</td></tr>
         <tr><td>Automation server actions</td><td><strong>Implemented</strong></td><td>Declarative <code>publish:</code> / <code>write:</code> code prefixes</td></tr>
-        <tr><td>Transactional outbox</td><td><strong>Implemented</strong></td><td>Enqueue + background drain worker</td></tr>
+        <tr><td>Transactional outbox</td><td><strong>Implemented</strong></td><td>Enqueue + drain worker → in-process queue</td></tr>
         <tr><td>XML <code>noupdate</code> on <code><data></code></td><td><strong>Implemented</strong></td><td>Skips existing records on module update</td></tr>
         <tr><td>HTTP bind address</td><td><strong>Implemented</strong></td><td>Optional <code>http_interface</code> INI key</td></tr>
-        <tr><td>Dev CLI utilities</td><td><strong>Implemented</strong></td><td><code>sumeru-db-check</code>, <code>sumeru-i18n-export</code>, <code>make bp</code></td></tr>
+        <tr><td>DB connection pool tuning</td><td><strong>Implemented</strong></td><td><code>db_max_open_conns</code>, <code>db_max_idle_conns</code>, <code>db_conn_max_lifetime_minutes</code></td></tr>
+        <tr><td>Read replica routing</td><td><strong>Implemented</strong></td><td>Optional <code>db_read_replica_dsn</code> for search paths</td></tr>
+        <tr><td>Rate limiting</td><td><strong>Implemented</strong></td><td>Optional <code>rate_limit_rpm</code> on RPC and login</td></tr>
+        <tr><td>Dev CLI utilities</td><td><strong>Implemented</strong></td><td><code>sumeru-db-check</code>, <code>sumeru-i18n-export/import</code>, <code>sumeru-shell</code>, <code>sumeru-module</code>, <code>sumeru-migrate</code>, <code>make bp</code></td></tr>
+        <tr><td>Integration test harness</td><td><strong>Implemented</strong></td><td><code>make test-db</code>, <code>make test-integration</code> (<code>-tags=integration</code>)</td></tr>
         <tr><td>sumeru_ai addon</td><td><strong>Partial</strong></td><td>Opt-in; search interceptor pass-through; placeholder UI hooks</td></tr>
         <tr><td>Natural language / AI search</td><td><strong>Planned</strong></td><td>Not shipped in core UX</td></tr>
         <tr><td>AI activity summaries</td><td><strong>Planned</strong></td><td>Chatter exists; no AI summaries</td></tr>
         <tr><td>Production readiness</td><td><strong>Pre-alpha</strong></td><td>Not for live business use</td></tr>
         </tbody></table>
-        <h2 id="odoo-19-erp-0-cross-reference">Odoo 19 (erp_0) cross-reference</h2>
-        <p>Reference baseline: vanilla Odoo 19 CE in <code>erp_0/</code> (631 addons). Mapping for implementers — not end-user parity claims.</p>
-        <table><thead><tr><th>Odoo (erp_0)</th><th>Sumeru equivalent</th><th>Status</th></tr></thead><tbody>
-        <tr><td><code>base</code> / <code>web</code> kernel</td><td><code>sumeru/addons/base</code> + <code>core/</code></td><td>Implemented (pre-alpha)</td></tr>
-        <tr><td><code>ir.cron</code> / <code>base_automation</code></td><td><code>automation</code> + <code>core/scheduler</code></td><td>Implemented (Go handlers, declarative actions)</td></tr>
+        <h2 id="platform-capability-map">Platform capability map</h2>
+        <p>Mapping common ERP platform concepts to Sumeru — for implementers, not end-user parity claims. Full analysis: <a href="../reference/platform-gaps.html">Platform gaps</a>.</p>
+        <table><thead><tr><th>ERP platform concept</th><th>Sumeru equivalent</th><th>Status</th></tr></thead><tbody>
+        <tr><td>Core platform / web shell</td><td><code>sumeru/addons/base</code> + <code>core/</code></td><td>Implemented (pre-alpha)</td></tr>
+        <tr><td>Scheduled jobs / automation</td><td><code>automation</code> + <code>core/scheduler</code></td><td>Implemented (Go handlers, declarative actions)</td></tr>
+        <tr><td><code>read_group</code> aggregation</td><td><code>read_group</code> RPC + ORM</td><td>Implemented (sum/count)</td></tr>
+        <tr><td>Object method RPC</td><td><code>call</code> RPC</td><td>Implemented (registered object actions only)</td></tr>
         <tr><td>Pivot / graph views</td><td>Pivot v1 (HTML table)</td><td>Implemented (read-only; no graph view)</td></tr>
-        <tr><td><code>http_interface</code></td><td><code>http_interface</code> INI</td><td>Implemented</td></tr>
-        <tr><td><code>-i all</code> module install</td><td><code>-i all</code> CLI</td><td>Implemented</td></tr>
-        <tr><td><code>stock</code> / inventory</td><td>—</td><td>Not present (deferred)</td></tr>
+        <tr><td>HTTP bind / DB pool tuning</td><td><code>http_interface</code>, pool INI keys</td><td>Implemented</td></tr>
+        <tr><td>Install-all modules CLI</td><td><code>-i all</code> CLI</td><td>Implemented</td></tr>
+        <tr><td>Inventory / stock</td><td>—</td><td>Not present (deferred)</td></tr>
         <tr><td>Website / eCommerce</td><td>—</td><td>Not present (deferred)</td></tr>
-        <tr><td>Portal</td><td>—</td><td>Not present (deferred)</td></tr>
-        <tr><td>224 localizations</td><td>—</td><td>Not present (deferred)</td></tr>
+        <tr><td>Customer portal</td><td>—</td><td>Not present (deferred)</td></tr>
+        <tr><td>Country localizations</td><td>—</td><td>Not present (deferred)</td></tr>
         </tbody></table>
         <h2 id="standard-business-addons-sumeru-addons">Standard business addons (<code>sumeru_addons</code>)</h2>
         <table><thead><tr><th>Module</th><th>Status</th><th>Key automation</th></tr></thead><tbody>

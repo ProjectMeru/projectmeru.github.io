@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -118,6 +118,24 @@
     </div>
   </div>
 </div>
+<h2 id="integration-tests">Integration tests (PostgreSQL)</h2>
+<p>Start a disposable database and run tagged integration tests:</p>
+<div class="docs-codebox is-shell is-wrap" data-codebox="shell-integration">
+  <div class="docs-codebox-titlebar">
+    <span class="docs-codebox-name">Terminal</span>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">shell</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="cd sumeru&#10;make test-db&#10;make test-integration">
+      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make test-db</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make test-integration</span></span></code></pre>
+    </div>
+  </div>
+</div>
+<p>Requires Docker. Tests live under <code>test/integration/</code> with build tag <code>integration</code>.</p>
 <h2 id="practical-checklist">Practical checklist for an addon</h2>
 <ul>
   <li>Install with <code>-i</code> and confirm no loader errors.</li>

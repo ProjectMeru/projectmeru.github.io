@@ -111,7 +111,7 @@
         <ul>
         <li><strong>Many2one</strong> — stored as <code>BIGINT</code> FK; fully supported for CRUD and search.</li>
         <li><strong>Many2many / One2many</strong> — no direct column on the parent table. UI can display relations; persistence is limited. Special cases (<code>company_ids</code>, <code>security_group_ids</code>) have dedicated handling in the kernel.</li>
-        <li>Do not assume Odoo-style M2M/O2M write-through on arbitrary models without verifying behaviour.</li>
+        <li>Do not assume automatic M2M/O2M write-through on arbitrary models without verifying behaviour.</li>
         </ul>
         <h2 id="model-inheritance">Model inheritance</h2>
         <p><strong>ORM model <code>_inherit</code> is not supported.</strong> Extend behaviour with bridge modules, view XML inherit, or new models — not by merging Go struct definitions.</p>

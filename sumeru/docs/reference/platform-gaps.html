@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Domain filters | Sumeru Docs</title>
-  <meta name="description" content="Domain filters">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/domain-filters.html">
+  <title>Platform gaps | Sumeru Docs</title>
+  <meta name="description" content="Platform gaps">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/platform-gaps.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
@@ -76,62 +76,69 @@
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Domain filters</h1>
-        <p class="docs-lede">Domains filter records in <code>search</code>, <code>search_read</code>, JSON-RPC, record rules, and list/kanban export windows. Source: <code>sumeru/core/orm/crud_domain.go</code>, <code>domain_json.go</code>.</p>
-        <h2 id="shape">Shape</h2>
-        <p>A domain is a JSON array of <strong>triples</strong> <code>[field, operator, value]</code> combined with AND by default.</p>
-        <pre class="docs-pre"><code>[["state", "=", "draft"], ["company_id", "=", 1]]</code></pre>
-        <h2 id="supported-operators">Supported operators</h2>
-        <table><thead><tr><th>Operator</th><th>Meaning</th></tr></thead><tbody>
-        <tr><td><code>=</code></td><td>Equal</td></tr>
-        <tr><td><code>!=</code></td><td>Not equal</td></tr>
-        <tr><td><code>in</code></td><td>Value is array of allowed values</td></tr>
-        <tr><td><code>like</code></td><td>SQL LIKE (case-sensitive)</td></tr>
-        <tr><td><code>ilike</code></td><td>SQL ILIKE (case-insensitive)</td></tr>
-        <tr><td><code>=like</code></td><td>Alias for <code>like</code></td></tr>
+        <div class="docs-eyebrow"><span class="docs-audience is-all">All</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Platform gaps</h1>
+        <p class="docs-lede">Sumeru is a <strong>small Go kernel</strong> for modular ERP-style apps: addons, domains, views, chatter, cron, and JSON-RPC. This page sets expectations for implementers — not a claim of feature parity with any other product.</p>
+        <h2 id="architecture-snapshot">Architecture snapshot</h2>
+        <table><thead><tr><th>Dimension</th><th>Sumeru today</th><th>Typical mature modular ERP</th></tr></thead><tbody>
+        <tr><td>Runtime</td><td>Single Go binary per process; horizontal scale via N replicas</td><td>Multi-process app servers (threaded / prefork / async workers)</td></tr>
+        <tr><td>Modules</td><td>~5 kernel + ~8 business (<code>sumeru_addons</code>)</td><td>Hundreds of optional apps and localizations</td></tr>
+        <tr><td>UI</td><td>Server-rendered HTML + progressive JS</td><td>Full SPA client + asset bundles</td></tr>
+        <tr><td>ORM extension</td><td>View XML inherit, bridge modules, events</td><td>Dynamic model inheritance, computed fields, metadata models</td></tr>
+        <tr><td>RPC</td><td>Allowlisted JSON-RPC at <code>POST /api/rpc</code></td><td>Broad unrestricted RPC on many public methods</td></tr>
+        <tr><td>Realtime</td><td>In-process event bus + outbox drain</td><td>Dedicated bus / WebSocket + DB NOTIFY</td></tr>
+        <tr><td>Scale knobs</td><td>INI pool, read replica, rate limits (see <a href="../guides/build/scale-architecture.html">Scale architecture</a>)</td><td>Worker pools, connection limits, dedicated cron workers</td></tr>
         </tbody></table>
-        <h2 id="or-composition">OR composition</h2>
-        <p>Prefix Polish notation: repeat <code>|</code> once per extra OR branch, then list leaf triples.</p>
-        <pre class="docs-pre"><code>["|", ["state", "=", "draft"], ["state", "=", "sent"]]</code></pre>
-        <p>Two branches → one <code>|</code> prefix. Three branches → two <code>|</code> prefixes, then three triples.</p>
-        <h2 id="list-search">List search</h2>
-        <p>Workspace list views append an OR-of-<code>ilike</code> domain when <code>?q=</code> is present, searching Char/Text columns visible in the list view.</p>
-        <h2 id="not-supported">Not supported</h2>
-        <ul>
-        <li><code>></code>, <code><</code>, <code>>=</code>, <code><=</code></li>
-        <li>Nested boolean trees beyond the OR-prefix pattern above</li>
-        </ul>
-        <p>Plan filters accordingly or post-filter in application code.</p>
-        <h2 id="date-null-checks">Date null checks</h2>
-        <p>For date/datetime fields, use <code>false</code> as the value:</p>
-        <ul>
-        <li><code>["date_field", "=", false]</code> → IS NULL</li>
-        <li><code>["date_field", "!=", false]</code> → IS NOT NULL</li>
-        </ul>
-        <h2 id="abac-context-tokens">ABAC context tokens</h2>
-        <p>Record rules and some domains substitute runtime tokens (resolved at query time):</p>
-        <table><thead><tr><th>Token</th><th>Resolves to</th></tr></thead><tbody>
-        <tr><td><code>$uid</code></td><td>Current user id</td></tr>
-        <tr><td><code>$company_id</code></td><td>Active company id</td></tr>
-        <tr><td><code>$company_ids</code></td><td>All companies the user may access</td></tr>
+        <h2 id="closed-since-august-2026-gap-plan-work">Closed since August 2026 (gap-plan work)</h2>
+        <p>These were listed as gaps in early 2026 docs and are now <strong>implemented</strong> (pre-alpha):</p>
+        <table><thead><tr><th>Area</th><th>What shipped</th></tr></thead><tbody>
+        <tr><td>Computed fields</td><td>Go <code>orm.RegisterCompute</code> + <code>ApplyComputes</code> on read paths</td></tr>
+        <tr><td>Aggregation</td><td><code>read_group</code> RPC + ORM <code>ReadGroup</code> (sum/count)</td></tr>
+        <tr><td>Object actions via RPC</td><td><code>call</code> method invokes <code>RegisterObjectAction</code> handlers</td></tr>
+        <tr><td>Versioned migrations</td><td><code>addons/MODULE/migrations/*.sql</code> + <code>sumeru-migrate</code> / install hook</td></tr>
+        <tr><td>List search</td><td>Workspace list <code>?q=</code> filter with <code>ilike</code> across view columns</td></tr>
+        <tr><td>Email (transactional)</td><td>SMTP INI + password reset when <code>smtp_host</code> / <code>smtp_from</code> set</td></tr>
+        <tr><td>DB pool & replica</td><td><code>db_max_open_conns</code>, <code>db_read_replica_dsn</code>, etc.</td></tr>
+        <tr><td>Rate limiting</td><td><code>rate_limit_rpm</code> on <code>/api/rpc</code> and <code>/web/login</code></td></tr>
+        <tr><td>Multi-instance cron</td><td><code>FOR UPDATE SKIP LOCKED</code> on due <code>sys.cron</code> rows</td></tr>
+        <tr><td>Async plumbing</td><td>Outbox drain → in-process queue; mail queue worker</td></tr>
+        <tr><td>Developer CLIs</td><td><code>sumeru-shell</code>, <code>sumeru-module</code>, <code>sumeru-migrate</code>, <code>sumeru-i18n-import</code>, <code>make test-db</code></td></tr>
         </tbody></table>
-        <p>Used heavily in <code>sys.rule</code> <code>domain_force</code> JSON.</p>
-        <h2 id="xml-id-references">XML-id references</h2>
-        <p>Domains in XML or JSON may reference records by XML id; the engine resolves them via <code>sys.model_data</code> before SQL is built.</p>
-        <h2 id="examples">Examples</h2>
-        <p><strong>RPC search_read</strong> — open sales orders:</p>
-        <pre class="docs-pre"><code>{"method": "search_read", "params": {"model": "sale.order", "domain": [["state", "=", "sale"]]}}</code></pre>
-        <p><strong>Text search</strong> — name contains "acme" (case-insensitive):</p>
-        <pre class="docs-pre"><code>[["name", "ilike", "%acme%"]]</code></pre>
-        <p><strong>Record rule</strong> — own company only:</p>
-        <pre class="docs-pre"><code>[["company_id", "in", "$company_ids"]]</code></pre>
-        <p><strong>Export window</strong> — list/kanban exports apply the window action domain (max 500 rows).</p>
+        <p>Do <strong>not</strong> double-count these as open gaps — see also <a href="../using/feature-matrix.html">Feature matrix</a>.</p>
+        <h2 id="still-open-kernel-platform-p0p1">Still open — kernel / platform (P0–P1)</h2>
+        <table><thead><tr><th>Gap</th><th>Typical ERP pattern</th><th>Sumeru today</th><th>Impact</th></tr></thead><tbody>
+        <tr><td>Model <code>_inherit</code></td><td>MRO merge in dynamic ORM</td><td>Deliberately absent</td><td>Bridge modules or duplicate models</td></tr>
+        <tr><td>Rich computed graph</td><td>Declarative depends/constraints/onchange</td><td>RegisterCompute only; no full dependency recompute on write</td><td>Business logic stays in Go services</td></tr>
+        <tr><td>Metadata ORM</td><td>Runtime model/field registry</td><td><code>sys.model</code> exists; no runtime field creation</td><td>Customization needs recompile + <code>-u</code></td></tr>
+        <tr><td>Rich server actions</td><td>Scriptable automation, webhooks</td><td>Declarative <code>publish:</code> / <code>write:</code> only</td><td>Power users need Go for complex automation</td></tr>
+        <tr><td>Graph / calendar / gantt</td><td>Full view types</td><td>Pivot v1 HTML only</td><td>Reporting UX gap</td></tr>
+        <tr><td>Realtime bus</td><td>WebSocket + rate limits</td><td>Sync in-process bus</td><td>No live UI push</td></tr>
+        <tr><td>Full mail gateway</td><td>SMTP/IMAP, templates, followers</td><td>Chatter UI + transactional SMTP stub</td><td>No full notification stack</td></tr>
+        <tr><td>Multi-process in one host</td><td>Prefork worker pools</td><td>One HTTP listener per binary</td><td>Scale out = N processes behind LB</td></tr>
+        <tr><td>Attachment filestore</td><td>Central attachment store, object storage hooks</td><td>Binary fields only</td><td>Large files / CDN unclear</td></tr>
+        </tbody></table>
+        <h2 id="deferred-business-catalog-p2">Deferred — business catalog (P2)</h2>
+        <p>Not kernel goals for pre-beta; full ERP suites include inventory/MRP/POS, website/eCommerce, country localizations, payments, payroll, and more. Sumeru covers a thin <strong>lead-to-cash + P2P + HR directory</strong> slice. See <a href="limitations.html">Limitations</a>.</p>
+        <h2 id="ui-stubs-still-visible">UI stubs still visible</h2>
+        <table><thead><tr><th>Area</th><th>Status</th></tr></thead><tbody>
+        <tr><td>List bulk select</td><td>Checkboxes disabled</td></tr>
+        <tr><td>sumeru_ai addon</td><td>Pass-through interceptor; placeholder UI</td></tr>
+        <tr><td>XML <code>eval</code></td><td>Stored as literal; not executed</td></tr>
+        </tbody></table>
+        <p>List search and password-reset email are <strong>no longer</strong> stubs when SMTP is configured.</p>
+        <h2 id="scale-roadmap">Scale roadmap</h2>
+        <table><thead><tr><th>Phase</th><th>Focus</th></tr></thead><tbody>
+        <tr><td><strong>1 — Production-shaped</strong></td><td>Pool INI, stateless replicas, read replica routing, rate limits, SMTP</td></tr>
+        <tr><td><strong>2 — Async</strong></td><td>Queue-backed outbox/cron/mail, cron row locks (shipped), external broker hook</td></tr>
+        <tr><td><strong>3 — Millions of reads</strong></td><td>HPA, PgBouncer, CDN, optional separate API vs render services</td></tr>
+        </tbody></table>
+        <p>Details: <a href="../guides/build/scale-architecture.html">Scale-out architecture</a>, <a href="multi-instance-cron.html">Multi-instance cron</a>.</p>
         <h2 id="see-also">See also</h2>
         <ul>
+        <li><a href="../using/feature-matrix.html">Feature matrix</a></li>
+        <li><a href="limitations.html">Limitations</a></li>
         <li><a href="json-rpc.html">JSON-RPC</a></li>
-        <li><a href="../guides/security/record-rules.html">Record rules</a></li>
-        <li><a href="field-types.html">Field types</a></li>
+        <li><a href="../guides/start/configuration.html">Configuration</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>

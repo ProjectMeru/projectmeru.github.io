@@ -80,6 +80,7 @@
         <h1>JSON-RPC</h1>
         <p class="docs-lede"><strong>Endpoint:</strong> <code>POST /api/rpc</code></p>
         <p><strong>Source:</strong> <code>sumeru/core/server/api/dispatch.go</code></p>
+        <p>Sumeru exposes <strong>JSON-RPC only</strong> at this endpoint. There is no alternate RPC transport.</p>
         <h2 id="authentication">Authentication</h2>
         <table><thead><tr><th>Method</th><th>Header / cookie</th></tr></thead><tbody>
         <tr><td>Session</td><td>Cookie <code>sumeru_session</code> (from <code>/web/login</code>)</td></tr>
@@ -122,6 +123,8 @@
         <tr><td><code>search</code></td><td><code>[domain?]</code></td><td><code>limit</code>, <code>offset</code></td><td><code>[{record}, …]</code></td></tr>
         <tr><td><code>search_read</code></td><td><code>[domain, fields]</code></td><td><code>limit</code>, <code>offset</code></td><td>Projected records</td></tr>
         <tr><td><code>read</code></td><td><code>[ids, fields?]</code></td><td>—</td><td>Records; missing ids → <code>NOT_FOUND</code></td></tr>
+        <tr><td><code>read_group</code></td><td><code>[spec]</code></td><td>—</td><td>Grouped aggregation rows</td></tr>
+        <tr><td><code>call</code></td><td><code>[id, method, vals?]</code></td><td>—</td><td><code>true</code> or <code>{redirect: "…"}</code></td></tr>
         <tr><td><code>create</code></td><td><code>[values]</code></td><td>—</td><td>New id (int)</td></tr>
         <tr><td><code>write</code></td><td><code>[ids, values]</code></td><td>—</td><td><code>true</code></td></tr>
         <tr><td><code>unlink</code></td><td><code>[ids]</code></td><td>—</td><td><code>true</code></td></tr>
@@ -130,6 +133,26 @@
         <tr><td><code>unlink_many</code></td><td><code>[ids]</code></td><td>—</td><td><code>true</code></td></tr>
         </tbody></table>
         <p>Default <code>kwargs.limit</code> is <strong>500</strong> (hard cap). Offset is applied in SQL via <code>SearchPage</code>.</p>
+        <h3 id="read-group">read_group</h3>
+        <p><code>args[0]</code> is a spec object:</p>
+        <pre class="docs-pre"><code>{
+  "domain": [["state", "=", "sale"]],
+  "groupby": ["partner_id"],
+  "fields": [
+    {"name": "amount_total", "field": "amount_total", "measure": "sum"},
+    {"name": "__count", "field": "id", "measure": "count"}
+  ]
+}</code></pre>
+        <p>Measures: <code>sum</code>, <code>count</code>. Uses the same ACL and record rules as <code>search</code>.</p>
+        <h3 id="call">call</h3>
+        <p>Invokes a handler registered with <code>orm.RegisterObjectAction</code> (same as form object buttons):</p>
+        <pre class="docs-pre"><code>{
+  "model": "core.user",
+  "method": "call",
+  "args": [42, "action_reset_password", {}]
+}</code></pre>
+        <h2 id="read-replica">Read replica</h2>
+        <p>When <code>db_read_replica_dsn</code> is configured, <code>search</code>, <code>search_read</code>, and list workspace loads prefer the read replica connection.</p>
         <h2 id="security">Security</h2>
         <p>RPC uses the same ACL and record rules as the web UI. The authenticated user id is taken from the session or API key owner and passed in the ORM context.</p>
         <h2 id="observability">Observability</h2>
@@ -138,6 +161,7 @@
         <ul>
         <li><a href="sumeru/README.html"><code>sumeru/README.md</code></a> — full RPC examples</li>
         <li><a href="http-routes.md">HTTP routes</a></li>
+        <li><a href="../guides/build/json-rpc-api.html">JSON-RPC API guide</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>

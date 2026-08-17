@@ -120,6 +120,10 @@
           {
             "title": "Deployment",
             "href": "guides/build/deployment.html"
+          },
+          {
+            "title": "Scale architecture",
+            "href": "guides/build/scale-architecture.html"
           }
         ]
       },
@@ -214,6 +218,10 @@
             "href": "reference/events-and-cron.html"
           },
           {
+            "title": "Multi-instance cron",
+            "href": "reference/multi-instance-cron.html"
+          },
+          {
             "title": "Render hooks",
             "href": "reference/render-hooks.html"
           },
@@ -236,6 +244,10 @@
           {
             "title": "Limitations",
             "href": "reference/limitations.html"
+          },
+          {
+            "title": "Platform gaps",
+            "href": "reference/platform-gaps.html"
           }
         ]
       }
@@ -490,6 +502,7 @@
     "guides/build/tooling.html": "guides",
     "guides/build/testing.html": "guides",
     "guides/build/deployment.html": "guides",
+    "guides/build/scale-architecture.html": "guides",
     "guides/concepts/three-modules.html": "guides",
     "guides/concepts/orm.html": "guides",
     "guides/concepts/module-loader.html": "guides",
@@ -508,12 +521,14 @@
     "reference/sdk-api.html": "reference",
     "reference/json-rpc.html": "reference",
     "reference/events-and-cron.html": "reference",
+    "reference/multi-instance-cron.html": "reference",
     "reference/render-hooks.html": "reference",
     "reference/kernel-addons.html": "reference",
     "reference/field-types.html": "reference",
     "reference/domain-filters.html": "reference",
     "reference/widgets-and-views.html": "reference",
     "reference/limitations.html": "reference",
+    "reference/platform-gaps.html": "reference",
     "addons/index.html": "addons",
     "addons/manifest-and-layout.html": "addons",
     "addons/events-and-hooks.html": "addons",

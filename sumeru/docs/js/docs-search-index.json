@@ -302,7 +302,7 @@
     "url": "guides/build/customization.html",
     "track": "guides",
     "section": "Building an Application",
-    "excerpt": "Extend Sumeru without forking sumeru_addons. ORM model _inherit is not supported \u2014 do not expect Odoo-style merged models.",
+    "excerpt": "Extend Sumeru without forking sumeru_addons. ORM model _inherit is not supported \u2014 do not expect runtime model inheritance or merged models.",
     "headings": [
       "custom-addon-workspace",
       "view-xml-inheritance",
@@ -402,6 +402,7 @@
     "headings": [
       "basemodel-and-registration",
       "field-types",
+      "computed-fields",
       "fielddefinition",
       "runtime-records",
       "compile-and-run",
@@ -464,6 +465,19 @@
     ]
   },
   {
+    "title": "Scale-out architecture",
+    "url": "guides/build/scale-architecture.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Sumeru runs as one or more stateless Go replicas behind a load balancer. Sessions live in PostgreSQL (sys.session), so any replica can serve authenticated requests without sticky cookies.",
+    "headings": [
+      "phase-1-production-shaped-single-cluster",
+      "phase-2-async-workers",
+      "phase-3-millions-of-concurrent-reads",
+      "see-also"
+    ]
+  },
+  {
     "title": "Security & access",
     "url": "guides/build/security-and-access.html",
     "track": "guides",
@@ -487,6 +501,7 @@
     "headings": [
       "what-exists-today",
       "running-core-tests",
+      "integration-tests",
       "practical-checklist",
       "compile-and-run",
       "what-not-to-do",
@@ -501,11 +516,13 @@
     "excerpt": "Commands and generators used every day while developing Sumeru.",
     "headings": [
       "run-the-server",
-      "database-and-i18n-utilities",
+      "database-i18n-and-module-utilities",
+      "integration-test-database",
       "refresh-addon-go-imports-zimportsgo",
       "scaffold-a-new-addon-sumeru-bp",
       "tests",
-      "formatting"
+      "formatting",
+      "see-also"
     ]
   },
   {
@@ -779,6 +796,7 @@
       "from-fields-to-tables",
       "records-as-maps",
       "sdk-boundary",
+      "computed-and-aggregation",
       "compile-and-run",
       "what-not-to-do",
       "next-step"
@@ -913,6 +931,10 @@
       "logging",
       "paths-and-branding-optional",
       "runtime-parameters-not-ini",
+      "database-pool-optional",
+      "read-replica-optional",
+      "rate-limiting-optional",
+      "smtp-optional",
       "cli-overrides",
       "addons-path",
       "next-step",
@@ -1003,6 +1025,7 @@
       "shape",
       "supported-operators",
       "or-composition",
+      "list-search",
       "not-supported",
       "date-null-checks",
       "abac-context-tokens",
@@ -1085,6 +1108,9 @@
       "request-shape",
       "response-envelope",
       "public-methods",
+      "read-group",
+      "call",
+      "read-replica",
       "security",
       "observability",
       "see-also"
@@ -1117,7 +1143,35 @@
       "standard-business-addons",
       "reporting-v1-gaps",
       "multi-company-vs-saas",
-      "deliberately-not-ported-from-odoo",
+      "out-of-scope-for-the-kernel",
+      "see-also"
+    ]
+  },
+  {
+    "title": "Multi-instance cron",
+    "url": "reference/multi-instance-cron.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "When you run more than one Sumeru process against the same database, each process starts the built-in scheduler (scheduler.Start in core/server/run.go).",
+    "headings": [
+      "safe-concurrent-execution",
+      "operational-guidelines",
+      "see-also"
+    ]
+  },
+  {
+    "title": "Platform gaps",
+    "url": "reference/platform-gaps.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Sumeru is a small Go kernel for modular ERP-style apps: addons, domains, views, chatter, cron, and JSON-RPC. This page sets expectations for implementers \u2014 not a claim of feature parity with any other product.",
+    "headings": [
+      "architecture-snapshot",
+      "closed-since-august-2026-gap-plan-work",
+      "still-open-kernel-platform-p0p1",
+      "deferred-business-catalog-p2",
+      "ui-stubs-still-visible",
+      "scale-roadmap",
       "see-also"
     ]
   },
@@ -1181,7 +1235,7 @@
     "section": "Getting started",
     "excerpt": "Status of major functionality as of the last documentation review. Use this page when writing website copy or setting expectations with business users.",
     "headings": [
-      "odoo-19-erp-0-cross-reference",
+      "platform-capability-map",
       "standard-business-addons-sumeru-addons"
     ]
   },
@@ -1428,6 +1482,7 @@
     "headings": [
       "opening-a-workspace",
       "view-types",
+      "list-search",
       "report-toolbar",
       "saving-records",
       "kanban",

@@ -82,15 +82,19 @@
         <h2 id="core-platform">Core platform</h2>
         <table><thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead><tbody>
         <tr><td>PostgreSQL ORM + schema sync</td><td><strong>Implemented</strong></td><td>Additive DDL on install/update</td></tr>
+        <tr><td>Versioned SQL migrations</td><td><strong>Implemented</strong></td><td><code>addons/MODULE/migrations/*.sql</code>; tracked in <code>sys_migration</code></td></tr>
         <tr><td>XML views (list, form, kanban, pivot)</td><td><strong>Implemented</strong></td><td>Pivot v1: read-only HTML aggregation (500-row cap)</td></tr>
+        <tr><td>List quick search</td><td><strong>Implemented</strong></td><td><code>?q=</code> filter on list views</td></tr>
         <tr><td>Security groups, ACLs, record rules</td><td><strong>Implemented</strong></td><td><code>sys.access</code>, <code>sys.rule</code></td></tr>
-        <tr><td>JSON-RPC API</td><td><strong>Implemented</strong></td><td>Session or API key</td></tr>
+        <tr><td>JSON-RPC API</td><td><strong>Implemented</strong></td><td>CRUD + <code>read_group</code> + <code>call</code> (object actions)</td></tr>
+        <tr><td>Computed fields (Go)</td><td><strong>Partial</strong></td><td><code>RegisterCompute</code>; applied on read; no full write-time dependency graph</td></tr>
         <tr><td>Report CSV/PDF + bulk import</td><td><strong>Implemented</strong></td><td>Opt-in per view; 500-row export cap</td></tr>
         <tr><td>Event bus</td><td><strong>Implemented</strong></td><td><code>record.created</code>, <code>record.updated</code>, custom names</td></tr>
-        <tr><td>Cron scheduler</td><td><strong>Implemented</strong></td><td>Registered Go handlers by <code>code</code>; not arbitrary Python</td></tr>
+        <tr><td>Cron scheduler</td><td><strong>Implemented</strong></td><td><code>SKIP LOCKED</code> for multi-instance; Go handlers by <code>code</code></td></tr>
         <tr><td>Server actions</td><td><strong>Implemented</strong></td><td>Declarative <code>publish:</code> / <code>write:</code> only</td></tr>
-        <tr><td>Transactional outbox</td><td><strong>Implemented</strong></td><td>Enqueue + drain worker</td></tr>
+        <tr><td>Transactional outbox</td><td><strong>Implemented</strong></td><td>Enqueue + drain worker + queue publish</td></tr>
         <tr><td>XML <code>noupdate</code> on <code><data></code></td><td><strong>Implemented</strong></td><td>Skips existing xml-id records on <code>-u</code></td></tr>
+        <tr><td>SMTP password reset</td><td><strong>Partial</strong></td><td>Requires <code>smtp_host</code> / <code>smtp_from</code> in INI; not a full mail gateway</td></tr>
         <tr><td>ORM model <code>_inherit</code></td><td><strong>Not supported</strong></td><td>Use view inherit, bridge modules, or new models</td></tr>
         <tr><td>Graph views</td><td><strong>Not supported</strong></td><td>Pivot table only</td></tr>
         <tr><td>sumeru_ai addon</td><td><strong>Partial</strong></td><td>Opt-in; placeholder UI hooks</td></tr>
@@ -104,24 +108,25 @@
         <h2 id="reporting-v1-gaps">Reporting v1 gaps</h2>
         <ul>
         <li>No pivot/graph export to file</li>
-        <li>No XLSX, scheduled reports, or email delivery</li>
+        <li>No XLSX or scheduled report email delivery</li>
         <li>No direct CSV import without mapping wizard</li>
         <li>Financial statement PDFs not shipped</li>
         </ul>
         <h2 id="multi-company-vs-saas">Multi-company vs SaaS</h2>
         <p>Multi-company switch and record rules support <strong>one database, multiple companies</strong>. This is not multi-tenant SaaS isolation — see <a href="../guides/security/isolation-model.html">Isolation model</a>.</p>
-        <h2 id="deliberately-not-ported-from-odoo">Deliberately not ported from Odoo</h2>
+        <h2 id="out-of-scope-for-the-kernel">Out of scope for the kernel</h2>
         <ul>
-        <li>Python <code>_inherit</code> / computed-field inheritance</li>
-        <li>OWL web client (Sumeru uses server-rendered HTML)</li>
+        <li>Dynamic model <code>_inherit</code> / full computed-field inheritance</li>
+        <li>Full SPA web client (Sumeru uses server-rendered HTML)</li>
         <li>Full website builder / eCommerce / POS</li>
-        <li>224 country localizations (compliance per country)</li>
-        <li>XML-RPC (JSON-RPC + API keys cover integration)</li>
-        <li>Arbitrary cron Python <code>safe_eval</code></li>
+        <li>Country-by-country localizations (compliance per jurisdiction)</li>
+        <li>Arbitrary scripted cron jobs</li>
+        <li>Arbitrary RPC on any model method (only registered object actions via <code>call</code>)</li>
         </ul>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../using/feature-matrix.html">Feature matrix</a> — full matrix for writers</li>
+        <li><a href="platform-gaps.html">Platform gaps</a> — closed vs open gaps</li>
         <li><a href="../guides/build/testing.html">Testing</a> — test coverage gaps</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

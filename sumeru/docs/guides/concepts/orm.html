@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -112,6 +112,8 @@
 <p>Public APIs search/create/write with maps. Addon authors still declare typed structs for Field metadata via the SDK.</p>
 <h2 id="sdk-boundary">SDK boundary</h2>
 <p>Addon code should import <code>sumeru/core/sdk</code> (aliases of ORM types + <code>RegisterModel</code>). Keep direct ORM imports for core/engine work.</p>
+<h2 id="computed-and-aggregation">Computed fields and read_group</h2>
+<p><code>orm.RegisterCompute</code> derives field values on read (see <a href="../build/models-and-fields.html#computed-fields">Models &amp; fields</a>). <code>orm.ReadGroup</code> and the <code>read_group</code> JSON-RPC method provide sum/count aggregation with the same ACL and record rules as <code>search</code>.</p>
 <h2 id="compile-and-run">Compile and run</h2>
 <div class="docs-codebox is-shell is-wrap" data-codebox="shell-60e0100e">
   <div class="docs-codebox-titlebar">

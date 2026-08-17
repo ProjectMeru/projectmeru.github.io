@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -147,7 +147,7 @@
     </div>
   </div>
 </div>
-<p>An Odoo-style <code>params</code> wrapper is also accepted. Responses use <code>{ok, result, error}</code>.</p>
+<p>A nested JSON-RPC <code>params</code> wrapper is also accepted. Responses use <code>{ok, result, error}</code>.</p>
 <h2 id="methods">Methods</h2>
 <div class="docs-table-wrap">
 <table class="docs-table">
@@ -156,6 +156,8 @@
     <tr><td><code>search</code></td><td><code>[domain?]</code></td><td><code>limit</code>, <code>offset</code></td><td>List of records</td></tr>
     <tr><td><code>search_read</code></td><td><code>[domain, fields]</code></td><td><code>limit</code>, <code>offset</code></td><td>Projected records</td></tr>
     <tr><td><code>read</code></td><td><code>[ids, fields?]</code></td><td>-</td><td>Records; missing ids -> <code>NOT_FOUND</code></td></tr>
+    <tr><td><code>read_group</code></td><td><code>[spec]</code></td><td>-</td><td>Grouped rows (sum/count)</td></tr>
+    <tr><td><code>call</code></td><td><code>[id, method, vals?]</code></td><td>-</td><td><code>true</code> or <code>{redirect}</code></td></tr>
     <tr><td><code>create</code></td><td><code>[values]</code></td><td>-</td><td>New id</td></tr>
     <tr><td><code>write</code></td><td><code>[ids, values]</code></td><td>-</td><td><code>true</code></td></tr>
     <tr><td><code>unlink</code></td><td><code>[ids]</code></td><td>-</td><td><code>true</code></td></tr>
@@ -164,6 +166,25 @@
     <tr><td><code>unlink_many</code></td><td><code>[ids]</code></td><td>-</td><td><code>true</code></td></tr>
   </tbody>
 </table>
+</div>
+<p><code>read_group</code> spec includes <code>domain</code>, <code>groupby</code>, and <code>fields</code> with <code>measure</code> (<code>sum</code> or <code>count</code>). <code>call</code> invokes <code>RegisterObjectAction</code> handlers (same as form object buttons). See <a href="../../reference/json-rpc.html">JSON-RPC reference</a>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-call-rpc">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">call</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">text</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="curl -s http://localhost:8080/api/rpc \&#10;  -H 'Content-Type: application/json' \&#10;  -H 'X-API-Key: sk_YOUR_KEY' \&#10;  -d '{&#10;    &quot;model&quot;: &quot;core.user&quot;,&#10;    &quot;method&quot;: &quot;call&quot;,&#10;    &quot;args&quot;: [42, &quot;action_reset_password&quot;, {}]&#10;  }'">
+      <pre class="docs-pre is-lined" data-lang="text"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">curl -s http://localhost:8080/api/rpc \</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">  -H 'Content-Type: application/json' \</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">  -H 'X-API-Key: sk_YOUR_KEY' \</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">  -d '{</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">    "model": "core.user",</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">    "method": "call",</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">    "args": [42, "action_reset_password", {}]</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">  }'</span></span></code></pre>
+    </div>
+  </div>
 </div>
 <div class="docs-codebox is-source is-wrap" data-codebox="src-89bc006e">
   <div class="docs-codebox-titlebar">

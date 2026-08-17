@@ -153,6 +153,32 @@ log_stdout = true</code></pre>
         <li><code>auth.password_complexity</code></li>
         </ul>
         <p>Manage these via Settings after first boot — they are not <code>sumeru.conf</code> keys.</p>
+        <h2 id="database-pool-optional">Database pool (optional)</h2>
+        <p>Tune PostgreSQL connection pooling for production load:</p>
+        <table><thead><tr><th>Key</th><th>Purpose</th><th>Default</th></tr></thead><tbody>
+        <tr><td><code>db_max_open_conns</code></td><td>Max open connections to primary</td><td>Go default</td></tr>
+        <tr><td><code>db_max_idle_conns</code></td><td>Max idle connections in pool</td><td>Go default</td></tr>
+        <tr><td><code>db_conn_max_lifetime_minutes</code></td><td>Recycle connections after N minutes</td><td>0 (no limit)</td></tr>
+        </tbody></table>
+        <h2 id="read-replica-optional">Read replica (optional)</h2>
+        <table><thead><tr><th>Key</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>db_read_replica_dsn</code></td><td>Full libpq DSN for a read replica</td></tr>
+        </tbody></table>
+        <p>When set, <code>search</code>, <code>search_read</code>, and list workspace queries prefer the replica. Writes always use the primary.</p>
+        <h2 id="rate-limiting-optional">Rate limiting (optional)</h2>
+        <table><thead><tr><th>Key</th><th>Purpose</th><th>Default</th></tr></thead><tbody>
+        <tr><td><code>rate_limit_rpm</code></td><td>Max requests per minute per client IP on <code>/api/rpc</code> and <code>/web/login</code></td><td>0 (disabled)</td></tr>
+        </tbody></table>
+        <h2 id="smtp-optional">SMTP (optional)</h2>
+        <p>Configure outbound mail for password reset and notifications:</p>
+        <table><thead><tr><th>Key</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>smtp_host</code></td><td>SMTP server hostname</td></tr>
+        <tr><td><code>smtp_port</code></td><td>Port (587 STARTTLS or 465 SMTPS; default 587)</td></tr>
+        <tr><td><code>smtp_user</code></td><td>Auth username (optional)</td></tr>
+        <tr><td><code>smtp_password</code></td><td>Auth password (optional)</td></tr>
+        <tr><td><code>smtp_from</code></td><td>From address (required to send)</td></tr>
+        </tbody></table>
+        <p>Without SMTP, password reset actions log a message instead of sending email.</p>
         <h2 id="cli-overrides">CLI overrides</h2>
         <table><thead><tr><th>Flag</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>-c path</code></td><td>Config file path</td></tr>

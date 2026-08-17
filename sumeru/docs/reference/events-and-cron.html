@@ -94,22 +94,24 @@
         <p>Prefer <strong><code>runtime.Runtime</code></strong> for new code that publishes events in tests.</p>
         <h2 id="transactional-outbox">Transactional outbox</h2>
         <p><strong>Package:</strong> <code>sumeru/core/orm</code></p>
-        <p>CRUD mutations enqueue rows in <code>sys.outbox.event</code> in the same transaction. A background drain worker started from <code>core/server/run.go</code> (5s ticker) publishes pending events in batches of 100 and marks them published.</p>
+        <p>CRUD mutations enqueue rows in <code>sys.outbox.event</code> in the same transaction. A background drain worker started from <code>core/server/run.go</code> (5s ticker) publishes pending events in batches of 100, marks them published, and publishes to the in-process queue (<code>core/queue</code>) for async consumers.</p>
         <p>Use outbox events when downstream handlers must not run if the mutation rolls back.</p>
         <h2 id="scheduler">Scheduler</h2>
         <p><strong>Package:</strong> <code>sumeru/core/scheduler</code></p>
         <p>Started from <code>core/server/run.go</code> with a <strong>1-minute</strong> default ticker.</p>
         <ol>
-        <li>Reads active <code>sys.cron</code> rows from the database</li>
+        <li>Selects due active <code>sys.cron</code> rows inside a transaction with <strong><code>FOR UPDATE SKIP LOCKED</code></strong> (safe for multiple Sumeru instances)</li>
         <li>Publishes <code>cron.tick</code> with cron metadata</li>
         <li>Publishes optional custom <code>event_name</code> from the cron row</li>
         <li>When <code>sys.cron.code</code> matches a handler registered via <code>RegisterCronHandler</code>, runs that Go function</li>
+        <li>Updates <code>next_call</code> and <code>last_call</code> in the same transaction</li>
         </ol>
         <pre class="docs-pre"><code>scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {
     // payload includes cron row fields
     return nil
 })</code></pre>
         <p>There is <strong>no Python/safe_eval</strong> — cron <code>code</code> must match a registered Go handler or serve as a lookup key only.</p>
+        <p>See <a href="multi-instance-cron.html">Multi-instance cron</a> for operational guidelines when running N replicas.</p>
         <h2 id="automation-addon">Automation addon</h2>
         <p><strong>Path:</strong> <code>sumeru/addons/automation/</code></p>
         <p>Models:</p>
@@ -130,6 +132,7 @@
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../using/feature-matrix.html">Feature matrix</a></li>
+        <li><a href="../guides/scale-architecture.html">Scale-out architecture</a></li>
         <li><a href="architecture/orm-boundaries.html">ORM boundaries</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

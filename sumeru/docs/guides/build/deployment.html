@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -101,7 +101,8 @@
         <h1>Deployment</h1>
         <p class="docs-lede">Process model, PostgreSQL, config, reverse proxy and pre-alpha caveats.</p>
 <h2 id="process-model">Process model</h2>
-<p>One OS process serves HTTP (<code>core/server</code>). Scheduler and event bus run in-process. There is no required external queue for the core path.</p>
+<p>One OS process serves HTTP (<code>core/server</code>). Scheduler, event bus, and outbox drain run in-process. Scale horizontally by running <strong>N identical binaries</strong> behind a load balancer — sessions live in PostgreSQL (<code>sys.session</code>), so sticky cookies are optional.</p>
+<p>See <a href="scale-architecture.html">Scale architecture</a> for pool tuning, read replicas, rate limits, and async workers.</p>
 <div class="docs-callout is-danger">
   <p><strong>Pre-alpha.</strong> Do not deploy Sumeru for production or commercial workloads. No migration or uptime guarantees.</p>
 </div>
@@ -128,6 +129,9 @@
   <thead><tr><th>Concern</th><th>Guidance</th></tr></thead>
   <tbody>
     <tr><td>Port</td><td>Default <strong>8080</strong>; override with <code>http_port</code> or <code>-p</code></td></tr>
+    <tr><td>DB pool</td><td>Optional <code>db_max_open_conns</code>, <code>db_max_idle_conns</code>, <code>db_conn_max_lifetime_minutes</code></td></tr>
+    <tr><td>Read replica</td><td>Optional <code>db_read_replica_dsn</code> for search-heavy RPC</td></tr>
+    <tr><td>Rate limit</td><td>Optional <code>rate_limit_rpm</code> on RPC and login</td></tr>
     <tr><td>Addons</td><td>Absolute <code>addons_path</code> entries on servers</td></tr>
     <tr><td>Logs</td><td>Structured JSON via applog; optional <code>log_file</code></td></tr>
     <tr><td>TLS</td><td>Terminate TLS at a reverse proxy in front of Sumeru</td></tr>

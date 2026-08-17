@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SDK | Sumeru Docs</title>
-  <meta name="description" content="sdk.BaseModel, Field helpers and registry lookups.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html">
+  <title>Scale-out architecture | Sumeru Docs</title>
+  <meta name="description" content="Scale-out architecture">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/scale-architecture.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html">
-  <meta property="og:title" content="SDK | Sumeru Docs">
-  <meta property="og:description" content="sdk.BaseModel, Field helpers and registry lookups.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SDK | Sumeru Docs">
-  <meta name="twitter:description" content="sdk.BaseModel, Field helpers and registry lookups.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "SDK",
-  "description": "sdk.BaseModel, Field helpers and registry lookups.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                    <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -97,68 +76,41 @@
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>SDK</h1>
-        <p class="docs-lede">sdk.BaseModel, Field helpers and registry lookups.</p>
-<h2 id="stable-addon-surface">Stable addon surface</h2>
-<p><code>sumeru/core/sdk</code> re-exports model/field types and registration helpers so addons avoid tight coupling to ORM internals.</p>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Symbol</th><th>Role</th></tr></thead>
-  <tbody>
-    <tr><td><code>BaseModel</code></td><td>Embeds <code>ID</code></td></tr>
-    <tr><td><code>FieldDefinition</code> / <code>FieldType</code></td><td>Schema metadata</td></tr>
-    <tr><td>Char, Text, Boolean, ...</td><td>Type constants</td></tr>
-    <tr><td><code>RegisterModel</code></td><td>Registry + module ownership</td></tr>
-  </tbody>
-</table>
-</div>
-<div class="docs-codebox is-source is-wrap" data-codebox="src-01a03b6f">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-title">
-      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">Registration</span>
-    </div>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">text</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="sdk.RegisterModel(sdk.RegisterModelInput{&#10;	Model:  &amp;MyModule{},&#10;	Module: &quot;my_module&quot;,&#10;})">
-      <pre class="docs-pre is-lined" data-lang="text"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">sdk.RegisterModel(sdk.RegisterModelInput{</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">	Model:  &amp;MyModule{},</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">	Module: "my_module",</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">})</span></span></code></pre>
-    </div>
-  </div>
-</div>
-<h2 id="compile-and-run">Compile and run</h2>
-<div class="docs-codebox is-shell is-wrap" data-codebox="shell-2d7cd924">
-  <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;go run . -- -c sumeru.conf -i my_module --stop-after-init&#10;make run">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -i my_module --stop-after-init</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre>
-    </div>
-  </div>
-</div>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not import <code>sumeru/core/orm</code> from addons unless you are extending the kernel.</li>
-  <li>Do not register anonymous modules. Always set <code>Module</code>.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Build a module in <a href="../build/creating-an-addon.html">Creating an addon</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/concepts/cache.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Cache</span></a>
-      <a class="is-next" href="../../guides/business/overview.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Overview &rarr;</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Scale-out architecture</h1>
+        <p class="docs-lede">Sumeru runs as one or more <strong>stateless Go replicas</strong> behind a load balancer. Sessions live in PostgreSQL (<code>sys.session</code>), so any replica can serve authenticated requests without sticky cookies.</p>
+        <h2 id="phase-1-production-shaped-single-cluster">Phase 1 — production-shaped single cluster</h2>
+        <table><thead><tr><th>Knob</th><th>INI key</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td>Connection pool</td><td><code>db_max_open_conns</code>, <code>db_max_idle_conns</code>, <code>db_conn_max_lifetime_minutes</code></td><td>Avoid pool exhaustion under load</td></tr>
+        <tr><td>Read replica</td><td><code>db_read_replica_dsn</code></td><td>Route <code>search</code> / <code>search_read</code> / list views to replica</td></tr>
+        <tr><td>Rate limits</td><td><code>rate_limit_rpm</code></td><td>Per-IP cap on <code>/api/rpc</code> and <code>/web/login</code></td></tr>
+        <tr><td>SMTP</td><td><code>smtp_host</code>, <code>smtp_port</code>, <code>smtp_from</code>, …</td><td>Password reset and notifications</td></tr>
+        </tbody></table>
+        <p>Run <strong>N identical binaries</strong> behind nginx or HAProxy. Use <code>/api/health</code> for health checks.</p>
+        <p>Configure keys in <a href="../start/configuration.html">Configuration</a> (see <code>sumeru.conf.example</code> in the repo).</p>
+        <h2 id="phase-2-async-workers">Phase 2 — async workers</h2>
+        <ul>
+        <li><strong>Outbox drain</strong> publishes to the in-process queue (<code>core/queue</code>) after <code>event.Publish</code>; external brokers can subscribe to the same topic later.</li>
+        <li><strong>Cron</strong> uses <code>FOR UPDATE SKIP LOCKED</code> on <code>sys.cron</code> so multiple instances do not double-run the same job.</li>
+        <li><strong>Mail worker</strong> consumes the <code>mail</code> queue topic when SMTP is configured.</li>
+        </ul>
+        <p>See <a href="../../reference/multi-instance-cron.html">Multi-instance cron</a> for scheduler constraints.</p>
+        <h2 id="phase-3-millions-of-concurrent-reads">Phase 3 — millions of concurrent reads</h2>
+        <ul>
+        <li>Horizontal pod autoscaling on CPU/latency</li>
+        <li>PgBouncer in transaction mode</li>
+        <li>CDN for <code>/static/*</code></li>
+        <li>Separate API-only service if HTML render becomes the bottleneck</li>
+        </ul>
+        <p>Writes remain bounded by the PostgreSQL primary; scale tenants with <strong>one database per tenant</strong>, not row sharding inside one ERP database.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="deployment.html">Deployment</a></li>
+        <li><a href="../../reference/platform-gaps.html">Platform gaps</a></li>
+        <li><a href="../../reference/events-and-cron.html">Events & cron</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

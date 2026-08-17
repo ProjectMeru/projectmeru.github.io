@@ -88,7 +88,8 @@
         <h2 id="sign-out">Sign out</h2>
         <p class="docs-lede">Use <strong>Logout</strong> from the user menu (typically top-right).</p>
         <h2 id="forgot-password">Forgot password</h2>
-        <p>Ask your administrator to reset your password from the user record in Settings, or use the admin reset action if available.</p>
+        <p>Ask your administrator to reset your password from the user record in Settings (<strong>Send reset instructions</strong> on the user form).</p>
+        <p>When the server administrator has configured <strong>SMTP</strong> in <code>sumeru.conf</code> (<code>smtp_host</code>, <code>smtp_from</code>, etc.), reset requests send an email to the user's email address with sign-in instructions. Without SMTP, the action is logged server-side only.</p>
         <h2 id="first-time-setup">First-time setup</h2>
         <p>On a new server, an administrator completes the <strong>setup wizard</strong> at <code>/setup</code> before anyone can log in. See <a href="installing-apps.html">Installing apps</a>.</p>
         <h2 id="next-steps">Next steps</h2>
