@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export and Import | Sumeru Docs</title>
+  <meta name="description" content="Export and Import">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/platform/export-and-import.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+    <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+<a class="docs-brand" href="../../index.html">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
+    </a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Export and import (reports)</h1>
+        <p class="docs-lede">Download your data as <strong>CSV</strong> or <strong>PDF</strong>, or <strong>bulk-import</strong> updates from a spreadsheet — when your administrator has enabled <strong>Report</strong> on that screen.</p>
+        <blockquote><p>Report is <strong>not on every screen</strong>. It appears only on views configured by your team — typically on a <strong>form</strong> toolbar (next to <strong>Save</strong>) or on specific lists such as CRM <strong>Leads</strong>.</p></blockquote>
+        <h2 id="when-you-see-the-report-button">When you see the Report button</h2>
+        <p>Open a list, form, or kanban view. If <strong>Report</strong> appears in the toolbar (on forms it sits in the same row as <strong>Save</strong> and <strong>Discard</strong>), export and/or import is enabled for that screen.</p>
+        <p>If you do not see it, ask an administrator or developer to enable reporting on that view.</p>
+        <h2 id="download-a-report-csv-or-pdf">Download a report (CSV or PDF)</h2>
+        <p>Use this to share data, analyze in Excel, or archive a snapshot.</p>
+        <ol>
+        <li>Open the list or record (for example <strong>CRM → Leads</strong>).</li>
+        <li>Click <strong>Report</strong>.</li>
+        <li>Choose <strong>Download CSV</strong> or <strong>Download PDF</strong>.</li>
+        <li>In the dialog, leave the default columns checked or pick the fields you need.</li>
+        <li>For PDF, choose page size: <strong>A4</strong>, <strong>Legal</strong>, or <strong>Letter</strong>.</li>
+        <li>Click <strong>Run</strong>. Your browser downloads the file.</li>
+        </ol>
+        <p><strong>What is included</strong></p>
+        <ul>
+        <li>On a <strong>list</strong> or <strong>kanban</strong>, rows match what the menu action shows (up to <strong>500</strong> records).</li>
+        <li>On a <strong>form</strong>, only the <strong>current record</strong> is exported.</li>
+        </ul>
+        <p><strong>You need</strong> read access to that type of record. If download fails, contact your administrator.</p>
+        <h2 id="prepare-data-with-an-import-template">Prepare data with an import template</h2>
+        <p>Before bulk-updating, download a template so column headers match the system.</p>
+        <ol>
+        <li>Click <strong>Report</strong> → <strong>Download import template</strong>.</li>
+        <li>Select the fields you plan to fill in (include <strong>id</strong> if you will update existing records).</li>
+        <li>Click <strong>Run</strong>. You get a CSV with <strong>header row only</strong> — no data rows.</li>
+        <li>Open the file in Excel, Google Sheets, or similar and fill in your rows.</li>
+        <li>Save as <strong>CSV</strong> (UTF-8).</li>
+        </ol>
+        <h2 id="upload-and-import-bulk-update">Upload and import (bulk update)</h2>
+        <p>Import always goes through a <strong>review step</strong>. The system will <strong>not</strong> load your file directly without letting you map columns and preview rows first.</p>
+        <h3 id="1-start-upload">1. Start upload</h3>
+        <ol>
+        <li>Click <strong>Report</strong> → <strong>Bulk upload CSV</strong>.</li>
+        <li>Select the fields you are importing (same as template).</li>
+        <li>Choose <strong>Import mode</strong>:</li>
+        </ol>
+        <p>- <strong>Create only</strong> — every row becomes a new record.</p>
+        <p>- <strong>Create or update</strong> — rows with a valid <strong>id</strong> update existing records; others are created.</p>
+        <ol>
+        <li>Select your filled CSV file and confirm.</li>
+        </ol>
+        <h3 id="2-map-columns">2. Map columns</h3>
+        <p>You are taken to the <strong>Bulk import</strong> screen.</p>
+        <ol>
+        <li>Open the <strong>Column mapping</strong> tab.</li>
+        <li>For each column from your CSV, choose the matching field — or <strong>Skip column</strong> if you do not need it.</li>
+        <li>Open the <strong>Preview</strong> tab to see the first rows after mapping. Fix any errors shown (wrong type, missing required field, invalid id).</li>
+        </ol>
+        <h3 id="3-confirm-or-cancel">3. Confirm or cancel</h3>
+        <ul>
+        <li>Click <strong>Confirm import</strong> when mapping and preview look correct.</li>
+        <li>Click <strong>Cancel</strong> to discard the upload without changing data.</li>
+        </ul>
+        <p>After confirm, you return to the list you started from. A message shows how many rows were <strong>created</strong>, <strong>updated</strong>, or <strong>skipped</strong>.</p>
+        <h2 id="understanding-results">Understanding results</h2>
+        <table><thead><tr><th>Message part</th><th>Meaning</th></tr></thead><tbody>
+        <tr><td>Created</td><td>New records added</td></tr>
+        <tr><td>Updated</td><td>Existing records changed (upsert mode with valid id)</td></tr>
+        <tr><td>Skipped</td><td>Row ignored (empty mapping, validation error, or duplicate issue)</td></tr>
+        </tbody></table>
+        <h2 id="common-issues">Common issues</h2>
+        <table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody>
+        <tr><td>Report button missing</td><td>View not enabled — contact admin/developer</td></tr>
+        <tr><td>Download empty or short</td><td>List may have no rows, or you lack access</td></tr>
+        <tr><td>Import rejected on preview</td><td>Fix mapped fields; required fields must have values</td></tr>
+        <tr><td>Upsert not updating</td><td>Ensure <strong>id</strong> column is mapped and ids exist</td></tr>
+        <tr><td>File too large</td><td>Maximum upload size is <strong>8 MB</strong> — split the file</td></tr>
+        </tbody></table>
+        <h2 id="permissions">Permissions</h2>
+        <table><thead><tr><th>Action</th><th>Typical access needed</th></tr></thead><tbody>
+        <tr><td>Download CSV/PDF</td><td>Read on the record type</td></tr>
+        <tr><td>Bulk import</td><td>Create (and update for upsert mode)</td></tr>
+        </tbody></table>
+        <p>Your administrator controls access through security groups.</p>
+        <h2 id="examples-in-your-apps">Examples in your apps</h2>
+        <table><thead><tr><th>App</th><th>Example</th></tr></thead><tbody>
+        <tr><td><strong>CRM</strong></td><td>Export pipeline leads; bulk-import new leads from a trade-show list — see <a href="../modules/crm.html">CRM</a></td></tr>
+        <tr><td><strong>Products</strong></td><td>Bulk-load product catalog when enabled on the product list — see <a href="../modules/products.html">Products</a></td></tr>
+        </tbody></table>
+        <h2 id="what-is-not-available-yet">What is not available yet</h2>
+        <ul>
+        <li>Excel (<code>.xlsx</code>) download or upload</li>
+        <li>Scheduled or emailed reports</li>
+        <li>Importing without the mapping and preview step</li>
+        <li>Export from pivot/analysis views</li>
+        </ul>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="workspace-basics.html">Workspace basics</a></li>
+        <li><a href="glossary.html">Glossary — Report, Bulk import</a></li>
+        <li><a href="../feature-matrix.html">Feature matrix</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
+
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../../js/docs-nav-data.js"></script>
+  <script src="../../js/fuse.min.js"></script>
+  <script src="../../js/docs-search.js"></script>
+  <script src="../../js/docs.js"></script>
+</body>
+</html>

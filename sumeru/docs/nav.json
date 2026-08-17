@@ -1,0 +1,563 @@
+{
+  "tracks": [
+    {
+      "id": "guides",
+      "label": "Guides",
+      "href": "index.html"
+    },
+    {
+      "id": "reference",
+      "label": "Reference",
+      "href": "reference/index.html"
+    },
+    {
+      "id": "addons",
+      "label": "Addons",
+      "href": "addons/index.html"
+    },
+    {
+      "id": "business",
+      "label": "Business",
+      "href": "using/index.html"
+    }
+  ],
+  "sidebars": {
+    "guides": [
+      {
+        "id": "start",
+        "title": "Start Here",
+        "items": [
+          {
+            "title": "Introduction",
+            "href": "index.html"
+          },
+          {
+            "title": "Installation",
+            "href": "guides/start/installation.html"
+          },
+          {
+            "title": "Configuration",
+            "href": "guides/start/configuration.html"
+          },
+          {
+            "title": "First boot",
+            "href": "guides/start/first-boot.html"
+          },
+          {
+            "title": "Troubleshooting",
+            "href": "guides/start/troubleshooting.html"
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "title": "Building an Application",
+        "items": [
+          {
+            "title": "Creating an addon",
+            "href": "guides/build/creating-an-addon.html"
+          },
+          {
+            "title": "Project structure",
+            "href": "guides/build/project-structure.html"
+          },
+          {
+            "title": "Manifests & depends",
+            "href": "guides/build/manifests-and-depends.html"
+          },
+          {
+            "title": "Models & fields",
+            "href": "guides/build/models-and-fields.html"
+          },
+          {
+            "title": "Views & menus",
+            "href": "guides/build/views-and-menus.html"
+          },
+          {
+            "title": "View inheritance",
+            "href": "guides/build/view-inheritance.html"
+          },
+          {
+            "title": "Report engine",
+            "href": "guides/build/report-engine.html"
+          },
+          {
+            "title": "Creating APIs",
+            "href": "guides/build/creating-apis.html"
+          },
+          {
+            "title": "Customization",
+            "href": "guides/build/customization.html"
+          },
+          {
+            "title": "Security & access",
+            "href": "guides/build/security-and-access.html"
+          },
+          {
+            "title": "Data XML",
+            "href": "guides/build/data-xml.html"
+          },
+          {
+            "title": "Events & automation",
+            "href": "guides/build/events-and-automation.html"
+          },
+          {
+            "title": "JSON-RPC API",
+            "href": "guides/build/json-rpc-api.html"
+          },
+          {
+            "title": "Naming conventions",
+            "href": "guides/build/naming-conventions.html"
+          },
+          {
+            "title": "Tooling",
+            "href": "guides/build/tooling.html"
+          },
+          {
+            "title": "Testing",
+            "href": "guides/build/testing.html"
+          },
+          {
+            "title": "Deployment",
+            "href": "guides/build/deployment.html"
+          }
+        ]
+      },
+      {
+        "id": "concepts",
+        "title": "Core Concepts",
+        "items": [
+          {
+            "title": "Three modules",
+            "href": "guides/concepts/three-modules.html"
+          },
+          {
+            "title": "ORM",
+            "href": "guides/concepts/orm.html"
+          },
+          {
+            "title": "Module loader",
+            "href": "guides/concepts/module-loader.html"
+          },
+          {
+            "title": "Engine & server",
+            "href": "guides/concepts/engine-and-server.html"
+          },
+          {
+            "title": "Web & render",
+            "href": "guides/concepts/web-and-render.html"
+          },
+          {
+            "title": "Event bus",
+            "href": "guides/concepts/event-bus.html"
+          },
+          {
+            "title": "Scheduler",
+            "href": "guides/concepts/scheduler.html"
+          },
+          {
+            "title": "Cache",
+            "href": "guides/concepts/cache.html"
+          },
+          {
+            "title": "SDK",
+            "href": "guides/concepts/sdk.html"
+          }
+        ]
+      },
+      {
+        "id": "security",
+        "title": "Security",
+        "items": [
+          {
+            "title": "Overview",
+            "href": "guides/security/overview.html"
+          },
+          {
+            "title": "Record rules",
+            "href": "guides/security/record-rules.html"
+          },
+          {
+            "title": "API keys",
+            "href": "guides/security/api-keys.html"
+          },
+          {
+            "title": "Isolation model",
+            "href": "guides/security/isolation-model.html"
+          }
+        ]
+      }
+    ],
+    "reference": [
+      {
+        "id": "reference",
+        "title": "Reference",
+        "items": [
+          {
+            "title": "Overview",
+            "href": "reference/index.html"
+          },
+          {
+            "title": "HTTP routes",
+            "href": "reference/http-routes.html"
+          },
+          {
+            "title": "SDK API",
+            "href": "reference/sdk-api.html"
+          },
+          {
+            "title": "JSON-RPC",
+            "href": "reference/json-rpc.html"
+          },
+          {
+            "title": "Events & cron",
+            "href": "reference/events-and-cron.html"
+          },
+          {
+            "title": "Render hooks",
+            "href": "reference/render-hooks.html"
+          },
+          {
+            "title": "Kernel addons",
+            "href": "reference/kernel-addons.html"
+          },
+          {
+            "title": "Field types",
+            "href": "reference/field-types.html"
+          },
+          {
+            "title": "Domain filters",
+            "href": "reference/domain-filters.html"
+          },
+          {
+            "title": "Widgets & views",
+            "href": "reference/widgets-and-views.html"
+          },
+          {
+            "title": "Limitations",
+            "href": "reference/limitations.html"
+          }
+        ]
+      }
+    ],
+    "addons": [
+      {
+        "id": "addons-start",
+        "title": "Addons development",
+        "items": [
+          {
+            "title": "Overview",
+            "href": "addons/index.html"
+          },
+          {
+            "title": "Manifest & layout",
+            "href": "addons/manifest-and-layout.html"
+          },
+          {
+            "title": "Events & hooks",
+            "href": "addons/events-and-hooks.html"
+          },
+          {
+            "title": "Cross-module flows",
+            "href": "addons/cross-module-flows.html"
+          }
+        ]
+      },
+      {
+        "id": "addons-howtos",
+        "title": "How-tos",
+        "items": [
+          {
+            "title": "Scaffold a new addon",
+            "href": "addons/howtos/scaffold-new-addon.html"
+          },
+          {
+            "title": "Add menu and action",
+            "href": "addons/howtos/add-menu-and-action.html"
+          },
+          {
+            "title": "Add bridge module",
+            "href": "addons/howtos/add-bridge-module.html"
+          },
+          {
+            "title": "Enable report on a view",
+            "href": "addons/howtos/enable-report-on-view.html"
+          },
+          {
+            "title": "Extend CRM pipeline",
+            "href": "addons/howtos/extend-crm-pipeline.html"
+          },
+          {
+            "title": "Custom HTTP route",
+            "href": "addons/howtos/custom-http-route.html"
+          }
+        ]
+      },
+      {
+        "id": "addons-modules",
+        "title": "Standard modules",
+        "items": [
+          {
+            "title": "CRM",
+            "href": "addons/modules/crm.html"
+          },
+          {
+            "title": "Sales",
+            "href": "addons/modules/sale.html"
+          },
+          {
+            "title": "Sales CRM bridge",
+            "href": "addons/modules/sale_crm.html"
+          },
+          {
+            "title": "Invoicing",
+            "href": "addons/modules/account.html"
+          },
+          {
+            "title": "Purchase",
+            "href": "addons/modules/purchase.html"
+          },
+          {
+            "title": "Products",
+            "href": "addons/modules/product.html"
+          },
+          {
+            "title": "HR",
+            "href": "addons/modules/hr.html"
+          },
+          {
+            "title": "UTM",
+            "href": "addons/modules/utm.html"
+          }
+        ]
+      }
+    ],
+    "business": [
+      {
+        "id": "biz-start",
+        "title": "Getting started",
+        "items": [
+          {
+            "title": "Overview",
+            "href": "using/index.html"
+          },
+          {
+            "title": "What is Sumeru?",
+            "href": "using/getting-started/what-is-sumeru.html"
+          },
+          {
+            "title": "Logging in",
+            "href": "using/getting-started/logging-in.html"
+          },
+          {
+            "title": "Apps & install",
+            "href": "guides/business/apps-and-install.html"
+          },
+          {
+            "title": "Feature matrix",
+            "href": "using/feature-matrix.html"
+          },
+          {
+            "title": "Glossary",
+            "href": "using/glossary.html"
+          }
+        ]
+      },
+      {
+        "id": "biz-platform",
+        "title": "Platform",
+        "items": [
+          {
+            "title": "Business overview",
+            "href": "guides/business/overview.html"
+          },
+          {
+            "title": "Home & apps",
+            "href": "using/platform/home-and-apps.html"
+          },
+          {
+            "title": "App launcher",
+            "href": "using/platform/app-launcher.html"
+          },
+          {
+            "title": "Workspace basics",
+            "href": "using/platform/workspace-basics.html"
+          },
+          {
+            "title": "Contacts & partners",
+            "href": "using/platform/contacts-and-partners.html"
+          },
+          {
+            "title": "Export and import",
+            "href": "using/platform/export-and-import.html"
+          },
+          {
+            "title": "Settings",
+            "href": "using/platform/settings.html"
+          }
+        ]
+      },
+      {
+        "id": "biz-modules",
+        "title": "Apps",
+        "items": [
+          {
+            "title": "CRM",
+            "href": "using/modules/crm.html"
+          },
+          {
+            "title": "Sales",
+            "href": "using/modules/sales.html"
+          },
+          {
+            "title": "Invoicing",
+            "href": "using/modules/invoicing.html"
+          },
+          {
+            "title": "Purchase",
+            "href": "using/modules/purchase.html"
+          },
+          {
+            "title": "Products",
+            "href": "using/modules/products.html"
+          },
+          {
+            "title": "Employees",
+            "href": "using/modules/employees.html"
+          },
+          {
+            "title": "Marketing (UTM)",
+            "href": "using/modules/marketing-tracking.html"
+          }
+        ]
+      },
+      {
+        "id": "biz-workflows",
+        "title": "Workflows",
+        "items": [
+          {
+            "title": "Lead-to-cash",
+            "href": "guides/business/lead-to-cash.html"
+          },
+          {
+            "title": "Procure-to-pay",
+            "href": "guides/business/procure-to-pay.html"
+          },
+          {
+            "title": "Contacts & CRM",
+            "href": "guides/business/contacts-and-crm.html"
+          },
+          {
+            "title": "Sales & invoicing",
+            "href": "guides/business/sales-and-invoicing.html"
+          },
+          {
+            "title": "Purchase & HR",
+            "href": "guides/business/purchase-and-hr.html"
+          },
+          {
+            "title": "Multi-company",
+            "href": "guides/business/multi-company.html"
+          },
+          {
+            "title": "Editions & licensing",
+            "href": "guides/business/editions-and-licensing.html"
+          }
+        ]
+      }
+    ]
+  },
+  "pageTrack": {
+    "index.html": "guides",
+    "guides/start/installation.html": "guides",
+    "guides/start/configuration.html": "guides",
+    "guides/start/first-boot.html": "guides",
+    "guides/start/troubleshooting.html": "guides",
+    "guides/build/creating-an-addon.html": "guides",
+    "guides/build/project-structure.html": "guides",
+    "guides/build/manifests-and-depends.html": "guides",
+    "guides/build/models-and-fields.html": "guides",
+    "guides/build/views-and-menus.html": "guides",
+    "guides/build/view-inheritance.html": "guides",
+    "guides/build/report-engine.html": "guides",
+    "guides/build/creating-apis.html": "guides",
+    "guides/build/customization.html": "guides",
+    "guides/build/security-and-access.html": "guides",
+    "guides/build/data-xml.html": "guides",
+    "guides/build/events-and-automation.html": "guides",
+    "guides/build/json-rpc-api.html": "guides",
+    "guides/build/naming-conventions.html": "guides",
+    "guides/build/tooling.html": "guides",
+    "guides/build/testing.html": "guides",
+    "guides/build/deployment.html": "guides",
+    "guides/concepts/three-modules.html": "guides",
+    "guides/concepts/orm.html": "guides",
+    "guides/concepts/module-loader.html": "guides",
+    "guides/concepts/engine-and-server.html": "guides",
+    "guides/concepts/web-and-render.html": "guides",
+    "guides/concepts/event-bus.html": "guides",
+    "guides/concepts/scheduler.html": "guides",
+    "guides/concepts/cache.html": "guides",
+    "guides/concepts/sdk.html": "guides",
+    "guides/security/overview.html": "guides",
+    "guides/security/record-rules.html": "guides",
+    "guides/security/api-keys.html": "guides",
+    "guides/security/isolation-model.html": "guides",
+    "reference/index.html": "reference",
+    "reference/http-routes.html": "reference",
+    "reference/sdk-api.html": "reference",
+    "reference/json-rpc.html": "reference",
+    "reference/events-and-cron.html": "reference",
+    "reference/render-hooks.html": "reference",
+    "reference/kernel-addons.html": "reference",
+    "reference/field-types.html": "reference",
+    "reference/domain-filters.html": "reference",
+    "reference/widgets-and-views.html": "reference",
+    "reference/limitations.html": "reference",
+    "addons/index.html": "addons",
+    "addons/manifest-and-layout.html": "addons",
+    "addons/events-and-hooks.html": "addons",
+    "addons/cross-module-flows.html": "addons",
+    "addons/howtos/scaffold-new-addon.html": "addons",
+    "addons/howtos/add-menu-and-action.html": "addons",
+    "addons/howtos/add-bridge-module.html": "addons",
+    "addons/howtos/enable-report-on-view.html": "addons",
+    "addons/howtos/extend-crm-pipeline.html": "addons",
+    "addons/howtos/custom-http-route.html": "addons",
+    "addons/modules/crm.html": "addons",
+    "addons/modules/sale.html": "addons",
+    "addons/modules/sale_crm.html": "addons",
+    "addons/modules/account.html": "addons",
+    "addons/modules/purchase.html": "addons",
+    "addons/modules/product.html": "addons",
+    "addons/modules/hr.html": "addons",
+    "addons/modules/utm.html": "addons",
+    "using/index.html": "business",
+    "using/getting-started/what-is-sumeru.html": "business",
+    "using/getting-started/logging-in.html": "business",
+    "guides/business/apps-and-install.html": "business",
+    "using/feature-matrix.html": "business",
+    "using/glossary.html": "business",
+    "guides/business/overview.html": "business",
+    "using/platform/home-and-apps.html": "business",
+    "using/platform/app-launcher.html": "business",
+    "using/platform/workspace-basics.html": "business",
+    "using/platform/contacts-and-partners.html": "business",
+    "using/platform/export-and-import.html": "business",
+    "using/platform/settings.html": "business",
+    "using/modules/crm.html": "business",
+    "using/modules/sales.html": "business",
+    "using/modules/invoicing.html": "business",
+    "using/modules/purchase.html": "business",
+    "using/modules/products.html": "business",
+    "using/modules/employees.html": "business",
+    "using/modules/marketing-tracking.html": "business",
+    "guides/business/lead-to-cash.html": "business",
+    "guides/business/procure-to-pay.html": "business",
+    "guides/business/contacts-and-crm.html": "business",
+    "guides/business/sales-and-invoicing.html": "business",
+    "guides/business/purchase-and-hr.html": "business",
+    "guides/business/multi-company.html": "business",
+    "guides/business/editions-and-licensing.html": "business"
+  }
+}

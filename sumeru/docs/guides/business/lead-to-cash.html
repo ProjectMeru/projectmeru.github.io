@@ -43,94 +43,57 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-  <header class="docs-topbar">
-    <button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+                    <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-    <a class="docs-brand" href="../../index.html">
+<a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span>
-      <span>Docs</span>
+      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
     </a>
-    <a class="docs-product-link" href="../../../index.html">&larr; <span class="full">Sumeru</span></a>
-    <span class="docs-status is-prealpha" title="No tagged release">Pre-alpha</span>
-    <div class="docs-topbar-spacer"></div>
-    <div class="docs-topbar-actions">
-      <a class="docs-icon-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-      </a>
-      <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
-        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
-      </button>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
     </div>
   </header>
 
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" aria-label="Documentation">
-      <div class="docs-sidebar-group">
-        <p class="docs-sidebar-title">Start here</p>
-        <ul class="docs-sidebar-list">
-          <li><a href="../../index.html">Introduction</a></li>
-          <li><a href="../../guides/start/installation.html">Installation</a></li>
-          <li><a href="../../guides/start/configuration.html">Configuration</a></li>
-          <li><a href="../../guides/start/first-boot.html">First boot</a></li>
-        </ul>
-      </div>
-      <div class="docs-sidebar-group">
-        <p class="docs-sidebar-title">Building an application</p>
-        <ul class="docs-sidebar-list">
-          <li><a href="../../guides/build/creating-an-addon.html">Creating an addon</a></li>
-          <li><a href="../../guides/build/project-structure.html">Project structure</a></li>
-          <li><a href="../../guides/build/manifests-and-depends.html">Manifests & depends</a></li>
-          <li><a href="../../guides/build/models-and-fields.html">Models & fields</a></li>
-          <li><a href="../../guides/build/views-and-menus.html">Views & menus</a></li>
-          <li><a href="../../guides/build/report-engine.html">Report engine</a></li>
-          <li><a href="../../guides/build/security-and-access.html">Security & access</a></li>
-          <li><a href="../../guides/build/data-xml.html">Data XML</a></li>
-          <li><a href="../../guides/build/events-and-automation.html">Events & automation</a></li>
-          <li><a href="../../guides/build/json-rpc-api.html">JSON-RPC API</a></li>
-          <li><a href="../../guides/build/testing.html">Testing</a></li>
-          <li><a href="../../guides/build/deployment.html">Deployment</a></li>
-        </ul>
-      </div>
-      <div class="docs-sidebar-group">
-        <p class="docs-sidebar-title">Core concepts</p>
-        <ul class="docs-sidebar-list">
-          <li><a href="../../guides/concepts/three-modules.html">Three modules</a></li>
-          <li><a href="../../guides/concepts/orm.html">ORM</a></li>
-          <li><a href="../../guides/concepts/module-loader.html">Module loader</a></li>
-          <li><a href="../../guides/concepts/engine-and-server.html">Engine & server</a></li>
-          <li><a href="../../guides/concepts/event-bus.html">Event bus</a></li>
-          <li><a href="../../guides/concepts/scheduler.html">Scheduler</a></li>
-          <li><a href="../../guides/concepts/cache.html">Cache</a></li>
-          <li><a href="../../guides/concepts/sdk.html">SDK</a></li>
-        </ul>
-      </div>
-      <div class="docs-sidebar-group">
-        <p class="docs-sidebar-title">Business guides</p>
-        <ul class="docs-sidebar-list">
-          <li><a href="../../guides/business/overview.html">Overview</a></li>
-          <li><a href="../../guides/business/apps-and-install.html">Apps & install</a></li>
-          <li><a href="../../guides/business/lead-to-cash.html">Lead-to-cash</a></li>
-          <li><a href="../../guides/business/contacts-and-crm.html">Contacts & CRM</a></li>
-          <li><a href="../../guides/business/sales-and-invoicing.html">Sales & invoicing</a></li>
-          <li><a href="../../guides/business/purchase-and-hr.html">Purchase & HR</a></li>
-          <li><a href="../../guides/business/multi-company.html">Multi-company</a></li>
-          <li><a href="../../guides/business/editions-and-licensing.html">Editions & licensing</a></li>
-        </ul>
-      </div>
-      <div class="docs-sidebar-group">
-        <p class="docs-sidebar-title">Security</p>
-        <ul class="docs-sidebar-list">
-          <li><a href="../../guides/security/overview.html">Overview</a></li>
-          <li><a href="../../guides/security/api-keys.html">API keys</a></li>
-          <li><a href="../../guides/security/isolation-model.html">Isolation model</a></li>
-        </ul>
-      </div>
-    </aside>
+    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
@@ -186,7 +149,23 @@
       <ul class="docs-toc-list"></ul>
     </aside>
   </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
 
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../../js/docs-nav-data.js"></script>
+  <script src="../../js/fuse.min.js"></script>
+  <script src="../../js/docs-search.js"></script>
   <script src="../../js/docs.js"></script>
 </body>
 </html>
