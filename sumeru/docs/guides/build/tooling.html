@@ -85,6 +85,11 @@
 # or
 go run ./cmd/sumeru -- -c sumeru.conf</code></pre>
         <p>Common flags: <strong><code>-i</code></strong> install, <strong><code>-u</code></strong> update metadata from disk, <strong><code>-p</code></strong> / <strong><code>--http-port</code></strong>, <strong><code>-d</code></strong> database override, <strong><code>--stop-after-init</code></strong> (run install/update then exit). See <strong><code>sumeru/README.md</code></strong> for the full table.</p>
+        <pre class="docs-pre is-shell"><code># Install every module not yet installed (dependency order)
+go run ./cmd/sumeru -- -c sumeru.conf -i all --stop-after-init</code></pre>
+        <h2 id="database-and-i18n-utilities">Database and i18n utilities</h2>
+        <pre class="docs-pre is-shell"><code>make db-check      # validate sumeru.conf and PostgreSQL connectivity
+make i18n-export   # export sys.translation rows to translations.csv</code></pre>
         <h2 id="refresh-addon-go-imports-zimportsgo">Refresh addon Go imports (<code>zimports.go</code>)</h2>
         <p>Whenever you add an addon package that must register models in <strong><code>init()</code></strong>, regenerate blank imports:</p>
         <pre class="docs-pre is-shell"><code>cd sumeru

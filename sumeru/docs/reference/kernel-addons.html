@@ -83,7 +83,7 @@
         <tr><td><strong>base</strong></td><td>No (kernel)</td><td>Users, companies, partners, groups, system metadata, geo, i18n, API keys</td></tr>
         <tr><td><strong>contacts</strong></td><td>Yes</td><td>Address book UI on <code>core.partner</code> (list/form/kanban)</td></tr>
         <tr><td><strong>mail</strong></td><td>Yes</td><td>Messages, chatter, activities (<code>mail.message</code>, <code>mail.activity</code>)</td></tr>
-        <tr><td><strong>automation</strong></td><td>Yes</td><td>Cron, server actions, workflow transitions (execution partially stubbed)</td></tr>
+        <tr><td><strong>automation</strong></td><td>Yes</td><td>Cron, declarative server actions, workflow transitions</td></tr>
         <tr><td><strong>sumeru_ai</strong></td><td>Yes</td><td>AI hooks — search interceptor (pass-through), shell/notebook placeholders</td></tr>
         </tbody></table>
         <h2 id="base">base</h2>
@@ -109,7 +109,7 @@
         <ul>
         <li><strong>Depends:</strong> <code>base</code></li>
         <li><strong>Models:</strong> <code>sys.cron</code>, <code>sys.server.action</code>, <code>sys.workflow.transition</code></li>
-        <li><strong>Status:</strong> Data model and event subscriber exist; server action <strong>execution is stubbed</strong> (see <a href="events-and-cron.html">Events and cron</a>)</li>
+        <li><strong>Status:</strong> Event subscriber executes declarative server actions (<code>publish:</code> / <code>write:</code>); cron rows dispatch to registered Go handlers (see <a href="events-and-cron.html">Events and cron</a>)</li>
         </ul>
         <h2 id="sumeru-ai">sumeru_ai</h2>
         <ul>

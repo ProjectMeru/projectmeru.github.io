@@ -90,6 +90,7 @@ db_password = postgres
 db_name = sumeru
 db_sslmode = disable
 http_port = 8080
+http_interface =
 dev_mode = true
 setup_localhost_only = true
 setup_token =
@@ -108,9 +109,11 @@ log_stdout = true</code></pre>
         <h2 id="http-required">HTTP (required)</h2>
         <table><thead><tr><th>Key</th><th>Purpose</th><th>Default</th></tr></thead><tbody>
         <tr><td><code>http_port</code></td><td>Listen port</td><td>—</td></tr>
+        <tr><td><code>http_interface</code></td><td>Bind address (empty = all interfaces)</td><td>empty</td></tr>
         <tr><td><code>dev_mode</code></td><td>Debug logging and dev behaviour</td><td><code>false</code></td></tr>
         </tbody></table>
         <p>CLI override: <code>-p</code> or <code>--http-port</code>.</p>
+        <p>Set <code>http_interface = 127.0.0.1</code> to restrict the HTTP server to localhost (similar to <code>setup_localhost_only</code> for the setup wizard).</p>
         <h2 id="setup-wizard-first-run">Setup wizard (first run)</h2>
         <table><thead><tr><th>Key</th><th>Purpose</th><th>Default</th></tr></thead><tbody>
         <tr><td><code>setup_localhost_only</code></td><td>Bind setup to 127.0.0.1</td><td><code>false</code></td></tr>
@@ -154,7 +157,7 @@ log_stdout = true</code></pre>
         <table><thead><tr><th>Flag</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>-c path</code></td><td>Config file path</td></tr>
         <tr><td><code>-p</code>, <code>--http-port</code></td><td>Override <code>http_port</code></td></tr>
-        <tr><td><code>-i mod1,mod2</code></td><td>Install modules then optionally exit</td></tr>
+        <tr><td><code>-i mod1,mod2</code> or <code>-i all</code></td><td>Install named modules, or all not-yet-installed modules in dependency order</td></tr>
         <tr><td><code>-u mod</code> or <code>-u all</code></td><td>Update module(s)</td></tr>
         <tr><td><code>--stop-after-init</code></td><td>Exit after install/update (no HTTP server)</td></tr>
         </tbody></table>

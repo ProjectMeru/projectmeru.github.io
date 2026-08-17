@@ -51,7 +51,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-            <header class="docs-topbar">
+              <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -355,8 +355,8 @@
         <h2 id="conventions">Conventions used throughout</h2>
         <ul>
           <li><strong>Commands run from <code>sumeru_custom_addons</code></strong> unless a page says otherwise.</li>
-          <li><strong><code>-i</code> installs, <code>-u</code> reloads.</strong> Name the addons; <code>-i all</code>
-            is rejected on purpose.</li>
+          <li><strong><code>-i</code> installs, <code>-u</code> reloads.</strong> Name the addons, or use <code>-i all</code>
+            to install remaining modules in dependency order.</li>
           <li><strong>Go changes need a rebuild</strong> (<code>make run</code>). <strong>XML and manifest data need
               <code>-u</code></strong> because views and access rules live in the database once installed.</li>
           <li><strong>Every page ends with "What not to do"</strong> where advice is concrete enough. Those lists are

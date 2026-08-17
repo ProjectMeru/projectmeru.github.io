@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                    <header class="docs-topbar">
+                      <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -123,7 +123,7 @@
   </div>
 </div>
 <div class="docs-callout is-note">
-  <p><strong>Core pattern.</strong> Kernel addons (e.g. company defaults) use <code>noupdate="1"</code> the same way.</p>
+  <p><strong>Enforced on <code>-u</code>.</strong> When a module is updated, existing <code>&lt;record&gt;</code> rows with a known xml id inside <code>noupdate="1"</code> blocks are skipped — operator edits are preserved. New xml ids in the same file still insert. Inline <code>&lt;view&gt;</code> definitions and menus in the file still reload on <code>-u</code>.</p>
 </div>
 <h2 id="reload-behaviour">Reload behaviour</h2>
 <ul>

@@ -84,7 +84,7 @@
         <table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>
         <tr><td><code>view_render.go</code></td><td><code>RenderView</code> — selects list/form/kanban/pivot</td></tr>
         <tr><td><code>form_render.go</code></td><td>Form sheet, header, notebook, fields</td></tr>
-        <tr><td><code>list_render.go</code>, <code>kanban_render.go</code></td><td>List and kanban views</td></tr>
+        <tr><td><code>list_render.go</code>, <code>kanban_render.go</code>, <code>pivot_render.go</code></td><td>List, kanban, and pivot views</td></tr>
         <tr><td><code>workspace_chrome.go</code></td><td>Edit/Save/Cancel chrome</td></tr>
         <tr><td><code>activity_chatter_render.go</code></td><td>Messages tab (mail)</td></tr>
         <tr><td><code>shell_render.go</code>, <code>menus.go</code>, <code>pinned_apps.go</code></td><td>Top bar, sidebar, pins</td></tr>
@@ -110,7 +110,7 @@
         <tr><td><code>list</code></td><td>Implemented (canonical name; legacy <code>tree</code> mapped)</td></tr>
         <tr><td><code>form</code></td><td>Implemented</td></tr>
         <tr><td><code>kanban</code></td><td>Implemented</td></tr>
-        <tr><td><code>pivot</code></td><td>Placeholder only</td></tr>
+        <tr><td><code>pivot</code></td><td>Implemented (v1 HTML aggregation)</td></tr>
         </tbody></table>
         <h2 id="styles">Styles</h2>
         <p>Core CSS: <code>core/engine/assets/css/</code>. Workspace pages add <code>sumeru-workspace.css</code>. Per-page sheets (home, apps, settings) register via <code>PageData.ViewStylesheetURLs</code>.</p>

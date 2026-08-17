@@ -82,17 +82,17 @@
         <h2 id="core-platform">Core platform</h2>
         <table><thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead><tbody>
         <tr><td>PostgreSQL ORM + schema sync</td><td><strong>Implemented</strong></td><td>Additive DDL on install/update</td></tr>
-        <tr><td>XML views (list, form, kanban)</td><td><strong>Implemented</strong></td><td>Workspace at <code>/web</code></td></tr>
-        <tr><td>Pivot views</td><td><strong>Stubbed</strong></td><td>Placeholder HTML only</td></tr>
+        <tr><td>XML views (list, form, kanban, pivot)</td><td><strong>Implemented</strong></td><td>Pivot v1: read-only HTML aggregation (500-row cap)</td></tr>
         <tr><td>Security groups, ACLs, record rules</td><td><strong>Implemented</strong></td><td><code>sys.access</code>, <code>sys.rule</code></td></tr>
         <tr><td>JSON-RPC API</td><td><strong>Implemented</strong></td><td>Session or API key</td></tr>
         <tr><td>Report CSV/PDF + bulk import</td><td><strong>Implemented</strong></td><td>Opt-in per view; 500-row export cap</td></tr>
         <tr><td>Event bus</td><td><strong>Implemented</strong></td><td><code>record.created</code>, <code>record.updated</code>, custom names</td></tr>
-        <tr><td>Cron scheduler</td><td><strong>Partial</strong></td><td>Ticker runs; <strong><code>code</code> field not executed</strong></td></tr>
-        <tr><td>Server actions</td><td><strong>Partial</strong></td><td>Matches logged; execution stubbed</td></tr>
-        <tr><td>Transactional outbox</td><td><strong>Partial</strong></td><td>Enqueue only; drain worker not shipped</td></tr>
-        <tr><td>ORM model <code>_inherit</code></td><td><strong>Not supported</strong></td><td>Use view inherit or new models</td></tr>
-        <tr><td>XML <code>noupdate</code> on <code><data></code></td><td><strong>Not enforced</strong></td><td>Parsed but not applied</td></tr>
+        <tr><td>Cron scheduler</td><td><strong>Implemented</strong></td><td>Registered Go handlers by <code>code</code>; not arbitrary Python</td></tr>
+        <tr><td>Server actions</td><td><strong>Implemented</strong></td><td>Declarative <code>publish:</code> / <code>write:</code> only</td></tr>
+        <tr><td>Transactional outbox</td><td><strong>Implemented</strong></td><td>Enqueue + drain worker</td></tr>
+        <tr><td>XML <code>noupdate</code> on <code><data></code></td><td><strong>Implemented</strong></td><td>Skips existing xml-id records on <code>-u</code></td></tr>
+        <tr><td>ORM model <code>_inherit</code></td><td><strong>Not supported</strong></td><td>Use view inherit, bridge modules, or new models</td></tr>
+        <tr><td>Graph views</td><td><strong>Not supported</strong></td><td>Pivot table only</td></tr>
         <tr><td>sumeru_ai addon</td><td><strong>Partial</strong></td><td>Opt-in; placeholder UI hooks</td></tr>
         <tr><td>Natural language / AI search</td><td><strong>Planned</strong></td><td>Not in core UX</td></tr>
         </tbody></table>
@@ -103,13 +103,22 @@
         <p>Contacts and mail ship in the core repo (<code>sumeru/addons/</code>), not <code>sumeru_addons</code>.</p>
         <h2 id="reporting-v1-gaps">Reporting v1 gaps</h2>
         <ul>
-        <li>No pivot/graph export</li>
+        <li>No pivot/graph export to file</li>
         <li>No XLSX, scheduled reports, or email delivery</li>
         <li>No direct CSV import without mapping wizard</li>
         <li>Financial statement PDFs not shipped</li>
         </ul>
         <h2 id="multi-company-vs-saas">Multi-company vs SaaS</h2>
         <p>Multi-company switch and record rules support <strong>one database, multiple companies</strong>. This is not multi-tenant SaaS isolation — see <a href="../guides/security/isolation-model.html">Isolation model</a>.</p>
+        <h2 id="deliberately-not-ported-from-odoo">Deliberately not ported from Odoo</h2>
+        <ul>
+        <li>Python <code>_inherit</code> / computed-field inheritance</li>
+        <li>OWL web client (Sumeru uses server-rendered HTML)</li>
+        <li>Full website builder / eCommerce / POS</li>
+        <li>224 country localizations (compliance per country)</li>
+        <li>XML-RPC (JSON-RPC + API keys cover integration)</li>
+        <li>Arbitrary cron Python <code>safe_eval</code></li>
+        </ul>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../using/feature-matrix.html">Feature matrix</a> — full matrix for writers</li>

@@ -27,6 +27,7 @@
       "object-actions",
       "kanban-expanders",
       "cron-handlers",
+      "declarative-server-actions",
       "http-routes",
       "service-layer",
       "see-also"
@@ -352,6 +353,8 @@
     "headings": [
       "in-process-bus",
       "important-event-names",
+      "server-actions",
+      "cron-handlers",
       "outbox",
       "compile-and-run",
       "what-not-to-do",
@@ -498,6 +501,7 @@
     "excerpt": "Commands and generators used every day while developing Sumeru.",
     "headings": [
       "run-the-server",
+      "database-and-i18n-utilities",
       "refresh-addon-go-imports-zimportsgo",
       "scaffold-a-new-addon-sumeru-bp",
       "tests",
@@ -545,6 +549,7 @@
       "example-tree",
       "example-form",
       "example-kanban",
+      "example-pivot",
       "example-action-menu",
       "xml-inheritance",
       "report-exchange-on-views",
@@ -788,6 +793,7 @@
     "headings": [
       "sys-cron",
       "addon-registration",
+      "register-cron-handler",
       "compile-and-run",
       "what-not-to-do",
       "next-step"
@@ -1013,6 +1019,7 @@
     "excerpt": "Package: sumeru/core/event",
     "headings": [
       "event-bus",
+      "transactional-outbox",
       "scheduler",
       "automation-addon",
       "example-business-addon-pattern",
@@ -1110,6 +1117,7 @@
       "standard-business-addons",
       "reporting-v1-gaps",
       "multi-company-vs-saas",
+      "deliberately-not-ported-from-odoo",
       "see-also"
     ]
   },
@@ -1157,6 +1165,7 @@
     "excerpt": "Reference for workspace view XML parsed by core/engine/render/parser/view_xml.go and rendered by core/engine/render/.",
     "headings": [
       "view-types",
+      "pivot-fields",
       "common-view-attributes",
       "form-widgets",
       "header-widgets",
@@ -1172,6 +1181,7 @@
     "section": "Getting started",
     "excerpt": "Status of major functionality as of the last documentation review. Use this page when writing website copy or setting expectations with business users.",
     "headings": [
+      "odoo-19-erp-0-cross-reference",
       "standard-business-addons-sumeru-addons"
     ]
   },

@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                    <header class="docs-topbar">
+                      <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -160,7 +160,7 @@
   <article class="docs-attr">
     <h3><code>type</code> <span class="docs-attr-req">required</span></h3>
     <p><strong>Syntax.</strong> <code>type="tree"</code> | <code>form</code> | <code>kanban</code> | <code>pivot</code>.</p>
-    <p><strong>Effect.</strong> Chooses the renderer. <code>tree</code> = list columns; <code>form</code> = sheet layout; <code>kanban</code> needs <code>&lt;templates&gt;</code>; <code>pivot</code> is rare in samples.</p>
+    <p><strong>Effect.</strong> Chooses the renderer. <code>tree</code> = list columns; <code>form</code> = sheet layout; <code>kanban</code> needs <code>&lt;templates&gt;</code>; <code>pivot</code> = read-only aggregation table (v1).</p>
   </article>
   <article class="docs-attr">
     <h3><code>open</code> <span class="docs-attr-opt">optional</span></h3>
@@ -746,6 +746,28 @@
     </div>
   </div>
 </div>
+
+<h3 id="example-pivot" data-toc="Pivot view">Pivot view</h3>
+<p>Set <code>type="row"</code>, <code>type="col"</code>, or <code>type="measure"</code> on nested <code>&lt;field&gt;</code> elements. The engine aggregates up to <strong>500 rows</strong> from the action domain into a read-only HTML table. No CSV/PDF export or drill-down in v1.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-pivot-v1">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">views/pivot_view.xml</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">xml</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;sumeru&gt;&#10;    &lt;data&gt;&#10;        &lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;&#10;            &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;&#10;            &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;&#10;            &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;&#10;        &lt;/view&gt;&#10;    &lt;/data&gt;&#10;&lt;/sumeru&gt;">
+      <pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&lt;sumeru&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    &lt;data&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">        &lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">            &lt;field name="partner_id" type="row"/&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">            &lt;field name="date_order" type="col"/&gt;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">            &lt;field name="amount_total" type="measure"/&gt;</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">        &lt;/view&gt;</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">    &lt;/data&gt;</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c">&lt;/sumeru&gt;</span></span></code></pre>
+    </div>
+  </div>
+</div>
+<p>Include <code>pivot</code> in the window action <code>view_mode</code>, e.g. <code>tree,form,pivot</code>.</p>
 
 <h3 id="example-action-menu" data-toc="Action + menus">Action + menus</h3>
 <div class="docs-codebox is-source is-wrap" data-codebox="src-7b9f585f">

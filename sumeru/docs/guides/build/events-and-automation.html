@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                    <header class="docs-topbar">
+                      <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -132,10 +132,51 @@
 </table>
 </div>
 <div class="docs-callout is-note">
-  <p><strong>Automation addon.</strong> Kernel <code>automation</code> subscribes to <code>record.created</code>, <code>record.updated</code>, and <code>cron.tick</code> to run server actions. Treat behaviour as pre-alpha.</p>
+  <p><strong>Automation addon.</strong> Kernel <code>automation</code> subscribes to <code>record.created</code>, <code>record.updated</code>, and <code>cron.tick</code> to run matching <code>sys.server.action</code> rows. Declarative <code>code</code> prefixes <code>publish:</code> and <code>write:</code> are executed; unknown prefixes are logged at debug.</p>
 </div>
+<h2 id="server-actions">Server actions (declarative)</h2>
+<p>Define actions in data XML — no Go required for simple event chains or field writes:</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-server-action">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">data/server_actions.xml</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">xml</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;action_followup&quot; model=&quot;sys.server.action&quot;&gt;&#10;    &lt;field name=&quot;name&quot;&gt;Follow-up event&lt;/field&gt;&#10;    &lt;field name=&quot;event_name&quot;&gt;record.updated&lt;/field&gt;&#10;    &lt;field name=&quot;model&quot;&gt;crm.lead&lt;/field&gt;&#10;    &lt;field name=&quot;code&quot;&gt;publish:crm.lead.followup&lt;/field&gt;&#10;    &lt;field name=&quot;active&quot; eval=&quot;True&quot;/&gt;&#10;&lt;/record&gt;&#10;&lt;record id=&quot;action_mark_done&quot; model=&quot;sys.server.action&quot;&gt;&#10;    &lt;field name=&quot;name&quot;&gt;Mark done&lt;/field&gt;&#10;    &lt;field name=&quot;event_name&quot;&gt;crm.lead.followup&lt;/field&gt;&#10;    &lt;field name=&quot;code&quot;&gt;write:{&quot;active&quot;: false}&lt;/field&gt;&#10;    &lt;field name=&quot;active&quot; eval=&quot;True&quot;/&gt;&#10;&lt;/record&gt;">
+      <pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;record id="action_followup" model="sys.server.action"&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    &lt;field name="name"&gt;Follow-up event&lt;/field&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    &lt;field name="event_name"&gt;record.updated&lt;/field&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">    &lt;field name="model"&gt;crm.lead&lt;/field&gt;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">    &lt;field name="code"&gt;publish:crm.lead.followup&lt;/field&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">    &lt;field name="active" eval="True"/&gt;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">&lt;/record&gt;</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">&lt;record id="action_mark_done" model="sys.server.action"&gt;</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">    &lt;field name="name"&gt;Mark done&lt;/field&gt;</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c">    &lt;field name="event_name"&gt;crm.lead.followup&lt;/field&gt;</span></span><span class="docs-line" data-n="11"><span class="docs-line-n" aria-hidden="true">11</span><span class="docs-line-c">    &lt;field name="code"&gt;write:{"active": false}&lt;/field&gt;</span></span><span class="docs-line" data-n="12"><span class="docs-line-n" aria-hidden="true">12</span><span class="docs-line-c">    &lt;field name="active" eval="True"/&gt;</span></span><span class="docs-line" data-n="13"><span class="docs-line-n" aria-hidden="true">13</span><span class="docs-line-c">&lt;/record&gt;</span></span></code></pre>
+    </div>
+  </div>
+</div>
+<h2 id="cron-handlers">Cron Go handlers</h2>
+<p>Register a handler keyed by the <code>sys.cron</code> row's <code>code</code> field in addon <code>init.go</code>:</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-cron-handler">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">init.go</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import &quot;sumeru/core/scheduler&quot;&#10;&#10;func init() {&#10;	scheduler.RegisterCronHandler(&quot;crm.cron_assign_leads&quot;, assignLeads)&#10;}">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">import "sumeru/core/scheduler"</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">func init() {</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">	scheduler.RegisterCronHandler("crm.cron_assign_leads", assignLeads)</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">}</span></span></code></pre>
+    </div>
+  </div>
+</div>
+<p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row. There is no Python/safe_eval — Go handlers only.</p>
 <h2 id="outbox">Outbox alignment</h2>
-<p>ORM mutations publish <code>record.*</code> for data that actually committed (outbox / mutation pipeline). Do not emit business events for rolled-back work.</p>
+<p>ORM mutations publish <code>record.*</code> for data that actually committed (outbox / mutation pipeline). A background drain worker (5s ticker) publishes pending <code>sys.outbox.event</code> rows asynchronously after commit. Do not emit business events for rolled-back work.</p>
 <h2 id="compile-and-run">Compile and run</h2>
 <p>Listeners register in <code>init</code> via blank-imports. Restart the server after changing handler code:</p>
 <div class="docs-codebox is-shell is-wrap" data-codebox="shell-a7d084f4">

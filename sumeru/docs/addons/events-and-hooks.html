@@ -106,8 +106,20 @@
         <pre class="docs-pre"><code>render.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
         <p>Used for CRM pipeline and forecast kanbans.</p>
         <h2 id="cron-handlers">Cron handlers</h2>
-        <p>Subscribe to a named event from a <code>sys.cron</code> row instead of relying on the cron <code>code</code> field (not executed).</p>
-        <p>Example: <code>crm.cron_assign_leads</code> in <code>crm/services/hooks.go</code>.</p>
+        <p>Register a Go handler keyed by the <code>sys.cron</code> row's <code>code</code> field:</p>
+        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {
+    // run periodic work
+    return nil
+})</code></pre>
+        <p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row. Example: <code>crm/services/hooks.go</code>.</p>
+        <p>Alternatively, subscribe to <code>cron.tick</code> or a custom event name — the automation addon uses the same bus.</p>
+        <h2 id="declarative-server-actions">Declarative server actions</h2>
+        <p>Define <code>sys.server.action</code> rows in data XML with declarative <code>code</code> (no Go required for simple flows):</p>
+        <ul>
+        <li><code>publish:<event_name></code> — chain a follow-up event</li>
+        <li><code>write:<json_object></code> — write fields on the triggering record</li>
+        </ul>
+        <p>See <a href="website/guides/build/events-and-automation.html">Events & automation</a> for XML examples.</p>
         <h2 id="http-routes">HTTP routes</h2>
         <pre class="docs-pre"><code>router.Register(http.MethodGet, "/account/invoice/print", router.AuthSession, handler)</code></pre>
         <p>See <a href="howtos/custom-http-route.html">Custom HTTP route</a>.</p>

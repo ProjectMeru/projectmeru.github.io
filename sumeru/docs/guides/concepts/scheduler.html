@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                    <header class="docs-topbar">
+                      <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -104,6 +104,27 @@
 <p><code>core/scheduler</code> ticks on an interval (server starts it about every minute), selects due active cron rows, publishes <code>cron.tick</code>, and optionally a custom <code>event_name</code>.</p>
 <h2 id="addon-registration">Addon registration</h2>
 <p>Addons typically define cron rows via data XML and/or subscribe to <code>cron.tick</code> (as <code>automation</code> does). Interval comes from <code>interval_number</code> (minutes).</p>
+<h2 id="register-cron-handler">RegisterCronHandler</h2>
+<p>When a <code>sys.cron</code> row fires, the scheduler looks up a Go handler registered by <code>code</code>:</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-register-cron">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">init.go</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-lang">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="scheduler.RegisterCronHandler(&quot;crm.cron_assign_leads&quot;, func(ctx context.Context, payload map[string]interface{}) error {&#10;    // periodic work&#10;    return nil&#10;})">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    // periodic work</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    return nil</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">})</span></span></code></pre>
+    </div>
+  </div>
+</div>
+<p>See <a href="../../guides/build/events-and-automation.html">Events &amp; automation</a> for declarative server actions and outbox behaviour.</p>
 <h2 id="compile-and-run">Compile and run</h2>
 <div class="docs-codebox is-shell is-wrap" data-codebox="shell-7bd7fefd">
   <div class="docs-codebox-titlebar">
