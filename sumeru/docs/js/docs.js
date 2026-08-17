@@ -37,6 +37,307 @@
     });
   });
 
+  /* Shell: track tabs, sidebar from nav.json, site footer */
+
+  var NAV = window.SUMERU_DOCS_NAV;
+
+  function docsDepth() {
+    var path = location.pathname.replace(/\/$/, '');
+    var idx = path.indexOf('/docs/');
+    if (idx < 0) return 0;
+    var after = path.slice(idx + 6).replace(/^\//, '');
+    if (!after || after === 'index.html') return 0;
+    var parts = after.split('/').filter(Boolean);
+    if (!parts.length) return 0;
+    if (parts[parts.length - 1].endsWith('.html')) {
+      return Math.max(0, parts.length - 1);
+    }
+    return parts.length;
+  }
+
+  function docsRootPrefix() {
+    var path = location.pathname;
+    var idx = path.indexOf('/docs/');
+    if (idx < 0) return '';
+    return path.slice(0, idx + 6);
+  }
+
+  function docsBaseUrl() {
+    var root = docsRootPrefix();
+    if (!root) return window.location.origin + '/';
+    var base = window.location.origin + root.replace(/\/+$/, '');
+    return base + '/';
+  }
+
+  function resolveNavHref(href) {
+    if (!href || href.indexOf('#') === 0 || href.indexOf('http') === 0) return href;
+    if (docsRootPrefix()) {
+      try {
+        return new URL(href, docsBaseUrl()).pathname;
+      } catch (e) { /* fall through */ }
+    }
+    return navPrefix() + href;
+  }
+
+  function fixBrandAssets() {
+    var img = $('.docs-brand img');
+    var product = $('.docs-product-link');
+    var depth = docsDepth();
+    var logoPrefix = '../'.repeat(depth + 2);
+    var productPrefix = '../'.repeat(depth + 1);
+    if (img) img.src = logoPrefix + 'logo.png';
+    if (product) product.href = productPrefix + 'index.html';
+  }
+
+  function navPrefix() {
+    var d = docsDepth();
+    return d ? '../'.repeat(d) : '';
+  }
+
+  function currentDocsHref() {
+    var path = location.pathname.replace(/\/$/, '');
+    var idx = path.indexOf('/docs/');
+    if (idx < 0) return 'index.html';
+    var after = path.slice(idx + 6).replace(/^\//, '');
+    if (!after || after === 'index.html') return 'index.html';
+    if (path.endsWith('/docs')) return 'index.html';
+    return after;
+  }
+
+  function groupStorageKey(track, groupId) {
+    return 'sumeru-docs-nav-' + track + '-' + groupId;
+  }
+
+  var TRACK_ICONS = {
+    guides: '<svg viewBox="0 0 16 16"><path d="M2 3.2A1.2 1.2 0 0 1 3.2 2H6.5A1.5 1.5 0 0 1 8 3.5v9A1.5 1.5 0 0 0 6.5 11H2Z"/><path d="M14 3.2A1.2 1.2 0 0 0 12.8 2H9.5A1.5 1.5 0 0 0 8 3.5v9A1.5 1.5 0 0 1 9.5 11H14Z"/></svg>',
+    reference: '<svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="m4.6 6.4 2 1.6-2 1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8.6 10.2h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>',
+    addons: '<svg viewBox="0 0 16 16"><path d="M8 1.6 14.5 5 8 8.4 1.5 5Z"/><path d="m1.5 8 6.5 3.4L14.5 8"/><path d="m1.5 11 6.5 3.4L14.5 11"/></svg>',
+    business: '<svg viewBox="0 0 16 16"><rect x="2" y="5" width="12" height="9" rx="1.2"/><path d="M5 5V3.8A1.8 1.8 0 0 1 6.8 2h2.4A1.8 1.8 0 0 1 11 3.8V5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>',
+  };
+
+  function renderTrackTabs(track) {
+    var list = $('.docs-track-list');
+    if (!list || !NAV || !NAV.tracks) return;
+    list.innerHTML = '';
+    NAV.tracks.forEach(function (t) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = resolveNavHref(t.href);
+      a.className = 'docs-track-tab';
+      if (t.id === track) {
+        a.classList.add('is-active');
+        a.setAttribute('aria-current', 'page');
+      }
+      a.setAttribute('data-track', t.id);
+      var ico = document.createElement('span');
+      ico.className = 'docs-track-ico';
+      ico.innerHTML = TRACK_ICONS[t.id] || TRACK_ICONS.guides;
+      var label = document.createElement('span');
+      label.className = 'docs-track-label';
+      label.textContent = t.label;
+      a.appendChild(ico);
+      a.appendChild(label);
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    initTrackMarker();
+  }
+
+  function initTrackMarker() {
+    var rail = $('.docs-track-rail');
+    var marker = $('.docs-track-marker');
+    if (!rail || !marker) return;
+    function activeTab() {
+      return rail.querySelector('.docs-track-tab.is-active, .docs-track-tab[aria-current="page"]');
+    }
+    function setMarker(tab, isActive) {
+      if (!tab) {
+        rail.removeAttribute('data-marker');
+        return;
+      }
+      marker.style.setProperty('--marker-left', tab.offsetLeft + 'px');
+      marker.style.setProperty('--marker-width', tab.offsetWidth + 'px');
+      rail.setAttribute('data-marker', isActive ? 'active' : 'hover');
+    }
+    function snapActive() { setMarker(activeTab(), true); }
+    snapActive();
+    requestAnimationFrame(function () { rail.setAttribute('data-marker-ready', ''); });
+    rail.addEventListener('pointerover', function (e) {
+      var tab = e.target && e.target.closest ? e.target.closest('.docs-track-tab') : null;
+      if (tab) setMarker(tab, tab.matches('.is-active, [aria-current="page"]'));
+    });
+    rail.addEventListener('pointerleave', snapActive);
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(snapActive).observe(rail);
+    }
+    var tab = activeTab();
+    if (tab && tab.scrollIntoView) {
+      tab.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'instant' });
+    }
+  }
+
+  function initInstallBtn() {
+    var btn = $('.docs-install-btn');
+    if (!btn) return;
+    var timer = null;
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.setAttribute('data-copied', 'true');
+        clearTimeout(timer);
+        timer = setTimeout(function () { btn.removeAttribute('data-copied'); }, 1600);
+      }).catch(function () { /* ignore */ });
+    });
+  }
+
+  function renderSidebar(track) {
+    var sidebar = $('.docs-sidebar[data-nav-track]');
+    if (!sidebar || !NAV || !NAV.sidebars) return;
+    var groups = NAV.sidebars[track];
+    if (!groups) return;
+    sidebar.innerHTML = '';
+    var current = currentDocsHref();
+    groups.forEach(function (group) {
+      var wrap = document.createElement('div');
+      wrap.className = 'docs-sidebar-group is-collapsible';
+      wrap.setAttribute('data-nav-group', group.id || group.title);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'docs-sidebar-title';
+      var label = document.createElement('span');
+      label.textContent = group.title;
+      var chev = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      chev.setAttribute('class', 'docs-sidebar-chevron');
+      chev.setAttribute('viewBox', '0 0 24 24');
+      chev.setAttribute('width', '14');
+      chev.setAttribute('height', '14');
+      chev.setAttribute('aria-hidden', 'true');
+      chev.innerHTML = '<path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/>';
+      btn.appendChild(label);
+      btn.appendChild(chev);
+      var list = document.createElement('ul');
+      list.className = 'docs-sidebar-list';
+      var hasActive = false;
+      (group.items || []).forEach(function (item) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = resolveNavHref(item.href);
+        a.textContent = item.title;
+        if (item.href === current) {
+          a.classList.add('is-active');
+          hasActive = true;
+        }
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      var gkey = groupStorageKey(track, group.id || group.title);
+      var stored = null;
+      try { stored = sessionStorage.getItem(gkey); } catch (e) { /* ignore */ }
+      var expanded = stored === null ? (hasActive || group.id === 'start' || group.id === 'reference' || group.id === 'addons-start' || group.id === 'biz-start') : stored === '1';
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      wrap.classList.toggle('is-collapsed', !expanded);
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        wrap.classList.toggle('is-collapsed', !open);
+        try { sessionStorage.setItem(gkey, open ? '1' : '0'); } catch (e) { /* ignore */ }
+      });
+      wrap.appendChild(btn);
+      wrap.appendChild(list);
+      sidebar.appendChild(wrap);
+    });
+  }
+
+  function renderSiteFooter() {
+    var footer = $('[data-site-footer]');
+    if (!footer) return;
+    var productHref = navPrefix() + '../index.html';
+    footer.innerHTML =
+      '<div class="docs-site-footer-grid">' +
+      '<div class="docs-site-footer-col"><p class="docs-site-footer-heading">Documentation</p><ul>' +
+      '<li><a href="' + resolveNavHref('index.html') + '">Guides</a></li>' +
+      '<li><a href="' + resolveNavHref('reference/index.html') + '">Reference</a></li>' +
+      '<li><a href="' + resolveNavHref('addons/index.html') + '">Addons</a></li>' +
+      '<li><a href="' + resolveNavHref('using/index.html') + '">Business</a></li>' +
+      '</ul></div>' +
+      '<div class="docs-site-footer-col"><p class="docs-site-footer-heading">Resources</p><ul>' +
+      '<li><a href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">GitHub</a></li>' +
+      '<li><a href="' + resolveNavHref('guides/start/installation.html') + '">Installation</a></li>' +
+      '<li><a href="' + resolveNavHref('guides/build/report-engine.html') + '">Report engine</a></li>' +
+      '</ul></div>' +
+      '<div class="docs-site-footer-col"><p class="docs-site-footer-heading">Project</p><ul>' +
+      '<li><a href="' + productHref + '">Sumeru product</a></li>' +
+      '<li><a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">Project Meru</a></li>' +
+      '</ul></div>' +
+      '</div>' +
+      '<p class="docs-site-footer-note"><strong>Pre-alpha.</strong> No tagged release or upgrade path. Evaluation and development only.</p>';
+  }
+
+  function flattenTrackItems(track) {
+    var out = [];
+    if (!NAV || !NAV.sidebars || !NAV.sidebars[track]) return out;
+    NAV.sidebars[track].forEach(function (g) {
+      (g.items || []).forEach(function (it) { out.push(it); });
+    });
+    return out;
+  }
+
+  function updatePrevNext(track) {
+    var navEl = $('.docs-next');
+    if (!navEl || !NAV) return;
+    var items = flattenTrackItems(track);
+    var current = currentDocsHref();
+    var idx = -1;
+    items.forEach(function (it, i) { if (it.href === current) idx = i; });
+    if (idx < 0) return;
+    var prev = idx > 0 ? items[idx - 1] : null;
+    var next = idx < items.length - 1 ? items[idx + 1] : null;
+    navEl.innerHTML = '';
+    if (prev) {
+      var pa = document.createElement('a');
+      pa.className = 'is-prev';
+      pa.href = resolveNavHref(prev.href);
+      pa.innerHTML = '<span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; ' + prev.title + '</span>';
+      navEl.appendChild(pa);
+    }
+    if (next) {
+      var na = document.createElement('a');
+      na.className = 'is-next';
+      na.href = resolveNavHref(next.href);
+      na.innerHTML = '<span class="docs-next-label">Next</span><span class="docs-next-title">' + next.title + ' &rarr;</span>';
+      navEl.appendChild(na);
+    }
+  }
+
+  function addHeadingAnchors() {
+    var article = $('.docs-article');
+    if (!article) return;
+    $$('h2[id], h3[id]', article).forEach(function (h) {
+      if ($('.docs-heading-anchor', h)) return;
+      var a = document.createElement('a');
+      a.className = 'docs-heading-anchor';
+      a.href = '#' + h.id;
+      a.setAttribute('aria-label', 'Section titled ' + h.textContent.replace(/\s+/g, ' ').trim());
+      a.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+      h.appendChild(a);
+    });
+  }
+
+  if (NAV) {
+    var trackEl = $('.docs-sidebar[data-nav-track]');
+    var track = trackEl ? trackEl.getAttribute('data-nav-track') : 'guides';
+    fixBrandAssets();
+    renderTrackTabs(track);
+    renderSidebar(track);
+    renderSiteFooter();
+    updatePrevNext(track);
+    addHeadingAnchors();
+  }
+
+  initInstallBtn();
+  fixBrandAssets();
+
   /* Mobile sidebar */
 
   var menuBtn = $('.docs-menu-btn');
@@ -137,6 +438,14 @@
       var toc = $('.docs-toc');
       if (toc) toc.style.display = 'none';
     } else {
+      var overviewLi = document.createElement('li');
+      overviewLi.className = 'is-overview';
+      var overviewLink = document.createElement('a');
+      overviewLink.href = '#';
+      overviewLink.textContent = 'Overview';
+      overviewLi.appendChild(overviewLink);
+      tocList.appendChild(overviewLi);
+
       function tocLabel(h) {
         var custom = h.getAttribute('data-toc');
         if (custom && custom.trim()) return custom.trim();

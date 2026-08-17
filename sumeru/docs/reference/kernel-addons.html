@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kernel Addons | Sumeru Docs</title>
+  <meta name="description" content="Kernel Addons">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/kernel-addons.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+    <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+<a class="docs-brand" href="../index.html">
+      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
+    </a>
+          <a class="docs-product-link" href="../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Kernel addons</h1>
+        <p class="docs-lede">Built-in modules under <strong><code>sumeru/addons/</code></strong>. Installed via <code>-i base</code> (and dependencies) before business apps.</p>
+        <table><thead><tr><th>Module</th><th>Application</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><strong>base</strong></td><td>No (kernel)</td><td>Users, companies, partners, groups, system metadata, geo, i18n, API keys</td></tr>
+        <tr><td><strong>contacts</strong></td><td>Yes</td><td>Address book UI on <code>core.partner</code> (list/form/kanban)</td></tr>
+        <tr><td><strong>mail</strong></td><td>Yes</td><td>Messages, chatter, activities (<code>mail.message</code>, <code>mail.activity</code>)</td></tr>
+        <tr><td><strong>automation</strong></td><td>Yes</td><td>Cron, declarative server actions, workflow transitions</td></tr>
+        <tr><td><strong>sumeru_ai</strong></td><td>Yes</td><td>AI hooks — search interceptor (pass-through), shell/notebook placeholders</td></tr>
+        </tbody></table>
+        <h2 id="base">base</h2>
+        <ul>
+        <li><strong>Models:</strong> <code>core.user</code>, <code>core.company</code>, <code>core.partner</code>, <code>core.group</code>, <code>sys.menu</code>, <code>sys.model</code>, <code>sys.config.parameter</code>, …</li>
+        <li><strong>Required for:</strong> All other modules</li>
+        <li><strong>Install:</strong> <code>go run . -- -c sumeru.conf -i base --stop-after-init</code></li>
+        </ul>
+        <h2 id="contacts">contacts</h2>
+        <ul>
+        <li><strong>Depends:</strong> <code>base</code></li>
+        <li><strong>Purpose:</strong> Partner/customer/vendor UI; required by CRM, Sales, Accounting, HR</li>
+        <li><strong>Note:</strong> Lives in core repo, not <code>sumeru_addons</code></li>
+        </ul>
+        <h2 id="mail">mail</h2>
+        <ul>
+        <li><strong>Depends:</strong> <code>base</code></li>
+        <li><strong>Purpose:</strong> Chatter thread on forms, activity scheduling, activity panel in shell</li>
+        <li><strong>Web route:</strong> <code>POST /web/chatter/post</code></li>
+        <li><strong>Required for:</strong> CRM activities, team follow-ups</li>
+        </ul>
+        <h2 id="automation">automation</h2>
+        <ul>
+        <li><strong>Depends:</strong> <code>base</code></li>
+        <li><strong>Models:</strong> <code>sys.cron</code>, <code>sys.server.action</code>, <code>sys.workflow.transition</code></li>
+        <li><strong>Status:</strong> Event subscriber executes declarative server actions (<code>publish:</code> / <code>write:</code>); cron rows dispatch to registered Go handlers (see <a href="events-and-cron.html">Events and cron</a>)</li>
+        </ul>
+        <h2 id="sumeru-ai">sumeru_ai</h2>
+        <ul>
+        <li><strong>Depends:</strong> <code>base</code></li>
+        <li><strong>Status:</strong> Partial — opt-in module</li>
+        <li>Registers <code>RegisterSearchInterceptor</code> (pass-through), shell hook, and partner notebook hook</li>
+        <li>Natural language search is <strong>not</strong> core UX; see <a href="../using/feature-matrix.html">Feature matrix</a></li>
+        </ul>
+        <h2 id="typical-install-order">Typical install order</h2>
+        <pre class="docs-pre is-shell"><code>go run . -- -c sumeru.conf -i base,contacts,mail --stop-after-init</code></pre>
+        <p>Then install <code>sumeru_addons</code> modules as needed.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="../guides/addons-and-modules.html">Addons and modules</a></li>
+        <li><a href="business/platform/contacts-and-partners.html">Business: Contacts and partners</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
+
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../js/docs-nav-data.js"></script>
+  <script src="../js/fuse.min.js"></script>
+  <script src="../js/docs-search.js"></script>
+  <script src="../js/docs.js"></script>
+</body>
+</html>

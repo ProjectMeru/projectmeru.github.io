@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found | Project Meru</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#050505; --text:#f7f7f5; --muted:#8b8b91; --accent:#14b8a6; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px;
+      font-family:"Instrument Sans",system-ui,sans-serif; background:var(--bg); color:var(--text); }
+    main { max-width:32rem; text-align:center; }
+    h1 { font-size:4rem; margin:0 0 8px; color:var(--accent); }
+    p { color:var(--muted); line-height:1.6; }
+    code { font-size:13px; word-break:break-all; }
+    ul { list-style:none; padding:0; margin:24px 0 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+    a { color:var(--text); text-decoration:none; border:1px solid #ffffff1a; padding:8px 14px; border-radius:8px; }
+    a:hover { border-color:var(--accent); color:var(--accent); }
+  </style>
+  <script>
+  (function(){
+    var p=location.pathname;
+    var fixed=p.replace(/(\/sumeru)\/(reference|addons|using)(?=\/|$)/,'$1/docs/$2');
+    if(fixed!==p){
+      var q=location.search||'';
+      location.replace(fixed+q);
+      return;
+    }
+    var el=document.getElementById('path');
+    if(el) el.textContent=p;
+    try{ sessionStorage.setItem('sumeru-docs-404-path', p); }catch(e){}
+    var docsMatch=p.match(/\/sumeru\/docs(\/.*)?$/);
+    if(docsMatch){
+      var docsRoot=p.slice(0,p.indexOf('/docs/')+6);
+      var rest=docsMatch[1]||'/404.html';
+      if(rest.indexOf('404.html')<0){
+        location.replace(docsRoot+'/404.html?path='+encodeURIComponent(p));
+      }
+    }
+  })();
+  </script>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <p>The page you requested could not be found.</p>
+    <p><code id="path"></code></p>
+    <ul>
+      <li><a href="/">Project Meru</a></li>
+      <li><a href="/sumeru/">Sumeru</a></li>
+      <li><a href="/sumeru/docs/">Documentation</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Widgets and views | Sumeru Docs</title>
+  <meta name="description" content="Widgets and views">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/widgets-and-views.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+    <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+<a class="docs-brand" href="../index.html">
+      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
+    </a>
+          <a class="docs-product-link" href="../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Widgets and views</h1>
+        <p class="docs-lede">Reference for workspace view XML parsed by <code>core/engine/render/parser/view_xml.go</code> and rendered by <code>core/engine/render/</code>.</p>
+        <h2 id="view-types">View types</h2>
+        <table><thead><tr><th>Type</th><th>Status</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>form</code></td><td>Implemented</td><td>Single-record edit</td></tr>
+        <tr><td><code>list</code></td><td>Implemented</td><td>Tabular list</td></tr>
+        <tr><td><code>kanban</code></td><td>Implemented</td><td>Board grouped by a field</td></tr>
+        <tr><td><code>pivot</code></td><td><strong>Implemented</strong></td><td>Read-only HTML aggregation table (v1)</td></tr>
+        </tbody></table>
+        <h2 id="pivot-fields">Pivot fields</h2>
+        <p>On <code>type="pivot"</code> views, set a role on each nested <code><field></code>:</p>
+        <table><thead><tr><th>Field attribute</th><th>Role</th></tr></thead><tbody>
+        <tr><td><code>type="row"</code></td><td>Row axis (group labels down the left)</td></tr>
+        <tr><td><code>type="col"</code></td><td>Column axis (group labels across the top)</td></tr>
+        <tr><td><code>type="measure"</code></td><td>Numeric value summed per cell</td></tr>
+        </tbody></table>
+        <pre class="docs-pre"><code>&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
+    &lt;field name="partner_id" type="row"/&gt;
+    &lt;field name="date_order" type="col"/&gt;
+    &lt;field name="amount_total" type="measure"/&gt;
+&lt;/view&gt;</code></pre>
+        <ul>
+        <li>Aggregates up to <strong>500 rows</strong> from the current action domain (<code>maxWorkspaceListRows</code>).</li>
+        <li>Read-only HTML table — no CSV/PDF export, drill-down, or graph view.</li>
+        <li>Empty arch (no row/col/measure fields) shows a placeholder prompting configuration.</li>
+        <li>Include <code>pivot</code> in window action <code>view_mode</code>, e.g. <code>tree,form,pivot</code>.</li>
+        </ul>
+        <h2 id="common-view-attributes">Common view attributes</h2>
+        <table><thead><tr><th>Attribute</th><th>View types</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>groups</code></td><td>all fields</td><td>Hide field unless user has ACL group</td></tr>
+        <tr><td><code>open="false"</code></td><td>list</td><td>Disable row click → form</td></tr>
+        <tr><td><code>default_group_by</code></td><td>kanban</td><td>Initial group column</td></tr>
+        <tr><td><code>group_by</code></td><td>kanban</td><td>Allowed group fields</td></tr>
+        <tr><td><code>records_draggable</code></td><td>kanban</td><td>Enable drag between columns</td></tr>
+        <tr><td><code>quick_create</code></td><td>kanban</td><td>Inline create in column</td></tr>
+        <tr><td><code>report_download</code></td><td>list, form, kanban</td><td>CSV/PDF export (<code>csv</code>, <code>pdf</code>)</td></tr>
+        <tr><td><code>bulk_upload</code></td><td>list, form, kanban</td><td>Enable bulk CSV import</td></tr>
+        </tbody></table>
+        <p>Report attributes can also be declared via <code><report></code> child or header widgets — see <a href="../guides/build/report-engine.html">Report engine</a>.</p>
+        <h2 id="form-widgets">Form widgets</h2>
+        <p>Set <code>widget="…"</code> on <code><field></code> (default widget inferred from field type when omitted).</p>
+        <table><thead><tr><th>Widget</th><th>Field types</th><th>Behaviour</th></tr></thead><tbody>
+        <tr><td><code>statusbar</code></td><td>selection</td><td>Workflow status bar</td></tr>
+        <tr><td><code>boolean</code></td><td>boolean</td><td>Checkbox</td></tr>
+        <tr><td><code>radio</code></td><td>selection</td><td>Radio group</td></tr>
+        <tr><td><code>priority</code></td><td>selection/integer</td><td>Star priority</td></tr>
+        <tr><td><code>image</code></td><td>binary/char</td><td>Image upload and crop</td></tr>
+        <tr><td><code>date</code></td><td>date</td><td>Date picker</td></tr>
+        <tr><td><code>datetime</code></td><td>datetime</td><td>Date-time picker</td></tr>
+        <tr><td><code>time</code></td><td>—</td><td>Time input</td></tr>
+        <tr><td><code>email</code></td><td>char</td><td>Email input</td></tr>
+        <tr><td><code>phone</code>, <code>tel</code></td><td>char</td><td>Phone input</td></tr>
+        <tr><td><code>text</code></td><td>text</td><td>Multiline textarea</td></tr>
+        <tr><td><code>selection</code>, <code>dropdown</code></td><td>many2one</td><td>Render M2O as select</td></tr>
+        <tr><td><code>many2one</code></td><td>many2one</td><td>Autocomplete search</td></tr>
+        <tr><td><code>many2many_tags</code></td><td>many2many</td><td>Tag chips</td></tr>
+        <tr><td><code>one2many</code></td><td>one2many</td><td>Inline related list</td></tr>
+        </tbody></table>
+        <h2 id="header-widgets">Header widgets</h2>
+        <p>Inside <code><header></code> on form/list views:</p>
+        <table><thead><tr><th>Widget</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>report_download</code></td><td>Toolbar download (CSV/PDF)</td></tr>
+        <tr><td><code>bulk_upload</code></td><td>Toolbar bulk import</td></tr>
+        </tbody></table>
+        <h2 id="kanban-widgets">Kanban widgets</h2>
+        <table><thead><tr><th>Widget</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>circle</code></td><td>Avatar circle on card</td></tr>
+        </tbody></table>
+        <h2 id="view-inheritance">View inheritance</h2>
+        <p>Extend existing views with xpath — see <a href="../guides/build/view-inheritance.html">View inheritance</a>. Supported xpath: <code>//field[@name='x']</code> with <code>position="after|before|inside|replace"</code>.</p>
+        <p><strong>Model <code>_inherit</code> is not supported</strong> — only view arch inherit.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="../guides/build/views-and-menus.html">Views & menus</a></li>
+        <li><a href="../guides/build/report-engine.html">Report engine</a></li>
+        <li><a href="render-hooks.html">Render hooks</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
+
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../js/docs-nav-data.js"></script>
+  <script src="../js/fuse.min.js"></script>
+  <script src="../js/docs-search.js"></script>
+  <script src="../js/docs.js"></script>
+</body>
+</html>
