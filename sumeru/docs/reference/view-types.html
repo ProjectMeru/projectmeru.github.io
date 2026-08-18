@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Widgets and views | Sumeru Docs</title>
-  <meta name="description" content="Index for view types, field attributes, and SWC widget catalog.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/widgets-and-views.html">
+  <title>View types | Sumeru Docs</title>
+  <meta name="description" content="SWC view types with XML structure, attributes, and runtime behaviour.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/view-types.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
@@ -77,134 +77,260 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <p class="docs-lede">Index for view types, field attributes, and SWC widget catalog.</p>
-        <h1>Widgets and views</h1>
-        <p>Index for workspace view XML (parsed by <code>core/engine/parser/view_xml.go</code>, serialized by <code>core/engine/swcmeta/</code>, rendered by SWC).</p>
-        <h2 id="detailed-references">Detailed references</h2>
-        <table><thead><tr>
-        <th>Topic</th>
-        <th>Page</th>
-        </tr></thead><tbody>
-        <tr>
-        <td>View types (list, form, kanban, pivot, graph, calendar)</td>
-        <td>[View types](view-types.md)</td>
-        </tr>
-        <tr>
-        <td><code>&lt;field&gt;</code> attributes (<code>readonly</code>, <code>required</code>, <code>options</code>, O2M subview)</td>
-        <td>[Field attributes](field-attributes.md)</td>
-        </tr>
-        <tr>
-        <td>Widget keys and options</td>
-        <td>[SWC widget catalog](swc-widget-catalog.md)</td>
-        </tr>
-        <tr>
-        <td>Full XML authoring guide</td>
-        <td>[Views &amp; menus](../../website/guides/build/views-and-menus.md)</td>
-        </tr>
-        <tr>
-        <td>End-to-end module recipe</td>
-        <td>[Build a module with SWC](../guides/build-module-with-swc.md)</td>
-        </tr>
-        </tbody></table>
-        <h2 id="view-types-summary">View types (summary)</h2>
+        
+        <h1>View types</h1>
+        <p>Sumeru workspace views are declared in XML (<code>type</code> on <code>&lt;view&gt;</code>) and rendered by SWC components registered in <code>core/swc/src/main.ts</code>. Include view modes in window actions: <code>view_mode=&quot;kanban,list,form&quot;</code>.</p>
+        <h2 id="summary">Summary</h2>
         <table><thead><tr>
         <th>Type</th>
-        <th>Status</th>
         <th>SWC class</th>
+        <th>Status</th>
+        <th>Purpose</th>
         </tr></thead><tbody>
         <tr>
         <td><code>list</code> / <code>tree</code></td>
-        <td>Full</td>
         <td>ListView</td>
+        <td>Full</td>
+        <td>Tabular records, search, bulk delete</td>
         </tr>
         <tr>
         <td><code>form</code></td>
-        <td>Full</td>
         <td>FormView</td>
+        <td>Full</td>
+        <td>Single-record edit with sheet layout</td>
         </tr>
         <tr>
         <td><code>kanban</code></td>
-        <td>Full</td>
         <td>KanbanView</td>
+        <td>Full</td>
+        <td>Board grouped by a field</td>
         </tr>
         <tr>
         <td><code>pivot</code></td>
-        <td>Full</td>
         <td>PivotView</td>
+        <td>Full</td>
+        <td>HTML aggregation table</td>
         </tr>
         <tr>
         <td><code>graph</code></td>
-        <td>v1</td>
         <td>GraphView</td>
+        <td>v1</td>
+        <td>Bar chart via <code>read_group</code> RPC</td>
         </tr>
         <tr>
         <td><code>calendar</code></td>
-        <td>v1</td>
         <td>CalendarView</td>
+        <td>v1</td>
+        <td>Date-bucketed event list</td>
         </tr>
         <tr>
-        <td><code>gantt</code>, <code>map</code>, <code>cohort</code></td>
+        <td><code>gantt</code></td>
+        <td>GanttView</td>
+        <td>Stub</td>
+        <td>Placeholder</td>
+        </tr>
+        <tr>
+        <td><code>map</code></td>
+        <td>MapView</td>
+        <td>Stub</td>
+        <td>Placeholder</td>
+        </tr>
+        <tr>
+        <td><code>cohort</code></td>
+        <td>CohortView</td>
         <td>Stub</td>
         <td>Placeholder</td>
         </tr>
         </tbody></table>
-        <h2 id="pivot-fields-quick-reference">Pivot fields (quick reference)</h2>
+        <h2 id="list-tree">List / tree</h2>
         <pre class="docs-pre"><code>
-        &lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;
+        &lt;view id=&quot;view_crm_lead_tree&quot; model=&quot;crm.lead&quot; type=&quot;list&quot;&gt;
 
-            &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;
+          &lt;field name=&quot;name&quot;/&gt;
 
-            &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;
+          &lt;field name=&quot;partner_id&quot;/&gt;
 
-            &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;
+          &lt;field name=&quot;stage_id&quot;/&gt;
+
+          &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+
+          &lt;field name=&quot;user_id&quot;/&gt;
 
         &lt;/view&gt;
 
         </code></pre>
-        <h2 id="common-view-attributes">Common view attributes</h2>
         <table><thead><tr>
-        <th>Attribute</th>
-        <th>View types</th>
-        <th>Purpose</th>
+        <th>View attribute</th>
+        <th>Effect</th>
         </tr></thead><tbody>
         <tr>
-        <td><code>groups</code></td>
-        <td>all fields</td>
-        <td>Hide field unless user has ACL group</td>
-        </tr>
-        <tr>
-        <td><code>open=&quot;false&quot;</code></td>
-        <td>list</td>
+        <td><code>open=&quot;0&quot;</code></td>
         <td>Disable row click → form</td>
         </tr>
+        </tbody></table>
+        <p><strong>SWC behaviour:</strong> Toolbar with New, search (<code>?q=</code> param), export/import, row selection + bulk delete, client pagination. Row click opens form via SPA navigation.</p>
+        <h2 id="form">Form</h2>
+        <pre class="docs-pre"><code>
+        &lt;view id=&quot;view_crm_lead_form&quot; model=&quot;crm.lead&quot; type=&quot;form&quot;&gt;
+
+          &lt;header&gt;
+
+            &lt;button name=&quot;action_set_won&quot; type=&quot;object&quot; string=&quot;Mark Won&quot; class=&quot;sum_highlight&quot;/&gt;
+
+            &lt;field name=&quot;stage_id&quot; widget=&quot;statusbar&quot; options=&quot;clickable:1&quot;/&gt;
+
+          &lt;/header&gt;
+
+          &lt;sheet&gt;
+
+            &lt;div class=&quot;sum_title&quot;&gt;
+
+              &lt;h1&gt;&lt;field name=&quot;name&quot;/&gt;&lt;/h1&gt;
+
+            &lt;/div&gt;
+
+            &lt;div class=&quot;sum_button_box&quot;&gt;
+
+              &lt;button type=&quot;object&quot; name=&quot;action_view_opportunities&quot; string=&quot;Opportunities&quot;/&gt;
+
+            &lt;/div&gt;
+
+            &lt;group&gt;
+
+              &lt;group string=&quot;Lead&quot;&gt;
+
+                &lt;field name=&quot;partner_id&quot;/&gt;
+
+                &lt;field name=&quot;email&quot; widget=&quot;email&quot;/&gt;
+
+                &lt;field name=&quot;phone&quot; widget=&quot;phone&quot;/&gt;
+
+              &lt;/group&gt;
+
+              &lt;group string=&quot;Assignment&quot;&gt;
+
+                &lt;field name=&quot;user_id&quot;/&gt;
+
+                &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+
+              &lt;/group&gt;
+
+            &lt;/group&gt;
+
+            &lt;notebook&gt;
+
+              &lt;page string=&quot;Internal notes&quot;&gt;
+
+                &lt;field name=&quot;description&quot; widget=&quot;text&quot;/&gt;
+
+              &lt;/page&gt;
+
+            &lt;/notebook&gt;
+
+          &lt;/sheet&gt;
+
+          &lt;chatter/&gt;
+
+        &lt;/view&gt;
+
+        </code></pre>
+        <h3 id="form-layout-css-classes">Form layout CSS classes</h3>
+        <table><thead><tr>
+        <th>Div class</th>
+        <th>Effect</th>
+        </tr></thead><tbody>
+        <tr>
+        <td><code>sum_title</code></td>
+        <td>Hero title row (optional avatar column)</td>
+        </tr>
+        <tr>
+        <td><code>sum-title-contact-row</code></td>
+        <td>Inline email/phone under title</td>
+        </tr>
+        <tr>
+        <td><code>sum_button_box</code> / <code>button_box</code></td>
+        <td>Stat buttons row</td>
+        </tr>
+        </tbody></table>
+        <p><strong>SWC behaviour:</strong> Record toolbar (Edit/Save/Cancel/New/Duplicate/Delete), field widgets via registry, optional ChatterPanel when <code>&lt;chatter/&gt;</code> is present.</p>
+        <h2 id="kanban">Kanban</h2>
+        <pre class="docs-pre"><code>
+        &lt;view id=&quot;view_crm_lead_kanban&quot; model=&quot;crm.lead&quot; type=&quot;kanban&quot;
+
+              default_group_by=&quot;stage_id&quot; records_draggable=&quot;1&quot;&gt;
+
+          &lt;field name=&quot;name&quot;/&gt;
+
+          &lt;field name=&quot;partner_id&quot;/&gt;
+
+          &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+
+          &lt;field name=&quot;user_id&quot; widget=&quot;many2one&quot;/&gt;
+
+        &lt;/view&gt;
+
+        </code></pre>
+        <table><thead><tr>
+        <th>View attribute</th>
+        <th>Effect</th>
+        </tr></thead><tbody>
         <tr>
         <td><code>default_group_by</code></td>
-        <td>kanban</td>
-        <td>Initial group column</td>
+        <td>Column group field</td>
+        </tr>
+        <tr>
+        <td><code>group_by</code></td>
+        <td>Allowed group fields</td>
         </tr>
         <tr>
         <td><code>records_draggable</code></td>
-        <td>kanban</td>
-        <td>Enable drag between columns</td>
+        <td>Drag cards between columns</td>
         </tr>
         <tr>
-        <td><code>report_download</code></td>
-        <td>list, form, kanban</td>
-        <td>CSV/PDF export</td>
-        </tr>
-        <tr>
-        <td><code>bulk_upload</code></td>
-        <td>list, form, kanban</td>
-        <td>Bulk CSV import</td>
+        <td><code>quick_create</code></td>
+        <td>Inline create in column</td>
         </tr>
         </tbody></table>
-        <h2 id="view-inheritance">View inheritance</h2>
-        <p>Extend existing views with xpath — see [View inheritance](../../website/guides/build/view-inheritance.md). <strong>Model <code>_inherit</code> is not supported</strong> — only view arch inherit.</p>
+        <p><strong>SWC behaviour:</strong> Toolbar with New + search (<code>?q=</code>), grouped columns from server <code>arch.kanban.columns</code>, card click opens form.</p>
+        <h2 id="pivot">Pivot</h2>
+        <pre class="docs-pre"><code>
+        &lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;
+
+          &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;
+
+          &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;
+
+          &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;
+
+        &lt;/view&gt;
+
+        </code></pre>
+        <p>Read-only HTML table. Aggregates up to 500 rows from action domain.</p>
+        <h2 id="graph">Graph</h2>
+        <p>Same field roles as pivot (<code>type=&quot;row|col|measure&quot;</code> on fields). SWC <code>GraphView</code> calls <code>read_group</code> RPC and renders a bar chart (v1).</p>
+        <h2 id="calendar">Calendar</h2>
+        <p>List-style arch with date/datetime fields. SWC buckets records by date for a month grid (v1).</p>
+        <h2 id="stub-views">Stub views</h2>
+        <p><code>gantt</code>, <code>map</code>, and <code>cohort</code> register in SWC but render placeholder UI. Do not rely on them in production modules yet.</p>
+        <h2 id="report-toolbar">Report toolbar</h2>
+        <p>On list, form, and kanban views:</p>
+        <pre class="docs-pre"><code>
+        &lt;view model=&quot;sale.order&quot; type=&quot;list&quot; report_download=&quot;csv,pdf&quot; bulk_upload=&quot;1&quot;&gt;
+
+        </code></pre>
+        <p>Or nested:</p>
+        <pre class="docs-pre"><code>
+        &lt;report download=&quot;csv,pdf&quot; upload=&quot;1&quot;/&gt;
+
+        </code></pre>
+        <p>Enables Export CSV/PDF and Import CSV in the SWC toolbar.</p>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[SWC API](swc-api.md)</li>
+        <li>[Field attributes](field-attributes.md)</li>
         <ul>
-        <li>[Report engine](../guides/report-engine.md)</li>
+        <li>[SWC widget catalog](swc-widget-catalog.md)</li>
+        <ul>
+        <li>[Views &amp; menus](../../website/guides/build/views-and-menus.md)</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>

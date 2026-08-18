@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Widgets and views | Sumeru Docs</title>
-  <meta name="description" content="Index for view types, field attributes, and SWC widget catalog.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/widgets-and-views.html">
+  <title>Field attributes | Sumeru Docs</title>
+  <meta name="description" content="Reference for &lt;field&gt; attributes inside view XML arch, serialized by swcmeta and consumed by SWC.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/field-attributes.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
@@ -77,134 +77,177 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <p class="docs-lede">Index for view types, field attributes, and SWC widget catalog.</p>
-        <h1>Widgets and views</h1>
-        <p>Index for workspace view XML (parsed by <code>core/engine/parser/view_xml.go</code>, serialized by <code>core/engine/swcmeta/</code>, rendered by SWC).</p>
-        <h2 id="detailed-references">Detailed references</h2>
-        <table><thead><tr>
-        <th>Topic</th>
-        <th>Page</th>
-        </tr></thead><tbody>
-        <tr>
-        <td>View types (list, form, kanban, pivot, graph, calendar)</td>
-        <td>[View types](view-types.md)</td>
-        </tr>
-        <tr>
-        <td><code>&lt;field&gt;</code> attributes (<code>readonly</code>, <code>required</code>, <code>options</code>, O2M subview)</td>
-        <td>[Field attributes](field-attributes.md)</td>
-        </tr>
-        <tr>
-        <td>Widget keys and options</td>
-        <td>[SWC widget catalog](swc-widget-catalog.md)</td>
-        </tr>
-        <tr>
-        <td>Full XML authoring guide</td>
-        <td>[Views &amp; menus](../../website/guides/build/views-and-menus.md)</td>
-        </tr>
-        <tr>
-        <td>End-to-end module recipe</td>
-        <td>[Build a module with SWC](../guides/build-module-with-swc.md)</td>
-        </tr>
-        </tbody></table>
-        <h2 id="view-types-summary">View types (summary)</h2>
-        <table><thead><tr>
-        <th>Type</th>
-        <th>Status</th>
-        <th>SWC class</th>
-        </tr></thead><tbody>
-        <tr>
-        <td><code>list</code> / <code>tree</code></td>
-        <td>Full</td>
-        <td>ListView</td>
-        </tr>
-        <tr>
-        <td><code>form</code></td>
-        <td>Full</td>
-        <td>FormView</td>
-        </tr>
-        <tr>
-        <td><code>kanban</code></td>
-        <td>Full</td>
-        <td>KanbanView</td>
-        </tr>
-        <tr>
-        <td><code>pivot</code></td>
-        <td>Full</td>
-        <td>PivotView</td>
-        </tr>
-        <tr>
-        <td><code>graph</code></td>
-        <td>v1</td>
-        <td>GraphView</td>
-        </tr>
-        <tr>
-        <td><code>calendar</code></td>
-        <td>v1</td>
-        <td>CalendarView</td>
-        </tr>
-        <tr>
-        <td><code>gantt</code>, <code>map</code>, <code>cohort</code></td>
-        <td>Stub</td>
-        <td>Placeholder</td>
-        </tr>
-        </tbody></table>
-        <h2 id="pivot-fields-quick-reference">Pivot fields (quick reference)</h2>
-        <pre class="docs-pre"><code>
-        &lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;
-
-            &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;
-
-            &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;
-
-            &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;
-
-        &lt;/view&gt;
-
-        </code></pre>
-        <h2 id="common-view-attributes">Common view attributes</h2>
+        
+        <h1>Field attributes</h1>
+        <p>Reference for the <strong><code>field</code> element</strong> inside <strong><code>view</code> arch XML</strong>. The Go parser (<code>core/engine/parser/view_xml.go</code>) and serializer (<code>core/engine/swcmeta/arch.go</code>) convert these attributes into JSON on <code>arch.fields[]</code>; SWC field widgets read that JSON at runtime.</p>
+        <p>For ORM field <strong>types</strong> (<code>Char</code>, <code>Many2one</code>, …), see [Field types](field-types.md). For widget behaviour, see [SWC widget catalog](swc-widget-catalog.md).</p>
+        <h2 id="attribute-reference">Attribute reference</h2>
         <table><thead><tr>
         <th>Attribute</th>
-        <th>View types</th>
-        <th>Purpose</th>
+        <th>Required</th>
+        <th>Values</th>
+        <th>Effect</th>
         </tr></thead><tbody>
         <tr>
+        <td><code>name</code></td>
+        <td>yes</td>
+        <td>model field name</td>
+        <td>Selects which column to read/write. Must exist on the view&#x27;s <code>model</code>.</td>
+        </tr>
+        <tr>
+        <td><code>string</code></td>
+        <td>no</td>
+        <td>label text</td>
+        <td>Overrides the model field label in this view only.</td>
+        </tr>
+        <tr>
+        <td><code>widget</code></td>
+        <td>no</td>
+        <td>registry key</td>
+        <td>Swaps the default control. See [widget catalog](swc-widget-catalog.md).</td>
+        </tr>
+        <tr>
+        <td><code>placeholder</code></td>
+        <td>no</td>
+        <td>hint text</td>
+        <td>Grey hint in empty inputs. Does not set a default value.</td>
+        </tr>
+        <tr>
+        <td><code>readonly</code></td>
+        <td>no</td>
+        <td><code>1</code>, <code>true</code>, <code>yes</code>, <code>on</code></td>
+        <td>Field displays but cannot be edited in this view.</td>
+        </tr>
+        <tr>
+        <td><code>required</code></td>
+        <td>no</td>
+        <td><code>1</code>, <code>true</code>, <code>yes</code>, <code>on</code></td>
+        <td>Client-side required validation before save (merged with model <code>Required</code>).</td>
+        </tr>
+        <tr>
+        <td><code>invisible</code></td>
+        <td>no</td>
+        <td><code>1</code>, <code>true</code>, <code>yes</code>, <code>on</code></td>
+        <td>Hidden from UI; value may still load from server.</td>
+        </tr>
+        <tr>
+        <td><code>options</code></td>
+        <td>no</td>
+        <td><code>key:value,...</code></td>
+        <td>Widget-specific settings (see widget catalog).</td>
+        </tr>
+        <tr>
         <td><code>groups</code></td>
-        <td>all fields</td>
-        <td>Hide field unless user has ACL group</td>
+        <td>no</td>
+        <td>ACL group xml id</td>
+        <td>Field hidden unless user has the group.</td>
         </tr>
         <tr>
-        <td><code>open=&quot;false&quot;</code></td>
-        <td>list</td>
-        <td>Disable row click → form</td>
-        </tr>
-        <tr>
-        <td><code>default_group_by</code></td>
-        <td>kanban</td>
-        <td>Initial group column</td>
-        </tr>
-        <tr>
-        <td><code>records_draggable</code></td>
-        <td>kanban</td>
-        <td>Enable drag between columns</td>
-        </tr>
-        <tr>
-        <td><code>report_download</code></td>
-        <td>list, form, kanban</td>
-        <td>CSV/PDF export</td>
-        </tr>
-        <tr>
-        <td><code>bulk_upload</code></td>
-        <td>list, form, kanban</td>
-        <td>Bulk CSV import</td>
+        <td><code>type</code></td>
+        <td>pivot only</td>
+        <td><code>row</code>, <code>col</code>, <code>measure</code></td>
+        <td>Pivot/graph axis role.</td>
         </tr>
         </tbody></table>
-        <h2 id="view-inheritance">View inheritance</h2>
-        <p>Extend existing views with xpath — see [View inheritance](../../website/guides/build/view-inheritance.md). <strong>Model <code>_inherit</code> is not supported</strong> — only view arch inherit.</p>
+        <h2 id="basic-examples">Basic examples</h2>
+        <pre class="docs-pre"><code>
+        &lt;field name=&quot;name&quot; string=&quot;Company name&quot; placeholder=&quot;Acme Corp&quot;/&gt;
+
+        &lt;field name=&quot;email&quot; widget=&quot;email&quot; placeholder=&quot;name@example.com&quot;/&gt;
+
+        &lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
+
+        &lt;field name=&quot;create_date&quot; readonly=&quot;1&quot;/&gt;
+
+        &lt;field name=&quot;internal_ref&quot; invisible=&quot;1&quot;/&gt;
+
+        &lt;field name=&quot;phone&quot; widget=&quot;phone&quot; required=&quot;1&quot;/&gt;
+
+        </code></pre>
+        <h2 id="options-syntax">Options syntax</h2>
+        <p><code>options</code> is a comma-separated list of <code>key:value</code> pairs (no JSON required):</p>
+        <pre class="docs-pre"><code>
+        &lt;field name=&quot;state&quot; widget=&quot;statusbar&quot; options=&quot;clickable:1&quot;/&gt;
+
+        &lt;field name=&quot;priority&quot; widget=&quot;priority&quot; options=&quot;mode:stars,stars:5&quot;/&gt;
+
+        &lt;field name=&quot;partner_id&quot; widget=&quot;many2one&quot;
+
+               options=&quot;domain:[(&#x27;company_id&#x27;,&#x27;=&#x27;, $company_id$)]&quot;/&gt;
+
+        </code></pre>
+        <p>The <code>$field_name$</code> placeholder in domain strings is replaced at runtime with the current record value (<code>core/swc/src/model/modifiers.ts</code>).</p>
+        <h2 id="one2many-subview">One2many subview</h2>
+        <p>Embed a nested list inside a one2many field:</p>
+        <pre class="docs-pre"><code>
+        &lt;field name=&quot;order_line_ids&quot;&gt;
+
+          &lt;list editable=&quot;bottom&quot;&gt;
+
+            &lt;field name=&quot;product_id&quot;/&gt;
+
+            &lt;field name=&quot;quantity&quot;/&gt;
+
+            &lt;field name=&quot;price_unit&quot;/&gt;
+
+          &lt;/list&gt;
+
+        &lt;/field&gt;
+
+        </code></pre>
+        <table><thead><tr>
+        <th>Subview attribute</th>
+        <th>Values</th>
+        <th>Effect</th>
+        </tr></thead><tbody>
+        <tr>
+        <td><code>editable</code></td>
+        <td><code>top</code>, <code>bottom</code></td>
+        <td>Inline edit row position in the embedded list</td>
+        </tr>
+        </tbody></table>
+        <p>If you omit the nested <code>&lt;list&gt;</code>, SWC auto-generates up to six scalar columns from the comodel (<code>swcmeta/enrichOne2ManyField</code>).</p>
+        <p><code>&lt;tree&gt;</code> is accepted as an alias for <code>&lt;list&gt;</code> in the parser.</p>
+        <h2 id="header-and-footer-fields">Header and footer fields</h2>
+        <p>Fields inside <code>&lt;header&gt;</code> serialize to <code>arch.header.fields[]</code> (e.g. statusbar). Fields in the form <code>&lt;sheet&gt;</code> serialize through groups, notebook pages, and divs.</p>
+        <h2 id="json-shape-workspace-payload">JSON shape (workspace payload)</h2>
+        <p>Each field becomes an <code>SwcArchField</code> object:</p>
+        <pre class="docs-pre"><code>
+        {
+
+          &quot;name&quot;: &quot;partner_id&quot;,
+
+          &quot;string&quot;: &quot;Customer&quot;,
+
+          &quot;type&quot;: &quot;many2one&quot;,
+
+          &quot;widget&quot;: &quot;many2one&quot;,
+
+          &quot;relation&quot;: &quot;res.partner&quot;,
+
+          &quot;placeholder&quot;: &quot;&quot;,
+
+          &quot;readonly&quot;: false,
+
+          &quot;required&quot;: false,
+
+          &quot;invisible&quot;: false,
+
+          &quot;options&quot;: { &quot;relation&quot;: &quot;res.partner&quot; }
+
+        }
+
+        </code></pre>
+        <p>See [Arch JSON pipeline](../guides/arch-json-pipeline.md) for the full payload.</p>
+        <h2 id="dynamic-modifiers-planned">Dynamic modifiers (planned)</h2>
+        <p>SWC&#x27;s client (<code>model/modifiers.ts</code>) supports <code>readonly_expr</code>, <code>required_expr</code>, and <code>invisible_expr</code> on <code>SwcArchField</code>, but the Go serializer does <strong>not</strong> emit expression strings from arch XML yet. Use static <code>readonly</code> / <code>required</code> / <code>invisible</code> attributes until expression support ships.</p>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[SWC API](swc-api.md)</li>
+        <li>[Views &amp; menus](../../website/guides/build/views-and-menus.md) — full view XML reference</li>
         <ul>
-        <li>[Report engine](../guides/report-engine.md)</li>
+        <li>[View types](view-types.md) — per-view arch structure</li>
+        <ul>
+        <li>[SWC widget catalog](swc-widget-catalog.md)</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>

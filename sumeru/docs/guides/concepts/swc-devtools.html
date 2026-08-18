@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overview | Sumeru Docs</title>
-  <meta name="description" content="Operate Sumeru once an engineer has stood it up: Apps, roles, multi-company and lead-to-cash.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/business/overview.html">
+  <title>SWC Vision devtools | Sumeru Docs</title>
+  <meta name="description" content="SWC Vision browser extension and in-app debug panel for component inspection.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/swc-devtools.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/business/overview.html">
-  <meta property="og:title" content="Overview | Sumeru Docs">
-  <meta property="og:description" content="Operate Sumeru once an engineer has stood it up: Apps, roles, multi-company and lead-to-cash.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Overview | Sumeru Docs">
-  <meta name="twitter:description" content="Operate Sumeru once an engineer has stood it up: Apps, roles, multi-company and lead-to-cash.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Overview",
-  "description": "Operate Sumeru once an engineer has stood it up: Apps, roles, multi-company and lead-to-cash.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/business/overview.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                  <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -51,10 +29,11 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 <a class="docs-brand" href="../../index.html">
-      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -93,58 +72,73 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Overview</h1>
-        <p class="docs-lede">What the system does once it is running, what you can change yourself, and what still needs an engineer.</p>
-<h2 id="who-this-is-for">Who this is for</h2>
-        <p>No commands here. This is what the system does once an engineer has stood it up: what you can change yourself, and what still needs an engineer.</p>
-        <div class="docs-callout is-caution">
-          <p><strong>Pre-alpha.</strong> Do not run your business on Sumeru yet. Use these guides to evaluate and experiment.</p>
-        </div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        
+        <h1>SWC Vision devtools</h1>
+        <p>SWC ships developer tools for inspecting components, templates, and workspace payloads at runtime.</p>
+        <h2 id="components">Components</h2>
+        <table><thead><tr>
+        <th>Piece</th>
+        <th>Location</th>
+        <th>Purpose</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>Devtools bridge</td>
+        <td><code>core/swc/src/devtools/bridge.ts</code></td>
+        <td>Connects page to inspector</td>
+        </tr>
+        <tr>
+        <td>In-app panel</td>
+        <td><code>core/swc/src/devtools/debug.ts</code></td>
+        <td>Lightweight arch/payload log</td>
+        </tr>
+        <tr>
+        <td>Browser extension</td>
+        <td><code>core/swc/devtools-extension/</code></td>
+        <td>Full component tree + render profiler</td>
+        </tr>
+        </tbody></table>
+        <h2 id="in-app-debug-panel">In-app debug panel</h2>
+        <p>Enabled on workspace pages after SWC bootstrap. Logs workspace payload and view arch via <code>logWorkspacePayload</code> / <code>logViewArch</code> when debug mode is active.</p>
+        <h2 id="browser-extension">Browser extension</h2>
+        <p>Build:</p>
+        <pre class="docs-pre"><code>
+        cd sumeru/core/swc
 
-        <h2 id="three-things-to-know">Three things to know</h2>
-        <ol>
-          <li><strong>You switch apps on.</strong> The Apps screen lists every available module. Installing one brings its own menus, screens and permission groups. Install only what you use. Details: <a href="apps-and-install.html">Apps &amp; install</a>.</li>
-          <li><strong>Roles decide what people see.</strong> Users belong to groups, and groups carry both menu visibility and record access. A salesperson sees their own orders; a manager sees all of them.</li>
-          <li><strong>One database, several companies.</strong> A group of companies runs on a single system with a switcher in the top bar. Records follow the company they were created in. This is <strong>not</strong> multi-tenant SaaS isolation. Details: <a href="multi-company.html">Multi-company</a> and <a href="../security/isolation-model.html">Isolation model</a>.</li>
-        </ol>
+        npm run build:extension
 
-        <h2 id="the-flow-that-works">The flow that works today</h2>
-        <p>Lead -> Won -> Quotation -> Sales order -> Invoice -> Journal entries. Each arrow can be automatic: the system reacts to a status change rather than asking someone to re-key the same figures. Full walkthrough: <a href="lead-to-cash.html">Lead-to-cash</a>.</p>
-
-        <h2 id="workspace-ux">Workspace UX</h2>
+        </code></pre>
+        <p>Load unpacked extension from <code>devtools-extension/</code> in Chrome/Edge:</p>
+        <p>1. Open <code>chrome://extensions</code></p>
+        <p>2. Enable Developer mode</p>
+        <p>3. Load unpacked → select <code>core/swc/devtools-extension/</code></p>
+        <p>4. Open a Sumeru workspace tab</p>
+        <p>5. Open DevTools → <strong>SWC Vision</strong> panel</p>
+        <p>Features:</p>
         <ul>
-          <li><strong>Profile photo.</strong> Settings → Users → open your user → click the avatar in the title area to crop and upload a photo. Zoom/pan is saved automatically.</li>
-          <li><strong>Save feedback.</strong> Successful saves show a short toast top-right. Validation errors highlight fields and scroll into view.</li>
-          <li><strong>Kanban photos.</strong> CRM and other kanban boards show full card photos where an image field is present.</li>
-          <li><strong>Export and import.</strong> Views with Report enabled offer CSV/PDF download and bulk CSV import (see <a href="../build/report-engine.html">Report engine</a>).</li>
-        </ul>
-
-        <h2 id="what-needs-an-engineer">What still needs an engineer</h2>
+        <li>Component tree for mounted SWC views</li>
         <ul>
-          <li>First install, config and database (see <a href="../start/installation.html">Installation</a>)</li>
-          <li>Custom addons, new models and XML views</li>
-          <li>API keys and integrations (<a href="../security/api-keys.html">API keys</a>)</li>
-        </ul>
-
-        <h2 id="next-step">Next step</h2>
-        <p>Continue with <a href="apps-and-install.html">Apps &amp; install</a>, or jump to <a href="lead-to-cash.html">Lead-to-cash</a>.</p>
-
-        <h2 id="what-not-to-do">What not to do</h2>
+        <li>Template navigator</li>
         <ul>
-          <li>Do not install every app "just in case"; install what you use.</li>
-          <li>Do not assume multi-company equals multi-tenant hosting.</li>
-          <li>Do not treat missing taxes, payments or inventory as temporary UI gaps; they are not built yet.</li>
+        <li>Render profiler (extension panel)</li>
         </ul>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/concepts/sdk.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; SDK</span></a>
-      <a class="is-next" href="../../guides/business/apps-and-install.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Apps & install &rarr;</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <h2 id="workspace-debugging-tips">Workspace debugging tips</h2>
+        <p>1. <strong>Network tab:</strong> Inspect <code>GET /web/swc/workspace</code> response for arch JSON and records.</p>
+        <p>2. <strong>View tabs:</strong> Breadcrumb view switcher syncs via SPA; URL params drive <code>view_type</code> and <code>id</code>.</p>
+        <p>3. <strong>RPC:</strong> All saves go through <code>POST /api/rpc</code> with <code>X-CSRF-Token</code>.</p>
+        <p>4. <strong>Tests:</strong> Run <code>make swc-test</code> for widget and view regression tests.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li>[SWC API](../../reference/swc-api.md)</li>
+        <ul>
+        <li>[Arch JSON pipeline](arch-json-pipeline.md)</li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

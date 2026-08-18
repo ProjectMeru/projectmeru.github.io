@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                    <header class="docs-topbar">
+                                                  <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -231,12 +231,17 @@
   <article class="docs-attr">
     <h3><code>options</code> <span class="docs-attr-opt">optional</span></h3>
     <p><strong>Syntax.</strong> JSON-ish string: <code>options="{'clickable': '1'}"</code> (single quotes as in shipping XML).</p>
-    <p><strong>Effect.</strong> Widget-specific knobs. Today the main one is statusbar clickability. Unknown keys are typically ignored.</p>
+    <p><strong>Effect.</strong> Widget-specific knobs — statusbar <code>clickable</code>, priority <code>mode:stars</code>, many2one <code>domain:[…]</code>. See <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a>.</p>
   </article>
   <article class="docs-attr">
     <h3><code>readonly</code> <span class="docs-attr-opt">optional</span></h3>
     <p><strong>Syntax.</strong> <code>readonly="1"</code>.</p>
     <p><strong>Effect.</strong> Field displays but the user cannot edit it in this view (e.g. computed timestamps, key prefixes).</p>
+  </article>
+  <article class="docs-attr">
+    <h3><code>required</code> <span class="docs-attr-opt">optional</span></h3>
+    <p><strong>Syntax.</strong> <code>required="1"</code>.</p>
+    <p><strong>Effect.</strong> Client-side required validation before save (merged with model-level <code>Required</code> from Go <code>Fields()</code>). See <a href="../../reference/field-attributes.html">Field attributes</a>.</p>
   </article>
   <article class="docs-attr">
     <h3><code>invisible</code> <span class="docs-attr-opt">optional</span></h3>
@@ -943,8 +948,16 @@
   <li>Root element must be <code>&lt;sumeru&gt;</code> only — not legacy ERP root tags.</li>
   <li>Do not reuse menu <code>name</code> values across addons.</li>
   <li>Do not list menus before actions in <code>data</code>.</li>
-  <li>Do not invent widget names; use the list above.</li>
+  <li>Do not invent widget names; use the <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a>.</li>
   <li>Do not skip <code>-u</code> after XML edits and wonder why the UI is stale.</li>
+</ul>
+<h2 id="swc-reference" data-toc="SWC reference">SWC reference</h2>
+<ul>
+  <li><a href="../../reference/field-attributes.html">Field attributes</a> — complete <code>&lt;field&gt;</code> attribute table</li>
+  <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> — all built-in widgets and options</li>
+  <li><a href="../../reference/view-types.html">View types</a> — list, form, kanban, pivot, graph, calendar</li>
+  <li><a href="../build/build-module-with-swc.html">Build a module with SWC</a> — end-to-end addon walkthrough</li>
+  <li><a href="../concepts/arch-json-pipeline.html">Arch JSON pipeline</a> — how XML becomes workspace JSON</li>
 </ul>
 <h2 id="next-step" data-toc="Next step">Next step</h2>
 <p>Configure export and import ACL in <a href="report-engine.html">Report engine</a>, then gate menus in <a href="security-and-access.html">Security &amp; access</a>.</p>

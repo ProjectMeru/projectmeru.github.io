@@ -103,8 +103,9 @@
         <pre class="docs-pre"><code>orm.RegisterObjectAction("crm.lead", "action_set_won", handler)</code></pre>
         <p>Handler returns redirect URL or sets <code>vals["next"]</code>. See <code>sumeru_addons/crm/services/hooks.go</code> and <code>account/services/actions.go</code>.</p>
         <h2 id="kanban-expanders">Kanban expanders</h2>
-        <pre class="docs-pre"><code>render.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
-        <p>Used for CRM pipeline and forecast kanbans.</p>
+        <p><strong>Package:</strong> <code>sumeru/core/engine/swcmeta</code></p>
+        <pre class="docs-pre"><code>swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
+        <p>Used for CRM pipeline and forecast kanbans in the SWC workspace.</p>
         <h2 id="cron-handlers">Cron handlers</h2>
         <p>Register a Go handler keyed by the <code>sys.cron</code> row's <code>code</code> field:</p>
         <pre class="docs-pre"><code>scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {

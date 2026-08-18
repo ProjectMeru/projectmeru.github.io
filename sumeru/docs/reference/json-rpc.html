@@ -81,6 +81,7 @@
         <p class="docs-lede"><strong>Endpoint:</strong> <code>POST /api/rpc</code></p>
         <p><strong>Source:</strong> <code>sumeru/core/server/api/dispatch.go</code></p>
         <p>Sumeru exposes <strong>JSON-RPC only</strong> at this endpoint. There is no alternate RPC transport.</p>
+        <p><strong>SWC</strong> (Sumeru Web Client) is the primary consumer for workspace CRUD, <code>read_group</code>, and <code>call</code>. Browser code sends <code>X-CSRF-Token</code> from <code>window.__SWC_BOOTSTRAP__</code>.</p>
         <h2 id="authentication">Authentication</h2>
         <table><thead><tr><th>Method</th><th>Header / cookie</th></tr></thead><tbody>
         <tr><td>Session</td><td>Cookie <code>sumeru_session</code> (from <code>/web/login</code>)</td></tr>

@@ -269,6 +269,23 @@
     ]
   },
   {
+    "title": "Build a module with SWC",
+    "url": "guides/build/build-module-with-swc.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from sumeru_custom_addons (see Creating an addon).",
+    "headings": [
+      "1-scaffold-the-module",
+      "2-define-the-model",
+      "3-write-views",
+      "4-install-and-verify",
+      "5-optional-custom-swc-widget",
+      "6-debug",
+      "checklist",
+      "see-also"
+    ]
+  },
+  {
     "title": "Creating an addon",
     "url": "guides/build/creating-an-addon.html",
     "track": "guides",
@@ -576,6 +593,7 @@
       "form-validation-and-toasts",
       "when-to-update",
       "what-not-to-do",
+      "swc-reference",
       "next-step"
     ]
   },
@@ -729,6 +747,23 @@
     ]
   },
   {
+    "title": "Arch JSON pipeline",
+    "url": "guides/concepts/arch-json-pipeline.html",
+    "track": "guides",
+    "section": "Core Concepts",
+    "excerpt": "SWC never parses view XML in the browser. The Go kernel parses arch once per request and returns JSON that SWC components consume directly.",
+    "headings": [
+      "flow",
+      "request",
+      "payload-shape",
+      "arch-enrichment",
+      "kanban-extension",
+      "client-types",
+      "spa-navigation",
+      "see-also"
+    ]
+  },
+  {
     "title": "Cache",
     "url": "guides/concepts/cache.html",
     "track": "guides",
@@ -831,6 +866,72 @@
     ]
   },
   {
+    "title": "Sum template (.sum.xml)",
+    "url": "guides/concepts/sum-template.html",
+    "track": "guides",
+    "section": "Core Concepts",
+    "excerpt": "SWC includes a compile-time template language for addon and core components. Files use the .sum.xml extension and compile to TypeScript html tagged literals via the esbuild plugin in core/swc/esbuild.config.mjs.",
+    "headings": [
+      "when-to-use",
+      "directives",
+      "example",
+      "limitations",
+      "build",
+      "see-also"
+    ]
+  },
+  {
+    "title": "Sumeru Web Client (SWC)",
+    "url": "guides/concepts/swc-architecture.html",
+    "track": "guides",
+    "section": "Core Concepts",
+    "excerpt": "SWC is Sumeru\u2019s browser workspace client: a custom reactive component runtime (TypeScript 7) that replaces server-rendered workspace HTML and progressive JavaScript.",
+    "headings": [
+      "folder-layout-sumeru-native",
+      "architecture",
+      "typescript-7-toolchain",
+      "bootstrap",
+      "shell-features",
+      "capability-mapping-owl-inspired-not-owl-code",
+      "swc-vision",
+      "cutover",
+      "addon-extension",
+      "developer-docs"
+    ]
+  },
+  {
+    "title": "SWC Vision devtools",
+    "url": "guides/concepts/swc-devtools.html",
+    "track": "guides",
+    "section": "Core Concepts",
+    "excerpt": "SWC ships developer tools for inspecting components, templates, and workspace payloads at runtime.",
+    "headings": [
+      "components",
+      "in-app-debug-panel",
+      "browser-extension",
+      "workspace-debugging-tips",
+      "see-also"
+    ]
+  },
+  {
+    "title": "SWC widgets and addon entries",
+    "url": "guides/concepts/swc-widgets.html",
+    "track": "guides",
+    "section": "Core Concepts",
+    "excerpt": "Register custom field widgets and views from addons using TypeScript 7 modules.",
+    "headings": [
+      "manifest",
+      "register-a-field-widget",
+      "register-a-view",
+      "register-a-service",
+      "conventions",
+      "core-services",
+      "built-in-widgets",
+      "global-exports",
+      "see-also"
+    ]
+  },
+  {
     "title": "Three modules",
     "url": "guides/concepts/three-modules.html",
     "track": "guides",
@@ -849,12 +950,12 @@
     "url": "guides/concepts/web-and-render.html",
     "track": "guides",
     "section": "Core Concepts",
-    "excerpt": "The browser UI is server-rendered HTML plus static CSS and JS under core/engine/assets/. There is no SPA framework requirement for core workspace pages.",
+    "excerpt": "Authenticated shell pages load swc.js (TypeScript 7) with window.__SWC_BOOTSTRAP__. The workspace mounts at #swc-workspace; Home, Apps, and Settings keep server-rendered HTML inner content via Go templates.",
     "headings": [
+      "swc-workspace-shell-chrome",
       "handlers-and-templates",
       "render-package-coreenginerender",
-      "assets",
-      "client-scripts"
+      "assets"
     ]
   },
   {
@@ -1050,6 +1151,23 @@
     ]
   },
   {
+    "title": "Field attributes",
+    "url": "reference/field-attributes.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Reference for elements inside arch XML. The Go parser (core/engine/parser/view_xml.go) and serializer (core/engine/swcmeta/arch.go) convert these attributes into JSON on arch.fields[]; SWC field widgets read that JSON at runtime.",
+    "headings": [
+      "attribute-reference",
+      "basic-examples",
+      "options-syntax",
+      "one2many-subview",
+      "header-and-footer-fields",
+      "json-shape-workspace-payload",
+      "dynamic-modifiers-planned",
+      "see-also"
+    ]
+  },
+  {
     "title": "Field types",
     "url": "reference/field-types.html",
     "track": "reference",
@@ -1170,6 +1288,7 @@
       "closed-since-august-2026-gap-plan-work",
       "still-open-kernel-platform-p0p1",
       "deferred-business-catalog-p2",
+      "deferred-swc-ux-document-not-stub",
       "ui-stubs-still-visible",
       "scale-roadmap",
       "see-also"
@@ -1212,18 +1331,88 @@
     ]
   },
   {
+    "title": "SWC API reference",
+    "url": "reference/swc-api.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Query params for /web/swc/workspace: action, menu_id, view_type, id, edit, q.",
+    "headings": [
+      "http-endpoints",
+      "websocket-bus",
+      "workspace-json-schema",
+      "json-rpc-primary-data-plane",
+      "client-registry",
+      "recordstore",
+      "bootstrap-window-swc-bootstrap",
+      "see-also"
+    ]
+  },
+  {
+    "title": "SWC widget catalog",
+    "url": "reference/swc-widget-catalog.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Built-in field widgets registered in core/swc/src/widgets/registry.ts. Reference a widget in view XML with widget=\"\u2026\" on . When omitted, SWC infers a widget from the ORM field type.",
+    "headings": [
+      "registry-keys",
+      "scalar-widgets",
+      "default-char-email-integer-float",
+      "text",
+      "date-datetime",
+      "boolean-widgets",
+      "boolean",
+      "boolean-toggle",
+      "radio",
+      "relational-widgets",
+      "many2one",
+      "many2many-tags",
+      "one2many",
+      "special-widgets",
+      "statusbar",
+      "priority",
+      "image",
+      "monetary",
+      "html",
+      "binary",
+      "reference",
+      "color",
+      "url",
+      "progress-progressbar",
+      "custom-widgets",
+      "see-also"
+    ]
+  },
+  {
+    "title": "View types",
+    "url": "reference/view-types.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Sumeru workspace views are declared in XML (type on ) and rendered by SWC components registered in core/swc/src/main.ts. Include view modes in window actions: view_mode=\"kanban,list,form\".",
+    "headings": [
+      "summary",
+      "list-tree",
+      "form",
+      "form-layout-css-classes",
+      "kanban",
+      "pivot",
+      "graph",
+      "calendar",
+      "stub-views",
+      "report-toolbar",
+      "see-also"
+    ]
+  },
+  {
     "title": "Widgets and views",
     "url": "reference/widgets-and-views.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Reference for workspace view XML parsed by core/engine/render/parser/view_xml.go and rendered by core/engine/render/.",
+    "excerpt": "Index for workspace view XML (parsed by core/engine/parser/view_xml.go, serialized by core/engine/swcmeta/, rendered by SWC).",
     "headings": [
-      "view-types",
-      "pivot-fields",
+      "detailed-references",
+      "view-types-summary",
+      "pivot-fields-quick-reference",
       "common-view-attributes",
-      "form-widgets",
-      "header-widgets",
-      "kanban-widgets",
       "view-inheritance",
       "see-also"
     ]
