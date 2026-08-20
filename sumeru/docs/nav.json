@@ -328,6 +328,10 @@
             "href": "addons/howtos/scaffold-new-addon.html"
           },
           {
+            "title": "Custom addons workspace",
+            "href": "addons/howtos/custom-addons-workspace.html"
+          },
+          {
             "title": "Add menu and action",
             "href": "addons/howtos/add-menu-and-action.html"
           },
@@ -589,6 +593,7 @@
     "addons/events-and-hooks.html": "addons",
     "addons/cross-module-flows.html": "addons",
     "addons/howtos/scaffold-new-addon.html": "addons",
+    "addons/howtos/custom-addons-workspace.html": "addons",
     "addons/howtos/add-menu-and-action.html": "addons",
     "addons/howtos/add-bridge-module.html": "addons",
     "addons/howtos/enable-report-on-view.html": "addons",

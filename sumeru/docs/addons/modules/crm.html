@@ -102,7 +102,7 @@
         <ul>
         <li><code>record.created</code> — default stage, assign user</li>
         <li><code>record.updated</code> — won/lost stage handling</li>
-        <li><code>crm.cron_assign_leads</code> — round-robin team assignment</li>
+        <li><code>crm.cron_assign_leads</code> — round-robin for teams with assignment enabled; <strong>no seeded <code>sys.cron</code></strong>. Use <strong>Assign Leads</strong> (<code>action_assign_leads</code>) on the team form.</li>
         </ul>
         <h2 id="kanban">Kanban</h2>
         <p><code>swcmeta.RegisterKanbanGroupExpander</code> for pipeline (<code>stage_id</code>) and forecast (<code>date_deadline</code>).</p>

@@ -86,11 +86,11 @@
         <tr><td><code>view_render.go</code></td><td><code>RenderView</code> — selects list/kanban/pivot (form → SWC)</td></tr>
         <tr><td>~~<code>form_render.go</code>~~</td><td>Removed — form UI is SWC</td></tr>
         <tr><td><code>list_render.go</code>, <code>kanban_render.go</code>, <code>pivot_render.go</code></td><td>List, kanban, and pivot views</td></tr>
-        <tr><td><code>workspace_chrome.go</code></td><td>Edit/Save/Cancel chrome</td></tr>
         <tr><td><code>activity_chatter_render.go</code></td><td>Messages tab (mail)</td></tr>
         <tr><td><code>shell_render.go</code>, <code>menus.go</code>, <code>pinned_apps.go</code></td><td>Top bar, sidebar, pins</td></tr>
         <tr><td><code>render_types.go</code></td><td><code>PageData</code>, hooks registration</td></tr>
         </tbody></table>
+        <p>Form <strong>Edit / Save / Cancel</strong> is owned by SWC <code>FormView.ts</code> (<code>sumeru/core/swc/src/views/FormView.ts</code>), not a Go chrome file.</p>
         <h2 id="shell-hook">Shell hook</h2>
         <p>Inject HTML into the top bar area:</p>
         <pre class="docs-pre"><code>render.RegisterShellHook(func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {

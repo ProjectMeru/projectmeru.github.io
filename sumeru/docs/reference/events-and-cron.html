@@ -106,11 +106,11 @@
         <li>When <code>sys.cron.code</code> matches a handler registered via <code>RegisterCronHandler</code>, runs that Go function</li>
         <li>Updates <code>next_call</code> and <code>last_call</code> in the same transaction</li>
         </ol>
-        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {
+        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {
     // payload includes cron row fields
     return nil
 })</code></pre>
-        <p>There is <strong>no Python/safe_eval</strong> — cron <code>code</code> must match a registered Go handler or serve as a lookup key only.</p>
+        <p>There is <strong>no Python/safe_eval</strong> — cron <code>code</code> must match a registered Go handler or serve as a lookup key only. CRM’s <code>event.Subscribe("crm.cron_assign_leads")</code> is <strong>not</strong> backed by a bundled <code>sys.cron</code> row; use <strong>Assign Leads</strong> on the team form, or seed your own cron if you need a schedule.</p>
         <p>See <a href="multi-instance-cron.html">Multi-instance cron</a> for operational guidelines when running N replicas.</p>
         <h2 id="automation-addon">Automation addon</h2>
         <p><strong>Path:</strong> <code>sumeru/addons/automation/</code></p>

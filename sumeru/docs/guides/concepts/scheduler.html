@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                      <header class="docs-topbar">
+                                                          <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -120,11 +120,12 @@
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="scheduler.RegisterCronHandler(&quot;crm.cron_assign_leads&quot;, func(ctx context.Context, payload map[string]interface{}) error {&#10;    // periodic work&#10;    return nil&#10;})">
-      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    // periodic work</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    return nil</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">})</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="scheduler.RegisterCronHandler(&quot;my_module.nightly_digest&quot;, func(ctx context.Context, payload map[string]interface{}) error {&#10;    // periodic work&#10;    return nil&#10;})">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    // periodic work</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    return nil</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">})</span></span></code></pre>
     </div>
   </div>
 </div>
+<p>You must seed a matching <code>sys.cron</code> row. CRM’s lead-assign event is <strong>not</strong> bundled as cron — use <strong>Assign Leads</strong> on the team form.</p>
 <p>See <a href="../../guides/build/events-and-automation.html">Events &amp; automation</a> for declarative server actions and outbox behaviour.</p>
 <h2 id="compile-and-run">Compile and run</h2>
 <div class="docs-codebox is-shell is-wrap" data-codebox="shell-7bd7fefd">

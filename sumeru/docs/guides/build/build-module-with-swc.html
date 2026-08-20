@@ -88,7 +88,7 @@
 │   ├── lead_views.xml
 │   └── lead_menus.xml
 ├── security/
-│   └── ir.model.access.csv
+│   └── sys.access.csv
 └── static/swc/          # optional
     ├── main.ts
     └── esbuild.config.mjs</code></pre>
@@ -98,7 +98,7 @@
   "version": "1.0.0",
   "depends": ["base"],
   "data": [
-    "security/ir.model.access.csv",
+    "security/sys.access.csv",
     "views/lead_views.xml",
     "views/lead_menus.xml"
   ]
@@ -142,9 +142,9 @@ type Lead struct {
       &lt;/sheet&gt;
     &lt;/view&gt;
 
-    &lt;record id="action_my_crm_leads" model="ir.actions.act_window"&gt;
+    &lt;record id="action_my_crm_leads" model="sys.action.window"&gt;
       &lt;field name="name"&gt;Leads&lt;/field&gt;
-      &lt;field name="res_model"&gt;my.crm.lead&lt;/field&gt;
+      &lt;field name="core_model"&gt;my.crm.lead&lt;/field&gt;
       &lt;field name="view_mode"&gt;list,form&lt;/field&gt;
     &lt;/record&gt;
 
@@ -158,7 +158,7 @@ type Lead struct {
         <pre class="docs-pre is-shell"><code>cd sumeru_custom_addons
 go run . -- -c sumeru.conf -u my_crm --stop-after-init
 make run</code></pre>
-        <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON.</p>
+        <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
         <h2 id="5-optional-custom-swc-widget">5. Optional — custom SWC widget</h2>
         <p>Add to <code>manifest.json</code>:</p>
         <pre class="docs-pre"><code>"swc_entry": "static/swc/main.js"</code></pre>
@@ -208,9 +208,10 @@ registry.category("fields").add("color_badge", ColorBadgeField);</code></pre>
         </ul>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li><a href="swc-widgets.html">SWC widgets</a></li>
+        <li><a href="../concepts/swc-widgets.html">SWC widgets</a></li>
         <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a></li>
-        <li><a href="arch-json-pipeline.html">Arch JSON pipeline</a></li>
+        <li><a href="../../reference/swc-notifications.html">SWC notifications</a></li>
+        <li><a href="../concepts/arch-json-pipeline.html">Arch JSON pipeline</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

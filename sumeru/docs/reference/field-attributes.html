@@ -138,8 +138,13 @@
   "options": { "relation": "res.partner" }
 }</code></pre>
         <p>See <a href="../guides/arch-json-pipeline.html">Arch JSON pipeline</a> for the full payload.</p>
-        <h2 id="dynamic-modifiers-planned">Dynamic modifiers (planned)</h2>
-        <p>SWC's client (<code>model/modifiers.ts</code>) supports <code>readonly_expr</code>, <code>required_expr</code>, and <code>invisible_expr</code> on <code>SwcArchField</code>, but the Go serializer does <strong>not</strong> emit expression strings from arch XML yet. Use static <code>readonly</code> / <code>required</code> / <code>invisible</code> attributes until expression support ships.</p>
+        <h2 id="dynamic-modifiers-expr">Dynamic modifiers (<code>*_expr</code>)</h2>
+        <p>The Go serializer (<code>core/engine/swcmeta/arch.go</code>) emits <code>readonly_expr</code>, <code>required_expr</code>, and <code>invisible_expr</code> on <code>arch.fields[]</code> when the XML attribute is a <strong>non-literal expression</strong>. Boolean literals (<code>1</code>, <code>true</code>, <code>0</code>, <code>false</code>, …) stay on <code>readonly</code> / <code>required</code> / <code>invisible</code>. SWC's client (<code>model/modifiers.ts</code>) evaluates those expression strings.</p>
+        <pre class="docs-pre"><code>&lt;field name="partner_id" readonly="state == 'done'"/&gt;
+&lt;field name="amount" required="type == 'invoice'"/&gt;
+&lt;field name="reason" invisible="state != 'lost'"/&gt;</code></pre>
+        <p>Those become <code>ReadonlyExpr</code> / <code>RequiredExpr</code> / <code>InvisibleExpr</code> on the JSON field. Static flags still work:</p>
+        <pre class="docs-pre"><code>&lt;field name="create_date" readonly="1"/&gt;</code></pre>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../guides/build/views-and-menus.html">Views & menus</a> — full view XML reference</li>
