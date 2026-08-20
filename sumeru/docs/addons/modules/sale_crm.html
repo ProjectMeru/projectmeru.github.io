@@ -88,11 +88,12 @@
         <ul>
         <li>Subscribes to <code>record.updated</code> on <code>crm.lead</code></li>
         <li>Detects Won stage</li>
-        <li>Calls <code>CreateQuotationFromLead()</code> — idempotent (skips if quotation exists)</li>
+        <li>Calls <code>CreateQuotationFromLead()</code> — idempotent (returns the existing order if one is already linked)</li>
+        <li>Duplicate <code>Search</code> errors are <strong>returned</strong>, not swallowed</li>
         <li>Sets <code>opportunity_id</code>, customer, salesperson; name pattern <code>Q-CRM-{id}</code></li>
         </ul>
         <h2 id="requirements">Requirements</h2>
-        <p>Opportunity must have a <strong>customer</strong> (<code>partner_id</code>); otherwise quotation creation is skipped.</p>
+        <p>Opportunity must have a <strong>customer</strong> (<code>partner_id</code>); otherwise quotation creation returns an error (<code>no customer</code>).</p>
         <h2 id="install">Install</h2>
         <pre class="docs-pre is-shell"><code>go run . -- -c sumeru.conf -i sale_crm --stop-after-init</code></pre>
         <h2 id="see-also">See also</h2>

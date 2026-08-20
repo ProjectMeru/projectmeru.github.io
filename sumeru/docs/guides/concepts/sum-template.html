@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sum template (.sum.xml) | Sumeru Docs</title>
-  <meta name="description" content="Sum XML template compiler for SWC components.">
+  <meta name="description" content="Sum template (.sum.xml)">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/sum-template.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -29,11 +29,11 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 <a class="docs-brand" href="../../index.html">
-      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
       <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -77,111 +77,52 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        
         <h1>Sum template (.sum.xml)</h1>
-        <p>SWC includes a compile-time template language for addon and core components. Files use the <code>.sum.xml</code> extension and compile to TypeScript <code>html</code> tagged literals via the esbuild plugin in <code>core/swc/esbuild.config.mjs</code>.</p>
+        <p class="docs-lede">SWC includes a compile-time template language for addon and core components. Files use the <code>.sum.xml</code> extension and compile to TypeScript <code>html</code> tagged literals via the esbuild plugin in <code>core/swc/esbuild.config.mjs</code>.</p>
         <h2 id="when-to-use">When to use</h2>
-        <table><thead><tr>
-        <th>Approach</th>
-        <th>Use when</th>
-        </tr></thead><tbody>
-        <tr>
-        <td><code>html</code><code> in </code>.ts`</td>
-        <td>Most field widgets and views (default)</td>
-        </tr>
-        <tr>
-        <td><code>.sum.xml</code></td>
-        <td>Larger templates with many conditionals or loops</td>
-        </tr>
+        <table><thead><tr><th>Approach</th><th>Use when</th></tr></thead><tbody>
+        <tr><td><code>html</code><code> in </code>.ts`</td><td>Most field widgets and views (default)</td></tr>
+        <tr><td><code>.sum.xml</code></td><td>Larger templates with many conditionals or loops</td></tr>
         </tbody></table>
         <p>Core views use <code>html</code>` directly; sum-template is optional for addon authors who prefer XML-like markup.</p>
         <h2 id="directives">Directives</h2>
-        <table><thead><tr>
-        <th>Directive</th>
-        <th>Compiles to</th>
-        </tr></thead><tbody>
-        <tr>
-        <td><code>t-if=&quot;expr&quot;</code></td>
-        <td><code>when(expr, () =&gt; html</code>…<code>)</code></td>
-        </tr>
-        <tr>
-        <td><code>t-elif=&quot;expr&quot;</code></td>
-        <td>Chained <code>when</code></td>
-        </tr>
-        <tr>
-        <td><code>t-else</code></td>
-        <td>Else branch of <code>when</code></td>
-        </tr>
-        <tr>
-        <td><code>t-foreach=&quot;item in items&quot; t-key=&quot;item.id&quot;</code></td>
-        <td><code>forEach(items, …)</code></td>
-        </tr>
-        <tr>
-        <td><code>t-esc=&quot;expr&quot;</code></td>
-        <td><code>${expr}</code> (escaped)</td>
-        </tr>
-        <tr>
-        <td><code>t-raw=&quot;expr&quot;</code></td>
-        <td><code>${expr}</code></td>
-        </tr>
-        <tr>
-        <td><code>t-model=&quot;expr&quot;</code></td>
-        <td>Two-way <code>@input</code> + <code>value</code> bind</td>
-        </tr>
-        <tr>
-        <td><code>t-component=&quot;MyComponent&quot;</code></td>
-        <td><code>mountComponent(MyComponent, …)</code></td>
-        </tr>
-        <tr>
-        <td><code>t-ref=&quot;name&quot;</code></td>
-        <td><code>data-ref=&quot;name&quot;</code> attribute</td>
-        </tr>
-        <tr>
-        <td><code>t-portal=&quot;target&quot;</code></td>
-        <td><code>data-portal=&quot;target&quot;</code> attribute</td>
-        </tr>
-        <tr>
-        <td><code>t-slot=&quot;name&quot;</code></td>
-        <td><code>data-slot=&quot;name&quot;</code> attribute</td>
-        </tr>
-        <tr>
-        <td><code>{{ expr }}</code></td>
-        <td>Interpolation</td>
-        </tr>
+        <table><thead><tr><th>Directive</th><th>Compiles to</th></tr></thead><tbody>
+        <tr><td><code>t-if="expr"</code></td><td><code>when(expr, () => html</code>…<code>)</code></td></tr>
+        <tr><td><code>t-elif="expr"</code></td><td>Chained <code>when</code></td></tr>
+        <tr><td><code>t-else</code></td><td>Else branch of <code>when</code></td></tr>
+        <tr><td><code>t-foreach="item in items" t-key="item.id"</code></td><td><code>forEach(items, …)</code></td></tr>
+        <tr><td><code>t-esc="expr"</code></td><td><code>${expr}</code> (escaped)</td></tr>
+        <tr><td><code>t-raw="expr"</code></td><td><code>${expr}</code></td></tr>
+        <tr><td><code>t-model="expr"</code></td><td>Two-way <code>@input</code> + <code>value</code> bind</td></tr>
+        <tr><td><code>t-component="MyComponent"</code></td><td><code>mountComponent(MyComponent, …)</code></td></tr>
+        <tr><td><code>t-ref="name"</code></td><td><code>data-ref="name"</code> attribute</td></tr>
+        <tr><td><code>t-portal="target"</code></td><td><code>data-portal="target"</code> attribute</td></tr>
+        <tr><td><code>t-slot="name"</code></td><td><code>data-slot="name"</code> attribute</td></tr>
+        <tr><td><code>{{ expr }}</code></td><td>Interpolation</td></tr>
         </tbody></table>
         <h2 id="example">Example</h2>
         <p><code>MyPanel.sum.xml</code>:</p>
-        <pre class="docs-pre"><code>
-        &lt;div class=&quot;sum-my-panel&quot;&gt;
-
-          &lt;div t-foreach=&quot;item in items&quot; t-key=&quot;item.id&quot;&gt;
-
-            &lt;span t-if=&quot;item.active&quot;&gt;{{ item.name }}&lt;/span&gt;
-
-          &lt;/div&gt;
-
-        &lt;/div&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;div class="sum-my-panel"&gt;
+  &lt;div t-foreach="item in items" t-key="item.id"&gt;
+    &lt;span t-if="item.active"&gt;{{ item.name }}&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
         <p>Compiles to a TypeScript module exporting a template function used by <code>SwcComponent.template()</code>.</p>
         <h2 id="limitations">Limitations</h2>
         <ul>
         <li><code>t-slot</code>, <code>t-portal</code>, and <code>t-ref</code> emit <strong>data attributes only</strong> — there is no runtime slot-filling or portal API yet.</li>
-        <ul>
         <li><code>t-model</code> is compile-time binding; no centralized v-model runtime.</li>
-        <ul>
         <li>Compiler lives in <code>core/swc/src/template/sum/</code>; tests in <code>tests/template/sum-compiler.test.ts</code>.</li>
         </ul>
         <h2 id="build">Build</h2>
         <p>Sum files are processed during <code>make swc</code> / <code>npm run build</code> in <code>core/swc</code>. Addon packages can copy the esbuild plugin from <code>sum-compile.mjs</code>.</p>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[SWC architecture](swc-architecture.md)</li>
-        <ul>
-        <li>[Build a module with SWC](../build-module-with-swc.md)</li>
+        <li><a href="swc-architecture.html">SWC architecture</a></li>
+        <li><a href="build-module-with-swc.html">Build a module with SWC</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

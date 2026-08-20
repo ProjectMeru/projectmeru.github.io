@@ -242,6 +242,10 @@
             "href": "reference/swc-api.html"
           },
           {
+            "title": "SWC notifications",
+            "href": "reference/swc-notifications.html"
+          },
+          {
             "title": "Events & cron",
             "href": "reference/events-and-cron.html"
           },
@@ -567,6 +571,7 @@
     "reference/sdk-api.html": "reference",
     "reference/json-rpc.html": "reference",
     "reference/swc-api.html": "reference",
+    "reference/swc-notifications.html": "reference",
     "reference/events-and-cron.html": "reference",
     "reference/multi-instance-cron.html": "reference",
     "reference/render-hooks.html": "reference",

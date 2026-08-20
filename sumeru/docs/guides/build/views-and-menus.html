@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                  <header class="docs-topbar">
+                                                      <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -905,7 +905,8 @@
   </article>
   <article class="docs-attr">
     <h3><code>quick_create</code></h3>
-    <p><strong>Syntax.</strong> Parsed from XML but <strong>not used</strong> in v1 — reserved for future inline create.</p>
+    <p><strong>Syntax.</strong> Enable inline create in a grouped kanban column. Disable with <code>0</code>, <code>false</code>, <code>off</code>, or <code>no</code> (CRM forecast uses <code>quick_create="0"</code>).</p>
+    <p><strong>Effect.</strong> Default <strong>on</strong> when the board is grouped. Quick-create merges action <code>default_*</code> values into the new record.</p>
   </article>
 </div>
 
@@ -918,11 +919,12 @@
 <p>On <code>&lt;field groups="module.group_xml_id"&gt;</code>, the field is hidden when the signed-in user lacks that access group (same comma-separated group list as menu <code>groups</code>). Empty or missing <code>groups</code> means visible to everyone who can open the form.</p>
 
 <h2 id="form-validation-and-toasts" data-toc="Form validation and toasts">Form validation and toasts</h2>
+<p>The live workspace is <strong>SWC</strong>. Toasts come from <code>env.services.notification</code> (top-right stack, close button, hover-pause, 6s auto-dismiss). See <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
 <ul>
-  <li><strong>Client required check</strong> — before submit, empty required fields are highlighted in the form.</li>
-  <li><strong>Server validation redirect</strong> — failed writes redirect with <code>?field_errors=</code> (JSON map of field → message); the client scrolls to the first error.</li>
-  <li><strong>Success toasts</strong> — after save, a short-lived toast appears top-right (flash cookie + <code>toast.js</code>).</li>
-  <li><strong>Status bar actions</strong> — kanban drag and statusbar clicks also show toasts on success or failure.</li>
+  <li><strong>Client required check</strong> — empty required fields stay <strong>inline</strong> on the form (<code>sum-flash</code>). They are not a validation toast.</li>
+  <li><strong>RPC / network errors</strong> — error toast. Successful save, delete, duplicate, and object buttons show a success toast unless the action returns <code>{close}</code>, <code>{open}</code>, or <code>{redirect}</code>.</li>
+  <li><strong>Kanban</strong> — quick-create success toast; create/move RPC failures toast. Successful drag-move stays silent.</li>
+  <li><strong>Legacy HTML workspace</strong> — <code>POST /web/record/save</code> still redirects with <code>?msg=</code> flash (not this toast stack). See <a href="../../reference/http-routes.html">HTTP routes</a>.</li>
 </ul>
 
 <h2 id="when-to-update" data-toc="When to run -u">When to run -u</h2>

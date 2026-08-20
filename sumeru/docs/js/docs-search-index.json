@@ -174,6 +174,7 @@
       "models",
       "wizards",
       "object-actions",
+      "analysis-and-forecast",
       "events",
       "kanban",
       "security-groups",
@@ -1079,7 +1080,7 @@
     "url": "guides/start/troubleshooting.html",
     "track": "guides",
     "section": "Start Here",
-    "excerpt": "\u201cMy new Go model is ignored\u201d / table never appears Confirm sdk.RegisterModel(..., Module: \" \") uses the exact manifest.json name . Ensure the addon root package is blank-imported in cmd/sumeru/zimports.go (or addon",
+    "excerpt": "\u201cMy new Go model is ignored\u201d / table never appears Confirm the model struct embeds sdk.Model with sumeru:\"model=dotted.name\" . Run make generate so models/zmodels.go calls sdk.MustRegister with your manifest na",
     "headings": [
       "my-new-go-model-is-ignored-table-never-appears",
       "module-not-found-or-wrong-addon-wins",
@@ -1155,7 +1156,7 @@
     "url": "reference/field-attributes.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Reference for elements inside arch XML. The Go parser (core/engine/parser/view_xml.go) and serializer (core/engine/swcmeta/arch.go) convert these attributes into JSON on arch.fields[]; SWC field widgets read that JSON at runtime.",
+    "excerpt": "Reference for the field element inside view arch XML. The Go parser (core/engine/parser/view_xml.go) and serializer (core/engine/swcmeta/arch.go) convert these attributes into JSON on arch.fields[]; SWC field widgets read that JSON at runtime.",
     "headings": [
       "attribute-reference",
       "basic-examples",
@@ -1172,13 +1173,11 @@
     "url": "reference/field-types.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Reference for model fields registered with sdk.RegisterModel. Source: sumeru/core/orm/model.go, registry.go.",
+    "excerpt": "Models embed sdk.Model and use typed field markers. Schema is inferred at registration from Go types and sumeru struct tags.",
     "headings": [
       "scalar-and-relational-types",
-      "fielddefinition-attributes",
-      "relational-field-limits",
-      "model-inheritance",
-      "see-also"
+      "common-struct-tags",
+      "registration"
     ]
   },
   {
@@ -1315,9 +1314,10 @@
     "url": "reference/sdk-api.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Import sumeru/core/sdk from addon code \u2014 not sumeru/core/orm or sumeru/core/server directly. The SDK absorbs internal renames so downstream modules stay stable.",
+    "excerpt": "Import sumeru/core/sdk from addon code \u2014 not sumeru/core/orm or sumeru/core/server directly.",
     "headings": [
-      "types",
+      "model-definition",
+      "field-markers",
       "registration",
       "database-bootstrap",
       "queries",
@@ -1335,7 +1335,7 @@
     "url": "reference/swc-api.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Query params for /web/swc/workspace: action, menu_id, view_type, id, edit, q.",
+    "excerpt": "Query params for /web/swc/workspace:",
     "headings": [
       "http-endpoints",
       "websocket-bus",
@@ -1344,6 +1344,20 @@
       "client-registry",
       "recordstore",
       "bootstrap-window-swc-bootstrap",
+      "see-also"
+    ]
+  },
+  {
+    "title": "SWC notifications",
+    "url": "reference/swc-notifications.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Workspace toasts are rendered by NotificationService (core/swc/src/services/notification.ts). They appear in the top-right stack (#sum-toast-stack), follow Sumeru sum-toast-* CSS, and need no extra library.",
+    "headings": [
+      "api",
+      "behaviour",
+      "crud-vs-validation",
+      "what-not-to-do",
       "see-also"
     ]
   },

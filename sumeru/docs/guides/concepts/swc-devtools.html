@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SWC Vision devtools | Sumeru Docs</title>
-  <meta name="description" content="SWC Vision browser extension and in-app debug panel for component inspection.">
+  <meta name="description" content="SWC Vision devtools">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/swc-devtools.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -29,11 +29,11 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 <a class="docs-brand" href="../../index.html">
-      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
       <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -77,68 +77,48 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        
         <h1>SWC Vision devtools</h1>
-        <p>SWC ships developer tools for inspecting components, templates, and workspace payloads at runtime.</p>
+        <p class="docs-lede">SWC ships developer tools for inspecting components, templates, and workspace payloads at runtime.</p>
         <h2 id="components">Components</h2>
-        <table><thead><tr>
-        <th>Piece</th>
-        <th>Location</th>
-        <th>Purpose</th>
-        </tr></thead><tbody>
-        <tr>
-        <td>Devtools bridge</td>
-        <td><code>core/swc/src/devtools/bridge.ts</code></td>
-        <td>Connects page to inspector</td>
-        </tr>
-        <tr>
-        <td>In-app panel</td>
-        <td><code>core/swc/src/devtools/debug.ts</code></td>
-        <td>Lightweight arch/payload log</td>
-        </tr>
-        <tr>
-        <td>Browser extension</td>
-        <td><code>core/swc/devtools-extension/</code></td>
-        <td>Full component tree + render profiler</td>
-        </tr>
+        <table><thead><tr><th>Piece</th><th>Location</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td>Devtools bridge</td><td><code>core/swc/src/devtools/bridge.ts</code></td><td>Connects page to inspector</td></tr>
+        <tr><td>In-app panel</td><td><code>core/swc/src/devtools/debug.ts</code></td><td>Lightweight arch/payload log</td></tr>
+        <tr><td>Browser extension</td><td><code>core/swc/devtools-extension/</code></td><td>Full component tree + render profiler</td></tr>
         </tbody></table>
         <h2 id="in-app-debug-panel">In-app debug panel</h2>
         <p>Enabled on workspace pages after SWC bootstrap. Logs workspace payload and view arch via <code>logWorkspacePayload</code> / <code>logViewArch</code> when debug mode is active.</p>
         <h2 id="browser-extension">Browser extension</h2>
         <p>Build:</p>
-        <pre class="docs-pre"><code>
-        cd sumeru/core/swc
-
-        npm run build:extension
-
-        </code></pre>
+        <pre class="docs-pre is-shell"><code>cd sumeru/core/swc
+npm run build:extension</code></pre>
         <p>Load unpacked extension from <code>devtools-extension/</code> in Chrome/Edge:</p>
-        <p>1. Open <code>chrome://extensions</code></p>
-        <p>2. Enable Developer mode</p>
-        <p>3. Load unpacked → select <code>core/swc/devtools-extension/</code></p>
-        <p>4. Open a Sumeru workspace tab</p>
-        <p>5. Open DevTools → <strong>SWC Vision</strong> panel</p>
+        <ol>
+        <li>Open <code>chrome://extensions</code></li>
+        <li>Enable Developer mode</li>
+        <li>Load unpacked → select <code>core/swc/devtools-extension/</code></li>
+        <li>Open a Sumeru workspace tab</li>
+        <li>Open DevTools → <strong>SWC Vision</strong> panel</li>
+        </ol>
         <p>Features:</p>
         <ul>
         <li>Component tree for mounted SWC views</li>
-        <ul>
         <li>Template navigator</li>
-        <ul>
         <li>Render profiler (extension panel)</li>
         </ul>
         <h2 id="workspace-debugging-tips">Workspace debugging tips</h2>
-        <p>1. <strong>Network tab:</strong> Inspect <code>GET /web/swc/workspace</code> response for arch JSON and records.</p>
-        <p>2. <strong>View tabs:</strong> Breadcrumb view switcher syncs via SPA; URL params drive <code>view_type</code> and <code>id</code>.</p>
-        <p>3. <strong>RPC:</strong> All saves go through <code>POST /api/rpc</code> with <code>X-CSRF-Token</code>.</p>
-        <p>4. <strong>Tests:</strong> Run <code>make swc-test</code> for widget and view regression tests.</p>
+        <ol>
+        <li><strong>Network tab:</strong> Inspect <code>GET /web/swc/workspace</code> response for arch JSON and records.</li>
+        <li><strong>View tabs:</strong> Breadcrumb view switcher syncs via SPA; URL params drive <code>view_type</code> and <code>id</code>.</li>
+        <li><strong>RPC:</strong> All saves go through <code>POST /api/rpc</code> with <code>X-CSRF-Token</code>.</li>
+        <li><strong>Tests:</strong> Run <code>make swc-test</code> for widget and view regression tests.</li>
+        </ol>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[SWC API](../../reference/swc-api.md)</li>
-        <ul>
-        <li>[Arch JSON pipeline](arch-json-pipeline.md)</li>
+        <li><a href="../../reference/swc-api.html">SWC API</a></li>
+        <li><a href="arch-json-pipeline.html">Arch JSON pipeline</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

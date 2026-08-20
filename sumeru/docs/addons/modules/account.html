@@ -95,6 +95,9 @@
         <tr><td><code>account.payment.register</code></td><td>Register payment on invoice/bill</td></tr>
         <tr><td><code>account.move.reversal</code></td><td>Credit note / refund</td></tr>
         </tbody></table>
+        <p>Wizards compile with <code>sdk.Many2One[sdk.Any]</code> and <code>comodel=</code> for FKs across packages.</p>
+        <p>Tax invoice lines write <code>tax_origin_id</code> (the originating <code>account.tax</code>), not a <code>tax_line_id</code> column.</p>
+        <p>Post-payment and reverse actions redirect with <code>moveFormURL</code> chosen by <code>move_type</code> (<code>out_invoice</code>, <code>out_refund</code>, <code>in_invoice</code>, <code>in_refund</code>, else journal entries).</p>
         <h2 id="services">Services</h2>
         <table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>
         <tr><td><code>services/hooks.go</code></td><td>SO/PO → invoice/bill on confirm</td></tr>

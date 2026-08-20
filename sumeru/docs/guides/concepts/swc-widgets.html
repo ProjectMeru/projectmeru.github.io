@@ -6,8 +6,8 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>swc-widgets | Sumeru Docs</title>
-  <meta name="description" content="swc-widgets">
+  <title>guides/concepts/swc-widgets.html | Sumeru Docs</title>
+  <meta name="description" content="guides/concepts/swc-widgets.html">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/swc-widgets.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -29,11 +29,11 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 <a class="docs-brand" href="../../index.html">
-      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
       <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -77,136 +77,73 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <p class="docs-lede">Register custom field widgets and views from addons using TypeScript modules.</p>
         <h1>SWC widgets and addon entries</h1>
-        <p>Register custom field widgets and views from addons using <strong>TypeScript 7</strong> modules.</p>
+        <p class="docs-lede">Register custom field widgets and views from addons using <strong>TypeScript 7</strong> modules.</p>
         <h2 id="manifest">Manifest</h2>
-        <pre class="docs-pre"><code>
-        {
-
-          &quot;name&quot;: &quot;my_module&quot;,
-
-          &quot;swc_entry&quot;: &quot;static/swc/main.js&quot;
-
-        }
-
-        </code></pre>
-        <p>The kernel serves addon static files under <code>/static/addon/&lt;module&gt;/…</code>. Compile your entry to the same ES2022 target as the core bundle (<code>make swc</code> in <code>core/swc</code> for reference).</p>
+        <pre class="docs-pre"><code>{
+  "name": "my_module",
+  "swc_entry": "static/swc/main.js"
+}</code></pre>
+        <p>The kernel serves addon static files under <code>/static/addon/<module>/…</code>. Compile your entry to the same ES2022 target as the core bundle (<code>make swc</code> in <code>core/swc</code> for reference).</p>
         <h2 id="register-a-field-widget">Register a field widget</h2>
-        <p>Full walkthrough: [Build a module with SWC](build-module-with-swc.md).</p>
-        <pre class="docs-pre"><code>
-        // static/swc/main.ts — import from the core bundle
+        <p>Full walkthrough: <a href="build-module-with-swc.html">Build a module with SWC</a>.</p>
+        <pre class="docs-pre"><code>// static/swc/main.ts — import from the core bundle
+const { registry, SwcComponent, html } = window.SumeruSWC;
 
-        const { registry, SwcComponent, html } = window.SumeruSWC;
+class MyWidget extends SwcComponent {
+  setup() {}
+  template() {
+    const { field, record, readonly } = this.props;
+    const val = String(record.get(field.name) ?? "");
+    return html`&lt;div class="sum-field-widget"&gt;
+      &lt;label class="sum-field-label"&gt;${field.string ?? field.name}&lt;/label&gt;
+      &lt;div class="sum-field-control"&gt;
+        &lt;input class="sum-field-input" value=${val}
+          readonly=${readonly ? "readonly" : undefined}
+          @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }
+}
 
-        
-
-        class MyWidget extends SwcComponent {
-
-          setup() {}
-
-          template() {
-
-            const { field, record, readonly } = this.props;
-
-            const val = String(record.get(field.name) ?? &quot;&quot;);
-
-            return html`&lt;div class=&quot;sum-field-widget&quot;&gt;
-
-              &lt;label class=&quot;sum-field-label&quot;&gt;${field.string ?? field.name}&lt;/label&gt;
-
-              &lt;div class=&quot;sum-field-control&quot;&gt;
-
-                &lt;input class=&quot;sum-field-input&quot; value=${val}
-
-                  readonly=${readonly ? &quot;readonly&quot; : undefined}
-
-                  @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
-
-              &lt;/div&gt;
-
-            &lt;/div&gt;`;
-
-          }
-
-        }
-
-        
-
-        registry.category(&quot;fields&quot;).add(&quot;my_widget&quot;, MyWidget);
-
-        </code></pre>
+registry.category("fields").add("my_widget", MyWidget);</code></pre>
         <p>Reference in view XML:</p>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;x&quot; widget=&quot;my_widget&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="x" widget="my_widget"/&gt;</code></pre>
         <p>Use <code>renderFieldShell()</code> from the core bundle for consistent labels and accessibility (see <code>core/swc/src/widgets/field-shell.ts</code>).</p>
         <h2 id="register-a-view">Register a view</h2>
-        <pre class="docs-pre"><code>
-        registry.category(&quot;views&quot;).add(&quot;my_view&quot;, MyListView);
-
-        </code></pre>
+        <pre class="docs-pre"><code>registry.category("views").add("my_view", MyListView);</code></pre>
         <h2 id="register-a-service">Register a service</h2>
-        <pre class="docs-pre"><code>
-        registry.category(&quot;services&quot;).add(&quot;my_service&quot;, myServiceInstance);
-
-        </code></pre>
-        <p>Use <code>useService(&quot;my_service&quot;)</code> inside components with an active <code>SwcEnv</code>.</p>
+        <pre class="docs-pre"><code>registry.category("services").add("my_service", myServiceInstance);</code></pre>
+        <p>Use <code>useService("my_service")</code> inside components with an active <code>SwcEnv</code>.</p>
         <h2 id="conventions">Conventions</h2>
         <ul>
         <li>Target <strong>TypeScript 7</strong>; run <code>tsc --noEmit</code> in CI for addon SWC packages.</li>
-        <ul>
         <li>Use existing <code>sum-*</code> CSS classes from <code>core/engine/assets/css/</code>.</li>
-        <ul>
         <li>Read/write data via <code>env.services.rpc</code> — do not POST to removed <code>/web/record/save</code> routes.</li>
-        <ul>
         <li>Field widgets receive <code>{ field, record, readonly }</code> props (<code>SwcRecord</code> from <code>RecordStore</code>).</li>
         </ul>
         <h2 id="core-services">Core services</h2>
-        <table><thead><tr>
-        <th>Service</th>
-        <th>Purpose</th>
-        </tr></thead><tbody>
-        <tr>
-        <td><code>rpc</code></td>
-        <td>Model CRUD, <code>onchange</code>, <code>read_group</code></td>
-        </tr>
-        <tr>
-        <td><code>action</code></td>
-        <td>SPA navigation via <code>RouterService</code></td>
-        </tr>
-        <tr>
-        <td><code>dialog</code></td>
-        <td>Confirm/alert modals</td>
-        </tr>
-        <tr>
-        <td><code>bus</code></td>
-        <td>Local + WebSocket events (<code>record.updated</code>)</td>
-        </tr>
-        <tr>
-        <td><code>notification</code></td>
-        <td>Toast stack</td>
-        </tr>
+        <table><thead><tr><th>Service</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>rpc</code></td><td>Model CRUD, <code>onchange</code>, <code>read_group</code></td></tr>
+        <tr><td><code>action</code></td><td>SPA navigation via <code>RouterService</code></td></tr>
+        <tr><td><code>dialog</code></td><td>Confirm/alert modals</td></tr>
+        <tr><td><code>bus</code></td><td>Local + WebSocket events (<code>record.updated</code>)</td></tr>
+        <tr><td><code>notification</code></td><td>Toast stack — <a href="../../reference/swc-notifications.html">SWC notifications</a></td></tr>
         </tbody></table>
         <h2 id="built-in-widgets">Built-in widgets</h2>
-        <p>See the complete [SWC widget catalog](../reference/swc-widget-catalog.md) (25+ registry keys including <code>boolean_toggle</code>, <code>many2many_tags</code>, <code>monetary</code>, <code>progress</code>, …).</p>
+        <p>See the complete <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> (25+ registry keys including <code>boolean_toggle</code>, <code>many2many_tags</code>, <code>monetary</code>, <code>progress</code>, …).</p>
         <h2 id="global-exports">Global exports</h2>
         <p>The IIFE bundle exposes <code>window.SumeruSWC</code>:</p>
-        <pre class="docs-pre"><code>
-        export { SwcApp, registry, SwcEnv };
-
-        </code></pre>
+        <pre class="docs-pre"><code>export { SwcApp, registry, SwcEnv };</code></pre>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[SWC API](../reference/swc-api.md)</li>
-        <ul>
-        <li>[Field attributes](../reference/field-attributes.md)</li>
-        <ul>
-        <li>[Arch JSON pipeline](arch-json-pipeline.md)</li>
+        <li><a href="../../reference/swc-api.html">SWC API</a></li>
+        <li><a href="../../reference/swc-notifications.html">SWC notifications</a></li>
+        <li><a href="../../reference/field-attributes.html">Field attributes</a></li>
+        <li><a href="arch-json-pipeline.html">Arch JSON pipeline</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

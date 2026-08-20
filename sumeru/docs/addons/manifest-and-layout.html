@@ -82,7 +82,7 @@
         <pre class="docs-pre"><code>&lt;technical_name&gt;/
   manifest.json
   init.go              # blank-import subpackages; optional event hooks
-  models/              # sdk.RegisterModel
+  models/              # struct + sdk.Model; zmodels.go generated
   services/            # hooks, business logic (optional)
   wizard/              # transient models (optional)
   views/               # XML menus, actions, views
@@ -114,8 +114,9 @@
         <tr><td><code>data</code></td><td>XML/CSV load order on install/update</td></tr>
         </tbody></table>
         <p><strong>Bridge modules</strong> (e.g. <code>sale_crm</code>): <code>"application": false</code>, <code>"data": []</code>, logic in <code>init.go</code> only.</p>
+        <p>Wizard and other cross-package Many2One fields use <code>sdk.Many2One[sdk.Any]</code> with <code>comodel=</code> (typed <code>T</code> only works in the same Go package).</p>
         <h2 id="initgo">init.go</h2>
-        <p>Blank-import all subpackages so <code>init()</code> runs:</p>
+        <p>Blank-import all subpackages so <code>init()</code> runs. Do not put <code>log.Println</code> in <code>init()</code>.</p>
         <pre class="docs-pre"><code>package crm
 
 import (

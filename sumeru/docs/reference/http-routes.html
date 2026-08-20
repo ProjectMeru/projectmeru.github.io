@@ -109,15 +109,18 @@
         <tr><td>GET</td><td><code>/</code></td><td>Redirect → <code>/web/home</code></td></tr>
         </tbody></table>
         <h2 id="workspace">Workspace</h2>
+        <p>The <strong>live</strong> workspace is SWC: <code>GET /web/swc/workspace</code> plus JSON-RPC. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="swc-api.html">SWC API</a> and <a href="swc-notifications.html">SWC notifications</a>.</p>
+        <p>The <code>POST /web/record/*</code> and <code>?msg=</code> flash routes below are the <strong>legacy HTML workspace</strong> path.</p>
         <table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td>GET</td><td><code>/web</code></td><td>Workspace (list/form/kanban) — query: <code>action</code>, <code>menu_id</code>, <code>view_type</code>, <code>id</code>, <code>edit</code></td></tr>
+        <tr><td>GET</td><td><code>/web</code></td><td>Workspace shell (SWC SPA) — query: <code>action</code>, <code>menu_id</code>, <code>view_type</code>, <code>id</code>, <code>edit</code>, <code>model</code>, <code>filter</code>, <code>sort</code>, <code>offset</code>, <code>q</code></td></tr>
+        <tr><td>GET</td><td><code>/web/swc/workspace</code></td><td>SWC workspace JSON (arch + records)</td></tr>
         <tr><td>GET</td><td><code>/web/rel/search</code></td><td>Many2one typeahead search</td></tr>
-        <tr><td>POST</td><td><code>/web/record/save</code></td><td>Save form — on success redirects with <code>?msg=save_ok_created</code> or <code>?msg=save_ok_updated</code> (top-right toast); on failure redirects with error flash banner and optional <code>?field_errors=…</code> for field highlight</td></tr>
-        <tr><td>POST</td><td><code>/web/record/delete</code></td><td>Delete record — on failure redirects with error flash</td></tr>
-        <tr><td>POST</td><td><code>/web/kanban/move</code></td><td>Move kanban card — success toast in browser (no full reload)</td></tr>
+        <tr><td>POST</td><td><code>/web/record/save</code></td><td>Legacy HTML save — on success redirects with <code>?msg=save_ok_created</code> or <code>?msg=save_ok_updated</code> (top-right toast); on failure redirects with error flash banner and optional <code>?field_errors=…</code> for field highlight</td></tr>
+        <tr><td>POST</td><td><code>/web/record/delete</code></td><td>Legacy HTML delete — on failure redirects with error flash</td></tr>
+        <tr><td>POST</td><td><code>/web/kanban/move</code></td><td>Legacy HTML kanban move — success toast in browser (no full reload)</td></tr>
         <tr><td>POST</td><td><code>/web/chatter/post</code></td><td>Post message (mail addon) — on failure redirects with error flash</td></tr>
         <tr><td>POST</td><td><code>/web/company/switch</code></td><td>Switch active company</td></tr>
-        <tr><td>POST</td><td><code>/web/action/object</code></td><td>Run object button — on failure redirects with error flash</td></tr>
+        <tr><td>POST</td><td><code>/web/action/object</code></td><td>Legacy HTML object button — on failure redirects with error flash</td></tr>
         </tbody></table>
         <h2 id="report-exchange">Report exchange</h2>
         <p>Session auth required. See <a href="../guides/build/report-engine.html">Report engine</a> for flows and limits.</p>
@@ -167,6 +170,7 @@
         </tbody></table>
         <p><strong>Confirm response:</strong> redirect to stored <code>next</code> URL with <code>?msg=imported_N_updated_N_skipped_N</code>.</p>
         <h3 id="workspace-flash-query-msg">Workspace flash query (<code>?msg=</code>)</h3>
+        <p>Legacy HTML workspace only. SWC does not use these query values for CRUD toasts.</p>
         <table><thead><tr><th>Value</th><th>UX</th></tr></thead><tbody>
         <tr><td><code>save_ok_created</code></td><td>Success toast — record created</td></tr>
         <tr><td><code>save_ok_updated</code></td><td>Success toast — changes saved</td></tr>
@@ -190,6 +194,8 @@
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="json-rpc.html">JSON-RPC</a></li>
+        <li><a href="swc-api.html">SWC API</a></li>
+        <li><a href="swc-notifications.html">SWC notifications</a></li>
         <li><a href="../guides/concepts/web-and-render.html">Web and render</a></li>
         <li><a href="../guides/build/report-engine.html">Report engine</a></li>
         </ul>

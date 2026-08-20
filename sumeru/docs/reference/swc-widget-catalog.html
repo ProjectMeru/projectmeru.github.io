@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SWC widget catalog | Sumeru Docs</title>
-  <meta name="description" content="Complete catalog of built-in SWC field widgets with XML examples and options.">
+  <meta name="description" content="SWC widget catalog">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/swc-widget-catalog.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -29,11 +29,11 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 <a class="docs-brand" href="../index.html">
-      <img src="../../logo.png" alt="" width="32" height="32" decoding="async">
+      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
       <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -77,341 +77,124 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        
         <h1>SWC widget catalog</h1>
-        <p>Built-in field widgets registered in <code>core/swc/src/widgets/registry.ts</code>. Reference a widget in view XML with <code>widget=&quot;…&quot;</code> on <code>&lt;field&gt;</code>. When omitted, SWC infers a widget from the ORM field type.</p>
+        <p class="docs-lede">Built-in field widgets registered in <code>core/swc/src/widgets/registry.ts</code>. Reference a widget in view XML with <code>widget="…"</code> on <code><field></code>. When omitted, SWC infers a widget from the ORM field type.</p>
         <h2 id="registry-keys">Registry keys</h2>
-        <table><thead><tr>
-        <th>Widget key</th>
-        <th>Component</th>
-        <th>ORM types</th>
-        <th>Default when omitted</th>
-        </tr></thead><tbody>
-        <tr>
-        <td><code>default</code>, <code>char</code></td>
-        <td>DefaultField</td>
-        <td>Char</td>
-        <td>Char fields</td>
-        </tr>
-        <tr>
-        <td><code>email</code></td>
-        <td>DefaultField (type=email)</td>
-        <td>Char</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>integer</code>, <code>float</code>, <code>numeric</code></td>
-        <td>DefaultField</td>
-        <td>Integer, Float, Numeric</td>
-        <td>matching type</td>
-        </tr>
-        <tr>
-        <td><code>text</code>, <code>json</code></td>
-        <td>TextareaField</td>
-        <td>Text</td>
-        <td>Text</td>
-        </tr>
-        <tr>
-        <td><code>date</code></td>
-        <td>DateField</td>
-        <td>Date</td>
-        <td>Date</td>
-        </tr>
-        <tr>
-        <td><code>datetime</code></td>
-        <td>DateTimeField</td>
-        <td>DateTime</td>
-        <td>DateTime</td>
-        </tr>
-        <tr>
-        <td><code>boolean</code></td>
-        <td>BooleanField</td>
-        <td>Boolean</td>
-        <td>Boolean</td>
-        </tr>
-        <tr>
-        <td><code>boolean_toggle</code></td>
-        <td>BooleanToggleField</td>
-        <td>Boolean</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>radio</code></td>
-        <td>BooleanRadioField</td>
-        <td>Boolean, Selection</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>phone</code></td>
-        <td>PhoneField</td>
-        <td>Char</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>selection</code></td>
-        <td>SelectionField</td>
-        <td>Selection, Many2one</td>
-        <td>Selection</td>
-        </tr>
-        <tr>
-        <td><code>many2one</code></td>
-        <td>Many2OneField</td>
-        <td>Many2one</td>
-        <td>Many2one</td>
-        </tr>
-        <tr>
-        <td><code>many2many</code>, <code>many2many_tags</code></td>
-        <td>Many2ManyTagsField</td>
-        <td>Many2many</td>
-        <td>Many2many → tags</td>
-        </tr>
-        <tr>
-        <td><code>one2many</code></td>
-        <td>One2ManyField</td>
-        <td>One2many</td>
-        <td>One2many</td>
-        </tr>
-        <tr>
-        <td><code>statusbar</code></td>
-        <td>StatusbarField</td>
-        <td>Selection</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>priority</code></td>
-        <td>PriorityField</td>
-        <td>Selection, Integer</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>image</code></td>
-        <td>ImageField</td>
-        <td>Binary, Char</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>monetary</code></td>
-        <td>MonetaryField</td>
-        <td>Float, Numeric</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>html</code></td>
-        <td>HtmlField</td>
-        <td>Text</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>binary</code></td>
-        <td>BinaryField</td>
-        <td>Binary</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>reference</code></td>
-        <td>ReferenceField</td>
-        <td>Reference</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>color</code></td>
-        <td>ColorField</td>
-        <td>Char</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>url</code></td>
-        <td>UrlField</td>
-        <td>Char</td>
-        <td>—</td>
-        </tr>
-        <tr>
-        <td><code>progress</code>, <code>progressbar</code></td>
-        <td>ProgressField</td>
-        <td>Float, Integer</td>
-        <td>—</td>
-        </tr>
+        <table><thead><tr><th>Widget key</th><th>Component</th><th>ORM types</th><th>Default when omitted</th></tr></thead><tbody>
+        <tr><td><code>default</code>, <code>char</code></td><td>DefaultField</td><td>Char</td><td>Char fields</td></tr>
+        <tr><td><code>email</code></td><td>DefaultField (type=email)</td><td>Char</td><td>—</td></tr>
+        <tr><td><code>integer</code>, <code>float</code>, <code>numeric</code></td><td>DefaultField</td><td>Integer, Float, Numeric</td><td>matching type</td></tr>
+        <tr><td><code>text</code>, <code>json</code></td><td>TextareaField</td><td>Text</td><td>Text</td></tr>
+        <tr><td><code>date</code></td><td>DateField</td><td>Date</td><td>Date</td></tr>
+        <tr><td><code>datetime</code></td><td>DateTimeField</td><td>DateTime</td><td>DateTime</td></tr>
+        <tr><td><code>boolean</code></td><td>BooleanField</td><td>Boolean</td><td>Boolean</td></tr>
+        <tr><td><code>boolean_toggle</code></td><td>BooleanToggleField</td><td>Boolean</td><td>—</td></tr>
+        <tr><td><code>radio</code></td><td>BooleanRadioField</td><td>Boolean, Selection</td><td>—</td></tr>
+        <tr><td><code>phone</code></td><td>PhoneField</td><td>Char</td><td>—</td></tr>
+        <tr><td><code>selection</code></td><td>SelectionField</td><td>Selection, Many2one</td><td>Selection</td></tr>
+        <tr><td><code>many2one</code></td><td>Many2OneField</td><td>Many2one</td><td>Many2one</td></tr>
+        <tr><td><code>many2many</code>, <code>many2many_tags</code></td><td>Many2ManyTagsField</td><td>Many2many</td><td>Many2many → tags</td></tr>
+        <tr><td><code>one2many</code></td><td>One2ManyField</td><td>One2many</td><td>One2many</td></tr>
+        <tr><td><code>statusbar</code></td><td>StatusbarField</td><td>Selection</td><td>—</td></tr>
+        <tr><td><code>priority</code></td><td>PriorityField</td><td>Selection, Integer</td><td>—</td></tr>
+        <tr><td><code>image</code></td><td>ImageField</td><td>Binary, Char</td><td>—</td></tr>
+        <tr><td><code>monetary</code></td><td>MonetaryField</td><td>Float, Numeric</td><td>—</td></tr>
+        <tr><td><code>html</code></td><td>HtmlField</td><td>Text</td><td>—</td></tr>
+        <tr><td><code>binary</code></td><td>BinaryField</td><td>Binary</td><td>—</td></tr>
+        <tr><td><code>reference</code></td><td>ReferenceField</td><td>Reference</td><td>—</td></tr>
+        <tr><td><code>color</code></td><td>ColorField</td><td>Char</td><td>—</td></tr>
+        <tr><td><code>url</code></td><td>UrlField</td><td>Char</td><td>—</td></tr>
+        <tr><td><code>progress</code>, <code>progressbar</code></td><td>ProgressField</td><td>Float, Integer</td><td>—</td></tr>
         </tbody></table>
         <h2 id="scalar-widgets">Scalar widgets</h2>
         <h3 id="default-char-email-integer-float">default / char / email / integer / float</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;name&quot;/&gt;
-
-        &lt;field name=&quot;email&quot; widget=&quot;email&quot;/&gt;
-
-        &lt;field name=&quot;amount&quot; widget=&quot;float&quot;/&gt;
-
-        </code></pre>
-        <p>Renders a text or number input. Email uses <code>type=&quot;email&quot;</code>. Autocomplete tokens are inferred from field names (<code>email</code>, <code>phone</code>, <code>name</code>, …) in <code>field-shell.ts</code>.</p>
+        <pre class="docs-pre"><code>&lt;field name="name"/&gt;
+&lt;field name="email" widget="email"/&gt;
+&lt;field name="amount" widget="float"/&gt;</code></pre>
+        <p>Renders a text or number input. Email uses <code>type="email"</code>. Autocomplete tokens are inferred from field names (<code>email</code>, <code>phone</code>, <code>name</code>, …) in <code>field-shell.ts</code>.</p>
         <h3 id="text">text</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;note&quot; widget=&quot;text&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="note" widget="text"/&gt;</code></pre>
         <p>Multiline textarea for Text fields.</p>
         <h3 id="date-datetime">date / datetime</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;date_start&quot; widget=&quot;date&quot;/&gt;
-
-        &lt;field name=&quot;scheduled_at&quot; widget=&quot;datetime&quot;/&gt;
-
-        </code></pre>
-        <p>Native inline <code>&lt;input type=&quot;date&quot;&gt;</code> or <code>datetime-local</code> with Today/Clear actions.</p>
+        <pre class="docs-pre"><code>&lt;field name="date_start" widget="date"/&gt;
+&lt;field name="scheduled_at" widget="datetime"/&gt;</code></pre>
+        <p>Native inline <code><input type="date"></code> or <code>datetime-local</code> with Today/Clear actions.</p>
         <h2 id="boolean-widgets">Boolean widgets</h2>
         <h3 id="boolean">boolean</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;active&quot; widget=&quot;boolean&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="active" widget="boolean"/&gt;</code></pre>
         <p>Standard checkbox in the field shell.</p>
         <h3 id="boolean-toggle">boolean_toggle</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="active" widget="boolean_toggle"/&gt;</code></pre>
         <p>Compact toggle with On/Off label. Works in list and form views.</p>
         <h3 id="radio">radio</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;type&quot; widget=&quot;radio&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="type" widget="radio"/&gt;</code></pre>
         <p>Radio group for selection or boolean fields.</p>
         <h2 id="relational-widgets">Relational widgets</h2>
         <h3 id="many2one">many2one</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;partner_id&quot; widget=&quot;many2one&quot;
-
-               options=&quot;domain:[(&#x27;customer&#x27;,&#x27;=&#x27;,True)]&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="partner_id" widget="many2one"
+       options="domain:[('customer','=',True)]"/&gt;</code></pre>
         <p>Autocomplete search with RPC <code>search_read</code>. Domain supports <code>$field_name$</code> placeholders.</p>
         <h3 id="many2many-tags">many2many_tags</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;tag_ids&quot; widget=&quot;many2many_tags&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="tag_ids" widget="many2many_tags"/&gt;</code></pre>
         <p>Tag chips with add/remove. Default widget for Many2many when <code>widget</code> is omitted.</p>
         <h3 id="one2many">one2many</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;line_ids&quot;&gt;
-
-          &lt;list editable=&quot;bottom&quot;&gt;
-
-            &lt;field name=&quot;product_id&quot;/&gt;
-
-            &lt;field name=&quot;quantity&quot;/&gt;
-
-          &lt;/list&gt;
-
-        &lt;/field&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="line_ids"&gt;
+  &lt;list editable="bottom"&gt;
+    &lt;field name="product_id"/&gt;
+    &lt;field name="quantity"/&gt;
+  &lt;/list&gt;
+&lt;/field&gt;</code></pre>
         <p>Embedded editable list. Opens dialog for create when configured.</p>
         <h2 id="special-widgets">Special widgets</h2>
         <h3 id="statusbar">statusbar</h3>
-        <pre class="docs-pre"><code>
-        &lt;header&gt;
-
-          &lt;field name=&quot;state&quot; widget=&quot;statusbar&quot; options=&quot;clickable:1&quot;/&gt;
-
-        &lt;/header&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;header&gt;
+  &lt;field name="state" widget="statusbar" options="clickable:1"/&gt;
+&lt;/header&gt;</code></pre>
         <p>Workflow stage chips. Options:</p>
-        <table><thead><tr>
-        <th>Option</th>
-        <th>Values</th>
-        <th>Effect</th>
-        </tr></thead><tbody>
-        <tr>
-        <td><code>clickable</code></td>
-        <td><code>1</code></td>
-        <td>Click stage to write field value</td>
-        </tr>
-        <tr>
-        <td><code>states</code></td>
-        <td>comma list</td>
-        <td>Limit visible states</td>
-        </tr>
-        <tr>
-        <td><code>relation</code></td>
-        <td>model name</td>
-        <td>Related model for state labels</td>
-        </tr>
+        <table><thead><tr><th>Option</th><th>Values</th><th>Effect</th></tr></thead><tbody>
+        <tr><td><code>clickable</code></td><td><code>1</code></td><td>Click stage to write field value</td></tr>
+        <tr><td><code>states</code></td><td>comma list</td><td>Limit visible states</td></tr>
+        <tr><td><code>relation</code></td><td>model name</td><td>Related model for state labels</td></tr>
         </tbody></table>
         <h3 id="priority">priority</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;priority&quot; widget=&quot;priority&quot; options=&quot;mode:stars,stars:5&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="priority" widget="priority" options="mode:stars,stars:5"/&gt;</code></pre>
         <p>Star rating or select dropdown. Options: <code>mode</code> (<code>stars</code> / <code>select</code>), <code>stars</code> / <code>max</code> (count).</p>
         <h3 id="image">image</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;image&quot; widget=&quot;image&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="image" widget="image"/&gt;</code></pre>
         <p>Image upload with crop support. Use <code>options</code> for circle avatar on kanban.</p>
         <h3 id="monetary">monetary</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;amount_total&quot; widget=&quot;monetary&quot; options=&quot;currency_symbol:$&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="amount_total" widget="monetary" options="currency_symbol:$"/&gt;</code></pre>
         <p>Formatted currency display.</p>
         <h3 id="html">html</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;description&quot; widget=&quot;html&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="description" widget="html"/&gt;</code></pre>
         <p>Read-only HTML preview or editable textarea depending on readonly mode.</p>
         <h3 id="binary">binary</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;attachment&quot; widget=&quot;binary&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="attachment" widget="binary"/&gt;</code></pre>
         <p>File upload field.</p>
         <h3 id="reference">reference</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;ref&quot; widget=&quot;reference&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="ref" widget="reference"/&gt;</code></pre>
         <p>Generic model+id reference (limited v1 UI).</p>
         <h3 id="color">color</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;color&quot; widget=&quot;color&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="color" widget="color"/&gt;</code></pre>
         <p>Color picker input.</p>
         <h3 id="url">url</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;website&quot; widget=&quot;url&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="website" widget="url"/&gt;</code></pre>
         <p>URL input with link affordance.</p>
         <h3 id="progress-progressbar">progress / progressbar</h3>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;progress&quot; widget=&quot;progressbar&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="progress" widget="progressbar"/&gt;</code></pre>
         <p>Progress bar for numeric completion fields.</p>
         <h2 id="custom-widgets">Custom widgets</h2>
         <p>Register from an addon entry module:</p>
-        <pre class="docs-pre"><code>
-        registry.category(&quot;fields&quot;).add(&quot;my_widget&quot;, MyWidgetClass);
-
-        </code></pre>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;x&quot; widget=&quot;my_widget&quot;/&gt;
-
-        </code></pre>
-        <p>See [Build a module with SWC](../guides/build-module-with-swc.md) and [SWC widgets](../guides/swc-widgets.md).</p>
+        <pre class="docs-pre"><code>registry.category("fields").add("my_widget", MyWidgetClass);</code></pre>
+        <pre class="docs-pre"><code>&lt;field name="x" widget="my_widget"/&gt;</code></pre>
+        <p>See <a href="../guides/build-module-with-swc.html">Build a module with SWC</a> and <a href="../guides/concepts/swc-widgets.html">SWC widgets</a>.</p>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[Field attributes](field-attributes.md)</li>
-        <ul>
-        <li>[View types](view-types.md)</li>
+        <li><a href="field-attributes.html">Field attributes</a></li>
+        <li><a href="view-types.html">View types</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 
