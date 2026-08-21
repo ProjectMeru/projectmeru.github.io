@@ -78,21 +78,31 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Web layer</h1>
-        <p class="docs-lede">The browser UI is <strong>server-rendered HTML</strong> plus static <strong>CSS</strong> and <strong>JS</strong> under <strong><code>core/engine/assets/</code></strong>. There is no SPA framework requirement for core workspace pages.</p>
+        <p class="docs-lede">Authenticated shell pages load <strong><code>swc.js</code></strong> (TypeScript 7) with <strong><code>window.__SWC_BOOTSTRAP__</code></strong>. The <strong>workspace</strong> mounts at <code>#swc-workspace</code>; Home, Apps, and Settings keep <strong>server-rendered HTML</strong> inner content via Go templates.</p>
+        <h2 id="swc-workspace-shell-chrome">SWC (workspace + shell chrome)</h2>
+        <table><thead><tr><th>Piece</th><th>Location</th></tr></thead><tbody>
+        <tr><td>Client source</td><td><code>core/swc/</code></td></tr>
+        <tr><td>Shell chrome (activity, pins, sidebar)</td><td><code>core/swc/src/shell/</code></td></tr>
+        <tr><td>Top bar apps</td><td>Only <strong>user-pinned</strong> modules (<code>core.user.pinned_apps</code>); pin/unpin from Home (<code>/web/home</code>)</td></tr>
+        <tr><td>Production bundle</td><td><code>core/engine/assets/swc/swc.js</code></td></tr>
+        <tr><td>Bootstrap</td><td><code>window.__SWC_BOOTSTRAP__</code> in <code>base.html</code> (all authenticated shell pages)</td></tr>
+        <tr><td>Workspace JSON</td><td><code>GET /web/swc/workspace</code></td></tr>
+        <tr><td>View serializer</td><td><code>core/engine/swcmeta/</code></td></tr>
+        <tr><td>Data</td><td><code>POST /api/rpc</code></td></tr>
+        </tbody></table>
+        <p>Build: <code>make swc</code>, <code>make swc-check</code>, <code>make swc-test</code>.</p>
+        <p>See <a href="swc-architecture.html">SWC architecture</a>, <a href="swc-widgets.html">SWC widgets</a>, and <a href="../../reference/swc-api.html">SWC API</a>.</p>
         <h2 id="handlers-and-templates">Handlers and templates</h2>
-        <p>HTTP handlers under <strong><code>core/server/web/</code></strong> build <strong><code>render.PageData</code></strong> and execute Go <strong><code>html/template</code></strong> files from <strong><code>core/engine/templates/</code></strong> (<code>base.html</code>, inner layouts).</p>
+        <p>HTTP handlers under <strong><code>core/server/web/</code></strong> build <strong><code>render.PageData</code></strong> and execute <strong><code>core/engine/templates/base.html</code></strong> for shell chrome (top bar, sidebar, breadcrumbs).</p>
         <h2 id="render-package-coreenginerender">Render package (<code>core/engine/render/</code>)</h2>
-        <p>Import rules live in <strong><code>core/engine/render/doc.go</code></strong>. File-level layout (which <code>.go</code> owns forms, tree, hooks, etc.) is documented in <strong><code>sumeru/README.md</code></strong> — keep that table in README only.</p>
-        <p>Hooks let addons inject HTML <strong>without</strong> forking templates: shell chrome and per-notebook-page bodies (matched by model + page title).</p>
+        <p>After the SWC cutover, <code>render/</code> owns <strong>shell page assembly</strong> (<code>page.go</code>, <code>menus.go</code>, <code>branding.go</code>, <code>swc_page.go</code>) — not HTML form/list/kanban builders (removed). Import rules: <strong><code>core/engine/render/doc.go</code></strong>.</p>
         <h2 id="assets">Assets</h2>
         <ul>
-        <li>Register a new <strong>global</strong> stylesheet in <strong><code>core/engine/assets/stylesheets.go</code></strong> (<code>DefaultStylesheetURLs</code>) and document it in <strong><code>sumeru/README.md</code></strong> (UI section). Do not copy the core CSS file list into this doc.</li>
-        <li>Per-page extra sheets go through <strong><code>PageData.ViewStylesheetURLs</code></strong> (Apps grid, Home hub, Settings hub, etc.).</li>
-        <li>Optional per-addon <strong><code>static/css/theme-overrides.css</code></strong> is exposed as <strong><code>/static/addon-css/<module>.css</code></strong>.</li>
+        <li>Stylesheets: <strong><code>core/engine/assets/css/</code></strong> (<code>sum-*</code> classes used by SWC components)</li>
+        <li>Per-addon <strong><code>static/css/theme-overrides.css</code></strong> → <strong><code>/static/addon-css/<module>.css</code></strong></li>
+        <li>Shell interactivity (activity panel, menu pins, home pins, sidebar) lives in <strong><code>core/swc/</code></strong> — no separate <code>assets/js/</code> tree</li>
         </ul>
         <p>More detail: <strong><code>sumeru/README.md</code></strong> (UI section).</p>
-        <h2 id="client-scripts">Client scripts</h2>
-        <p><strong><code>core/engine/assets/js/core.js</code></strong> wires sidebar, workspace navigation, activity panel, and form save/cancel. Feature-specific snippets (e.g. messages composer) live beside it under <strong><code>assets/js/ui/</code></strong>.</p>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>

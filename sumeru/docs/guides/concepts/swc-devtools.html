@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isolation model | Sumeru Docs</title>
-  <meta name="description" content="Clarify tenancy expectations before deployment planning.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
+  <title>SWC Vision devtools | Sumeru Docs</title>
+  <meta name="description" content="SWC Vision devtools">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/swc-devtools.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
-  <meta property="og:title" content="Isolation model | Sumeru Docs">
-  <meta property="og:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Isolation model | Sumeru Docs">
-  <meta name="twitter:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Isolation model",
-  "description": "Clarify tenancy expectations before deployment planning.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -97,42 +76,49 @@
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Isolation model</h1>
-        <p class="docs-lede">Clarify tenancy expectations before deployment planning.</p>
-<h2 id="one-database-model">One-database model</h2>
-<p>A Sumeru deployment is one PostgreSQL database with multi-company records and group ACLs. Company context filters and UX (company switcher) are not the same as separate tenants with separate databases.</p>
-<h2 id="what-that-means">What that means</h2>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Expectation</th><th>Reality in core today</th></tr></thead>
-  <tbody>
-    <tr><td>Separate customers on one process</td><td>Not a hard SaaS isolation boundary</td></tr>
-    <tr><td>Company_id on records / users</td><td>Supported for multi-company operations</td></tr>
-    <tr><td>Row-level rules</td><td>Evolving; verify in ORM security before relying on them</td></tr>
-  </tbody>
-</table>
-</div>
-<div class="docs-callout is-caution">
-  <p><strong>Planning.</strong> If you need strong tenant isolation, use separate databases (and usually separate processes) per tenant until a dedicated tenancy story exists.</p>
-</div>
-<h2 id="checklist">Planning checklist</h2>
-<ul>
-  <li>Decide: multi-company single org vs true multi-tenant.</li>
-  <li>Map groups per company with intent.</li>
-  <li>Keep backups and credentials per deployment boundary.</li>
-</ul>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not market shared-DB company switching as full tenant isolation.</li>
-  <li>Do not mix unrelated customers' data without a written isolation design.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Return to <a href="overview.html">Security overview</a> or <a href="../build/deployment.html">Deployment</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/security/api-keys.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; API keys</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>SWC Vision devtools</h1>
+        <p class="docs-lede">SWC ships developer tools for inspecting components, templates, and workspace payloads at runtime.</p>
+        <h2 id="components">Components</h2>
+        <table><thead><tr><th>Piece</th><th>Location</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td>Devtools bridge</td><td><code>core/swc/src/devtools/bridge.ts</code></td><td>Connects page to inspector</td></tr>
+        <tr><td>In-app panel</td><td><code>core/swc/src/devtools/debug.ts</code></td><td>Lightweight arch/payload log</td></tr>
+        <tr><td>Browser extension</td><td><code>core/swc/devtools-extension/</code></td><td>Full component tree + render profiler</td></tr>
+        </tbody></table>
+        <h2 id="in-app-debug-panel">In-app debug panel</h2>
+        <p>Enabled on workspace pages after SWC bootstrap. Logs workspace payload and view arch via <code>logWorkspacePayload</code> / <code>logViewArch</code> when debug mode is active.</p>
+        <h2 id="browser-extension">Browser extension</h2>
+        <p>Build:</p>
+        <pre class="docs-pre is-shell"><code>cd sumeru/core/swc
+npm run build:extension</code></pre>
+        <p>Load unpacked extension from <code>devtools-extension/</code> in Chrome/Edge:</p>
+        <ol>
+        <li>Open <code>chrome://extensions</code></li>
+        <li>Enable Developer mode</li>
+        <li>Load unpacked → select <code>core/swc/devtools-extension/</code></li>
+        <li>Open a Sumeru workspace tab</li>
+        <li>Open DevTools → <strong>SWC Vision</strong> panel</li>
+        </ol>
+        <p>Features:</p>
+        <ul>
+        <li>Component tree for mounted SWC views</li>
+        <li>Template navigator</li>
+        <li>Render profiler (extension panel)</li>
+        </ul>
+        <h2 id="workspace-debugging-tips">Workspace debugging tips</h2>
+        <ol>
+        <li><strong>Network tab:</strong> Inspect <code>GET /web/swc/workspace</code> response for arch JSON and records.</li>
+        <li><strong>View tabs:</strong> Breadcrumb view switcher syncs via SPA; URL params drive <code>view_type</code> and <code>id</code>.</li>
+        <li><strong>RPC:</strong> All saves go through <code>POST /api/rpc</code> with <code>X-CSRF-Token</code>.</li>
+        <li><strong>Tests:</strong> Run <code>make swc-test</code> for widget and view regression tests.</li>
+        </ol>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="../../reference/swc-api.html">SWC API</a></li>
+        <li><a href="arch-json-pipeline.html">Arch JSON pipeline</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

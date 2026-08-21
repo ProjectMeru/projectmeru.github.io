@@ -103,15 +103,17 @@
         <pre class="docs-pre"><code>orm.RegisterObjectAction("crm.lead", "action_set_won", handler)</code></pre>
         <p>Handler returns redirect URL or sets <code>vals["next"]</code>. See <code>sumeru_addons/crm/services/hooks.go</code> and <code>account/services/actions.go</code>.</p>
         <h2 id="kanban-expanders">Kanban expanders</h2>
-        <pre class="docs-pre"><code>render.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
-        <p>Used for CRM pipeline and forecast kanbans.</p>
+        <p><strong>Package:</strong> <code>sumeru/core/engine/swcmeta</code></p>
+        <pre class="docs-pre"><code>swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
+        <p>Used for CRM pipeline and forecast kanbans in the SWC workspace.</p>
         <h2 id="cron-handlers">Cron handlers</h2>
-        <p>Register a Go handler keyed by the <code>sys.cron</code> row's <code>code</code> field:</p>
-        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("crm.cron_assign_leads", func(ctx context.Context, payload map[string]interface{}) error {
+        <p>Register a Go handler keyed by a <strong><code>sys.cron</code> row’s <code>code</code> field</strong> that you seed yourself:</p>
+        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {
     // run periodic work
     return nil
 })</code></pre>
-        <p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row. Example: <code>crm/services/hooks.go</code>.</p>
+        <p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row.</p>
+        <p>CRM subscribes to <code>crm.cron_assign_leads</code> in <code>crm/services/hooks.go</code> for round-robin assignment, but <strong>does not seed a <code>sys.cron</code> row</strong>. Shipped UX is the <strong>Assign Leads</strong> object button on the team form. Subscribe to that event (or add your own cron that publishes it) only if you want a schedule.</p>
         <p>Alternatively, subscribe to <code>cron.tick</code> or a custom event name — the automation addon uses the same bus.</p>
         <h2 id="declarative-server-actions">Declarative server actions</h2>
         <p>Define <code>sys.server.action</code> rows in data XML with declarative <code>code</code> (no Go required for simple flows):</p>

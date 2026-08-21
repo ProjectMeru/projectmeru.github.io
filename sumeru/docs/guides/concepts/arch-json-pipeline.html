@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isolation model | Sumeru Docs</title>
-  <meta name="description" content="Clarify tenancy expectations before deployment planning.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
+  <title>Arch JSON pipeline | Sumeru Docs</title>
+  <meta name="description" content="Arch JSON pipeline">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/arch-json-pipeline.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
-  <meta property="og:title" content="Isolation model | Sumeru Docs">
-  <meta property="og:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Isolation model | Sumeru Docs">
-  <meta name="twitter:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Isolation model",
-  "description": "Clarify tenancy expectations before deployment planning.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -97,42 +76,89 @@
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Isolation model</h1>
-        <p class="docs-lede">Clarify tenancy expectations before deployment planning.</p>
-<h2 id="one-database-model">One-database model</h2>
-<p>A Sumeru deployment is one PostgreSQL database with multi-company records and group ACLs. Company context filters and UX (company switcher) are not the same as separate tenants with separate databases.</p>
-<h2 id="what-that-means">What that means</h2>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Expectation</th><th>Reality in core today</th></tr></thead>
-  <tbody>
-    <tr><td>Separate customers on one process</td><td>Not a hard SaaS isolation boundary</td></tr>
-    <tr><td>Company_id on records / users</td><td>Supported for multi-company operations</td></tr>
-    <tr><td>Row-level rules</td><td>Evolving; verify in ORM security before relying on them</td></tr>
-  </tbody>
-</table>
-</div>
-<div class="docs-callout is-caution">
-  <p><strong>Planning.</strong> If you need strong tenant isolation, use separate databases (and usually separate processes) per tenant until a dedicated tenancy story exists.</p>
-</div>
-<h2 id="checklist">Planning checklist</h2>
-<ul>
-  <li>Decide: multi-company single org vs true multi-tenant.</li>
-  <li>Map groups per company with intent.</li>
-  <li>Keep backups and credentials per deployment boundary.</li>
-</ul>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not market shared-DB company switching as full tenant isolation.</li>
-  <li>Do not mix unrelated customers' data without a written isolation design.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Return to <a href="overview.html">Security overview</a> or <a href="../build/deployment.html">Deployment</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/security/api-keys.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; API keys</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Arch JSON pipeline</h1>
+        <p class="docs-lede">SWC never parses view XML in the browser. The Go kernel parses arch once per request and returns JSON that SWC components consume directly.</p>
+        <h2 id="flow">Flow</h2>
+        <pre class="docs-pre"><code>sys.view arch (XML)
+    → parser.ParseViewFromArch (view_xml.go)
+    → swcmeta.SerializeView (arch.go)
+    → GET /web/swc/workspace JSON payload
+    → WorkspaceRouter → ListView / FormView / …</code></pre>
+        <h2 id="request">Request</h2>
+        <pre class="docs-pre"><code>GET /web/swc/workspace?action=12&amp;menu_id=5&amp;view_type=form&amp;id=7&amp;edit=1&amp;q=acme</code></pre>
+        <table><thead><tr><th>Query param</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>action</code></td><td>Window action id (optional if <code>model</code> is set)</td></tr>
+        <tr><td><code>menu_id</code></td><td>Menu context</td></tr>
+        <tr><td><code>view_type</code></td><td><code>list</code>, <code>form</code>, <code>kanban</code>, …</td></tr>
+        <tr><td><code>id</code></td><td>Record id (form)</td></tr>
+        <tr><td><code>edit</code></td><td><code>1</code> for edit mode</td></tr>
+        <tr><td><code>q</code></td><td>List/kanban search filter</td></tr>
+        <tr><td><code>model</code></td><td>Load workspace by model when <code>action</code> is omitted</td></tr>
+        <tr><td><code>filter</code></td><td>Named search-view filters (comma-separated)</td></tr>
+        <tr><td><code>sort</code></td><td>List sort (<code>field</code> or <code>-field</code>)</td></tr>
+        <tr><td><code>offset</code></td><td>List page offset</td></tr>
+        </tbody></table>
+        <h2 id="payload-shape">Payload shape</h2>
+        <pre class="docs-pre"><code>{
+  "actionId": 12,
+  "menuId": "5",
+  "viewType": "form",
+  "model": "crm.lead",
+  "recordId": 7,
+  "formEdit": false,
+  "csrfToken": "…",
+  "arch": {
+    "type": "form",
+    "model": "crm.lead",
+    "header": { "buttons": [], "fields": [] },
+    "sheet": {
+      "groups": [{ "string": "Lead", "fields": [{ "name": "name", "type": "char" }] }],
+      "notebook": []
+    },
+    "hasChatter": true
+  },
+  "record": { "id": 7, "name": "Acme deal" },
+  "viewTabs": [
+    { "mode": "kanban", "label": "Kanban", "href": "/web?…", "active": false },
+    { "mode": "list", "label": "List", "href": "/web?…", "active": false },
+    { "mode": "form", "label": "Form", "href": "/web?…&amp;id=7", "active": true }
+  ],
+  "listSearch": "",
+  "listTotal": 0,
+  "defaults": { "type": "opportunity" }
+}</code></pre>
+        <p><code>defaults</code> is the window action <code>default_*</code> context, without the prefix. New forms and kanban quick-create merge it into the record.</p>
+        <h2 id="arch-enrichment">Arch enrichment</h2>
+        <p><code>swcmeta/enrichField</code> merges ORM metadata into each arch field:</p>
+        <ul>
+        <li><code>type</code>, <code>string</code>, <code>relation</code>, <code>selection</code> from registered model metadata (struct tags → ORM)</li>
+        <li><code>required</code> from model when not set in XML</li>
+        <li>Auto-generated O2M subview columns when nested <code><list></code> is omitted</li>
+        </ul>
+        <p>Records in the payload are ACL-redacted the same way as JSON-RPC reads.</p>
+        <h2 id="kanban-extension">Kanban extension</h2>
+        <p>For <code>type="kanban"</code>, the server adds grouped columns:</p>
+        <pre class="docs-pre"><code>"kanban": {
+  "groupField": "stage_id",
+  "draggable": true,
+  "columns": [
+    { "value": 1, "label": "New", "records": [{ "id": 3, "name": "Lead A" }] }
+  ]
+}</code></pre>
+        <h2 id="client-types">Client types</h2>
+        <p>TypeScript definitions: <code>core/swc/src/types/workspace.ts</code> (<code>SwcWorkspacePayload</code>, <code>SwcArchField</code>, <code>SwcViewArch</code>).</p>
+        <p>Go definitions: <code>core/engine/swcmeta/types.go</code>.</p>
+        <h2 id="spa-navigation">SPA navigation</h2>
+        <p><code>ActionService.navigate()</code> updates the URL and dispatches <code>popstate</code>. <code>WorkspaceRouter</code> refetches workspace JSON and swaps view components. View tabs in the breadcrumb bar sync from <code>payload.viewTabs</code>.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="../../reference/swc-api.html">SWC API</a></li>
+        <li><a href="../../reference/field-attributes.html">Field attributes</a></li>
+        <li><a href="swc-architecture.html">SWC architecture</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

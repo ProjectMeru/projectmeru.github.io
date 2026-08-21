@@ -94,15 +94,18 @@
         <tr><td><code>crm.merge.opportunity</code></td><td>Merge opportunities</td></tr>
         </tbody></table>
         <h2 id="object-actions">Object actions</h2>
-        <p>Registered in <code>services/hooks.go</code>: <code>action_set_won</code>, <code>action_restore</code>, <code>action_convert_opportunity</code>, <code>action_lost_wizard</code>, <code>action_assign_leads</code>, …</p>
+        <p>Registered in <code>services/hooks.go</code>: <code>action_set_won</code>, <code>action_restore</code>, <code>action_convert_opportunity</code>, <code>action_convert_wizard</code>, <code>action_merge_wizard</code>, <code>action_lost_wizard</code>, <code>action_assign_leads</code>, …</p>
+        <p>Form <strong>Convert</strong> opens <code>action_convert_wizard</code>; <strong>Merge</strong> opens <code>action_merge_wizard</code>. Lost wizard writes <code>lost_feedback</code> onto the lead.</p>
+        <h2 id="analysis-and-forecast">Analysis and forecast</h2>
+        <p>Pipeline Analysis and Leads Analysis use <code>view_mode="graph,pivot,list,form"</code>. Forecast kanban sets <code>quick_create="0"</code> (no inline create on date buckets).</p>
         <h2 id="events">Events</h2>
         <ul>
         <li><code>record.created</code> — default stage, assign user</li>
         <li><code>record.updated</code> — won/lost stage handling</li>
-        <li><code>crm.cron_assign_leads</code> — round-robin team assignment</li>
+        <li><code>crm.cron_assign_leads</code> — round-robin for teams with assignment enabled; <strong>no seeded <code>sys.cron</code></strong>. Use <strong>Assign Leads</strong> (<code>action_assign_leads</code>) on the team form.</li>
         </ul>
         <h2 id="kanban">Kanban</h2>
-        <p><code>RegisterKanbanGroupExpander</code> for pipeline (<code>stage_id</code>) and forecast (<code>date_deadline</code>).</p>
+        <p><code>swcmeta.RegisterKanbanGroupExpander</code> for pipeline (<code>stage_id</code>) and forecast (<code>date_deadline</code>).</p>
         <h2 id="security-groups">Security groups</h2>
         <p><code>crm.group_user</code>, <code>crm.group_manager</code>, <code>crm.group_use_lead</code>, recurring revenue group. Record rules: own vs all leads.</p>
         <h2 id="depends">Depends</h2>

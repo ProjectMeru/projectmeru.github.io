@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isolation model | Sumeru Docs</title>
-  <meta name="description" content="Clarify tenancy expectations before deployment planning.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
+  <title>guides/concepts/swc-widgets.html | Sumeru Docs</title>
+  <meta name="description" content="guides/concepts/swc-widgets.html">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/swc-widgets.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
-  <meta property="og:title" content="Isolation model | Sumeru Docs">
-  <meta property="og:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Isolation model | Sumeru Docs">
-  <meta name="twitter:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Isolation model",
-  "description": "Clarify tenancy expectations before deployment planning.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -97,42 +76,74 @@
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Isolation model</h1>
-        <p class="docs-lede">Clarify tenancy expectations before deployment planning.</p>
-<h2 id="one-database-model">One-database model</h2>
-<p>A Sumeru deployment is one PostgreSQL database with multi-company records and group ACLs. Company context filters and UX (company switcher) are not the same as separate tenants with separate databases.</p>
-<h2 id="what-that-means">What that means</h2>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Expectation</th><th>Reality in core today</th></tr></thead>
-  <tbody>
-    <tr><td>Separate customers on one process</td><td>Not a hard SaaS isolation boundary</td></tr>
-    <tr><td>Company_id on records / users</td><td>Supported for multi-company operations</td></tr>
-    <tr><td>Row-level rules</td><td>Evolving; verify in ORM security before relying on them</td></tr>
-  </tbody>
-</table>
-</div>
-<div class="docs-callout is-caution">
-  <p><strong>Planning.</strong> If you need strong tenant isolation, use separate databases (and usually separate processes) per tenant until a dedicated tenancy story exists.</p>
-</div>
-<h2 id="checklist">Planning checklist</h2>
-<ul>
-  <li>Decide: multi-company single org vs true multi-tenant.</li>
-  <li>Map groups per company with intent.</li>
-  <li>Keep backups and credentials per deployment boundary.</li>
-</ul>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not market shared-DB company switching as full tenant isolation.</li>
-  <li>Do not mix unrelated customers' data without a written isolation design.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Return to <a href="overview.html">Security overview</a> or <a href="../build/deployment.html">Deployment</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/security/api-keys.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; API keys</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>SWC widgets and addon entries</h1>
+        <p class="docs-lede">Register custom field widgets and views from addons using <strong>TypeScript 7</strong> modules.</p>
+        <h2 id="manifest">Manifest</h2>
+        <pre class="docs-pre"><code>{
+  "name": "my_module",
+  "swc_entry": "static/swc/main.js"
+}</code></pre>
+        <p>The kernel serves addon static files under <code>/static/addon/<module>/…</code>. Compile your entry to the same ES2022 target as the core bundle (<code>make swc</code> in <code>core/swc</code> for reference).</p>
+        <h2 id="register-a-field-widget">Register a field widget</h2>
+        <p>Full walkthrough: <a href="build-module-with-swc.html">Build a module with SWC</a>.</p>
+        <pre class="docs-pre"><code>// static/swc/main.ts — import from the core bundle
+const { registry, SwcComponent, html } = window.SumeruSWC;
+
+class MyWidget extends SwcComponent {
+  setup() {}
+  template() {
+    const { field, record, readonly } = this.props;
+    const val = String(record.get(field.name) ?? "");
+    return html`&lt;div class="sum-field-widget"&gt;
+      &lt;label class="sum-field-label"&gt;${field.string ?? field.name}&lt;/label&gt;
+      &lt;div class="sum-field-control"&gt;
+        &lt;input class="sum-field-input" value=${val}
+          readonly=${readonly ? "readonly" : undefined}
+          @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }
+}
+
+registry.category("fields").add("my_widget", MyWidget);</code></pre>
+        <p>Reference in view XML:</p>
+        <pre class="docs-pre"><code>&lt;field name="x" widget="my_widget"/&gt;</code></pre>
+        <p>Use <code>renderFieldShell()</code> from the core bundle for consistent labels and accessibility (see <code>core/swc/src/widgets/field-shell.ts</code>).</p>
+        <h2 id="register-a-view">Register a view</h2>
+        <pre class="docs-pre"><code>registry.category("views").add("my_view", MyListView);</code></pre>
+        <h2 id="register-a-service">Register a service</h2>
+        <pre class="docs-pre"><code>registry.category("services").add("my_service", myServiceInstance);</code></pre>
+        <p>Use <code>useService("my_service")</code> inside components with an active <code>SwcEnv</code>.</p>
+        <h2 id="conventions">Conventions</h2>
+        <ul>
+        <li>Target <strong>TypeScript 7</strong>; run <code>tsc --noEmit</code> in CI for addon SWC packages.</li>
+        <li>Use existing <code>sum-*</code> CSS classes from <code>core/engine/assets/css/</code>.</li>
+        <li>Read/write data via <code>env.services.rpc</code> — do not POST to removed <code>/web/record/save</code> routes.</li>
+        <li>Field widgets receive <code>{ field, record, readonly }</code> props (<code>SwcRecord</code> from <code>RecordStore</code>).</li>
+        </ul>
+        <h2 id="core-services">Core services</h2>
+        <table><thead><tr><th>Service</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>rpc</code></td><td>Model CRUD, <code>onchange</code>, <code>read_group</code></td></tr>
+        <tr><td><code>action</code></td><td>SPA navigation via <code>RouterService</code></td></tr>
+        <tr><td><code>dialog</code></td><td>Confirm/alert modals</td></tr>
+        <tr><td><code>bus</code></td><td>Local + WebSocket events (<code>record.updated</code>)</td></tr>
+        <tr><td><code>notification</code></td><td>Toast stack — <a href="../../reference/swc-notifications.html">SWC notifications</a></td></tr>
+        </tbody></table>
+        <h2 id="built-in-widgets">Built-in widgets</h2>
+        <p>See the complete <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> (25+ registry keys including <code>boolean_toggle</code>, <code>many2many_tags</code>, <code>monetary</code>, <code>progress</code>, …).</p>
+        <h2 id="global-exports">Global exports</h2>
+        <p>The IIFE bundle exposes <code>window.SumeruSWC</code>:</p>
+        <pre class="docs-pre"><code>export { SwcApp, registry, SwcEnv };</code></pre>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="../../reference/swc-api.html">SWC API</a></li>
+        <li><a href="../../reference/swc-notifications.html">SWC notifications</a></li>
+        <li><a href="../../reference/field-attributes.html">Field attributes</a></li>
+        <li><a href="arch-json-pipeline.html">Arch JSON pipeline</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

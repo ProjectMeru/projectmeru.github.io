@@ -83,10 +83,10 @@
         <table><thead><tr><th>Dimension</th><th>Sumeru today</th><th>Typical mature modular ERP</th></tr></thead><tbody>
         <tr><td>Runtime</td><td>Single Go binary per process; horizontal scale via N replicas</td><td>Multi-process app servers (threaded / prefork / async workers)</td></tr>
         <tr><td>Modules</td><td>~5 kernel + ~8 business (<code>sumeru_addons</code>)</td><td>Hundreds of optional apps and localizations</td></tr>
-        <tr><td>UI</td><td>Server-rendered HTML + progressive JS</td><td>Full SPA client + asset bundles</td></tr>
+        <tr><td>UI</td><td><strong>SWC</strong> (TypeScript SPA workspace) + server HTML shell</td><td>Realtime bus WebSocket</td></tr>
         <tr><td>ORM extension</td><td>View XML inherit, bridge modules, events</td><td>Dynamic model inheritance, computed fields, metadata models</td></tr>
         <tr><td>RPC</td><td>Allowlisted JSON-RPC at <code>POST /api/rpc</code></td><td>Broad unrestricted RPC on many public methods</td></tr>
-        <tr><td>Realtime</td><td>In-process event bus + outbox drain</td><td>Dedicated bus / WebSocket + DB NOTIFY</td></tr>
+        <tr><td>Realtime</td><td>In-process event bus + outbox drain + SWC WebSocket hub</td><td>Dedicated bus / WebSocket + DB NOTIFY</td></tr>
         <tr><td>Scale knobs</td><td>INI pool, read replica, rate limits (see <a href="../guides/build/scale-architecture.html">Scale architecture</a>)</td><td>Worker pools, connection limits, dedicated cron workers</td></tr>
         </tbody></table>
         <h2 id="closed-since-august-2026-gap-plan-work">Closed since August 2026 (gap-plan work)</h2>
@@ -97,31 +97,41 @@
         <tr><td>Object actions via RPC</td><td><code>call</code> method invokes <code>RegisterObjectAction</code> handlers</td></tr>
         <tr><td>Versioned migrations</td><td><code>addons/MODULE/migrations/*.sql</code> + <code>sumeru-migrate</code> / install hook</td></tr>
         <tr><td>List search</td><td>Workspace list <code>?q=</code> filter with <code>ilike</code> across view columns</td></tr>
+        <tr><td>Kanban search</td><td>Same <code>?q=</code> filter on kanban workspace load</td></tr>
         <tr><td>Email (transactional)</td><td>SMTP INI + password reset when <code>smtp_host</code> / <code>smtp_from</code> set</td></tr>
         <tr><td>DB pool & replica</td><td><code>db_max_open_conns</code>, <code>db_read_replica_dsn</code>, etc.</td></tr>
         <tr><td>Rate limiting</td><td><code>rate_limit_rpm</code> on <code>/api/rpc</code> and <code>/web/login</code></td></tr>
         <tr><td>Multi-instance cron</td><td><code>FOR UPDATE SKIP LOCKED</code> on due <code>sys.cron</code> rows</td></tr>
         <tr><td>Async plumbing</td><td>Outbox drain → in-process queue; mail queue worker</td></tr>
+        <tr><td>SWC realtime bus</td><td>WebSocket <code>/web/swc/bus</code> forwards outbox events to logged-in sessions</td></tr>
         <tr><td>Developer CLIs</td><td><code>sumeru-shell</code>, <code>sumeru-module</code>, <code>sumeru-migrate</code>, <code>sumeru-i18n-import</code>, <code>make test-db</code></td></tr>
         </tbody></table>
         <p>Do <strong>not</strong> double-count these as open gaps — see also <a href="../using/feature-matrix.html">Feature matrix</a>.</p>
         <h2 id="still-open-kernel-platform-p0p1">Still open — kernel / platform (P0–P1)</h2>
         <table><thead><tr><th>Gap</th><th>Typical ERP pattern</th><th>Sumeru today</th><th>Impact</th></tr></thead><tbody>
         <tr><td>Model <code>_inherit</code></td><td>MRO merge in dynamic ORM</td><td>Deliberately absent</td><td>Bridge modules or duplicate models</td></tr>
-        <tr><td>Rich computed graph</td><td>Declarative depends/constraints/onchange</td><td>RegisterCompute only; no full dependency recompute on write</td><td>Business logic stays in Go services</td></tr>
+        <tr><td>Rich computed graph</td><td>Declarative depends/constraints/onchange</td><td>RegisterCompute + onchange RPC; SWC modifier expressions v1</td><td>Business logic stays in Go services for complex rules</td></tr>
         <tr><td>Metadata ORM</td><td>Runtime model/field registry</td><td><code>sys.model</code> exists; no runtime field creation</td><td>Customization needs recompile + <code>-u</code></td></tr>
         <tr><td>Rich server actions</td><td>Scriptable automation, webhooks</td><td>Declarative <code>publish:</code> / <code>write:</code> only</td><td>Power users need Go for complex automation</td></tr>
-        <tr><td>Graph / calendar / gantt</td><td>Full view types</td><td>Pivot v1 HTML only</td><td>Reporting UX gap</td></tr>
-        <tr><td>Realtime bus</td><td>WebSocket + rate limits</td><td>Sync in-process bus</td><td>No live UI push</td></tr>
+        <tr><td>Graph / calendar / gantt</td><td>Full view types</td><td>Graph v1 + Calendar v1 in SWC; gantt/map/cohort stubs</td><td>Reporting UX improving</td></tr>
         <tr><td>Full mail gateway</td><td>SMTP/IMAP, templates, followers</td><td>Chatter UI + transactional SMTP stub</td><td>No full notification stack</td></tr>
         <tr><td>Multi-process in one host</td><td>Prefork worker pools</td><td>One HTTP listener per binary</td><td>Scale out = N processes behind LB</td></tr>
         <tr><td>Attachment filestore</td><td>Central attachment store, object storage hooks</td><td>Binary fields only</td><td>Large files / CDN unclear</td></tr>
         </tbody></table>
         <h2 id="deferred-business-catalog-p2">Deferred — business catalog (P2)</h2>
         <p>Not kernel goals for pre-beta; full ERP suites include inventory/MRP/POS, website/eCommerce, country localizations, payments, payroll, and more. Sumeru covers a thin <strong>lead-to-cash + P2P + HR directory</strong> slice. See <a href="limitations.html">Limitations</a>.</p>
+        <h2 id="deferred-swc-ux-document-not-stub">Deferred — SWC / UX (document, not stub)</h2>
+        <table><thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+        <tr><td>Field <strong>onchange</strong></td><td><strong>Implemented</strong></td><td>Go <code>RegisterOnchange</code> + <code>POST /api/rpc</code> onchange; SWC <code>RecordStore.applyOnchange</code></td></tr>
+        <tr><td>sum-template (<code>.sum.xml</code>)</td><td><strong>Implemented</strong></td><td>Compiler in <code>template/sum/</code> + esbuild plugin</td></tr>
+        <tr><td>SWC Vision devtools</td><td><strong>Implemented</strong></td><td><code>devtools/bridge.ts</code>, in-app panel, optional browser extension</td></tr>
+        <tr><td>Rich graph/charts</td><td>Partial v1</td><td><code>GraphView</code> uses <code>read_group</code> RPC; richer charting is future work</td></tr>
+        <tr><td>List/kanban toolbar search</td><td><strong>Implemented</strong></td><td>Search beside New button; SPA view-tab sync on record open</td></tr>
+        <tr><td>Form field a11y</td><td><strong>Implemented</strong></td><td>Label <code>for</code> association, autocomplete tokens, native date input</td></tr>
+        </tbody></table>
         <h2 id="ui-stubs-still-visible">UI stubs still visible</h2>
         <table><thead><tr><th>Area</th><th>Status</th></tr></thead><tbody>
-        <tr><td>List bulk select</td><td>Checkboxes disabled</td></tr>
+        <tr><td>List bulk select</td><td><strong>Implemented</strong> in SWC list view</td><td>Client pagination + bulk delete</td></tr>
         <tr><td>sumeru_ai addon</td><td>Pass-through interceptor; placeholder UI</td></tr>
         <tr><td>XML <code>eval</code></td><td>Stored as literal; not executed</td></tr>
         </tbody></table>

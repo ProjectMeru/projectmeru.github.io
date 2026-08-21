@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>guides/start/troubleshooting.html | Sumeru Docs</title>
-  <meta name="description" content="guides/start/troubleshooting.html">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/start/troubleshooting.html">
+  <title>Build a module with SWC | Sumeru Docs</title>
+  <meta name="description" content="Build a module with SWC">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/build-module-with-swc.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
@@ -77,42 +77,141 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Troubleshooting common development issues</h1>
-        <h2 id="my-new-go-model-is-ignored-table-never-appears">“My new Go model is ignored” / table never appears</h2>
+        <h1>Build a module with SWC</h1>
+        <p class="docs-lede">Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from <code>sumeru_custom_addons</code> (see <a href="creating-an-addon.html">Creating an addon</a>).</p>
+        <h2 id="1-scaffold-the-module">1. Scaffold the module</h2>
+        <pre class="docs-pre"><code>my_crm/
+├── manifest.json
+├── models/
+│   └── lead.go
+├── views/
+│   ├── lead_views.xml
+│   └── lead_menus.xml
+├── security/
+│   └── sys.access.csv
+└── static/swc/          # optional
+    ├── main.ts
+    └── esbuild.config.mjs</code></pre>
+        <p><code>manifest.json</code>:</p>
+        <pre class="docs-pre"><code>{
+  "name": "my_crm",
+  "version": "1.0.0",
+  "depends": ["base"],
+  "data": [
+    "security/sys.access.csv",
+    "views/lead_views.xml",
+    "views/lead_menus.xml"
+  ]
+}</code></pre>
+        <h2 id="2-define-the-model">2. Define the model</h2>
+        <pre class="docs-pre"><code>package models
+
+import "sumeru/core/sdk"
+
+type Lead struct {
+    sdk.Model `sumeru:"model=my.crm.lead"`
+
+    Name     sdk.String  `sumeru:"required,string=Lead Name"`
+    Email    sdk.Email   `sumeru:"string=Email"`
+    Phone    sdk.Phone   `sumeru:"string=Phone"`
+    Active   sdk.Boolean `sumeru:"default=true,string=Active"`
+    Priority sdk.String  `sumeru:"selection=0:Low,1:Normal,2:High,string=Priority"`
+}</code></pre>
+        <p>Run <strong><code>make generate</code></strong> so <code>models/zmodels.go</code> registers the model.</p>
+        <h2 id="3-write-views">3. Write views</h2>
+        <p><code>views/lead_views.xml</code>:</p>
+        <pre class="docs-pre"><code>&lt;sumeru&gt;
+  &lt;data&gt;
+    &lt;view id="view_my_crm_lead_list" model="my.crm.lead" type="list"&gt;
+      &lt;field name="name"/&gt;
+      &lt;field name="email"/&gt;
+      &lt;field name="phone"/&gt;
+      &lt;field name="priority" widget="priority"/&gt;
+      &lt;field name="active" widget="boolean_toggle"/&gt;
+    &lt;/view&gt;
+
+    &lt;view id="view_my_crm_lead_form" model="my.crm.lead" type="form"&gt;
+      &lt;sheet&gt;
+        &lt;div class="sum_title"&gt;&lt;h1&gt;&lt;field name="name"/&gt;&lt;/h1&gt;&lt;/div&gt;
+        &lt;group&gt;
+          &lt;field name="email" widget="email"/&gt;
+          &lt;field name="phone" widget="phone"/&gt;
+          &lt;field name="priority" widget="priority" options="mode:stars,stars:3"/&gt;
+          &lt;field name="active" widget="boolean_toggle"/&gt;
+        &lt;/group&gt;
+      &lt;/sheet&gt;
+    &lt;/view&gt;
+
+    &lt;record id="action_my_crm_leads" model="sys.action.window"&gt;
+      &lt;field name="name"&gt;Leads&lt;/field&gt;
+      &lt;field name="core_model"&gt;my.crm.lead&lt;/field&gt;
+      &lt;field name="view_mode"&gt;list,form&lt;/field&gt;
+    &lt;/record&gt;
+
+    &lt;menuitem id="menu_my_crm_root" name="My CRM" sequence="90"/&gt;
+    &lt;menuitem id="menu_my_crm_leads" name="Leads" parent="menu_my_crm_root"
+              action="action_my_crm_leads"/&gt;
+  &lt;/data&gt;
+&lt;/sumeru&gt;</code></pre>
+        <p>See <a href="../../reference/field-attributes.html">Field attributes</a> and <a href="../../reference/view-types.html">View types</a> for all attributes.</p>
+        <h2 id="4-install-and-verify">4. Install and verify</h2>
+        <pre class="docs-pre is-shell"><code>cd sumeru_custom_addons
+go run . -- -c sumeru.conf -u my_crm --stop-after-init
+make run</code></pre>
+        <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
+        <h2 id="5-optional-custom-swc-widget">5. Optional — custom SWC widget</h2>
+        <p>Add to <code>manifest.json</code>:</p>
+        <pre class="docs-pre"><code>"swc_entry": "static/swc/main.js"</code></pre>
+        <p><code>static/swc/main.ts</code>:</p>
+        <pre class="docs-pre"><code>import { registry } from "/static/swc/swc.js";
+
+// SwcComponent and html are available on the global SumeruSWC bundle exports
+const { SwcComponent, html } = window.SumeruSWC as typeof import("@sumeru/swc");
+
+class ColorBadgeField extends SwcComponent {
+  template() {
+    const { field, record, readonly } = this.props as {
+      field: { name: string; string?: string };
+      record: { get: (n: string) =&gt; unknown; set: (n: string, v: unknown) =&gt; void };
+      readonly: boolean;
+    };
+    const val = String(record.get(field.name) ?? "");
+    return html`&lt;div class="sum-field-widget sum-field-widget--row"&gt;
+      &lt;label class="sum-field-label"&gt;${field.string ?? field.name}&lt;/label&gt;
+      &lt;div class="sum-field-control"&gt;
+        &lt;input class="sum-field-input" type="color" value=${val || "#875a7b"}
+          disabled=${readonly ? "disabled" : undefined}
+          @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }
+}
+
+registry.category("fields").add("color_badge", ColorBadgeField);</code></pre>
+        <p>Build with esbuild targeting ES2022 (same as core <code>make swc</code>). Reference in XML:</p>
+        <pre class="docs-pre"><code>&lt;field name="priority" widget="color_badge"/&gt;</code></pre>
+        <p>The kernel injects addon URLs via <code>window.__SWC_ADDON_ENTRIES__</code> before SWC boots.</p>
+        <h2 id="6-debug">6. Debug</h2>
         <ul>
-        <li>Confirm the model struct embeds <strong><code>sdk.Model</code></strong> with <strong><code>sumeru:"model=dotted.name"</code></strong>.</li>
-        <li>Run <strong><code>make generate</code></strong> so <strong><code>models/zmodels.go</code></strong> calls <strong><code>sdk.MustRegister</code></strong> with your manifest <strong><code>name</code></strong>.</li>
-        <li>Ensure the addon root package is blank-imported in generated <strong><code>zimports.go</code></strong>: run <strong><code>make generate</code></strong> again if needed.</li>
-        <li>Rebuild/restart the server so registration runs.</li>
+        <li><strong>SWC Vision:</strong> Load the browser extension from <code>core/swc/devtools-extension/</code> or use the in-app debug panel.</li>
+        <li><strong>Tests:</strong> Mirror patterns in <code>core/swc/tests/views/form-widgets.test.ts</code>.</li>
+        <li><strong>Arch JSON:</strong> Inspect <code>GET /web/swc/workspace?action=…&view_type=form</code> response.</li>
         </ul>
-        <h2 id="module-not-found-or-wrong-addon-wins">“Module not found” or wrong addon wins</h2>
+        <h2 id="checklist">Checklist</h2>
         <ul>
-        <li><strong><code>addons_path</code></strong> order: <strong>later</strong> directories override duplicate <strong><code>manifest.name</code></strong>.</li>
-        <li>Paths are resolved relative to the <strong>INI file directory</strong> unless absolute.</li>
+        <li>[ ] Model registered in Go ORM</li>
+        <li>[ ] Security CSV grants access</li>
+        <li>[ ] Views listed in manifest <code>data</code> before menus</li>
+        <li>[ ] Action <code>view_mode</code> includes your view types</li>
+        <li>[ ] Field <code>name</code> values match model fields</li>
+        <li>[ ] Custom widget registered before first render (via <code>swc_entry</code>)</li>
         </ul>
-        <h2 id="i-changed-xml-but-ui-is-stale">“I changed XML but UI is stale”</h2>
+        <h2 id="see-also">See also</h2>
         <ul>
-        <li>Run <strong><code>-u my_module</code></strong> (or <strong><code>-u all</code></strong>) so <strong><code>manifest.data</code></strong> reloads. See <a href="update-module.html">Update a module</a>.</li>
-        </ul>
-        <h2 id="menu-never-shows-up">“Menu never shows up”</h2>
-        <ul>
-        <li>Check <strong><code>groups</code></strong> on <strong><code>menuitem</code></strong> — user may lack required groups.</li>
-        <li>Confirm <strong><code>action="module.xml_id"</code></strong> resolves to a real <strong><code>sys.action.window</code></strong> row.</li>
-        <li>Ensure the module is <strong>installed</strong>, not only discovered.</li>
-        </ul>
-        <h2 id="view-inherit-failed-warning-on-startup">“View inherit failed” / warning on startup</h2>
-        <ul>
-        <li><strong><code>inherit_id</code></strong> must resolve to an existing <strong><code>sys.view</code></strong> row (parent loaded first; fix <strong><code>depends</code></strong> / XML order).</li>
-        <li>XPath must match the <strong>stored parent arch</strong> string. Test smaller fragments; read the warning from <strong><code>applySysUIViewInherit</code></strong>.</li>
-        </ul>
-        <h2 id="database-confusion">Database confusion</h2>
-        <ul>
-        <li>Remember <strong><code>-d</code></strong> / <strong><code>--database</code></strong> overrides <strong><code>db_name</code></strong> for a single process—easy to inspect the “wrong” DB.</li>
-        </ul>
-        <h2 id="still-stuck">Still stuck</h2>
-        <ul>
-        <li>Run <strong><code>go test ./...</code></strong> in <strong><code>sumeru/</code></strong> on a clean tree to ensure local changes did not break parsing or render.</li>
-        <li>Search <strong><code>core/module</code></strong> and <strong><code>core/engine/parser</code></strong> for the feature you are extending; errors often print with <strong><code>platformmsg</code></strong> format strings.</li>
+        <li><a href="../concepts/swc-widgets.html">SWC widgets</a></li>
+        <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a></li>
+        <li><a href="../../reference/swc-notifications.html">SWC notifications</a></li>
+        <li><a href="../concepts/arch-json-pipeline.html">Arch JSON pipeline</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

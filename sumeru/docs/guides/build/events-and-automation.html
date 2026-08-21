@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                    <header class="docs-topbar">
+                                                          <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -169,12 +169,12 @@
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import &quot;sumeru/core/scheduler&quot;&#10;&#10;func init() {&#10;	scheduler.RegisterCronHandler(&quot;crm.cron_assign_leads&quot;, assignLeads)&#10;}">
-      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">import "sumeru/core/scheduler"</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">func init() {</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">	scheduler.RegisterCronHandler("crm.cron_assign_leads", assignLeads)</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">}</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import &quot;sumeru/core/scheduler&quot;&#10;&#10;func init() {&#10;	scheduler.RegisterCronHandler(&quot;my_module.nightly_digest&quot;, runNightlyDigest)&#10;}">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">import "sumeru/core/scheduler"</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">func init() {</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">	scheduler.RegisterCronHandler("my_module.nightly_digest", runNightlyDigest)</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">}</span></span></code></pre>
     </div>
   </div>
 </div>
-<p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row. There is no Python/safe_eval — Go handlers only.</p>
+<p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row. There is no Python/safe_eval — Go handlers only. CRM does not seed a <code>sys.cron</code> for lead assignment; use <strong>Assign Leads</strong> on the team form.</p>
 <h2 id="outbox">Outbox alignment</h2>
 <p>ORM mutations publish <code>record.*</code> for data that actually committed (outbox / mutation pipeline). A background drain worker (5s ticker) publishes pending <code>sys.outbox.event</code> rows asynchronously after commit. Do not emit business events for rolled-back work.</p>
 <h2 id="compile-and-run">Compile and run</h2>

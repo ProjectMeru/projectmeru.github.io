@@ -81,6 +81,7 @@
         <p class="docs-lede"><strong>Endpoint:</strong> <code>POST /api/rpc</code></p>
         <p><strong>Source:</strong> <code>sumeru/core/server/api/dispatch.go</code></p>
         <p>Sumeru exposes <strong>JSON-RPC only</strong> at this endpoint. There is no alternate RPC transport.</p>
+        <p><strong>SWC</strong> (Sumeru Web Client) is the primary consumer for workspace CRUD, <code>read_group</code>, and <code>call</code>. Browser code sends <code>X-CSRF-Token</code> from <code>window.__SWC_BOOTSTRAP__</code>.</p>
         <h2 id="authentication">Authentication</h2>
         <table><thead><tr><th>Method</th><th>Header / cookie</th></tr></thead><tbody>
         <tr><td>Session</td><td>Cookie <code>sumeru_session</code> (from <code>/web/login</code>)</td></tr>
@@ -147,10 +148,11 @@
         <h3 id="call">call</h3>
         <p>Invokes a handler registered with <code>orm.RegisterObjectAction</code> (same as form object buttons):</p>
         <pre class="docs-pre"><code>{
-  "model": "core.user",
+  "model": "crm.lead",
   "method": "call",
-  "args": [42, "action_reset_password", {}]
+  "args": [42, "action_merge_wizard", { "active_ids": "3,7" }]
 }</code></pre>
+        <p><code>args[0]</code> is the record id, <code>args[1]</code> the object-action name. Optional <code>args[2]</code> is a string map passed through to <code>orm.RunObjectAction</code> (used for list multi-select <code>active_ids</code>).</p>
         <h2 id="read-replica">Read replica</h2>
         <p>When <code>db_read_replica_dsn</code> is configured, <code>search</code>, <code>search_read</code>, and list workspace loads prefer the read replica connection.</p>
         <h2 id="security">Security</h2>
@@ -160,7 +162,7 @@
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="sumeru/README.html"><code>sumeru/README.md</code></a> — full RPC examples</li>
-        <li><a href="http-routes.md">HTTP routes</a></li>
+        <li><a href="http-routes.html">HTTP routes</a></li>
         <li><a href="../guides/build/json-rpc-api.html">JSON-RPC API guide</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

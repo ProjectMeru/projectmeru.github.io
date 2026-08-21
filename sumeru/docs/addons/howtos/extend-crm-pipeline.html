@@ -93,7 +93,7 @@
         </ol>
         <h2 id="custom-kanban-columns">Custom kanban columns</h2>
         <p>Register a group expander in your addon <code>init.go</code>:</p>
-        <pre class="docs-pre"><code>render.RegisterKanbanGroupExpander("crm.lead", "stage_id", myExpandFn)</code></pre>
+        <pre class="docs-pre"><code>swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", myExpandFn)</code></pre>
         <p>See <code>sumeru_addons/crm/services/hooks.go</code> for the reference implementation.</p>
         <h2 id="react-to-stage-changes">React to stage changes</h2>
         <pre class="docs-pre"><code>event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {

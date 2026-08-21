@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SDK | Sumeru Docs</title>
-  <meta name="description" content="sdk.BaseModel, Field helpers and registry lookups.">
+  <meta name="description" content="sdk.Model tags, field markers, and generated registration.">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -16,12 +16,12 @@
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html">
   <meta property="og:title" content="SDK | Sumeru Docs">
-  <meta property="og:description" content="sdk.BaseModel, Field helpers and registry lookups.">
+  <meta property="og:description" content="sdk.Model tags, field markers, and generated registration.">
   <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SDK | Sumeru Docs">
-  <meta name="twitter:description" content="sdk.BaseModel, Field helpers and registry lookups.">
+  <meta name="twitter:description" content="sdk.Model tags, field markers, and generated registration.">
   <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "SDK",
-  "description": "sdk.BaseModel, Field helpers and registry lookups.",
+  "description": "sdk.Model tags, field markers, and generated registration.",
   "url": "https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html",
   "author": {"@type": "Organization", "name": "Project Meru"},
   "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                    <header class="docs-topbar">
+                                                          <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -99,17 +99,17 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>SDK</h1>
-        <p class="docs-lede">sdk.BaseModel, Field helpers and registry lookups.</p>
+        <p class="docs-lede">sdk.Model tags, field markers, and generated registration.</p>
 <h2 id="stable-addon-surface">Stable addon surface</h2>
 <p><code>sumeru/core/sdk</code> re-exports model/field types and registration helpers so addons avoid tight coupling to ORM internals.</p>
 <div class="docs-table-wrap">
 <table class="docs-table">
   <thead><tr><th>Symbol</th><th>Role</th></tr></thead>
   <tbody>
-    <tr><td><code>BaseModel</code></td><td>Embeds <code>ID</code></td></tr>
-    <tr><td><code>FieldDefinition</code> / <code>FieldType</code></td><td>Schema metadata</td></tr>
-    <tr><td>Char, Text, Boolean, ...</td><td>Type constants</td></tr>
-    <tr><td><code>RegisterModel</code></td><td>Registry + module ownership</td></tr>
+    <tr><td><code>Model</code></td><td>Embed; <code>sumeru:"model=…"</code> tag</td></tr>
+    <tr><td><code>String</code>, <code>Text</code>, <code>Boolean</code>, …</td><td>Typed field markers</td></tr>
+    <tr><td><code>Many2One[T]</code> / <code>Any</code></td><td>Relations; <code>comodel=</code> when T is Any</td></tr>
+    <tr><td><code>MustRegister</code></td><td>Called from generated <code>zmodels.go</code></td></tr>
   </tbody>
 </table>
 </div>
@@ -117,17 +117,17 @@
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">Registration</span>
+      <span class="docs-codebox-name">Model struct</span>
     </div>
     <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">text</span>
+      <span class="docs-codebox-lang">go</span>
       <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
       <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="sdk.RegisterModel(sdk.RegisterModelInput{&#10;	Model:  &amp;MyModule{},&#10;	Module: &quot;my_module&quot;,&#10;})">
-      <pre class="docs-pre is-lined" data-lang="text"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">sdk.RegisterModel(sdk.RegisterModelInput{</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">	Model:  &amp;MyModule{},</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">	Module: "my_module",</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">})</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type MyModule struct {&#10;&#9;sdk.Model `sumeru:&quot;model=my.module&quot;`&#10;&#10;&#9;Name sdk.String `sumeru:&quot;required,index,string=Name&quot;`&#10;}&#10;&#10;// After adding a struct, run make generate so models/zmodels.go registers it.">
+      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">type MyModule struct {</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">	sdk.Model `sumeru:"model=my.module"`</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">	Name sdk.String `sumeru:"required,index,string=Name"`</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">}</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">// After adding a struct, run make generate so models/zmodels.go registers it.</span></span></code></pre>
     </div>
   </div>
 </div>

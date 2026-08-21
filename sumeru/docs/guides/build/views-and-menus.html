@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                    <header class="docs-topbar">
+                                                          <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -231,12 +231,17 @@
   <article class="docs-attr">
     <h3><code>options</code> <span class="docs-attr-opt">optional</span></h3>
     <p><strong>Syntax.</strong> JSON-ish string: <code>options="{'clickable': '1'}"</code> (single quotes as in shipping XML).</p>
-    <p><strong>Effect.</strong> Widget-specific knobs. Today the main one is statusbar clickability. Unknown keys are typically ignored.</p>
+    <p><strong>Effect.</strong> Widget-specific knobs — statusbar <code>clickable</code>, priority <code>mode:stars</code>, many2one <code>domain:[…]</code>. See <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a>.</p>
   </article>
   <article class="docs-attr">
     <h3><code>readonly</code> <span class="docs-attr-opt">optional</span></h3>
     <p><strong>Syntax.</strong> <code>readonly="1"</code>.</p>
     <p><strong>Effect.</strong> Field displays but the user cannot edit it in this view (e.g. computed timestamps, key prefixes).</p>
+  </article>
+  <article class="docs-attr">
+    <h3><code>required</code> <span class="docs-attr-opt">optional</span></h3>
+    <p><strong>Syntax.</strong> <code>required="1"</code>.</p>
+    <p><strong>Effect.</strong> Client-side required validation before save (merged with model-level <code>Required</code> from Go <code>Fields()</code>). See <a href="../../reference/field-attributes.html">Field attributes</a>.</p>
   </article>
   <article class="docs-attr">
     <h3><code>invisible</code> <span class="docs-attr-opt">optional</span></h3>
@@ -690,7 +695,7 @@
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">views/tree_view.xml</span>
+      <span class="docs-codebox-name">views/list_view.xml</span>
     </div>
     <div class="docs-codebox-actions">
       <span class="docs-codebox-lang">xml</span>
@@ -900,7 +905,8 @@
   </article>
   <article class="docs-attr">
     <h3><code>quick_create</code></h3>
-    <p><strong>Syntax.</strong> Parsed from XML but <strong>not used</strong> in v1 — reserved for future inline create.</p>
+    <p><strong>Syntax.</strong> Enable inline create in a grouped kanban column. Disable with <code>0</code>, <code>false</code>, <code>off</code>, or <code>no</code> (CRM forecast uses <code>quick_create="0"</code>).</p>
+    <p><strong>Effect.</strong> Default <strong>on</strong> when the board is grouped. Quick-create merges action <code>default_*</code> values into the new record.</p>
   </article>
 </div>
 
@@ -913,11 +919,12 @@
 <p>On <code>&lt;field groups="module.group_xml_id"&gt;</code>, the field is hidden when the signed-in user lacks that access group (same comma-separated group list as menu <code>groups</code>). Empty or missing <code>groups</code> means visible to everyone who can open the form.</p>
 
 <h2 id="form-validation-and-toasts" data-toc="Form validation and toasts">Form validation and toasts</h2>
+<p>The live workspace is <strong>SWC</strong>. Toasts come from <code>env.services.notification</code> (top-right stack, close button, hover-pause, 6s auto-dismiss). See <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
 <ul>
-  <li><strong>Client required check</strong> — before submit, empty required fields are highlighted in the form.</li>
-  <li><strong>Server validation redirect</strong> — failed writes redirect with <code>?field_errors=</code> (JSON map of field → message); the client scrolls to the first error.</li>
-  <li><strong>Success toasts</strong> — after save, a short-lived toast appears top-right (flash cookie + <code>toast.js</code>).</li>
-  <li><strong>Status bar actions</strong> — kanban drag and statusbar clicks also show toasts on success or failure.</li>
+  <li><strong>Client required check</strong> — empty required fields stay <strong>inline</strong> on the form (<code>sum-flash</code>). They are not a validation toast.</li>
+  <li><strong>RPC / network errors</strong> — error toast. Successful save, delete, duplicate, and object buttons show a success toast unless the action returns <code>{close}</code>, <code>{open}</code>, or <code>{redirect}</code>.</li>
+  <li><strong>Kanban</strong> — quick-create success toast; create/move RPC failures toast. Successful drag-move stays silent.</li>
+  <li><strong>Removed HTTP</strong> — do not POST to <code>/web/record/save</code> (not registered). SWC uses JSON-RPC and <code>env.services.notification</code>. See <a href="../../reference/http-routes.html">HTTP routes</a>.</li>
 </ul>
 
 <h2 id="when-to-update" data-toc="When to run -u">When to run -u</h2>
@@ -943,8 +950,16 @@
   <li>Root element must be <code>&lt;sumeru&gt;</code> only — not legacy ERP root tags.</li>
   <li>Do not reuse menu <code>name</code> values across addons.</li>
   <li>Do not list menus before actions in <code>data</code>.</li>
-  <li>Do not invent widget names; use the list above.</li>
+  <li>Do not invent widget names; use the <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a>.</li>
   <li>Do not skip <code>-u</code> after XML edits and wonder why the UI is stale.</li>
+</ul>
+<h2 id="swc-reference" data-toc="SWC reference">SWC reference</h2>
+<ul>
+  <li><a href="../../reference/field-attributes.html">Field attributes</a> — complete <code>&lt;field&gt;</code> attribute table</li>
+  <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> — all built-in widgets and options</li>
+  <li><a href="../../reference/view-types.html">View types</a> — list, form, kanban, pivot, graph, calendar</li>
+  <li><a href="../build/build-module-with-swc.html">Build a module with SWC</a> — end-to-end addon walkthrough</li>
+  <li><a href="../concepts/arch-json-pipeline.html">Arch JSON pipeline</a> — how XML becomes workspace JSON</li>
 </ul>
 <h2 id="next-step" data-toc="Next step">Next step</h2>
 <p>Configure export and import ACL in <a href="report-engine.html">Report engine</a>, then gate menus in <a href="security-and-access.html">Security &amp; access</a>.</p>

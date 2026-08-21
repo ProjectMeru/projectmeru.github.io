@@ -78,7 +78,7 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>HTTP routes</h1>
-        <p class="docs-lede">Route registration: <code>sumeru/core/server/web/routes_table.go</code>. Constants: <code>web_constants.go</code>.</p>
+        <p class="docs-lede">Route registration: <code>sumeru/core/server/web/routes_table.go</code>. Constants: <code>web_constants.go</code>. Live workspace I/O is <strong>SWC JSON</strong> (<code>GET /web/swc/workspace</code>) plus <strong>JSON-RPC</strong> (<code>POST /api/rpc</code>). Do not document removed HTML-workspace POSTs as live HTTP.</p>
         <h2 id="auth-modes">Auth modes</h2>
         <table><thead><tr><th>Mode</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><strong>None</strong></td><td>Public (login, health, RPC with own auth)</td></tr>
@@ -109,15 +109,23 @@
         <tr><td>GET</td><td><code>/</code></td><td>Redirect → <code>/web/home</code></td></tr>
         </tbody></table>
         <h2 id="workspace">Workspace</h2>
+        <p>The <strong>live</strong> workspace is SWC: <code>GET /web/swc/workspace</code> plus JSON-RPC (<code>POST /api/rpc</code>). Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="swc-api.html">SWC API</a> and <a href="swc-notifications.html">SWC notifications</a>. Many2one typeahead and object buttons also go through RPC, not dedicated HTTP POSTs.</p>
         <table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td>GET</td><td><code>/web</code></td><td>Workspace (list/form/kanban) — query: <code>action</code>, <code>menu_id</code>, <code>view_type</code>, <code>id</code>, <code>edit</code></td></tr>
-        <tr><td>GET</td><td><code>/web/rel/search</code></td><td>Many2one typeahead search</td></tr>
-        <tr><td>POST</td><td><code>/web/record/save</code></td><td>Save form — on success redirects with <code>?msg=save_ok_created</code> or <code>?msg=save_ok_updated</code> (top-right toast); on failure redirects with error flash banner and optional <code>?field_errors=…</code> for field highlight</td></tr>
-        <tr><td>POST</td><td><code>/web/record/delete</code></td><td>Delete record — on failure redirects with error flash</td></tr>
-        <tr><td>POST</td><td><code>/web/kanban/move</code></td><td>Move kanban card — success toast in browser (no full reload)</td></tr>
-        <tr><td>POST</td><td><code>/web/chatter/post</code></td><td>Post message (mail addon) — on failure redirects with error flash</td></tr>
+        <tr><td>GET</td><td><code>/web</code></td><td>Workspace shell (SWC SPA) — query: <code>action</code>, <code>menu_id</code>, <code>view_type</code>, <code>id</code>, <code>edit</code>, <code>model</code>, <code>filter</code>, <code>sort</code>, <code>offset</code>, <code>q</code></td></tr>
+        <tr><td>GET</td><td><code>/web/swc/workspace</code></td><td>SWC workspace JSON (arch + records)</td></tr>
+        <tr><td>GET</td><td><code>/web/swc/bus</code></td><td>WebSocket live outbox events (plain GET → 404)</td></tr>
+        <tr><td>GET</td><td><code>/web/swc/chatter</code></td><td>Chatter messages JSON</td></tr>
+        <tr><td>POST</td><td><code>/web/chatter/post</code></td><td>Post message (mail addon)</td></tr>
         <tr><td>POST</td><td><code>/web/company/switch</code></td><td>Switch active company</td></tr>
-        <tr><td>POST</td><td><code>/web/action/object</code></td><td>Run object button — on failure redirects with error flash</td></tr>
+        </tbody></table>
+        <h3 id="removed-not-registered">Removed (not registered)</h3>
+        <p>These constants may remain in tests. They are <strong>not</strong> HTTP routes. SWC uses JSON-RPC only for CRUD and object actions. Historical <code>?msg=</code> flash query values are not a live CRUD path.</p>
+        <table><thead><tr><th>Method</th><th>Path</th><th>Was</th></tr></thead><tbody>
+        <tr><td>GET</td><td><code>/web/rel/search</code></td><td>Many2one typeahead — use RPC</td></tr>
+        <tr><td>POST</td><td><code>/web/record/save</code></td><td>HTML form save + <code>?msg=</code></td></tr>
+        <tr><td>POST</td><td><code>/web/record/delete</code></td><td>HTML form delete</td></tr>
+        <tr><td>POST</td><td><code>/web/kanban/move</code></td><td>HTML kanban drag</td></tr>
+        <tr><td>POST</td><td><code>/web/action/object</code></td><td>HTML object button</td></tr>
         </tbody></table>
         <h2 id="report-exchange">Report exchange</h2>
         <p>Session auth required. See <a href="../guides/build/report-engine.html">Report engine</a> for flows and limits.</p>
@@ -159,22 +167,15 @@
         </tbody></table>
         <p><strong>Response:</strong> redirect to <code>sys.bulk.import</code> mapping form.</p>
         <h3 id="post-bulk-confirm-cancel">POST bulk confirm / cancel</h3>
-        <p>Form POST with CSRF. Used by alternate confirm path; primary UX uses object actions on the mapping form (<code>action_confirm_import</code>, <code>action_cancel_import</code> via <code>/web/action/object</code>).</p>
+        <p>Form POST with CSRF. Used by alternate confirm path; primary UX uses object actions on the mapping form (<code>action_confirm_import</code>, <code>action_cancel_import</code> via JSON-RPC <code>call</code>).</p>
         <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><code>id</code></td><td>Batch id (<code>sys.bulk.import</code>)</td></tr>
         <tr><td><code>column_mapping</code></td><td>JSON map of CSV header → model field</td></tr>
         <tr><td><code>skip_invalid</code></td><td><code>1</code> to skip invalid rows (confirm handler)</td></tr>
         </tbody></table>
         <p><strong>Confirm response:</strong> redirect to stored <code>next</code> URL with <code>?msg=imported_N_updated_N_skipped_N</code>.</p>
-        <h3 id="workspace-flash-query-msg">Workspace flash query (<code>?msg=</code>)</h3>
-        <table><thead><tr><th>Value</th><th>UX</th></tr></thead><tbody>
-        <tr><td><code>save_ok_created</code></td><td>Success toast — record created</td></tr>
-        <tr><td><code>save_ok_updated</code></td><td>Success toast — changes saved</td></tr>
-        <tr><td><code>stage_updated</code></td><td>Success toast — pipeline stage changed</td></tr>
-        <tr><td><code>save_error:…</code></td><td>Inline error flash banner</td></tr>
-        <tr><td><code>imported_…</code></td><td>Inline success flash for CSV import</td></tr>
-        </tbody></table>
-        <p>Failed saves may also include <strong><code>?field_errors=field1,field2</code></strong> so the form highlights invalid fields on load.</p>
+        <h3 id="historical-msg-flash-removed">Historical <code>?msg=</code> flash (removed)</h3>
+        <p>Not registered for CRUD. SWC toasts come from <code>env.services.notification</code>, not query strings. Bulk confirm may still redirect with an <code>imported_…</code> query on the HTML mapping path.</p>
         <h2 id="user-preferences">User preferences</h2>
         <table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead><tbody>
         <tr><td>POST</td><td><code>/web/user/pinned-apps</code></td><td>Save pinned module list (JSON body)</td></tr>
@@ -183,13 +184,15 @@
         <table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead><tbody>
         <tr><td>POST</td><td><code>/web/action/reset_password</code></td><td>Admin reset user password</td></tr>
         <tr><td>POST</td><td><code>/web/action/create_api_key</code></td><td>Create API key for user</td></tr>
-        <tr><td>POST</td><td><code>/web/action/object</code></td><td>Run registered object action on a record</td></tr>
         </tbody></table>
+        <p>Registered object actions on records run through JSON-RPC <code>call</code>, not <code>POST /web/action/object</code> (removed).</p>
         <h2 id="addon-routes">Addon routes</h2>
         <p>Addons register additional routes via <code>router.Register(method, path, auth, handler)</code>. Example: invoice print in the <code>account</code> addon — see <a href="../addons/howtos/custom-http-route.html">Custom HTTP route</a>.</p>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="json-rpc.html">JSON-RPC</a></li>
+        <li><a href="swc-api.html">SWC API</a></li>
+        <li><a href="swc-notifications.html">SWC notifications</a></li>
         <li><a href="../guides/concepts/web-and-render.html">Web and render</a></li>
         <li><a href="../guides/build/report-engine.html">Report engine</a></li>
         </ul>

@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manifest and Layout | Sumeru Docs</title>
-  <meta name="description" content="Manifest and Layout">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/manifest-and-layout.html">
+  <title>SWC API reference | Sumeru Docs</title>
+  <meta name="description" content="SWC API reference">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/swc-api.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
@@ -72,77 +72,108 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Manifest and layout</h1>
-        <h2 id="standard-directory-layout">Standard directory layout</h2>
-        <pre class="docs-pre"><code>&lt;technical_name&gt;/
-  manifest.json
-  init.go              # blank-import subpackages; optional event hooks
-  models/              # struct + sdk.Model; zmodels.go generated
-  services/            # hooks, business logic (optional)
-  wizard/              # transient models (optional)
-  views/               # XML menus, actions, views
-  security/            # groups, rules, sys.access.csv
-  data/                # seed/demo XML (optional)
-  controllers/         # HTTP routes (optional)
-  test/                # integration tests (optional)</code></pre>
-        <p class="docs-lede">Folder name must match manifest <code>name</code> (<code>^[a-z][a-z0-9_]*$</code>).</p>
-        <h2 id="manifestjson">manifest.json</h2>
-        <pre class="docs-pre"><code>{
-  "name": "crm",
-  "display_name": "CRM",
-  "version": "1.0.0",
-  "depends": ["base", "contacts", "mail", "utm"],
-  "application": true,
-  "data": [
-    "security/security.xml",
-    "security/crm_rules.xml",
-    "security/sys.access.csv",
-    "data/crm_stage_data.xml",
-    "views/crm_lead_views.xml",
-    "views/menus.xml"
-  ]
-}</code></pre>
-        <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><code>name</code></td><td>Technical module name (directory name)</td></tr>
-        <tr><td><code>depends</code></td><td>Modules that must install first</td></tr>
-        <tr><td><code>application</code></td><td><code>true</code> → shows as app tile on Home</td></tr>
-        <tr><td><code>data</code></td><td>XML/CSV load order on install/update</td></tr>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>SWC API reference</h1>
+        <h2 id="http-endpoints">HTTP endpoints</h2>
+        <table><thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead><tbody>
+        <tr><td>GET</td><td><code>/web/swc/workspace</code></td><td>Workspace payload (arch + records)</td></tr>
+        <tr><td>WS</td><td><code>/web/swc/bus</code></td><td>Live outbox events (authenticated WebSocket; plain GET → 404)</td></tr>
         </tbody></table>
-        <p><strong>Bridge modules</strong> (e.g. <code>sale_crm</code>): <code>"application": false</code>, <code>"data": []</code>, logic in <code>init.go</code> only.</p>
-        <p>Wizard and other cross-package Many2One fields use <code>sdk.Many2One[sdk.Any]</code> with <code>comodel=</code> (typed <code>T</code> only works in the same Go package).</p>
-        <h2 id="initgo">init.go</h2>
-        <p>In <strong><code>sumeru_addons</code></strong>, keep a hand-written <code>init.go</code> that blank-imports subpackages so <code>init()</code> runs (<code>models</code>, <code>services</code>, <code>wizard</code>). Do not put <code>log.Println</code> in <code>init()</code>.</p>
-        <pre class="docs-pre"><code>package crm
-
-import (
-    _ "sumeru_addons/crm/models"
-    _ "sumeru_addons/crm/services"
-    _ "sumeru_addons/crm/wizard"
-)</code></pre>
-        <p>In <strong><code>sumeru_custom_addons</code></strong>, workspace <code>make generate</code> <strong>overwrites</strong> each addon’s <code>init.go</code> with a models-only blank import (<code>// Code generated by sumeru-import-gen; DO NOT EDIT.</code>). Put hooks and object actions in <code>models/</code> (see <code>addons/my_module</code>). Do not rely on a hand-written custom <code>init.go</code> surviving generate.</p>
-        <h2 id="security-load-order">Security load order</h2>
-        <p>Load groups and rules <strong>before</strong> views and menus that reference them:</p>
-        <ol>
-        <li><code>security/security.xml</code> — groups</li>
-        <li><code>security/*_rules.xml</code> — record rules</li>
-        <li><code>security/sys.access.csv</code> — model ACLs</li>
-        <li><code>data/</code> — seed records</li>
-        <li><code>views/</code> — actions and menus</li>
-        </ol>
-        <h2 id="custom-workspace">Custom workspace</h2>
-        <p>From <code>sumeru_custom_addons</code>:</p>
-        <pre class="docs-pre is-shell"><code>make generate   # refresh blank imports
-make run</code></pre>
-        <p>List <code>../sumeru_addons</code> <strong>before</strong> <code>./addons</code> on <code>addons_path</code> so custom modules can extend standard apps.</p>
+        <p class="docs-lede">Query params for <code>/web/swc/workspace</code>:</p>
+        <table><thead><tr><th>Param</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>action</code></td><td>Window action id (optional if <code>model</code> is set)</td></tr>
+        <tr><td><code>menu_id</code></td><td>Menu context</td></tr>
+        <tr><td><code>view_type</code></td><td><code>list</code>, <code>form</code>, <code>kanban</code>, <code>graph</code>, <code>pivot</code>, <code>calendar</code></td></tr>
+        <tr><td><code>id</code></td><td>Record id (form)</td></tr>
+        <tr><td><code>edit</code></td><td><code>1</code> for edit mode</td></tr>
+        <tr><td><code>q</code></td><td>List/kanban search (<code>ilike</code> across view columns)</td></tr>
+        <tr><td><code>model</code></td><td>Load workspace by model when <code>action</code> is omitted</td></tr>
+        <tr><td><code>filter</code></td><td>Named search-view filters (comma-separated)</td></tr>
+        <tr><td><code>sort</code></td><td>List sort (<code>field</code> or <code>-field</code>)</td></tr>
+        <tr><td><code>offset</code></td><td>List page offset</td></tr>
+        </tbody></table>
+        <h3 id="websocket-bus">WebSocket bus</h3>
+        <p>Upgrade <code>GET /web/swc/bus</code> with standard WebSocket headers after session login. The server forwards in-process outbox queue messages as JSON:</p>
+        <pre class="docs-pre"><code>{ "channel": "record.updated", "payload": { "model": "crm.lead", "id": 1 } }</code></pre>
+        <p>Non-upgrade GET requests return <strong>404</strong> (no error log). Enable in bootstrap with <code>busEnabled: true</code>; the client connects from <code>ShellLayout</code> when set.</p>
+        <h2 id="workspace-json-schema">Workspace JSON schema</h2>
+        <pre class="docs-pre"><code>{
+  "actionId": 12,
+  "menuId": "5",
+  "viewType": "list",
+  "model": "sale.order",
+  "recordId": 0,
+  "formEdit": false,
+  "csrfToken": "…",
+  "arch": {
+    "type": "list",
+    "model": "sale.order",
+    "fields": [{ "name": "name", "type": "char" }],
+    "kanban": { "groupField": "stage_id", "draggable": true, "quickCreate": true, "columns": [] }
+  },
+  "records": [],
+  "viewTabs": [{ "mode": "list", "label": "List", "href": "/web?…", "active": true }],
+  "breadcrumbs": [],
+  "listSearch": "",
+  "listTotal": 42,
+  "listSort": "",
+  "listOffset": 0,
+  "listFilter": "",
+  "formBaseQuery": "action=12&amp;menu_id=5&amp;view_type=form&amp;id=7",
+  "defaults": { "state": "draft" }
+}</code></pre>
+        <p><code>defaults</code> comes from the window action context keys <code>default_*</code> (for example <code>{"default_type":"opportunity"}</code> → <code>"type": "opportunity"</code>). New forms merge them into <code>record</code>; kanban quick-create merges them into <code>rpc.create</code>.</p>
+        <p>Records are redacted with the same rules as ORM <code>RedactRecordForRead</code>.</p>
+        <p>See <a href="../guides/arch-json-pipeline.html">Arch JSON pipeline</a> for the XML → JSON pipeline.</p>
+        <h2 id="json-rpc-primary-data-plane">JSON-RPC (primary data plane)</h2>
+        <p>SWC uses <code>POST /api/rpc</code> for:</p>
+        <ul>
+        <li><code>search_read</code>, <code>read</code>, <code>write</code>, <code>create</code>, <code>unlink</code></li>
+        <li><code>read_group</code> (pivot/graph)</li>
+        <li><code>call</code> (object buttons; optional vals as <code>args[2]</code>)</li>
+        <li><code>onchange</code></li>
+        </ul>
+        <p>Send header <code>X-CSRF-Token</code> with the bootstrap <code>csrfToken</code>.</p>
+        <p>Client helper:</p>
+        <pre class="docs-pre"><code>await rpc.callMethod("crm.lead", "action_merge_wizard", recordId, {
+  active_ids: "3,7",
+});</code></pre>
+        <h2 id="client-registry">Client registry</h2>
+        <pre class="docs-pre"><code>registry.category("fields").add("many2one", Many2OneField);
+registry.category("views").add("list", ListView);
+registry.category("services").add("rpc", rpcService);
+registry.category("main_components").add("shell", ShellLayout);</code></pre>
+        <p>Categories: <code>fields</code>, <code>views</code>, <code>services</code>, <code>main_components</code>, <code>actions</code>, <code>systray</code>.</p>
+        <h2 id="recordstore">RecordStore</h2>
+        <ul>
+        <li><code>fromPayload(model, id, data)</code> → <code>SwcRecord</code></li>
+        <li><code>save(rec)</code> → RPC <code>write</code> / <code>create</code></li>
+        <li><code>unlink(rec)</code> → RPC <code>unlink</code></li>
+        <li><code>validate(rec, requiredFields)</code> — client-side required check before save (<code>SwcError</code> code <code>validation</code>)</li>
+        <li><code>applyOnchange(rec, fieldName)</code> — RPC onchange</li>
+        </ul>
+        <p>Write-path toasts: <a href="swc-notifications.html">SWC notifications</a>.</p>
+        <h2 id="bootstrap-window-swc-bootstrap">Bootstrap (<code>window.__SWC_BOOTSTRAP__</code>)</h2>
+        <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>rpcUrl</code></td><td><code>/api/rpc</code></td></tr>
+        <tr><td><code>swcApiBase</code></td><td><code>/web/swc</code></td></tr>
+        <tr><td><code>user</code>, <code>company</code>, <code>companies</code></td><td>Shell chrome</td></tr>
+        <tr><td><code>topMenus</code>, <code>sidebarMenus</code></td><td>Navigation</td></tr>
+        <tr><td><code>apps</code>, <code>pinnedApps</code></td><td>App launcher index</td></tr>
+        <tr><td><code>workspace</code></td><td>Initial route hints</td></tr>
+        <tr><td><code>busEnabled</code></td><td>When true, client opens <code>/web/swc/bus</code> WebSocket</td></tr>
+        <tr><td><code>toasts</code></td><td>Optional <code>NotificationService.bootstrap</code> messages</td></tr>
+        </tbody></table>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li><a href="core/guides/addons-and-modules.html">Core: Addons and modules</a></li>
-        <li><a href="core/howtos/install-module.html">Install a module</a></li>
+        <li><a href="../guides/concepts/swc-architecture.html">SWC architecture</a></li>
+        <li><a href="swc-notifications.html">SWC notifications</a></li>
+        <li><a href="field-attributes.html">Field attributes</a></li>
+        <li><a href="swc-widget-catalog.html">SWC widget catalog</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>

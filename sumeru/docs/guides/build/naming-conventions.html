@@ -110,7 +110,7 @@
         <p>While we use dots in the *string identifier* (e.g., <code>"core.user"</code>), the underlying database tables follow the snake_case convention with underscores (e.g., <code>core_user</code>).</p>
         <h2 id="go-packages-sdk-vs-addon-base">Go packages: <code>sdk</code> vs addon <code>base</code></h2>
         <table><thead><tr><th>Path</th><th>Go package</th><th>Role</th></tr></thead><tbody>
-        <tr><td><code>sumeru/core/sdk</code></td><td><code>sdk</code></td><td>Stable facade for addon/integration code (<code>RegisterModel</code>, field types, Search/Create, …). Prefer this over importing <code>sumeru/core/orm</code> directly.</td></tr>
+        <tr><td><code>sumeru/core/sdk</code></td><td><code>sdk</code></td><td>Stable facade for addon code (<code>sdk.Model</code>, field markers, Search/Create, …). Prefer this over importing <code>sumeru/core/orm</code> directly.</td></tr>
         <tr><td><code>sumeru/addons/base</code></td><td><code>base</code></td><td>Installable kernel addon (manifest name <code>"base"</code>). Models live under <code>addons/base/models</code> (<code>package models</code>).</td></tr>
         </tbody></table>
         <p>Do <strong>not</strong> rename the addon package or technical module name <code>"base"</code>. Only the former Go facade <code>sumeru/core/base</code> is now <code>sumeru/core/sdk</code>.</p>

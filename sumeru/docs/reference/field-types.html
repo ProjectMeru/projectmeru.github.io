@@ -78,49 +78,28 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Field types</h1>
-        <p class="docs-lede">Reference for model fields registered with <code>sdk.RegisterModel</code>. Source: <code>sumeru/core/orm/model.go</code>, <code>registry.go</code>.</p>
+        <p class="docs-lede">Models embed <strong><code>sdk.Model</code></strong> and use typed field markers. Schema is inferred at registration from Go types and <strong><code>sumeru</code></strong> struct tags.</p>
         <h2 id="scalar-and-relational-types">Scalar and relational types</h2>
-        <table><thead><tr><th>Type</th><th>Go constant</th><th>PostgreSQL column</th><th>Notes</th></tr></thead><tbody>
-        <tr><td><code>char</code></td><td><code>Char</code></td><td><code>VARCHAR(255)</code></td><td>Short text</td></tr>
-        <tr><td><code>text</code></td><td><code>Text</code></td><td><code>TEXT</code></td><td>Long text</td></tr>
-        <tr><td><code>integer</code></td><td><code>Integer</code></td><td><code>BIGINT</code></td><td>Whole numbers</td></tr>
-        <tr><td><code>float</code></td><td><code>Float</code></td><td><code>DOUBLE PRECISION</code></td><td>Floating point</td></tr>
-        <tr><td><code>numeric</code></td><td><code>Numeric</code></td><td><code>NUMERIC(16,4)</code></td><td>Exact decimals (money)</td></tr>
-        <tr><td><code>boolean</code></td><td><code>Boolean</code></td><td><code>BOOLEAN</code></td><td>true/false</td></tr>
-        <tr><td><code>date</code></td><td><code>Date</code></td><td><code>DATE</code></td><td>Date only</td></tr>
-        <tr><td><code>datetime</code></td><td><code>DateTime</code></td><td><code>TIMESTAMPTZ</code></td><td>Timestamp with timezone</td></tr>
-        <tr><td><code>selection</code></td><td><code>Selection</code></td><td><code>VARCHAR(50)</code></td><td>Fixed choice list</td></tr>
-        <tr><td><code>json</code></td><td><code>Json</code></td><td><code>JSONB</code></td><td>Structured JSON</td></tr>
-        <tr><td><code>many2one</code></td><td><code>Many2One</code></td><td><code>BIGINT</code></td><td>FK to related model id</td></tr>
-        <tr><td><code>many2many</code></td><td><code>Many2Many</code></td><td>*(no column)*</td><td>Relation table; see limits below</td></tr>
-        <tr><td><code>one2many</code></td><td><code>One2Many</code></td><td>*(no column)*</td><td>Inverse relation; see limits below</td></tr>
+        <table><thead><tr><th>Go type</th><th>PostgreSQL</th><th>Notes</th></tr></thead><tbody>
+        <tr><td><code>sdk.String</code></td><td><code>VARCHAR</code> (default 255)</td><td><code>size=</code> for length</td></tr>
+        <tr><td><code>sdk.Text</code></td><td><code>TEXT</code></td><td></td></tr>
+        <tr><td><code>sdk.Boolean</code></td><td><code>BOOLEAN</code></td><td></td></tr>
+        <tr><td><code>sdk.Integer</code></td><td><code>BIGINT</code></td><td></td></tr>
+        <tr><td><code>sdk.Float</code></td><td><code>REAL</code></td><td>32-bit</td></tr>
+        <tr><td><code>sdk.Float64</code></td><td><code>DOUBLE PRECISION</code></td><td>64-bit</td></tr>
+        <tr><td><code>sdk.Numeric</code></td><td><code>NUMERIC(p,s)</code></td><td><code>precision=</code>, <code>scale=</code></td></tr>
+        <tr><td><code>sdk.Date</code></td><td><code>DATE</code></td><td></td></tr>
+        <tr><td><code>sdk.DateTime</code></td><td><code>TIMESTAMPTZ</code></td><td></td></tr>
+        <tr><td><code>sdk.Json</code></td><td><code>JSONB</code></td><td></td></tr>
+        <tr><td><code>sdk.Many2One[T]</code></td><td><code>BIGINT</code></td><td>FK; <code>comodel=</code> when using <code>sdk.Any</code></td></tr>
+        <tr><td><code>sdk.One2Many[T]</code></td><td>*(no column)*</td><td>inverse relation</td></tr>
+        <tr><td><code>sdk.Many2Many[T]</code></td><td>*(no column)*</td><td><code>table=</code>, <code>left=</code>, <code>right=</code></td></tr>
         </tbody></table>
-        <h2 id="fielddefinition-attributes">FieldDefinition attributes</h2>
-        <table><thead><tr><th>Attribute</th><th>Applies to</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><code>Required</code></td><td>all</td><td>NOT NULL on create/write</td></tr>
-        <tr><td><code>String</code></td><td>all</td><td>Human label in UI and errors</td></tr>
-        <tr><td><code>DefaultVal</code></td><td>scalars</td><td>Default on create</td></tr>
-        <tr><td><code>Selection</code></td><td><code>selection</code></td><td>Allowed values <code>[]string{"a","b"}</code></td></tr>
-        <tr><td><code>Relation</code></td><td>relational</td><td>Target model name</td></tr>
-        <tr><td><code>RelationTable</code></td><td><code>many2many</code></td><td>Join table name</td></tr>
-        <tr><td><code>Column1</code>, <code>Column2</code></td><td><code>many2many</code></td><td>Join table column names</td></tr>
-        <tr><td><code>Unique</code></td><td>scalars</td><td>UNIQUE index</td></tr>
-        <tr><td><code>Index</code></td><td>scalars</td><td>Non-unique index</td></tr>
-        </tbody></table>
-        <h2 id="relational-field-limits">Relational field limits</h2>
-        <ul>
-        <li><strong>Many2one</strong> — stored as <code>BIGINT</code> FK; fully supported for CRUD and search.</li>
-        <li><strong>Many2many / One2many</strong> — no direct column on the parent table. UI can display relations; persistence is limited. Special cases (<code>company_ids</code>, <code>security_group_ids</code>) have dedicated handling in the kernel.</li>
-        <li>Do not assume automatic M2M/O2M write-through on arbitrary models without verifying behaviour.</li>
-        </ul>
-        <h2 id="model-inheritance">Model inheritance</h2>
-        <p><strong>ORM model <code>_inherit</code> is not supported.</strong> Extend behaviour with bridge modules, view XML inherit, or new models — not by merging Go struct definitions.</p>
-        <h2 id="see-also">See also</h2>
-        <ul>
-        <li><a href="../guides/build/models-and-fields.html">Models & fields</a></li>
-        <li><a href="domain-filters.html">Domain filters</a></li>
-        <li><a href="widgets-and-views.html">Widgets & views</a></li>
-        </ul>
+        <p>Selection fields use <strong><code>sdk.String</code></strong> with <strong><code>selection=key:Label,...</code></strong> in the tag.</p>
+        <h2 id="common-struct-tags">Common struct tags</h2>
+        <p><code>required</code>, <code>unique</code>, <code>index</code>, <code>default=</code>, <code>string=</code> (label), <code>column=</code>, <code>comodel=</code>, <code>selection=</code></p>
+        <h2 id="registration">Registration</h2>
+        <p>Generated <strong><code>models/zmodels.go</code></strong> calls <strong><code>sdk.MustRegister</code></strong> on <code>make generate</code>. Authors do not write <code>Fields()</code> or <code>init()</code> registration.</p>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>

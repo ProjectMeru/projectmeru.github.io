@@ -113,7 +113,7 @@ sumeru_custom_addons/   # Run server here + custom addons</code></pre>
         <table><thead><tr><th>Mechanism</th><th>How</th></tr></thead><tbody>
         <tr><td><code>addons_path</code></td><td>Later roots override duplicate manifest names</td></tr>
         <tr><td>Manifest <code>depends</code></td><td>Install order and XML load order</td></tr>
-        <tr><td>Go <code>sdk.RegisterModel</code></td><td>Tables and ORM metadata</td></tr>
+        <tr><td>Go <code>sdk.MustRegister</code> (generated)</td><td>Tables and ORM metadata</td></tr>
         <tr><td>XML data</td><td>Views, menus, security, seed data</td></tr>
         <tr><td><code>event.Subscribe</code></td><td>Cross-module reactions</td></tr>
         <tr><td>Many2One fields</td><td>Relations to <code>core.*</code> and other modules</td></tr>

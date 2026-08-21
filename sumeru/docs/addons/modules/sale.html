@@ -92,9 +92,9 @@
         <tr><td><code>cancel</code></td><td>Cancelled</td></tr>
         </tbody></table>
         <h2 id="events">Events</h2>
-        <p><code>record.updated</code> on <code>sale.order</code>: when <code>state=sale</code> → <code>invoice_status=to invoice</code>; cancel resets status.</p>
+        <p><code>record.updated</code> on <code>sale.order</code> (hook in <code>services/hooks.go</code>): when <code>state=sale</code> → <code>invoice_status=to invoice</code>; cancel resets status.</p>
         <h2 id="menus">Menus</h2>
-        <p><strong>Sales</strong> → Quotations, Sales Orders, Order Lines</p>
+        <p><strong>Sales</strong> → Quotations (<code>state</code> in <code>draft,sent</code>, default <code>draft</code>), Sales Orders (<code>state=sale</code>), Order Lines.</p>
         <h2 id="security">Security</h2>
         <p>Groups: Sales User, Sales Manager. Record rules: own vs all orders.</p>
         <h2 id="integration">Integration</h2>
@@ -107,7 +107,7 @@
         <h2 id="paths">Paths</h2>
         <ul>
         <li><code>sumeru_addons/sale/models/sale_order.go</code></li>
-        <li><code>sumeru_addons/sale/init.go</code></li>
+        <li><code>sumeru_addons/sale/services/hooks.go</code></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

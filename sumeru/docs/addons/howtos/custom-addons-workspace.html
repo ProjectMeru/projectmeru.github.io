@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isolation model | Sumeru Docs</title>
-  <meta name="description" content="Clarify tenancy expectations before deployment planning.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
+  <title>Custom addons workspace | Sumeru Docs</title>
+  <meta name="description" content="Run from sumeru_custom_addons with make new, make setup, and make generate.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/custom-addons-workspace.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html">
-  <meta property="og:title" content="Isolation model | Sumeru Docs">
-  <meta property="og:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Isolation model | Sumeru Docs">
-  <meta name="twitter:description" content="Clarify tenancy expectations before deployment planning.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Isolation model",
-  "description": "Clarify tenancy expectations before deployment planning.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -93,46 +72,52 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Isolation model</h1>
-        <p class="docs-lede">Clarify tenancy expectations before deployment planning.</p>
-<h2 id="one-database-model">One-database model</h2>
-<p>A Sumeru deployment is one PostgreSQL database with multi-company records and group ACLs. Company context filters and UX (company switcher) are not the same as separate tenants with separate databases.</p>
-<h2 id="what-that-means">What that means</h2>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Expectation</th><th>Reality in core today</th></tr></thead>
-  <tbody>
-    <tr><td>Separate customers on one process</td><td>Not a hard SaaS isolation boundary</td></tr>
-    <tr><td>Company_id on records / users</td><td>Supported for multi-company operations</td></tr>
-    <tr><td>Row-level rules</td><td>Evolving; verify in ORM security before relying on them</td></tr>
-  </tbody>
-</table>
-</div>
-<div class="docs-callout is-caution">
-  <p><strong>Planning.</strong> If you need strong tenant isolation, use separate databases (and usually separate processes) per tenant until a dedicated tenancy story exists.</p>
-</div>
-<h2 id="checklist">Planning checklist</h2>
-<ul>
-  <li>Decide: multi-company single org vs true multi-tenant.</li>
-  <li>Map groups per company with intent.</li>
-  <li>Keep backups and credentials per deployment boundary.</li>
-</ul>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not market shared-DB company switching as full tenant isolation.</li>
-  <li>Do not mix unrelated customers' data without a written isolation design.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Return to <a href="overview.html">Security overview</a> or <a href="../build/deployment.html">Deployment</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/security/api-keys.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; API keys</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>How to run from `sumeru_custom_addons`</h1>
+        <p class="docs-lede"><strong>Goal:</strong> keep <strong><code>sumeru/</code></strong> free of local addon churn while still importing <strong><code>sumeru</code></strong> as a library.</p>
+        <h2 id="summary">Summary</h2>
+        <p>The sibling directory <strong><code>sumeru_custom_addons/</code></strong> is a small Go module with:</p>
+        <ul>
+        <li>Its own <strong><code>go.mod</code></strong> and <strong><code>replace sumeru => ../sumeru</code></strong></li>
+        <li>A generated <strong><code>addonimports/zimports.go</code></strong> (package <strong><code>addonimports</code></strong>) listing blank imports for addons under <strong><code>sumeru_custom_addons/addons/</code></strong></li>
+        <li>Its own <strong><code>sumeru.conf</code></strong> (often with <strong><code>sumeru_home</code></strong> pointing at the core checkout)</li>
+        </ul>
+        <p>Canonical sample addon: <strong><code>addons/my_module</code></strong>. Makefile targets: <code>setup | generate | new MODULE=x | run | build | install | update</code>.</p>
+        <h2 id="steps">Steps</h2>
+        <ol>
+        <li>Copy <strong><code>sumeru.conf.example</code></strong> → <strong><code>sumeru.conf</code></strong> and set database + <strong><code>addons_path</code></strong> (typically <strong><code>../sumeru/addons</code></strong>, <strong><code>../sumeru_addons</code></strong>, and <strong><code>./addons</code></strong> for core + standard + custom modules).</li>
+        </ol>
+        <ol>
+        <li>From <strong><code>sumeru_custom_addons/</code></strong>:</li>
+        </ol>
+        <p>```bash</p>
+        <p>make setup</p>
+        <p>make new MODULE=my_module</p>
+        <p>make install MODULES=my_module</p>
+        <p>make run</p>
+        <p>```</p>
+        <p>| Target | Effect |</p>
+        <p>| ------ | ------ |</p>
+        <p>| <code>make setup</code> | Wire <code>go.mod</code> replaces, generate imports, create <code>sumeru.conf</code> if missing |</p>
+        <p>| <code>make generate</code> | Refresh <code>addonimports/zimports.go</code>, each custom addon’s <code>zmodels.go</code> / <code>zrefs.go</code>, and <strong>overwrite</strong> that addon’s <code>init.go</code> to models-only |</p>
+        <p>| <code>make new MODULE=x</code> | Scaffold with <code>sumeru-bp</code> into <code>addons/</code>, then generate |</p>
+        <p>| <code>make install MODULES=x</code> | <code>-i</code> then exit |</p>
+        <ol>
+        <li>After adding a model struct, run <strong><code>make generate</code></strong> again. Do not hand-edit generated files.</li>
+        </ol>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><strong><a href="sumeru_custom_addons/README.html"><code>sumeru_custom_addons/README.md</code></a></strong> (authoritative detail)</li>
+        <li><a href="../../guides/build/creating-an-addon.html">Creating an addon</a></li>
+        <li><a href="scaffold-new-addon.html">Scaffold a new addon</a></li>
+        <li><a href="../../guides/build/tooling.html">Tooling</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

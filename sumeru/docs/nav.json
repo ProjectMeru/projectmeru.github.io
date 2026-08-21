@@ -78,6 +78,10 @@
             "href": "guides/build/view-inheritance.html"
           },
           {
+            "title": "Build a module with SWC",
+            "href": "guides/build/build-module-with-swc.html"
+          },
+          {
             "title": "Report engine",
             "href": "guides/build/report-engine.html"
           },
@@ -152,6 +156,26 @@
             "href": "guides/concepts/web-and-render.html"
           },
           {
+            "title": "SWC architecture",
+            "href": "guides/concepts/swc-architecture.html"
+          },
+          {
+            "title": "SWC widgets",
+            "href": "guides/concepts/swc-widgets.html"
+          },
+          {
+            "title": "Arch JSON pipeline",
+            "href": "guides/concepts/arch-json-pipeline.html"
+          },
+          {
+            "title": "Sum template",
+            "href": "guides/concepts/sum-template.html"
+          },
+          {
+            "title": "SWC Vision devtools",
+            "href": "guides/concepts/swc-devtools.html"
+          },
+          {
             "title": "Event bus",
             "href": "guides/concepts/event-bus.html"
           },
@@ -214,6 +238,14 @@
             "href": "reference/json-rpc.html"
           },
           {
+            "title": "SWC API",
+            "href": "reference/swc-api.html"
+          },
+          {
+            "title": "SWC notifications",
+            "href": "reference/swc-notifications.html"
+          },
+          {
             "title": "Events & cron",
             "href": "reference/events-and-cron.html"
           },
@@ -234,12 +266,24 @@
             "href": "reference/field-types.html"
           },
           {
+            "title": "Field attributes",
+            "href": "reference/field-attributes.html"
+          },
+          {
             "title": "Domain filters",
             "href": "reference/domain-filters.html"
           },
           {
             "title": "Widgets & views",
             "href": "reference/widgets-and-views.html"
+          },
+          {
+            "title": "SWC widget catalog",
+            "href": "reference/swc-widget-catalog.html"
+          },
+          {
+            "title": "View types",
+            "href": "reference/view-types.html"
           },
           {
             "title": "Limitations",
@@ -282,6 +326,10 @@
           {
             "title": "Scaffold a new addon",
             "href": "addons/howtos/scaffold-new-addon.html"
+          },
+          {
+            "title": "Custom addons workspace",
+            "href": "addons/howtos/custom-addons-workspace.html"
           },
           {
             "title": "Add menu and action",
@@ -491,6 +539,7 @@
     "guides/build/models-and-fields.html": "guides",
     "guides/build/views-and-menus.html": "guides",
     "guides/build/view-inheritance.html": "guides",
+    "guides/build/build-module-with-swc.html": "guides",
     "guides/build/report-engine.html": "guides",
     "guides/build/creating-apis.html": "guides",
     "guides/build/customization.html": "guides",
@@ -508,6 +557,11 @@
     "guides/concepts/module-loader.html": "guides",
     "guides/concepts/engine-and-server.html": "guides",
     "guides/concepts/web-and-render.html": "guides",
+    "guides/concepts/swc-architecture.html": "guides",
+    "guides/concepts/swc-widgets.html": "guides",
+    "guides/concepts/arch-json-pipeline.html": "guides",
+    "guides/concepts/sum-template.html": "guides",
+    "guides/concepts/swc-devtools.html": "guides",
     "guides/concepts/event-bus.html": "guides",
     "guides/concepts/scheduler.html": "guides",
     "guides/concepts/cache.html": "guides",
@@ -520,13 +574,18 @@
     "reference/http-routes.html": "reference",
     "reference/sdk-api.html": "reference",
     "reference/json-rpc.html": "reference",
+    "reference/swc-api.html": "reference",
+    "reference/swc-notifications.html": "reference",
     "reference/events-and-cron.html": "reference",
     "reference/multi-instance-cron.html": "reference",
     "reference/render-hooks.html": "reference",
     "reference/kernel-addons.html": "reference",
     "reference/field-types.html": "reference",
+    "reference/field-attributes.html": "reference",
     "reference/domain-filters.html": "reference",
     "reference/widgets-and-views.html": "reference",
+    "reference/swc-widget-catalog.html": "reference",
+    "reference/view-types.html": "reference",
     "reference/limitations.html": "reference",
     "reference/platform-gaps.html": "reference",
     "addons/index.html": "addons",
@@ -534,6 +593,7 @@
     "addons/events-and-hooks.html": "addons",
     "addons/cross-module-flows.html": "addons",
     "addons/howtos/scaffold-new-addon.html": "addons",
+    "addons/howtos/custom-addons-workspace.html": "addons",
     "addons/howtos/add-menu-and-action.html": "addons",
     "addons/howtos/add-bridge-module.html": "addons",
     "addons/howtos/enable-report-on-view.html": "addons",
