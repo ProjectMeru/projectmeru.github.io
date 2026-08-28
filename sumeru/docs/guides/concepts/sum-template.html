@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -93,12 +93,21 @@
         <tr><td><code>t-foreach="item in items" t-key="item.id"</code></td><td><code>forEach(items, …)</code></td></tr>
         <tr><td><code>t-esc="expr"</code></td><td><code>${expr}</code> (escaped)</td></tr>
         <tr><td><code>t-raw="expr"</code></td><td><code>${expr}</code></td></tr>
-        <tr><td><code>t-model="expr"</code></td><td>Two-way <code>@input</code> + <code>value</code> bind</td></tr>
+        <tr><td><code>t-out="expr"</code></td><td>Alias of <code>t-raw</code></td></tr>
+        <tr><td><code>t-model="expr"</code></td><td><code>@input</code> via <code>inputValueFromEvent</code> + <code>value</code> bind</td></tr>
         <tr><td><code>t-component="MyComponent"</code></td><td><code>mountComponent(MyComponent, …)</code></td></tr>
         <tr><td><code>t-ref="name"</code></td><td><code>data-ref="name"</code> attribute</td></tr>
         <tr><td><code>t-portal="target"</code></td><td><code>data-portal="target"</code> attribute</td></tr>
         <tr><td><code>t-slot="name"</code></td><td><code>data-slot="name"</code> attribute</td></tr>
         <tr><td><code>{{ expr }}</code></td><td>Interpolation</td></tr>
+        </tbody></table>
+        <h2 id="runtime-helpers">Runtime helpers</h2>
+        <table><thead><tr><th>Feature</th><th>How it works</th></tr></thead><tbody>
+        <tr><td><code>t-ref="name"</code></td><td>Emits <code>data-ref</code>. <code>useTemplateRef("name")</code> queries the component root after mount/patch.</td></tr>
+        <tr><td><code>t-slot="name"</code></td><td>Emits <code>data-slot</code>. <code>mountComponent(..., { slots })</code> patches that node with the named <code>TemplateResult</code>.</td></tr>
+        <tr><td><code>t-portal="selector"</code></td><td>Emits <code>data-portal</code>. After render/patch, the node is moved to <code>document.querySelector(selector)</code> (or <code>document.body</code>). Destroy restores it.</td></tr>
+        <tr><td><code>t-out</code> / <code>t-raw</code></td><td>Interpolates the expression (same codegen).</td></tr>
+        <tr><td><code>t-elif</code> / <code>t-else</code></td><td>Sibling chain compiled to <code>when(cond, first, [elif, …], [true, else])</code>.</td></tr>
         </tbody></table>
         <h2 id="example">Example</h2>
         <p><code>MyPanel.sum.xml</code>:</p>
@@ -110,9 +119,9 @@
         <p>Compiles to a TypeScript module exporting a template function used by <code>SwcComponent.template()</code>.</p>
         <h2 id="limitations">Limitations</h2>
         <ul>
-        <li><code>t-slot</code>, <code>t-portal</code>, and <code>t-ref</code> emit <strong>data attributes only</strong> — there is no runtime slot-filling or portal API yet.</li>
-        <li><code>t-model</code> is compile-time binding; no centralized v-model runtime.</li>
-        <li>Compiler lives in <code>core/swc/src/template/sum/</code>; tests in <code>tests/template/sum-compiler.test.ts</code>.</li>
+        <li>Core views use tagged <code>html</code> literals; <code>.sum.xml</code> is optional for addon authors.</li>
+        <li><code>t-model</code> is compile-time binding to <code>inputValueFromEvent</code>; there is no separate v-model runtime.</li>
+        <li>Compiler lives in <code>core/swc/src/template/sum/</code>; the production esbuild plugin loads that TypeScript codegen (<code>sum-compile.mjs</code>). Tests in <code>tests/template/sum-compiler.test.ts</code>.</li>
         </ul>
         <h2 id="build">Build</h2>
         <p>Sum files are processed during <code>make swc</code> / <code>npm run build</code> in <code>core/swc</code>. Addon packages can copy the esbuild plugin from <code>sum-compile.mjs</code>.</p>

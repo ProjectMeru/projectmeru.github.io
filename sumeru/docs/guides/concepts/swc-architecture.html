@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -78,37 +78,32 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Sumeru Web Client (SWC)</h1>
-        <p class="docs-lede">SWC is Sumeru’s <strong>browser workspace client</strong>: a custom reactive component runtime (TypeScript 7) that replaces server-rendered workspace HTML and progressive JavaScript.</p>
-        <h2 id="folder-layout-sumeru-native">Folder layout (Sumeru-native)</h2>
+        <p class="docs-lede">SWC is Sumeru’s <strong>browser workspace client</strong>: a TypeScript 7 component runtime that renders workspace views from JSON arch and records.</p>
+        <h2 id="folder-layout">Folder layout</h2>
         <pre class="docs-pre"><code>core/swc/src/
-├── main.ts                 # bootstrap, registerCore, SwcApp.start
-├── runtime/                # framework kernel
-│   ├── component.ts        # SwcComponent, updateProps, lifecycle
-│   ├── component-host.ts   # nested components in templates
-│   ├── app.ts              # SwcApp, mount, ErrorBoundary, rAF schedule
-│   ├── hooks.ts            # useState, useEffect, useService
-│   ├── reactivity.ts       # reactive proxy, markRaw, toRaw
-│   ├── scheduler.ts        # rAF render queue
-│   ├── lifecycle.ts        # onWillStart, onWillPatch, onPatched, …
-│   └── patch/              # DOM update engine
-│       ├── keyed.ts        # t-key / forEach reconciliation
-│       └── blocks.ts       # static blocks + dynamic holes
-├── template/               # templates
-│   ├── html.ts             # html`` tagged literals
-│   ├── helpers.ts          # forEach, when, fragment
-│   └── sum/                # sum-template compiler (.sum.xml)
-├── model/                  # client record layer
-│   ├── record.ts           # SwcRecord, RecordStore, onchange
-│   └── modifiers.ts        # invisible/readonly/required + domains
-├── views/                  # workspace view types (by kind)
-│   ├── workspace/          # WorkspaceRouter, workspace-chrome
-│   ├── list/, form/, kanban/, graph/, pivot/, calendar/, chatter/, advanced/
-├── widgets/                # field registry + field components
-├── shell/                  # app chrome (layout, nav, launcher)
-├── devtools/               # SWC Vision (__SWC_DEVTOOLS__)
-├── i18n/                   # _t(), loadTranslations
+├── main.ts                 # bootstrap, register views/widgets, SwcApp.start
+├── runtime/                # component kernel
+│   ├── component.ts        # SwcComponent, callSetup, patch, destroy
+│   ├── component-host.ts   # nested components + slots
+│   ├── app.ts              # SwcApp, mount, ErrorBoundary
+│   ├── hooks.ts            # useState, useService, useTemplateRef, mount effects
+│   ├── scheduler.ts        # rAF scheduleRender / flushScheduledRenders
+│   ├── lifecycle.ts        # onWillStart, onWillPatch, onPatched (per instance)
+│   ├── portals.ts          # data-portal move/restore
+│   └── patch/
+│       └── keyed.ts        # keyed sibling reconciliation
+├── template/
+│   ├── html.ts             # html`` tagged literals (render + patch)
+│   ├── helpers.ts          # forEach, when
+│   └── sum/                # .sum.xml compiler (parser + codegen)
+├── model/                  # SwcRecord, modifiers
+├── views/                  # list, form, kanban, graph, pivot, calendar, gantt, map, cohort, chatter
+├── widgets/                # field registry + FieldHost
+├── shell/                  # layout, nav, launcher
+├── devtools/               # SWC Vision
+├── i18n/
 ├── services/               # rpc, action, router, bus, dialog, …
-└── types/                  # bootstrap, workspace</code></pre>
+└── types/</code></pre>
         <p>Tests mirror this layout under <code>core/swc/tests/{runtime,template,model,views,devtools}/</code>.</p>
         <h2 id="architecture">Architecture</h2>
         <table><thead><tr><th>Layer</th><th>Location</th><th>Role</th></tr></thead><tbody>
@@ -122,7 +117,7 @@
         <p>Direct devDependencies in <code>core/swc/package.json</code> track <strong>latest stable</strong> releases (pinned in <code>package-lock.json</code>):</p>
         <ul>
         <li>Compiler: <code>typescript@^7</code></li>
-        <li>Bundler: <code>esbuild@^0.28</code> (+ <code>.sum.xml</code> plugin)</li>
+        <li>Bundler: <code>esbuild@^0.28</code> (<code>.sum.xml</code> plugin loads TypeScript codegen)</li>
         <li>Tests: <code>vitest@^4</code> with <code>jsdom@^30</code> (<code>environment: "jsdom"</code>)</li>
         <li>Build: <code>make swc</code> (esbuild IIFE bundle)</li>
         <li>Typecheck: <code>make swc-check</code> (<code>tsc --noEmit</code>)</li>
@@ -140,17 +135,19 @@
         <tr><td>List/kanban search</td><td><code>views/list/ListView.ts</code>, <code>views/kanban/KanbanView.ts</code></td><td>Toolbar search via <code>?q=</code> query param</td></tr>
         <tr><td>Addon loader</td><td><code>addon/loader.ts</code></td><td>Loads <code>window.__SWC_ADDON_ENTRIES__</code> before bootstrap</td></tr>
         </tbody></table>
-        <h2 id="capability-mapping-owl-inspired-not-owl-code">Capability mapping (OWL-inspired, not OWL code)</h2>
+        <h2 id="runtime-capabilities">Runtime capabilities</h2>
         <table><thead><tr><th>Concept</th><th>SWC module</th></tr></thead><tbody>
-        <tr><td>Component</td><td><code>runtime/component.ts</code></td></tr>
-        <tr><td>Registry</td><td><code>runtime/registry.ts</code> — <code>fields</code>, <code>views</code>, <code>services</code>, <code>actions</code>, <code>systray</code></td></tr>
-        <tr><td>Templates</td><td><code>template/html.ts</code>, <code>template/sum/</code> (<code>.sum.xml</code>)</td></tr>
-        <tr><td>Keyed lists</td><td><code>template/helpers.ts</code> + <code>runtime/patch/keyed.ts</code></td></tr>
-        <tr><td>Reactivity</td><td><code>runtime/reactivity.ts</code></td></tr>
-        <tr><td>Services</td><td><code>services/*</code> + <code>useService()</code> in <code>runtime/hooks.ts</code></td></tr>
+        <tr><td>Component</td><td><code>runtime/component.ts</code> — <code>callSetup()</code>, <code>scheduleRender</code>, <code>template().patch()</code></td></tr>
+        <tr><td>Local state</td><td><code>useState</code> in <code>runtime/hooks.ts</code> (batched with <code>runtime/scheduler.ts</code>)</td></tr>
+        <tr><td>Services</td><td><code>useService</code> + <code>services/*</code></td></tr>
+        <tr><td>Lifecycle</td><td>Per-instance <code>onWillStart</code> / <code>onWillPatch</code> / <code>onPatched</code> in <code>runtime/lifecycle.ts</code></td></tr>
+        <tr><td>Registry</td><td><code>runtime/registry.ts</code> — <code>fields</code>, <code>views</code>, <code>services</code>, <code>main_components</code></td></tr>
+        <tr><td>Templates</td><td><code>template/html.ts</code> (<code>render</code> + incremental <code>patch</code>), optional <code>template/sum/</code></td></tr>
+        <tr><td>Keyed lists</td><td><code>template/helpers.ts</code> <code>forEach</code> + <code>runtime/patch/keyed.ts</code></td></tr>
+        <tr><td>Refs / slots / portals</td><td><code>useTemplateRef</code>, <code>ComponentHost</code> slots, <code>runtime/portals.ts</code></td></tr>
         <tr><td>Relational model</td><td><code>model/record.ts</code></td></tr>
         <tr><td>DevTools</td><td><code>devtools/bridge.ts</code> — <code>window.__SWC_DEVTOOLS__</code></td></tr>
-        <tr><td>Views</td><td><code>views/list</code>, <code>views/form</code>, <code>views/kanban</code>, …</td></tr>
+        <tr><td>Views</td><td><code>views/list</code>, <code>views/form</code>, <code>views/kanban</code>, <code>views/gantt</code>, <code>views/map</code>, <code>views/cohort</code>, …</td></tr>
         </tbody></table>
         <h2 id="swc-vision">SWC Vision</h2>
         <p>Enable with <code>?debug=1</code> on workspace URLs. Exposes component tree via <code>window.__SWC_DEVTOOLS__</code>. Optional browser extension in <code>core/swc/devtools-extension/</code>.</p>

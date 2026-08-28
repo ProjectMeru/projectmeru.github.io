@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Models & fields | Sumeru Docs</title>
-  <meta name="description" content="sdk.Model tags, field markers, relations, and how runtime records are maps.">
+  <meta name="description" content="sdk.Model tags, all field types with my_module examples, relations, zrefs, computed fields, and runtime maps.">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -16,12 +16,12 @@
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html">
   <meta property="og:title" content="Models & fields | Sumeru Docs">
-  <meta property="og:description" content="sdk.Model tags, field markers, relations, and how runtime records are maps.">
+  <meta property="og:description" content="sdk.Model tags, all field types with my_module examples, relations, zrefs, computed fields, and runtime maps.">
   <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Models & fields | Sumeru Docs">
-  <meta name="twitter:description" content="sdk.Model tags, field markers, relations, and how runtime records are maps.">
+  <meta name="twitter:description" content="sdk.Model tags, all field types with my_module examples, relations, zrefs, computed fields, and runtime maps.">
   <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+                      <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -67,9 +67,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -101,115 +101,505 @@
         <h1>Models & fields</h1>
         <p class="docs-lede">sdk.Model tags, field markers, relations, and how runtime records are maps.</p>
 <h2 id="sdk-model-and-generate">sdk.Model and generate</h2>
-<p>Prefer <code>sumeru/core/sdk</code> over importing <code>sumeru/core/orm</code> directly. Embed <code>sdk.Model</code> with a <code>sumeru:"model=…"</code> tag. After adding a struct, run <code>make generate</code> so <code>models/zmodels.go</code> registers it. Cross-package FKs (wizards) use <code>sdk.Many2One[sdk.Any]</code> plus <code>comodel=</code>.</p>
-<div class="docs-codebox is-source is-wrap" data-codebox="src-ebab7b9d">
+<p>Prefer <code>sumeru/core/sdk</code> over importing <code>sumeru/core/orm</code> directly. Embed <code>sdk.Model</code> with a <code>sumeru:"model=…"</code> tag. After adding a struct, run <code>make generate</code> so <code>models/zmodels.go</code> registers it. Full field cookbook: <a href="https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/addons/my_module/models/models.go" rel="noopener">my_module/models.go</a> and the <a href="../../addons/howtos/my-module-cookbook.html">kitchen-sink cookbook</a>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-intro">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">addons/my_module/models/models.go</span>
+      <span class="docs-codebox-name">addons/my_module/models/models.go (excerpt)</span>
     </div>
     <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">go</span>
+      <span class="docs-codebox-hint">go</span>
       <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
       <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="package models&#10;&#10;import (&#10;	&quot;sumeru/core/sdk&quot;&#10;)&#10;&#10;// MyModule is the primary record for My Module.&#10;type MyModule struct {&#10;	sdk.Model `sumeru:&quot;model=my.module&quot;`&#10;&#10;	Name        sdk.String  `sumeru:&quot;required,index,string=Name&quot;`&#10;	Description sdk.Text    `sumeru:&quot;string=Description&quot;`&#10;	Active      sdk.Boolean `sumeru:&quot;default=true,string=Active&quot;`&#10;	Sequence    sdk.Integer `sumeru:&quot;default=10,string=Sequence&quot;`&#10;}">
-      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">package models</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c"> </span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">import (</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">	&quot;sumeru/core/sdk&quot;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">)</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c"> </span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">// MyModule is the primary record for My Module.</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">type MyModule struct {</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">	sdk.Model `sumeru:&quot;model=my.module&quot;`</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c"> </span></span><span class="docs-line" data-n="11"><span class="docs-line-n" aria-hidden="true">11</span><span class="docs-line-c">	Name        sdk.String  `sumeru:&quot;required,index,string=Name&quot;`</span></span><span class="docs-line" data-n="12"><span class="docs-line-n" aria-hidden="true">12</span><span class="docs-line-c">	Description sdk.Text    `sumeru:&quot;string=Description&quot;`</span></span><span class="docs-line" data-n="13"><span class="docs-line-n" aria-hidden="true">13</span><span class="docs-line-c">	Active      sdk.Boolean `sumeru:&quot;default=true,string=Active&quot;`</span></span><span class="docs-line" data-n="14"><span class="docs-line-n" aria-hidden="true">14</span><span class="docs-line-c">	Sequence    sdk.Integer `sumeru:&quot;default=10,string=Sequence&quot;`</span></span><span class="docs-line" data-n="15"><span class="docs-line-n" aria-hidden="true">15</span><span class="docs-line-c">}</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type MyModule struct {&#10;	sdk.Model `sumeru:&quot;model=my.module&quot;`&#10;&#10;	Name        sdk.String  `sumeru:&quot;required,unique,index,string=Name&quot;`&#10;	Description sdk.Text    `sumeru:&quot;string=Description&quot;`&#10;	Active      sdk.Boolean `sumeru:&quot;string=Active,default=true&quot;`&#10;}">
+      <pre class="docs-pre is-lined" data-lang="go"><code>type MyModule struct {
+	sdk.Model `sumeru:&quot;model=my.module&quot;`
+
+	Name        sdk.String  `sumeru:&quot;required,unique,index,string=Name&quot;`
+	Description sdk.Text    `sumeru:&quot;string=Description&quot;`
+	Active      sdk.Boolean `sumeru:&quot;string=Active,default=true&quot;`
+}</code></pre>
     </div>
   </div>
 </div>
+
 <h2 id="field-types">Field types</h2>
+<p>Declare fields with typed markers from <code>sumeru/core/sdk</code>. Schema sync maps them to PostgreSQL columns on install/update. Quick reference:</p>
 <div class="docs-table-wrap">
 <table class="docs-table">
-  <thead><tr><th>Constant</th><th>Wire value</th><th>Use</th></tr></thead>
+  <thead><tr><th>Category</th><th>Go types</th><th>PostgreSQL</th></tr></thead>
   <tbody>
-    <tr><td><code>Char</code></td><td><code>char</code></td><td>Short string</td></tr>
-    <tr><td><code>Text</code></td><td><code>text</code></td><td>Long text</td></tr>
-    <tr><td><code>Integer</code></td><td><code>integer</code></td><td>Whole number</td></tr>
-    <tr><td><code>Float</code></td><td><code>float</code></td><td>Floating point</td></tr>
-    <tr><td><code>Numeric</code></td><td><code>numeric</code></td><td>Exact decimal (money)</td></tr>
-    <tr><td><code>Boolean</code></td><td><code>boolean</code></td><td>True/false</td></tr>
-    <tr><td><code>Date</code></td><td><code>date</code></td><td>Calendar date</td></tr>
-    <tr><td><code>DateTime</code></td><td><code>datetime</code></td><td>Timestamp</td></tr>
-    <tr><td><code>Selection</code></td><td><code>selection</code></td><td>Fixed key/label pairs</td></tr>
-    <tr><td><code>Many2One</code></td><td><code>many2one</code></td><td>FK to another model</td></tr>
-    <tr><td><code>Many2Many</code></td><td><code>many2many</code></td><td>Relation table</td></tr>
-    <tr><td><code>One2Many</code></td><td><code>one2many</code></td><td>Inverse of Many2One</td></tr>
-    <tr><td><code>Json</code></td><td><code>json</code></td><td>JSON document</td></tr>
+    <tr><td>Strings</td><td><code>String</code>, <code>Text</code>, <code>HTML</code>, <code>Email</code>, <code>Phone</code>, <code>URL</code>, <code>UUID</code></td><td><code>VARCHAR</code>, <code>TEXT</code></td></tr>
+    <tr><td>Numbers</td><td><code>Integer</code>, <code>Float</code>, <code>Float64</code>, <code>Numeric</code>, <code>Money</code></td><td><code>BIGINT</code>, <code>REAL</code>, <code>DOUBLE PRECISION</code>, <code>NUMERIC</code></td></tr>
+    <tr><td>Other scalars</td><td><code>Boolean</code>, <code>Date</code>, <code>Time</code>, <code>DateTime</code>, <code>Duration</code>, <code>Json</code>, <code>Binary</code>, <code>Image</code></td><td><code>BOOLEAN</code>, <code>DATE</code>, <code>TEXT</code>, <code>TIMESTAMPTZ</code>, <code>NUMERIC</code>, <code>JSONB</code></td></tr>
+    <tr><td>Selection</td><td><code>Selection[T ~string]</code></td><td><code>VARCHAR</code> with options from const blocks</td></tr>
+    <tr><td>Relations</td><td><code>Many2One[T]</code>, <code>One2Many[T]</code>, <code>Many2Many[T]</code>, <code>Reference</code>, <code>Many2OneReference</code></td><td>FK / join table / polymorphic</td></tr>
+    <tr><td>Derived</td><td><code>related=</code>, <code>compute=</code>, <code>store</code></td><td>Read-only mirror or computed column</td></tr>
   </tbody>
 </table>
 </div>
+<p>See also <a href="../../reference/field-types.html">Field types reference</a> for SQL mapping details.</p>
+
+<h3 id="strings">String variants</h3>
+<p>Short text, long text, rich HTML, and URL fields. Use <code>size=</code>, <code>column=</code>, <code>required</code>, <code>unique</code>, <code>index</code>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-strings">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">String / Text / HTML / URL</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="// String variants — VARCHAR (default 255); use size= for length&#10;Name         sdk.String `sumeru:&quot;required,unique,index,string=Name&quot;`&#10;ShortCode    sdk.String `sumeru:&quot;size=32,string=Short Code&quot;`&#10;ExternalCode sdk.String `sumeru:&quot;column=external_ref,index,string=External Code&quot;`&#10;Description  sdk.Text   `sumeru:&quot;string=Description&quot;`&#10;Notes        sdk.HTML   `sumeru:&quot;string=Notes&quot;`&#10;Website      sdk.URL    `sumeru:&quot;string=Website&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>// String variants — VARCHAR (default 255); use size= for length
+Name         sdk.String `sumeru:&quot;required,unique,index,string=Name&quot;`
+ShortCode    sdk.String `sumeru:&quot;size=32,string=Short Code&quot;`
+ExternalCode sdk.String `sumeru:&quot;column=external_ref,index,string=External Code&quot;`
+Description  sdk.Text   `sumeru:&quot;string=Description&quot;`
+Notes        sdk.HTML   `sumeru:&quot;string=Notes&quot;`
+Website      sdk.URL    `sumeru:&quot;string=Website&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="contact-identity">Contact and identity</h3>
+<p>Validated email and phone types; UUID with <code>default=uuid</code> for server-generated IDs.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-contact">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Email / Phone / UUID</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Email    sdk.Email `sumeru:&quot;string=Email&quot;`&#10;Phone    sdk.Phone `sumeru:&quot;string=Phone&quot;`&#10;PublicID sdk.UUID  `sumeru:&quot;string=Public ID,default=uuid,unique&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>Email    sdk.Email `sumeru:&quot;string=Email&quot;`
+Phone    sdk.Phone `sumeru:&quot;string=Phone&quot;`
+PublicID sdk.UUID  `sumeru:&quot;string=Public ID,default=uuid,unique&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="boolean">Boolean</h3>
+<p>True/false flags with optional <code>default=true</code> or <code>false</code>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-boolean">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Boolean</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Active   sdk.Boolean `sumeru:&quot;string=Active,default=true&quot;`&#10;Verified sdk.Boolean `sumeru:&quot;string=Verified,default=false&quot;`&#10;Archived sdk.Boolean `sumeru:&quot;string=Archived,default=false,index&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>Active   sdk.Boolean `sumeru:&quot;string=Active,default=true&quot;`
+Verified sdk.Boolean `sumeru:&quot;string=Verified,default=false&quot;`
+Archived sdk.Boolean `sumeru:&quot;string=Archived,default=false,index&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="integers">Integers</h3>
+<p>Whole numbers with optional <code>min=</code> / <code>max=</code> bounds.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-integers">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Integer</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Sequence    sdk.Integer `sumeru:&quot;string=Sequence,default=10&quot;`&#10;Quantity    sdk.Integer `sumeru:&quot;string=Quantity,default=1&quot;`&#10;ProgressPct sdk.Integer `sumeru:&quot;string=Progress %,default=0,min=0,max=100&quot;`&#10;Rating      sdk.Integer `sumeru:&quot;string=Rating,min=0,max=5&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>Sequence    sdk.Integer `sumeru:&quot;string=Sequence,default=10&quot;`
+Quantity    sdk.Integer `sumeru:&quot;string=Quantity,default=1&quot;`
+ProgressPct sdk.Integer `sumeru:&quot;string=Progress %,default=0,min=0,max=100&quot;`
+Rating      sdk.Integer `sumeru:&quot;string=Rating,min=0,max=5&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="float-numeric">Float and numeric</h3>
+<p><code>Float</code> for approximate values; <code>Numeric</code> for exact decimals with <code>precision=</code> and <code>scale=</code>. Use <code>Float64</code> when you need 64-bit floating point.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-numbers">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Float / Numeric</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Amount  sdk.Float   `sumeru:&quot;string=Amount,default=0&quot;`&#10;Price   sdk.Numeric `sumeru:&quot;string=Price,precision=18,scale=2,default=0&quot;`&#10;TaxRate sdk.Numeric `sumeru:&quot;string=Tax Rate,precision=20,scale=8,default=0&quot;`&#10;// Float64 is also available for DOUBLE PRECISION columns when you need 64-bit floats.">
+      <pre class="docs-pre is-lined" data-lang="go"><code>Amount  sdk.Float   `sumeru:&quot;string=Amount,default=0&quot;`
+Price   sdk.Numeric `sumeru:&quot;string=Price,precision=18,scale=2,default=0&quot;`
+TaxRate sdk.Numeric `sumeru:&quot;string=Tax Rate,precision=20,scale=8,default=0&quot;`
+// Float64 is also available for DOUBLE PRECISION columns when you need 64-bit floats.</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="money">Money</h3>
+<p>Monetary amounts tied to a currency many2one via <code>currency=CurrencyID</code>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-money">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Money + currency</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Subtotal   sdk.Money                  `sumeru:&quot;string=Subtotal,currency=CurrencyID&quot;`&#10;TaxAmount  sdk.Money                  `sumeru:&quot;string=Tax,currency=CurrencyID&quot;`&#10;CurrencyID sdk.Many2One[CoreCurrency] `sumeru:&quot;string=Currency&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>Subtotal   sdk.Money                  `sumeru:&quot;string=Subtotal,currency=CurrencyID&quot;`
+TaxAmount  sdk.Money                  `sumeru:&quot;string=Tax,currency=CurrencyID&quot;`
+CurrencyID sdk.Many2One[CoreCurrency] `sumeru:&quot;string=Currency&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="selection">Selection</h3>
+<p>Typed selections: define a string type and const options in <code>selection_types.go</code>, then use <code>sdk.Selection[T]</code>. Options are discovered at <code>make generate</code> — no manual registration.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-selection">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">selection_types.go + models.go</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="// selection_types.go&#10;type Priority string&#10;const (&#10;	PriorityLow    Priority = &quot;low&quot;&#10;	PriorityNormal Priority = &quot;normal&quot;&#10;	PriorityHigh   Priority = &quot;high&quot;&#10;)&#10;&#10;// models.go — options discovered from const blocks at generate time&#10;Priority sdk.Selection[Priority] `sumeru:&quot;string=Priority,default=normal&quot;`&#10;State    sdk.Selection[State]    `sumeru:&quot;required,string=Status,default=draft&quot;`&#10;Kind     sdk.Selection[Kind]     `sumeru:&quot;string=Kind,default=record&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>// selection_types.go
+type Priority string
+const (
+	PriorityLow    Priority = &quot;low&quot;
+	PriorityNormal Priority = &quot;normal&quot;
+	PriorityHigh   Priority = &quot;high&quot;
+)
+
+// models.go — options discovered from const blocks at generate time
+Priority sdk.Selection[Priority] `sumeru:&quot;string=Priority,default=normal&quot;`
+State    sdk.Selection[State]    `sumeru:&quot;required,string=Status,default=draft&quot;`
+Kind     sdk.Selection[Kind]     `sumeru:&quot;string=Kind,default=record&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="date-time">Date, time, and duration</h3>
+<p>Calendar dates, timestamps, time-of-day, and intervals.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-datetime">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Date / DateTime / Time / Duration</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="DateStart      sdk.Date     `sumeru:&quot;string=Start Date&quot;`&#10;DatetimeDue    sdk.DateTime `sumeru:&quot;string=Due Date,index&quot;`&#10;OpeningTime    sdk.Time     `sumeru:&quot;string=Opening Time&quot;`&#10;ProcessingTime sdk.Duration `sumeru:&quot;string=Processing Time&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>DateStart      sdk.Date     `sumeru:&quot;string=Start Date&quot;`
+DatetimeDue    sdk.DateTime `sumeru:&quot;string=Due Date,index&quot;`
+OpeningTime    sdk.Time     `sumeru:&quot;string=Opening Time&quot;`
+ProcessingTime sdk.Duration `sumeru:&quot;string=Processing Time&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="json-media">Json, binary, and image</h3>
+<p>Structured JSON (<code>JSONB</code>), file attachments (<code>Binary</code>), and image fields (<code>Image</code>).</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-media">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Json / Binary / Image</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Settings     sdk.Json   `sumeru:&quot;string=Settings&quot;`&#10;MetadataJson sdk.Json   `sumeru:&quot;string=Metadata&quot;`&#10;Document     sdk.Binary `sumeru:&quot;string=Document&quot;`&#10;Avatar       sdk.Image  `sumeru:&quot;string=Avatar&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>Settings     sdk.Json   `sumeru:&quot;string=Settings&quot;`
+MetadataJson sdk.Json   `sumeru:&quot;string=Metadata&quot;`
+Document     sdk.Binary `sumeru:&quot;string=Document&quot;`
+Avatar       sdk.Image  `sumeru:&quot;string=Avatar&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="many2one">Many2one</h3>
+<p>Foreign key to another model. Same-module targets use the struct type directly; cross-module targets use aliases from <code>zrefs.go</code>. Set <code>ondelete=set_null</code> or <code>cascade</code> as needed.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-m2o">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Many2One</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="// Same module&#10;ParentID sdk.Many2One[MyModule] `sumeru:&quot;column=parent_id,string=Parent,ondelete=set_null&quot;`&#10;&#10;// Cross-module — types from generated zrefs.go after depends + make generate&#10;CompanyID  sdk.Many2One[CoreCompany] `sumeru:&quot;string=Company&quot;`&#10;EmployeeID sdk.Many2One[HrEmployee]  `sumeru:&quot;string=Employee&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>// Same module
+ParentID sdk.Many2One[MyModule] `sumeru:&quot;column=parent_id,string=Parent,ondelete=set_null&quot;`
+
+// Cross-module — types from generated zrefs.go after depends + make generate
+CompanyID  sdk.Many2One[CoreCompany] `sumeru:&quot;string=Company&quot;`
+EmployeeID sdk.Many2One[HrEmployee]  `sumeru:&quot;string=Employee&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="one2many-many2many">One2many and many2many</h3>
+<p><code>One2Many</code> is the inverse side of a many2one — use <code>inverse=ParentID</code> on the parent. <code>Many2Many</code> requires an explicit join table with <code>table=</code>, <code>left=</code>, <code>right=</code>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-o2m-m2m">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">One2Many / Many2Many</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="LineIds  sdk.One2Many[MyModuleLine] `sumeru:&quot;string=Lines&quot;`&#10;ChildIds sdk.One2Many[MyModule]     `sumeru:&quot;inverse=ParentID,string=Children&quot;`&#10;&#10;TagIds sdk.Many2Many[MyModuleTag] `sumeru:&quot;table=my_module_tag_rel,left=module_id,right=tag_id,string=Tags&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>LineIds  sdk.One2Many[MyModuleLine] `sumeru:&quot;string=Lines&quot;`
+ChildIds sdk.One2Many[MyModule]     `sumeru:&quot;inverse=ParentID,string=Children&quot;`
+
+TagIds sdk.Many2Many[MyModuleTag] `sumeru:&quot;table=my_module_tag_rel,left=module_id,right=tag_id,string=Tags&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="reference-fields">Reference fields</h3>
+<p>Polymorphic links: a model name string plus <code>Many2OneReference</code> with <code>model_field=</code>.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-reference">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Reference / Many2OneReference</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="ResourceRef   sdk.Reference         `sumeru:&quot;string=Resource Ref&quot;`&#10;ResourceModel sdk.String            `sumeru:&quot;string=Resource Model&quot;`&#10;ResourceID    sdk.Many2OneReference `sumeru:&quot;model_field=ResourceModel,string=Resource ID&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>ResourceRef   sdk.Reference         `sumeru:&quot;string=Resource Ref&quot;`
+ResourceModel sdk.String            `sumeru:&quot;string=Resource Model&quot;`
+ResourceID    sdk.Many2OneReference `sumeru:&quot;model_field=ResourceModel,string=Resource ID&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h3 id="related-fields">Related and computed (model tags)</h3>
+<p><code>related=</code> mirrors a field through a relation. <code>compute=</code> names a handler registered with <code>orm.RegisterCompute</code>; add <code>store</code> to persist computed values.</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-related">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">Related / compute tags</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="CompanyName     sdk.String  `sumeru:&quot;related=company_id.name,string=Company Name&quot;`&#10;ComputedAmount  sdk.Float   `sumeru:&quot;compute=computed_amount,string=Computed Amount&quot;`&#10;StoredLineCount sdk.Integer `sumeru:&quot;compute=stored_line_count,store,readonly,string=Line Count&quot;`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>CompanyName     sdk.String  `sumeru:&quot;related=company_id.name,string=Company Name&quot;`
+ComputedAmount  sdk.Float   `sumeru:&quot;compute=computed_amount,string=Computed Amount&quot;`
+StoredLineCount sdk.Integer `sumeru:&quot;compute=stored_line_count,store,readonly,string=Line Count&quot;`</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="relations-and-zrefs">Relations and zrefs</h2>
+<p>Cross-module many2one fields require the target module in <code>manifest.json</code> <code>depends</code>, then <code>make generate</code> to rewrite <code>models/zrefs.go</code> with typed aliases (<code>CoreCompany</code>, <code>HrEmployee</code>, …). Use those types in your hand-written model structs — do not edit <code>zrefs.go</code>.</p>
+<ol>
+  <li>Add <code>"depends": ["base", "hr", "mail"]</code> (or whichever modules you reference).</li>
+  <li>Run <code>make generate</code>.</li>
+  <li>Declare <code>EmployeeID sdk.Many2One[HrEmployee]</code> in <code>models.go</code>.</li>
+</ol>
+<p>Child models point back with <code>ondelete=cascade</code> on the parent's FK:</p>
+<div class="docs-codebox is-source is-wrap" data-codebox="src-line">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">addons/my_module/models/my_module_line.go</span>
+    </div>
+    <div class="docs-codebox-actions">
+      <span class="docs-codebox-hint">go</span>
+      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type MyModuleLine struct {&#10;	sdk.Model `sumeru:&quot;model=my.module.line&quot;`&#10;&#10;	ModuleID  sdk.Many2One[MyModule] `sumeru:&quot;required,index,string=Module,ondelete=cascade&quot;`&#10;	Name      sdk.String             `sumeru:&quot;required,unique,string=Description&quot;`&#10;	Quantity  sdk.Integer            `sumeru:&quot;string=Quantity,default=1&quot;`&#10;	UnitPrice sdk.Numeric            `sumeru:&quot;string=Unit Price,default=0&quot;`&#10;}`">
+      <pre class="docs-pre is-lined" data-lang="go"><code>type MyModuleLine struct {
+	sdk.Model `sumeru:&quot;model=my.module.line&quot;`
+
+	ModuleID  sdk.Many2One[MyModule] `sumeru:&quot;required,index,string=Module,ondelete=cascade&quot;`
+	Name      sdk.String             `sumeru:&quot;required,unique,string=Description&quot;`
+	Quantity  sdk.Integer            `sumeru:&quot;string=Quantity,default=1&quot;`
+	UnitPrice sdk.Numeric            `sumeru:&quot;string=Unit Price,default=0&quot;`
+}`</code></pre>
+    </div>
+  </div>
+</div>
+
 <h2 id="computed-fields">Computed fields</h2>
-<p>Register derived values with <code>orm.RegisterCompute</code> in core or addon <code>init()</code>. Computed fields are filled on read via <code>ApplyComputes</code>. This is not runtime model inheritance or automatic write-time recomputation — declare deps explicitly and keep logic in Go.</p>
+<p>Register handlers in <code>init()</code> (typically <code>computed.go</code>). The <code>compute=</code> tag on the model field must match the registered name. Non-stored computes are filled on read; <code>store</code> writes the value to the database when dependencies change.</p>
 <div class="docs-codebox is-source is-wrap" data-codebox="src-compute">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">init.go</span>
+      <span class="docs-codebox-name">models.go + computed.go</span>
     </div>
     <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">go</span>
+      <span class="docs-codebox-hint">go</span>
       <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
       <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="orm.RegisterCompute(&quot;sale.order&quot;, &quot;amount_display&quot;, []string{&quot;amount_total&quot;}, func(ctx context.Context, rec map[string]interface{}) (interface{}, error) {&#10;    return fmt.Sprintf(&quot;%.2f&quot;, rec[&quot;amount_total&quot;]), nil&#10;})">
-      <pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">orm.RegisterCompute("sale.order", "amount_display", []string{"amount_total"},</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    func(ctx context.Context, rec map[string]interface{}) (interface{}, error) {</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">        return fmt.Sprintf("%.2f", rec["amount_total"]), nil</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">    })</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="// models.go&#10;ComputedAmount  sdk.Float   `sumeru:&quot;compute=computed_amount,string=Computed Amount&quot;`&#10;StoredLineCount sdk.Integer `sumeru:&quot;compute=stored_line_count,store,readonly,string=Line Count&quot;`&#10;&#10;// computed.go&#10;func init() {&#10;	orm.RegisterCompute(&quot;my.module&quot;, &quot;computed_amount&quot;, []string{&quot;amount&quot;, &quot;quantity&quot;}, computeAmount)&#10;	orm.RegisterCompute(&quot;my.module&quot;, &quot;stored_line_count&quot;, []string{&quot;line_ids&quot;}, computeLineCount)&#10;}">
+      <pre class="docs-pre is-lined" data-lang="go"><code>// models.go
+ComputedAmount  sdk.Float   `sumeru:&quot;compute=computed_amount,string=Computed Amount&quot;`
+StoredLineCount sdk.Integer `sumeru:&quot;compute=stored_line_count,store,readonly,string=Line Count&quot;`
+
+// computed.go
+func init() {
+	orm.RegisterCompute(&quot;my.module&quot;, &quot;computed_amount&quot;, []string{&quot;amount&quot;, &quot;quantity&quot;}, computeAmount)
+	orm.RegisterCompute(&quot;my.module&quot;, &quot;stored_line_count&quot;, []string{&quot;line_ids&quot;}, computeLineCount)
+}</code></pre>
     </div>
   </div>
 </div>
-<h2 id="fielddefinition">FieldDefinition fields</h2>
+
+<h2 id="fielddefinition">Struct tags (FieldDefinition)</h2>
+<p>Common <code>sumeru:"…"</code> tags inferred at registration:</p>
 <div class="docs-table-wrap">
 <table class="docs-table">
-  <thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+  <thead><tr><th>Tag</th><th>Purpose</th></tr></thead>
   <tbody>
-    <tr><td><code>Name</code></td><td>Column / field name</td></tr>
-    <tr><td><code>Type</code></td><td>One of the FieldType constants</td></tr>
-    <tr><td><code>Required</code></td><td>NOT NULL / required in UI</td></tr>
-    <tr><td><code>Relation</code></td><td>Target model for M2O / M2M / O2M</td></tr>
-    <tr><td><code>RelationTable</code></td><td>Join table name for M2M</td></tr>
-    <tr><td><code>Column1</code></td><td>This model's FK column in the M2M table</td></tr>
-    <tr><td><code>Column2</code></td><td>Target model's FK column in the M2M table</td></tr>
-    <tr><td><code>String</code></td><td>Human label</td></tr>
-    <tr><td><code>DefaultVal</code></td><td>Default value</td></tr>
-    <tr><td><code>Selection</code></td><td><code>[][]string</code> options: <code>{{"key","Label"}, ...}</code></td></tr>
-    <tr><td><code>Unique</code></td><td>Unique constraint</td></tr>
-    <tr><td><code>Index</code></td><td>Create a database index</td></tr>
+    <tr><td><code>required</code></td><td>NOT NULL / required in UI</td></tr>
+    <tr><td><code>unique</code>, <code>index</code></td><td>Database constraints</td></tr>
+    <tr><td><code>default=</code></td><td>Default value (<code>uuid</code> for UUID fields)</td></tr>
+    <tr><td><code>string=</code></td><td>Human label</td></tr>
+    <tr><td><code>column=</code></td><td>Override SQL column name</td></tr>
+    <tr><td><code>size=</code></td><td>VARCHAR length (String)</td></tr>
+    <tr><td><code>precision=</code>, <code>scale=</code></td><td>Numeric decimal places</td></tr>
+    <tr><td><code>min=</code>, <code>max=</code></td><td>Integer bounds</td></tr>
+    <tr><td><code>currency=</code></td><td>Currency many2one field for Money</td></tr>
+    <tr><td><code>inverse=</code></td><td>One2Many → parent Many2One field name</td></tr>
+    <tr><td><code>table=</code>, <code>left=</code>, <code>right=</code></td><td>Many2many join table columns</td></tr>
+    <tr><td><code>ondelete=</code></td><td>FK behaviour (<code>set_null</code>, <code>cascade</code>, …)</td></tr>
+    <tr><td><code>model_field=</code></td><td>Polymorphic model name field for Many2OneReference</td></tr>
+    <tr><td><code>related=</code></td><td>Dot-path through a relation (<code>company_id.name</code>)</td></tr>
+    <tr><td><code>compute=</code>, <code>store</code>, <code>readonly</code></td><td>Computed field wiring</td></tr>
+    <tr><td><code>groups=</code></td><td>Restrict field to ACL group xml id</td></tr>
   </tbody>
 </table>
 </div>
+
 <h2 id="runtime-records">Runtime records are maps</h2>
 <p>ORM reads and writes use <code>map[string]interface{}</code> keyed by field name (plus <code>id</code>). Schema sync follows generated model metadata from struct tags.</p>
+
 <h2 id="compile-and-run">Compile and run</h2>
-<div class="docs-codebox is-shell is-wrap" data-codebox="shell-49eee897">
+<div class="docs-codebox is-shell is-wrap" data-codebox="shell-run">
   <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
     <span class="docs-codebox-name">Terminal</span>
+    </div>
     <div class="docs-codebox-actions">
       <span class="docs-codebox-hint">shell</span>
       <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;go run . -- -c sumeru.conf -i my_module --stop-after-init&#10;make run">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -i my_module --stop-after-init</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;make install MODULES=my_module&#10;make run">
+      <pre class="docs-pre is-lined" data-lang="shell"><code>make generate
+make install MODULES=my_module
+make run</code></pre>
     </div>
   </div>
 </div>
 <div class="docs-callout is-caution">
-  <p><strong>Schema sync.</strong> Install/update syncs columns from FieldDefinition. Review migrations on shared databases. Sumeru is pre-alpha.</p>
+  <p><strong>Schema sync.</strong> Install/update syncs columns from field metadata. Review migrations on shared databases. Sumeru is pre-alpha.</p>
 </div>
+
 <h2 id="what-not-to-do">What not to do</h2>
 <ul>
-  <li>Do not skip <code>make generate</code> after adding a model struct, and do not call <code>RegisterModel</code> in addon code.</li>
-  <li>Do not invent FieldType strings outside the constants above.</li>
+  <li>Do not skip <code>make generate</code> after adding a model struct or changing <code>depends</code>.</li>
+  <li>Do not hand-edit <code>zmodels.go</code>, <code>zrefs.go</code>, or generated <code>init.go</code>.</li>
+  <li>Do not invent field types outside <code>sumeru/core/sdk</code> markers.</li>
   <li>Do not put business logic that must survive restarts only in struct methods the ORM never calls.</li>
 </ul>
+
+<h2 id="see-also">See also</h2>
+<ul>
+  <li><a href="../../reference/field-types.html">Field types reference</a> — SQL mapping</li>
+  <li><a href="../../reference/field-attributes.html">Field attributes</a> — view XML</li>
+  <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> — UI widgets per type</li>
+  <li><a href="../../addons/howtos/my-module-cookbook.html">my_module cookbook</a> — live examples for every type</li>
+</ul>
+
 <h2 id="next-step">Next step</h2>
 <p>Bind screens in <a href="views-and-menus.html">Views &amp; menus</a>.</p>
+
     <nav class="docs-next" aria-label="Page">
       <a class="is-prev" href="../../guides/build/manifests-and-depends.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Manifests & depends</span></a>
       <a class="is-next" href="../../guides/build/views-and-menus.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Views & menus &rarr;</span></a>
