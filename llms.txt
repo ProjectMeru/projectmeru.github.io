@@ -1,77 +1,51 @@
 # Project Meru
 
-> Project Meru is an **open-source initiative** that hosts software across categories.
-> **Sumeru** is the first product: a modular ERP framework written in Go.
-
-**Status (Sumeru): pre-alpha.** The framework runs and the lead-to-cash flow works end to end, but
-there is no tagged release, no upgrade path between versions, and no test suite on the business addons.
+> Project Meru is an open-source software initiative and GitHub Pages hub for multiple projects.
+> **Sumeru** is the first live product: a modular ERP framework in Go (pre-alpha — not for production).
 
 - Hub: https://projectmeru.github.io/
 - Sumeru: https://projectmeru.github.io/sumeru/
 - Docs: https://projectmeru.github.io/sumeru/docs/
-- Code: https://github.com/ProjectMeru
-- Licence (Sumeru): dual licensed. Community edition under Apache 2.0; enterprise edition under a commercial
-  licence (the enterprise edition does not exist as a product yet)
+- GitHub: https://github.com/ProjectMeru
 
 ## Naming
 
-- **Project Meru**: the organisation / initiative and this website's root.
-- **Sumeru**: the ERP framework. In code, CLI, config and Go modules you will only ever see `sumeru`.
+- **Project Meru**: the organisation, this hub, and the initiative.
+- **Sumeru**: the ERP product. In code, CLI, config, and Go modules the name is always `sumeru`.
 
-## Sumeru - key facts
+## Projects on this site
 
-- **Language / runtime:** Go 1.26+. Requires PostgreSQL and nothing else: no Node, no Docker, no
-  message broker, no cache, no external job queue.
-- **Repository layout:** three `replace`-linked Go modules. `sumeru` (the core framework),
-  `sumeru_addons` (the standard business addons), `sumeru_custom_addons` (your workspace, and the
-  module you actually run the server from).
-- **Kernel packages:** `core/orm`, `core/module`, `core/engine`, `core/server`, `core/event`,
-  `core/sdk`, `core/scheduler`, `core/applog`, `core/cache`, `core/importgen`.
-- **Addon anatomy:** `manifest.json` (name, version, depends, data), `init.go`, `models/*.go`,
-  `views/*.xml`, `security/security.xml` and `security/sys.access.csv`, optional `data/*.xml`.
-- **A model** is metadata: a `ModelName()` and a `Fields()` slice, which the kernel turns into a
-  real PostgreSQL table. Records at runtime are maps, not structs.
-- **Addons never import each other.** They integrate through an event bus (`record.created`,
-  `record.updated`, `cron.tick`) plus registry lookups. The manifest's `depends` array drives
-  install order only.
-- **API:** JSON-RPC at `POST /api/rpc` with API-key authentication.
-- **Isolation:** one server serves one database. Multi-company is supported; it is **not** multi-tenant.
-- **Reports:** CSV/PDF export and bulk CSV import are implemented (opt-in per view via XML). Financial statement PDFs are not.
+- **Sumeru** — live, pre-alpha. ERP in Go with PostgreSQL and addon modules.
+- **Tooling** — planned. Developer utilities.
+- **Infra** — planned. Infrastructure-oriented projects.
 
-## Documentation audiences (three paths)
+## Sumeru — key facts
 
-Source of truth: `sumeru_docs/` in the monorepo. Generated HTML: `make docs-site` from repo root.
+- **Runtime:** Go 1.26+, PostgreSQL. Node.js builds SWC client bundles locally (`make setup` in `sumeru_custom_addons`).
+- **Repositories:** `sumeru` (core), `sumeru_addons` (standard business apps), `sumeru_custom_addons` (workspace you run).
+- **Models:** `sdk.Model` structs with `sumeru` struct tags; `make generate` writes `models/zmodels.go`. Runtime records are maps.
+- **UI:** SWC workspace client (list, form, kanban, graph, pivot, calendar, gantt, map, cohort). Collection control bar with saved searches.
+- **API:** JSON-RPC at `POST /api/rpc` (session or API key).
+- **Isolation:** one server, one database; multi-company supported; not multi-tenant.
+- **Licence:** dual licensed. Community edition Apache 2.0; enterprise edition commercial (not yet available).
 
-| Audience | Docs entry | URL prefix |
-| -------- | ---------- | ---------- |
-| Business users | Using Sumeru hub | https://projectmeru.github.io/sumeru/docs/using/ |
-| Addons developers | Addons hub | https://projectmeru.github.io/sumeru/docs/addons/ |
-| Core developers | Build hub + guides/start | https://projectmeru.github.io/sumeru/docs/build/ |
+## Documentation audiences
 
-## Key documentation pages
+| Audience | Entry | URL prefix |
+| -------- | ----- | ---------- |
+| Business users | Using Sumeru | https://projectmeru.github.io/sumeru/docs/using/ |
+| Addon developers | Addons | https://projectmeru.github.io/sumeru/docs/addons/ |
+| Core developers | Guides + reference | https://projectmeru.github.io/sumeru/docs/guides/ |
 
-### Docs home
-- https://projectmeru.github.io/sumeru/docs/: audience chooser + navigation
-- https://projectmeru.github.io/sumeru/docs/reference/feature-matrix.html: implemented vs planned
+## Key pages
 
-### Business users (using/)
-- https://projectmeru.github.io/sumeru/docs/using/platform/workspace-basics.html
-- https://projectmeru.github.io/sumeru/docs/using/platform/export-and-import.html
-- https://projectmeru.github.io/sumeru/docs/using/modules/crm.html
-- https://projectmeru.github.io/sumeru/docs/using/workflows/lead-to-cash.html
-
-### Addons developers (addons/)
-- https://projectmeru.github.io/sumeru/docs/addons/howtos/enable-report-on-view.html
-- https://projectmeru.github.io/sumeru/docs/addons/manifest-and-layout.html
-
-### Core developers (build/, reference/, howtos/, concepts/)
-- https://projectmeru.github.io/sumeru/docs/guides/start/installation.html
-- https://projectmeru.github.io/sumeru/docs/build/report-engine.html
-- https://projectmeru.github.io/sumeru/docs/reference/http-routes.html
-- https://projectmeru.github.io/sumeru/docs/howtos/scaffold-new-addon.html
-- https://projectmeru.github.io/sumeru/docs/concepts/overview.html
-
-### Product site
-- https://projectmeru.github.io/sumeru/: product landing
-- https://projectmeru.github.io/sumeru/architecture.html: visual three-module overview
-- https://projectmeru.github.io/sumeru/addons.html: addon catalogue
+- https://projectmeru.github.io/sumeru/docs/ — docs home
+- https://projectmeru.github.io/sumeru/docs/guides/start/installation.html — installation
+- https://projectmeru.github.io/sumeru/docs/guides/concepts/three-modules.html — three-module layout
+- https://projectmeru.github.io/sumeru/architecture.html — product architecture overview
+- https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html — models and field types
+- https://projectmeru.github.io/sumeru/docs/using/platform/workspace-basics.html — workspace UI
+- https://projectmeru.github.io/sumeru/docs/reference/view-types.html — view types
+- https://projectmeru.github.io/sumeru/docs/using/feature-matrix.html — implemented vs planned
+- https://projectmeru.github.io/sumeru/addons.html — shipped addon catalogue
+- https://projectmeru.github.io/sumeru/editions.html — licensing
