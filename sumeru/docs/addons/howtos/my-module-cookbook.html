@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>my_module kitchen-sink demo | Sumeru Docs</title>
+  <meta name="description" content="Reference addon in sumeru_custom_addons showing every field widget and workspace view type.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/my-module-cookbook.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+        <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+<a class="docs-brand" href="../../index.html">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
+    </a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <p class="docs-lede">Reference addon showing every field widget and workspace view type.</p>
+        <h1>my_module kitchen-sink demo</h1>
+        <p><strong>Reference addon</strong> for custom-module authors in <strong><code>sumeru_custom_addons/addons/my_module/</code></strong>. Use it to learn widgets, views, zrefs, and menu patterns — copy patterns, do not fork the module for production work.</p>
+        <h2 id="scaffold-vs-demo">Scaffold vs demo</h2>
+        <table><thead><tr>
+        <th></th>
+        <th><code>make new MODULE=x</code></th>
+        <th>Pre-shipped <code>my_module</code></th>
+        </tr></thead><tbody>
+        <tr>
+        <td>Models</td>
+        <td>1 stub</td>
+        <td>6 models</td>
+        </tr>
+        <tr>
+        <td>Views</td>
+        <td>list, form, kanban</td>
+        <td>All 10 view types + search</td>
+        </tr>
+        <tr>
+        <td>Depends</td>
+        <td><code>base</code></td>
+        <td><code>base</code>, <code>hr</code>, <code>mail</code></td>
+        </tr>
+        <tr>
+        <td>Use when</td>
+        <td>Starting a real module</td>
+        <td>Learning SWC widgets and XML</td>
+        </tr>
+        </tbody></table>
+        <h2 id="get-it-running">Get it running</h2>
+        <p>From <strong><code>sumeru_custom_addons/</code></strong> (after [Installation](../../guides/start/installation.html)):</p>
+        <pre class="docs-pre"><code>
+        make setup
+
+        make install MODULES=my_module
+
+        make run
+
+        </code></pre>
+        <p>Open the <strong>My Module</strong> app in the launcher. Demo rows load from <strong><code>data/demo.xml</code></strong> (<code>noupdate=&quot;1&quot;</code>, upsert on unique keys).</p>
+        <h2 id="models">Models</h2>
+        <table><thead><tr>
+        <th>Model</th>
+        <th>Purpose</th>
+        </tr></thead><tbody>
+        <tr>
+        <td><code>my.module</code></td>
+        <td>Field/widget cookbook (kanban, list, form, calendar, gantt, graph, pivot, cohort)</td>
+        </tr>
+        <tr>
+        <td><code>my.module.line</code></td>
+        <td>One2many child lines</td>
+        </tr>
+        <tr>
+        <td><code>my.module.event</code></td>
+        <td>Calendar + gantt (<code>date_start</code> / <code>date_stop</code>)</td>
+        </tr>
+        <tr>
+        <td><code>my.module.place</code></td>
+        <td>Map markers (<code>latitude</code> / <code>longitude</code>)</td>
+        </tr>
+        <tr>
+        <td><code>my.module.tag</code></td>
+        <td>Many2many tags + color</td>
+        </tr>
+        <tr>
+        <td><code>my.module.category</code></td>
+        <td>Many2many categories</td>
+        </tr>
+        </tbody></table>
+        <h2 id="menus-and-view-modes">Menus and view modes</h2>
+        <table><thead><tr>
+        <th>Menu</th>
+        <th>Action</th>
+        <th>View modes</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>Cookbook operations → Records</td>
+        <td><code>action_my_module</code></td>
+        <td>kanban, list, form, calendar, gantt</td>
+        </tr>
+        <tr>
+        <td>Cookbook operations → Lines</td>
+        <td><code>action_my_module_line</code></td>
+        <td>list, form</td>
+        </tr>
+        <tr>
+        <td>Cookbook planning → Events</td>
+        <td><code>action_my_module_event</code></td>
+        <td>calendar, gantt, list, form</td>
+        </tr>
+        <tr>
+        <td>Cookbook planning → Places</td>
+        <td><code>action_my_module_place</code></td>
+        <td>map, list, form</td>
+        </tr>
+        <tr>
+        <td>Cookbook reporting → Analysis</td>
+        <td><code>action_my_module_analysis</code></td>
+        <td>graph, pivot, cohort, list</td>
+        </tr>
+        <tr>
+        <td>Configuration → Tags / Categories</td>
+        <td>manager</td>
+        <td>list, form</td>
+        </tr>
+        </tbody></table>
+        <p>Search views attach to collection toolbars (not separate menus). See <strong><code>views/search_view.xml</code></strong>.</p>
+        <h2 id="view-type-file-map">View-type file map</h2>
+        <table><thead><tr>
+        <th>Type</th>
+        <th>File</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>list</td>
+        <td><code>views/list_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>form</td>
+        <td><code>views/form_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>kanban</td>
+        <td><code>views/kanban_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>search</td>
+        <td><code>views/search_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>graph</td>
+        <td><code>views/graph_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>pivot</td>
+        <td><code>views/pivot_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>calendar</td>
+        <td><code>views/calendar_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>gantt</td>
+        <td><code>views/gantt_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>cohort</td>
+        <td><code>views/cohort_view.xml</code></td>
+        </tr>
+        <tr>
+        <td>map</td>
+        <td><code>views/place_views.xml</code></td>
+        </tr>
+        </tbody></table>
+        <p>Window actions and multi-<code>view_mode</code> bundles: <strong><code>views/actions.xml</code></strong>, <strong><code>views/menus.xml</code></strong>.</p>
+        <h2 id="widgets-on-the-cookbook-form">Widgets on the cookbook form</h2>
+        <p><code>char</code>, <code>email</code>, <code>integer</code>, <code>float</code>, <code>numeric</code>, <code>text</code>, <code>json</code>, <code>date</code>, <code>datetime</code>, <code>boolean</code>, <code>boolean_toggle</code>, <code>radio</code>, <code>phone</code>, <code>url</code>, <code>html</code>, <code>binary</code>, <code>image</code>, <code>selection</code>, <code>many2one</code>, <code>many2many</code> / <code>many2many_tags</code>, <code>one2many</code>, <code>statusbar</code>, <code>priority</code>, <code>monetary</code>, <code>progress</code>, <code>color</code>, <code>reference</code>, <code>handle</code> — see <strong><code>views/form_view.xml</code></strong>.</p>
+        <h2 id="cross-module-relations-zrefs-go">Cross-module relations (<code>zrefs.go</code>)</h2>
+        <p>Manifest depends on <strong><code>base</code></strong>, <strong><code>hr</code></strong>, <strong><code>mail</code></strong>. After changing depends or model fields that reference other modules:</p>
+        <pre class="docs-pre"><code>
+        make generate
+
+        make update MODULES=my_module
+
+        </code></pre>
+        <p><strong><code>make generate</code></strong> rewrites <strong><code>models/zmodels.go</code></strong> and <strong><code>models/zrefs.go</code></strong>. Edit hand-written model files only.</p>
+        <p>Typed selections: <strong><code>models/selection_types.go</code></strong>. Computes: <strong><code>models/computed.go</code></strong>. Object actions: <strong><code>models/object_actions.go</code></strong>.</p>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li>[In-repo README](https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/addons/my_module/README.md)</li>
+        <ul>
+        <li>[Creating an addon](../../website/guides/build/creating-an-addon.md)</li>
+        <ul>
+        <li>[Views and menus](../../website/guides/build/views-and-menus.md)</li>
+        <ul>
+        <li>[SWC widget catalog](../../core/reference/swc-widget-catalog.md)</li>
+        <ul>
+        <li>[Custom addons workspace](custom-addons-workspace.md)</li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
+
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../../js/docs-nav-data.js"></script>
+  <script src="../../js/fuse.min.js"></script>
+  <script src="../../js/docs-search.js"></script>
+  <script src="../../js/docs.js"></script>
+</body>
+</html>

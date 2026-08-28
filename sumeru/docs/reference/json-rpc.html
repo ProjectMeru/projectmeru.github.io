@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -148,10 +148,11 @@
         <h3 id="call">call</h3>
         <p>Invokes a handler registered with <code>orm.RegisterObjectAction</code> (same as form object buttons):</p>
         <pre class="docs-pre"><code>{
-  "model": "core.user",
+  "model": "crm.lead",
   "method": "call",
-  "args": [42, "action_reset_password", {}]
+  "args": [42, "action_merge_wizard", { "active_ids": "3,7" }]
 }</code></pre>
+        <p><code>args[0]</code> is the record id, <code>args[1]</code> the object-action name. Optional <code>args[2]</code> is a string map passed through to <code>orm.RunObjectAction</code> (used for list multi-select <code>active_ids</code>).</p>
         <h2 id="read-replica">Read replica</h2>
         <p>When <code>db_read_replica_dsn</code> is configured, <code>search</code>, <code>search_read</code>, and list workspace loads prefer the read replica connection.</p>
         <h2 id="security">Security</h2>
@@ -161,7 +162,7 @@
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="sumeru/README.html"><code>sumeru/README.md</code></a> — full RPC examples</li>
-        <li><a href="http-routes.md">HTTP routes</a></li>
+        <li><a href="http-routes.html">HTTP routes</a></li>
         <li><a href="../guides/build/json-rpc-api.html">JSON-RPC API guide</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

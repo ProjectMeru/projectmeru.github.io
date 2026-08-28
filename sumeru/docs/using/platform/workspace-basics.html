@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -86,43 +86,21 @@
         <tr><td><strong>List</strong></td><td>Browse many records in a table</td></tr>
         <tr><td><strong>Form</strong></td><td>View or edit one record in detail</td></tr>
         <tr><td><strong>Kanban</strong></td><td>Drag cards across stages (e.g. sales pipeline)</td></tr>
+        <tr><td><strong>Graph / Pivot / Cohort</strong></td><td>Analysis and reporting on collections</td></tr>
+        <tr><td><strong>Calendar / Gantt</strong></td><td>Time-based planning</td></tr>
+        <tr><td><strong>Map</strong></td><td>Records with geographic coordinates</td></tr>
         </tbody></table>
-        <p>Switch views using tabs or buttons in the workspace header when available.</p>
-        <h2 id="list-search">List search</h2>
-        <p>In <strong>list</strong> view, use the search box in the toolbar to filter rows. Results match text in visible list columns (case-insensitive). The filter is appended to the window action domain via the <code>?q=</code> query parameter.</p>
+        <p>Switch views using tabs or buttons in the workspace header when available. The <strong>My Module</strong> demo app (developer workspace) exercises every view type.</p>
+        <h2 id="collection-control-bar">Collection control bar</h2>
+        <p>List, kanban, graph, pivot, cohort, and other collection views share a <strong>control bar</strong> at the top:</p>
+        <ul>
+        <li><strong>Search</strong> — text filter across visible fields</li>
+        <li><strong>Filters</strong> — pick predefined or custom domain rules (multi-value supported)</li>
+        <li><strong>Group By</strong> — group rows by one or more fields</li>
+        <li><strong>Favorites</strong> — save and recall filter/search/group state as saved searches</li>
+        </ul>
+        <p>Analysis views use the same bar so reporting stays consistent with operational lists.</p>
         <h2 id="report-toolbar">Report toolbar</h2>
-        <p>On some lists and forms, a <strong>Report</strong> button lets you:</p>
-        <ul>
-        <li><strong>Download CSV or PDF</strong> of the current data</li>
-        <li><strong>Download an import template</strong> and <strong>bulk-upload</strong> CSV updates</li>
-        </ul>
-        <p>On <strong>form</strong> views, <strong>Report</strong> sits in the toolbar row with <strong>Save</strong> and <strong>Discard</strong>. Import always includes a <strong>mapping and preview</strong> step before records are saved. See <a href="export-and-import.html">Export and import</a> for step-by-step instructions.</p>
-        <h2 id="saving-records">Saving records</h2>
-        <ol>
-        <li>Open a record in <strong>form</strong> view.</li>
-        <li>Click <strong>Edit</strong> (if not already editing).</li>
-        <li>Change fields and click <strong>Save</strong>.</li>
-        <li>Use <strong>Discard</strong> to cancel changes.</li>
-        </ol>
-        <p>When you save successfully, a <strong>success toast</strong> appears at the top of the screen. If required fields are missing or a value is invalid, the form shows <strong>inline validation</strong> messages and a toast explaining what to fix — nothing is saved until errors are resolved.</p>
-        <h2 id="kanban">Kanban</h2>
-        <p>In pipeline views (CRM), drag a card to another column to change its <strong>stage</strong>. Some stages (e.g. <strong>Won</strong>) trigger automatic actions such as creating a quotation.</p>
-        <p><strong>Profile photos</strong> on kanban cards show the <strong>full image</strong> (not cropped to a circle), so faces and logos remain visible at a glance.</p>
-        <h2 id="activity-panel">Activity panel</h2>
-        <p>On many forms, the right side shows <strong>Messages</strong> and <strong>Activities</strong> (when the Mail app is installed):</p>
-        <ul>
-        <li>Post internal notes</li>
-        <li>Schedule follow-up activities</li>
-        <li>See change history in the thread</li>
-        </ul>
-        <h2 id="company-context">Company context</h2>
-        <p>If you work in multiple companies, switch the active company from the shell; records are filtered to the selected company.</p>
-        <h2 id="next-steps">Next steps</h2>
-        <ul>
-        <li><a href="contacts-and-partners.html">Contacts and partners</a></li>
-        <li><a href="export-and-import.html">Export and import</a></li>
-        <li><a href="../modules/crm.html">CRM</a></li>
-        </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>

@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -78,21 +78,30 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>SDK API</h1>
-        <p class="docs-lede">Import <strong><code>sumeru/core/sdk</code></strong> from addon code — not <code>sumeru/core/orm</code> or <code>sumeru/core/server</code> directly. The SDK absorbs internal renames so downstream modules stay stable.</p>
+        <p class="docs-lede">Import <strong><code>sumeru/core/sdk</code></strong> from addon code — not <code>sumeru/core/orm</code> or <code>sumeru/core/server</code> directly.</p>
         <p>Source: <code>sumeru/core/sdk/</code></p>
-        <h2 id="types">Types</h2>
-        <table><thead><tr><th>Name</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><code>Model</code></td><td>Interface: <code>ModelName()</code>, <code>Fields()</code></td></tr>
-        <tr><td><code>BaseModel</code></td><td>Embed in struct definitions</td></tr>
-        <tr><td><code>FieldDefinition</code></td><td>Column metadata</td></tr>
-        <tr><td><code>FieldType</code></td><td><code>Char</code>, <code>Text</code>, <code>Integer</code>, <code>Float</code>, <code>Boolean</code>, <code>Date</code>, <code>Datetime</code>, <code>Many2One</code>, <code>One2Many</code>, <code>Many2Many</code>, …</td></tr>
+        <h2 id="model-definition">Model definition</h2>
+        <p>Define models as structs embedding <code>sdk.Model</code> with typed fields and <code>sumeru</code> struct tags. Run <strong><code>make generate</code></strong> to produce <code>models/zmodels.go</code>, which calls <code>sdk.MustRegister</code>. Authors do not write registration or field metadata by hand.</p>
+        <pre class="docs-pre"><code>type MyModel struct {
+    sdk.Model `sumeru:"model=my.module"`
+    Name      sdk.String  `sumeru:"required,string=Name"`
+    State     sdk.String  `sumeru:"selection=draft:Draft,done:Done,string=State"`
+    PartnerID sdk.Many2One[sdk.Any] `sumeru:"comodel=core.partner,string=Partner"`
+}</code></pre>
+        <p>See <a href="../guides/models-and-fields.html">Models and fields</a> and <a href="field-types.html">Field types</a>.</p>
+        <h2 id="field-markers">Field markers</h2>
+        <table><thead><tr><th>Type</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>sdk.Model</code></td><td>Embed; <code>sumeru:"model=dotted.name"</code> sets model identity</td></tr>
+        <tr><td><code>sdk.String</code>, <code>sdk.Text</code>, <code>sdk.Integer</code>, <code>sdk.Float</code>, <code>sdk.Float64</code>, <code>sdk.Boolean</code>, …</td><td>Scalar columns</td></tr>
+        <tr><td><code>sdk.Many2One[T]</code>, <code>sdk.One2Many[T]</code>, <code>sdk.Many2Many[T]</code></td><td>Relations</td></tr>
         </tbody></table>
+        <p>Selection fields use <code>sdk.String</code> with a <code>selection=</code> tag (not a separate type).</p>
         <h2 id="registration">Registration</h2>
-        <pre class="docs-pre"><code>sdk.RegisterModel(sdk.RegisterModelInput{
-    Model:  MyModel{},
-    Module: "my_module", // manifest name
-})</code></pre>
-        <p>Call from each model's <code>init()</code>.</p>
+        <p>Generated only — do not call manually:</p>
+        <pre class="docs-pre"><code>// models/zmodels.go (generated)
+func init() {
+    sdk.MustRegister("my_module", &amp;MyModel{}, &amp;MyModelLine{})
+}</code></pre>
         <h2 id="database-bootstrap">Database bootstrap</h2>
         <table><thead><tr><th>Function</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>InitDB(InitDBInput{DSN})</code></td><td>Open PostgreSQL</td></tr>
@@ -102,8 +111,8 @@
         <table><thead><tr><th>Function</th><th>Input</th><th>Returns</th></tr></thead><tbody>
         <tr><td><code>SearchOne</code></td><td><code>SearchOneInput{ModelName, Criteria}</code></td><td>One row map</td></tr>
         <tr><td><code>Search</code></td><td><code>SearchInput{ModelName, Domain}</code></td><td>Row maps</td></tr>
-        <tr><td><code>Create</code></td><td><code>CreateInput{Model, Values}</code></td><td>New id</td></tr>
-        <tr><td><code>Upsert</code></td><td><code>UpsertInput{Model, Values, ConflictCol}</code></td><td>Id</td></tr>
+        <tr><td><code>Create</code></td><td><code>CreateInput{ModelName, Values}</code></td><td>New id</td></tr>
+        <tr><td><code>Upsert</code></td><td><code>UpsertInput{ModelName, Values, ConflictCol}</code></td><td>Id</td></tr>
         <tr><td><code>ResolveXmlId</code></td><td><code>ResolveXmlIdInput{XMLID}</code></td><td>id, model name</td></tr>
         </tbody></table>
         <h2 id="helpers">Helpers</h2>
@@ -142,7 +151,6 @@
         </tbody></table>
         <p>Addon HTTP routes for export/import are <strong>not</strong> supported — enable via view XML instead.</p>
         <h2 id="not-in-sdk">Not in SDK</h2>
-        <p>These live elsewhere and are documented separately:</p>
         <table><thead><tr><th>Need</th><th>Package</th></tr></thead><tbody>
         <tr><td>HTTP route registration</td><td><code>sumeru/core/server/router</code></td></tr>
         <tr><td>Render hooks</td><td><code>sumeru/core/engine/render</code></td></tr>

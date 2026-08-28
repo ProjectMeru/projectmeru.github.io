@@ -6,16 +6,16 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Launcher | Sumeru Docs</title>
-  <meta name="description" content="App Launcher">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/platform/app-launcher.html">
+  <title>SWC notifications | Sumeru Docs</title>
+  <meta name="description" content="SWC notifications">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/swc-notifications.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#050505">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="stylesheet" href="../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
 </head>
 <body>
@@ -28,12 +28,12 @@
 <button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-<a class="docs-brand" href="../../index.html">
-      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
+<a class="docs-brand" href="../index.html">
+      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
       <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -72,27 +72,60 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>App launcher</h1>
-        <p class="docs-lede">Quickly jump to any menu or app without browsing sidebars.</p>
-        <h2 id="open-the-launcher">Open the launcher</h2>
-        <p>Press <strong>Cmd+K</strong> (Mac) or <strong>Ctrl+K</strong> (Windows/Linux), or click the search icon in the top bar.</p>
-        <h2 id="what-it-searches">What it searches</h2>
-        <p>The launcher matches <strong>app and menu names</strong> from your installed modules — not record content. Type a few letters (e.g. “pipeline”, “invoice”) and select a result to open that screen.</p>
-        <h2 id="not-ai-search">Not AI search</h2>
-        <p>This is keyword matching on menu labels. <strong>Natural language search</strong> (e.g. “show me open leads from last week”) is planned but not available in the core product today. The optional <strong>Sumeru AI</strong> module adds placeholder hooks only.</p>
-        <h2 id="keyboard-shortcut-on-apps-and-settings">Keyboard shortcut on Apps and Settings</h2>
-        <p>On the Apps and Settings pages, press <strong><code>/</code></strong> to focus the page search filter quickly.</p>
-        <h2 id="next-steps">Next steps</h2>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>SWC notifications</h1>
+        <p class="docs-lede">Workspace toasts are rendered by <code>NotificationService</code> (<code>core/swc/src/services/notification.ts</code>). They appear in the <strong>top-right</strong> stack (<code>#sum-toast-stack</code>), follow Sumeru <code>sum-toast-*</code> CSS, and need no extra library.</p>
+        <p>Use <code>env.services.notification</code> from any SWC component. Do not POST to removed <code>/web/record/save</code> routes for save feedback.</p>
+        <h2 id="api">API</h2>
+        <pre class="docs-pre"><code>const n = this.env.services.notification;
+
+n.show({ kind: "info", title: "Queued", body: "Export started." });
+n.success("Saved", "Record saved successfully.");
+n.error("Save failed", err.message);
+n.warning(result.warning.title, result.warning.message, result.warning.details);</code></pre>
+        <table><thead><tr><th>Method</th><th>Kind class</th></tr></thead><tbody>
+        <tr><td><code>show({ kind, title, body, details? }, timeoutMs?)</code></td><td><code>sum-toast--${kind}</code> (<code>info</code> if omitted)</td></tr>
+        <tr><td><code>success(title, body, details?)</code></td><td><code>success</code></td></tr>
+        <tr><td><code>error(title, body, details?)</code></td><td><code>error</code></td></tr>
+        <tr><td><code>warning(title, body, details?)</code></td><td><code>warning</code></td></tr>
+        <tr><td><code>bootstrap(messages?)</code></td><td>Replays <code>window.__SWC_BOOTSTRAP__.toasts</code></td></tr>
+        </tbody></table>
+        <p><code>kind</code> values in CSS: <code>success</code>, <code>info</code>, <code>warning</code>, <code>error</code>. Markup uses <code>.sum-toast-title</code>, <code>.sum-toast-body</code>, optional <code>.sum-toast-details</code>, and <code>.sum-toast-close</code>.</p>
+        <h2 id="behaviour">Behaviour</h2>
         <ul>
-        <li><a href="home-and-apps.html">Home and apps</a></li>
+        <li>Stack is <code>position: fixed</code> top-right with <code>aria-live="polite"</code>.</li>
+        <li>Auto-dismiss after <strong>6 seconds</strong> (override with <code>timeoutMs</code> on <code>show</code>). Hover pauses the timer.</li>
+        <li>Close (<code>×</code>) or timeout plays <code>sum-toast-out</code>, then the node is removed.</li>
+        <li>At most <strong>5</strong> live toasts; the oldest dismisses first.</li>
+        </ul>
+        <h2 id="crud-vs-validation">CRUD vs validation</h2>
+        <table><thead><tr><th>Path</th><th>Feedback</th></tr></thead><tbody>
+        <tr><td>Form save / delete / duplicate</td><td>Success toast; RPC/network → error toast</td></tr>
+        <tr><td>Form required-field check (<code>SwcError</code> code <code>validation</code>)</td><td>Inline <code>.sum-flash</code> — <strong>not</strong> a toast</td></tr>
+        <tr><td>Object buttons (header/footer)</td><td>Success toast, unless the RPC result is <code>{close}</code>, <code>{open}</code>, or <code>{redirect}</code></td></tr>
+        <tr><td>List bulk delete</td><td>Success or error toast; button disabled while in flight</td></tr>
+        <tr><td>List header object buttons (selection ≥ 2)</td><td>Same as form object buttons; <code>call</code> may pass <code>active_ids</code></td></tr>
+        <tr><td>Kanban quick-create</td><td>Success toast; create/move RPC errors toast</td></tr>
+        </tbody></table>
+        <p>Onchange warnings call <code>notification.warning</code>. Server flash toasts still work via bootstrap <code>toasts</code> (legacy HTML workspace <code>?msg=</code> is separate — see <a href="http-routes.html">HTTP routes</a>).</p>
+        <h2 id="what-not-to-do">What not to do</h2>
+        <ul>
+        <li>Do not document or rely on a separate <code>toast.js</code> script; SWC owns the stack.</li>
+        <li>Do not toast client validation — keep required-field errors on the form.</li>
+        <li>Mail/SMTP user notifications are a different stack and are not this API.</li>
+        </ul>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="swc-api.html">SWC API</a></li>
+        <li><a href="../guides/concepts/swc-widgets.html">SWC widgets</a></li>
+        <li><a href="view-types.html">View types</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 
@@ -115,9 +148,9 @@
   </div>
 
   <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
-  <script src="../../js/docs-nav-data.js"></script>
-  <script src="../../js/fuse.min.js"></script>
-  <script src="../../js/docs-search.js"></script>
-  <script src="../../js/docs.js"></script>
+  <script src="../js/docs-nav-data.js"></script>
+  <script src="../js/fuse.min.js"></script>
+  <script src="../js/docs-search.js"></script>
+  <script src="../js/docs.js"></script>
 </body>
 </html>

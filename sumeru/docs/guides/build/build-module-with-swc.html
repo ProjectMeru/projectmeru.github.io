@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build a module with SWC | Sumeru Docs</title>
-  <meta name="description" content="End-to-end addon walkthrough with Go model, view XML, and optional custom SWC widget.">
+  <meta name="description" content="Build a module with SWC">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/build-module-with-swc.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -29,11 +29,11 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 <a class="docs-brand" href="../../index.html">
-      <img src="../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
       <span class="brand-docs">Docs</span>
     </a>
-          <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
           <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -77,278 +77,144 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <p class="docs-lede">End-to-end addon walkthrough with Go model, view XML, and optional custom SWC widget.</p>
         <h1>Build a module with SWC</h1>
-        <p>Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from <code>sumeru_custom_addons</code> (see [Creating an addon](../../website/guides/build/creating-an-addon.md)).</p>
+        <p class="docs-lede">Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from <code>sumeru_custom_addons</code> (see <a href="creating-an-addon.html">Creating an addon</a>).</p>
         <h2 id="1-scaffold-the-module">1. Scaffold the module</h2>
-        <pre class="docs-pre"><code>
-        my_crm/
-
-        ├── manifest.json
-
-        ├── models/
-
-        │   └── lead.go
-
-        ├── views/
-
-        │   ├── lead_views.xml
-
-        │   └── lead_menus.xml
-
-        ├── security/
-
-        │   └── ir.model.access.csv
-
-        └── static/swc/          # optional
-
-            ├── main.ts
-
-            └── esbuild.config.mjs
-
-        </code></pre>
+        <pre class="docs-pre"><code>my_crm/
+├── manifest.json
+├── models/
+│   └── lead.go
+├── views/
+│   ├── lead_views.xml
+│   └── lead_menus.xml
+├── security/
+│   └── sys.access.csv
+└── static/swc/          # optional
+    ├── main.ts
+    └── esbuild.config.mjs</code></pre>
         <p><code>manifest.json</code>:</p>
-        <pre class="docs-pre"><code>
-        {
-
-          &quot;name&quot;: &quot;my_crm&quot;,
-
-          &quot;version&quot;: &quot;1.0.0&quot;,
-
-          &quot;depends&quot;: [&quot;base&quot;],
-
-          &quot;data&quot;: [
-
-            &quot;security/ir.model.access.csv&quot;,
-
-            &quot;views/lead_views.xml&quot;,
-
-            &quot;views/lead_menus.xml&quot;
-
-          ]
-
-        }
-
-        </code></pre>
+        <pre class="docs-pre"><code>{
+  "name": "my_crm",
+  "version": "1.0.0",
+  "depends": ["base"],
+  "data": [
+    "security/sys.access.csv",
+    "views/lead_views.xml",
+    "views/lead_menus.xml"
+  ]
+}</code></pre>
         <h2 id="2-define-the-model">2. Define the model</h2>
-        <pre class="docs-pre"><code>
-        package models
+        <pre class="docs-pre"><code>package models
 
-        
+import "sumeru/core/sdk"
 
-        import &quot;sumeru/core/orm&quot;
+type Lead struct {
+    sdk.Model `sumeru:"model=my.crm.lead"`
 
-        
-
-        type Lead struct{ orm.BaseModel }
-
-        
-
-        func (m *Lead) ModelName() string { return &quot;my.crm.lead&quot; }
-
-        
-
-        func (m *Lead) Fields() []orm.FieldDefinition {
-
-            return []orm.FieldDefinition{
-
-                {Name: &quot;name&quot;, Type: orm.Char, String: &quot;Lead Name&quot;, Required: true},
-
-                {Name: &quot;email&quot;, Type: orm.Char, String: &quot;Email&quot;},
-
-                {Name: &quot;phone&quot;, Type: orm.Char, String: &quot;Phone&quot;},
-
-                {Name: &quot;active&quot;, Type: orm.Boolean, String: &quot;Active&quot;},
-
-                {Name: &quot;priority&quot;, Type: orm.Selection, String: &quot;Priority&quot;,
-
-                    Selection: []orm.SelectionOption{
-
-                        {Value: &quot;0&quot;, Label: &quot;Low&quot;},
-
-                        {Value: &quot;1&quot;, Label: &quot;Normal&quot;},
-
-                        {Value: &quot;2&quot;, Label: &quot;High&quot;},
-
-                    }},
-
-            }
-
-        }
-
-        </code></pre>
-        <p>Register the model in your module&#x27;s <code>init()</code> / loader.</p>
+    Name     sdk.String  `sumeru:"required,string=Lead Name"`
+    Email    sdk.Email   `sumeru:"string=Email"`
+    Phone    sdk.Phone   `sumeru:"string=Phone"`
+    Active   sdk.Boolean `sumeru:"default=true,string=Active"`
+    Priority sdk.String  `sumeru:"selection=0:Low,1:Normal,2:High,string=Priority"`
+}</code></pre>
+        <p>Run <strong><code>make generate</code></strong> so <code>models/zmodels.go</code> registers the model.</p>
         <h2 id="3-write-views">3. Write views</h2>
         <p><code>views/lead_views.xml</code>:</p>
-        <pre class="docs-pre"><code>
-        &lt;sumeru&gt;
+        <pre class="docs-pre"><code>&lt;sumeru&gt;
+  &lt;data&gt;
+    &lt;view id="view_my_crm_lead_list" model="my.crm.lead" type="list"&gt;
+      &lt;field name="name"/&gt;
+      &lt;field name="email"/&gt;
+      &lt;field name="phone"/&gt;
+      &lt;field name="priority" widget="priority"/&gt;
+      &lt;field name="active" widget="boolean_toggle"/&gt;
+    &lt;/view&gt;
 
-          &lt;data&gt;
+    &lt;view id="view_my_crm_lead_form" model="my.crm.lead" type="form"&gt;
+      &lt;sheet&gt;
+        &lt;div class="sum_title"&gt;&lt;h1&gt;&lt;field name="name"/&gt;&lt;/h1&gt;&lt;/div&gt;
+        &lt;group&gt;
+          &lt;field name="email" widget="email"/&gt;
+          &lt;field name="phone" widget="phone"/&gt;
+          &lt;field name="priority" widget="priority" options="mode:stars,stars:3"/&gt;
+          &lt;field name="active" widget="boolean_toggle"/&gt;
+        &lt;/group&gt;
+      &lt;/sheet&gt;
+    &lt;/view&gt;
 
-            &lt;view id=&quot;view_my_crm_lead_list&quot; model=&quot;my.crm.lead&quot; type=&quot;list&quot;&gt;
+    &lt;record id="action_my_crm_leads" model="sys.action.window"&gt;
+      &lt;field name="name"&gt;Leads&lt;/field&gt;
+      &lt;field name="core_model"&gt;my.crm.lead&lt;/field&gt;
+      &lt;field name="view_mode"&gt;list,form&lt;/field&gt;
+    &lt;/record&gt;
 
-              &lt;field name=&quot;name&quot;/&gt;
-
-              &lt;field name=&quot;email&quot;/&gt;
-
-              &lt;field name=&quot;phone&quot;/&gt;
-
-              &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
-
-              &lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
-
-            &lt;/view&gt;
-
-        
-
-            &lt;view id=&quot;view_my_crm_lead_form&quot; model=&quot;my.crm.lead&quot; type=&quot;form&quot;&gt;
-
-              &lt;sheet&gt;
-
-                &lt;div class=&quot;sum_title&quot;&gt;&lt;h1&gt;&lt;field name=&quot;name&quot;/&gt;&lt;/h1&gt;&lt;/div&gt;
-
-                &lt;group&gt;
-
-                  &lt;field name=&quot;email&quot; widget=&quot;email&quot;/&gt;
-
-                  &lt;field name=&quot;phone&quot; widget=&quot;phone&quot;/&gt;
-
-                  &lt;field name=&quot;priority&quot; widget=&quot;priority&quot; options=&quot;mode:stars,stars:3&quot;/&gt;
-
-                  &lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
-
-                &lt;/group&gt;
-
-              &lt;/sheet&gt;
-
-            &lt;/view&gt;
-
-        
-
-            &lt;record id=&quot;action_my_crm_leads&quot; model=&quot;ir.actions.act_window&quot;&gt;
-
-              &lt;field name=&quot;name&quot;&gt;Leads&lt;/field&gt;
-
-              &lt;field name=&quot;res_model&quot;&gt;my.crm.lead&lt;/field&gt;
-
-              &lt;field name=&quot;view_mode&quot;&gt;list,form&lt;/field&gt;
-
-            &lt;/record&gt;
-
-        
-
-            &lt;menuitem id=&quot;menu_my_crm_root&quot; name=&quot;My CRM&quot; sequence=&quot;90&quot;/&gt;
-
-            &lt;menuitem id=&quot;menu_my_crm_leads&quot; name=&quot;Leads&quot; parent=&quot;menu_my_crm_root&quot;
-
-                      action=&quot;action_my_crm_leads&quot;/&gt;
-
-          &lt;/data&gt;
-
-        &lt;/sumeru&gt;
-
-        </code></pre>
-        <p>See [Field attributes](../../reference/field-attributes.md) and [View types](../../reference/view-types.md) for all attributes.</p>
+    &lt;menuitem id="menu_my_crm_root" name="My CRM" sequence="90"/&gt;
+    &lt;menuitem id="menu_my_crm_leads" name="Leads" parent="menu_my_crm_root"
+              action="action_my_crm_leads"/&gt;
+  &lt;/data&gt;
+&lt;/sumeru&gt;</code></pre>
+        <p>See <a href="../../reference/field-attributes.html">Field attributes</a> and <a href="../../reference/view-types.html">View types</a> for all attributes.</p>
         <h2 id="4-install-and-verify">4. Install and verify</h2>
-        <pre class="docs-pre"><code>
-        cd sumeru_custom_addons
-
-        go run . -- -c sumeru.conf -u my_crm --stop-after-init
-
-        make run
-
-        </code></pre>
-        <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON.</p>
+        <pre class="docs-pre is-shell"><code>cd sumeru_custom_addons
+go run . -- -c sumeru.conf -u my_crm --stop-after-init
+make run</code></pre>
+        <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
         <h2 id="5-optional-custom-swc-widget">5. Optional — custom SWC widget</h2>
         <p>Add to <code>manifest.json</code>:</p>
-        <pre class="docs-pre"><code>
-        &quot;swc_entry&quot;: &quot;static/swc/main.js&quot;
-
-        </code></pre>
+        <pre class="docs-pre"><code>"swc_entry": "static/swc/main.js"</code></pre>
         <p><code>static/swc/main.ts</code>:</p>
-        <pre class="docs-pre"><code>
-        import { registry } from &quot;/static/swc/swc.js&quot;;
+        <pre class="docs-pre"><code>import { registry } from "/static/swc/swc.js";
 
-        
+// SwcComponent and html are available on the global SumeruSWC bundle exports
+const { SwcComponent, html } = window.SumeruSWC as typeof import("@sumeru/swc");
 
-        // SwcComponent and html are available on the global SumeruSWC bundle exports
+class ColorBadgeField extends SwcComponent {
+  template() {
+    const { field, record, readonly } = this.props as {
+      field: { name: string; string?: string };
+      record: { get: (n: string) =&gt; unknown; set: (n: string, v: unknown) =&gt; void };
+      readonly: boolean;
+    };
+    const val = String(record.get(field.name) ?? "");
+    return html`&lt;div class="sum-field-widget sum-field-widget--row"&gt;
+      &lt;label class="sum-field-label"&gt;${field.string ?? field.name}&lt;/label&gt;
+      &lt;div class="sum-field-control"&gt;
+        &lt;input class="sum-field-input" type="color" value=${val || "#875a7b"}
+          disabled=${readonly ? "disabled" : undefined}
+          @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }
+}
 
-        const { SwcComponent, html } = window.SumeruSWC as typeof import(&quot;@sumeru/swc&quot;);
-
-        
-
-        class ColorBadgeField extends SwcComponent {
-
-          template() {
-
-            const { field, record, readonly } = this.props as {
-
-              field: { name: string; string?: string };
-
-              record: { get: (n: string) =&gt; unknown; set: (n: string, v: unknown) =&gt; void };
-
-              readonly: boolean;
-
-            };
-
-            const val = String(record.get(field.name) ?? &quot;&quot;);
-
-            return html`&lt;div class=&quot;sum-field-widget sum-field-widget--row&quot;&gt;
-
-              &lt;label class=&quot;sum-field-label&quot;&gt;${field.string ?? field.name}&lt;/label&gt;
-
-              &lt;div class=&quot;sum-field-control&quot;&gt;
-
-                &lt;input class=&quot;sum-field-input&quot; type=&quot;color&quot; value=${val || &quot;#875a7b&quot;}
-
-                  disabled=${readonly ? &quot;disabled&quot; : undefined}
-
-                  @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
-
-              &lt;/div&gt;
-
-            &lt;/div&gt;`;
-
-          }
-
-        }
-
-        
-
-        registry.category(&quot;fields&quot;).add(&quot;color_badge&quot;, ColorBadgeField);
-
-        </code></pre>
+registry.category("fields").add("color_badge", ColorBadgeField);</code></pre>
         <p>Build with esbuild targeting ES2022 (same as core <code>make swc</code>). Reference in XML:</p>
-        <pre class="docs-pre"><code>
-        &lt;field name=&quot;priority&quot; widget=&quot;color_badge&quot;/&gt;
-
-        </code></pre>
+        <pre class="docs-pre"><code>&lt;field name="priority" widget="color_badge"/&gt;</code></pre>
         <p>The kernel injects addon URLs via <code>window.__SWC_ADDON_ENTRIES__</code> before SWC boots.</p>
         <h2 id="6-debug">6. Debug</h2>
         <ul>
         <li><strong>SWC Vision:</strong> Load the browser extension from <code>core/swc/devtools-extension/</code> or use the in-app debug panel.</li>
-        <ul>
         <li><strong>Tests:</strong> Mirror patterns in <code>core/swc/tests/views/form-widgets.test.ts</code>.</li>
-        <ul>
-        <li><strong>Arch JSON:</strong> Inspect <code>GET /web/swc/workspace?action=…&amp;view_type=form</code> response.</li>
+        <li><strong>Arch JSON:</strong> Inspect <code>GET /web/swc/workspace?action=…&view_type=form</code> response.</li>
         </ul>
         <h2 id="checklist">Checklist</h2>
-        <li>Model registered in Go ORM</li>
-        <li>Security CSV grants access</li>
-        <li>Views listed in manifest <code>data</code> before menus</li>
-        <li>Action <code>view_mode</code> includes your view types</li>
-        <li>Field <code>name</code> values match model fields</li>
-        <li>Custom widget registered before first render (via <code>swc_entry</code>)</li>
+        <ul>
+        <li>[ ] Model registered in Go ORM</li>
+        <li>[ ] Security CSV grants access</li>
+        <li>[ ] Views listed in manifest <code>data</code> before menus</li>
+        <li>[ ] Action <code>view_mode</code> includes your view types</li>
+        <li>[ ] Field <code>name</code> values match model fields</li>
+        <li>[ ] Custom widget registered before first render (via <code>swc_entry</code>)</li>
+        </ul>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li>[SWC widgets](../swc-widgets.md)</li>
-        <ul>
-        <li>[SWC widget catalog](../../reference/swc-widget-catalog.md)</li>
-        <ul>
-        <li>[Arch JSON pipeline](../arch-json-pipeline.md)</li>
+        <li><a href="../concepts/swc-widgets.html">SWC widgets</a></li>
+        <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a></li>
+        <li><a href="../../reference/swc-notifications.html">SWC notifications</a></li>
+        <li><a href="../concepts/arch-json-pipeline.html">Arch JSON pipeline</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

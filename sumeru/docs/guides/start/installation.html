@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                  <header class="docs-topbar">
+                                                                  <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -67,9 +67,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -107,10 +107,11 @@
 <h2 id="requirements">Requirements</h2>
         <ul>
           <li>Go 1.26+</li>
+          <li><a href="https://nodejs.org/">Node.js</a> (npm — builds SWC workspace UI; bundles are gitignored)</li>
           <li>PostgreSQL</li>
           <li>Checkouts of <code>sumeru</code>, <code>sumeru_addons</code> and <code>sumeru_custom_addons</code> as sibling directories (typical layout)</li>
         </ul>
-        <p>Nothing else: no Node, no Docker, no message broker, no external cache.</p>
+        <p><code>make setup</code> wires <code>go.mod</code> replaces, regenerates imports, and builds client assets when missing. Docker, a message broker, and external cache are not required.</p>
 
         <h2 id="create-the-database">Create the database</h2>
         <div class="docs-codebox is-shell" data-codebox="shell-2dbbc380">
@@ -146,7 +147,7 @@
 </div>
         <p>Paths inside the INI resolve against the file itself, not your shell. The <code>addons_path</code> key decides which addons exist at all. Default listen port is <code>8080</code>. Details: <a href="configuration.html">Configuration</a>.</p>
 
-        <h2 id="point-at-the-modules">Point the workspace at the other two modules</h2>
+        <h2 id="bootstrap">Bootstrap the workspace</h2>
         <div class="docs-codebox is-shell" data-codebox="shell-2d85d262">
   <div class="docs-codebox-titlebar">
     <span class="docs-codebox-name">Terminal</span>
@@ -156,12 +157,12 @@
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make replace-sumeru        SUMERU_ROOT=../sumeru&#10;make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons&#10;make generate">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make replace-sumeru        SUMERU_ROOT=../sumeru</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make setup    # go.mod replaces, imports, SWC + login JS bundles&#10;make run      # regenerate imports; rebuild assets when missing or stale">
+      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">go.mod replaces, imports, SWC + login JS bundles</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">regenerate imports; rebuild assets when missing or stale</span></span></code></pre>
     </div>
   </div>
 </div>
-        <p><code>make generate</code> rewrites <code>addonimports/zimports.go</code>, the blank imports that link every discovered addon into the binary. Run it whenever you add an addon.</p>
+        <p><code>make setup</code> runs <code>replace-sumeru</code>, <code>replace-sumeru-addons</code>, <code>make generate</code> (rewrites <code>addonimports/zimports.go</code>), and <code>make assets</code> (delegates to <code>../sumeru</code> for SWC bundles). Run <code>make generate</code> again whenever you add an addon folder.</p>
 
         <h2 id="verify">Verify the toolchain</h2>
         <div class="docs-codebox is-shell" data-codebox="shell-30c1e957">
@@ -173,8 +174,8 @@
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go version&#10;psql -U postgres -c &quot;SELECT version();&quot;">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "SELECT version();"</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go version&#10;node --version&#10;npm --version&#10;psql -U postgres -c &quot;SELECT version();&quot;">
+      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">node --version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">npm --version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "SELECT version();"</span></span></code></pre>
     </div>
   </div>
 </div>

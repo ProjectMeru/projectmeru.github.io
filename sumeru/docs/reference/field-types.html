@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -78,48 +78,52 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Field types</h1>
-        <p class="docs-lede">Reference for model fields registered with <code>sdk.RegisterModel</code>. Source: <code>sumeru/core/orm/model.go</code>, <code>registry.go</code>.</p>
+        <p class="docs-lede">Models embed <strong><code>sdk.Model</code></strong> and use typed field markers from <strong><code>sumeru/core/sdk</code></strong>. Schema is inferred at registration from Go types and <strong><code>sumeru</code></strong> struct tags. For declaration examples see <a href="../guides/build/models-and-fields.html">Models & fields</a>.</p>
         <h2 id="scalar-and-relational-types">Scalar and relational types</h2>
-        <table><thead><tr><th>Type</th><th>Go constant</th><th>PostgreSQL column</th><th>Notes</th></tr></thead><tbody>
-        <tr><td><code>char</code></td><td><code>Char</code></td><td><code>VARCHAR(255)</code></td><td>Short text</td></tr>
-        <tr><td><code>text</code></td><td><code>Text</code></td><td><code>TEXT</code></td><td>Long text</td></tr>
-        <tr><td><code>integer</code></td><td><code>Integer</code></td><td><code>BIGINT</code></td><td>Whole numbers</td></tr>
-        <tr><td><code>float</code></td><td><code>Float</code></td><td><code>DOUBLE PRECISION</code></td><td>Floating point</td></tr>
-        <tr><td><code>numeric</code></td><td><code>Numeric</code></td><td><code>NUMERIC(16,4)</code></td><td>Exact decimals (money)</td></tr>
-        <tr><td><code>boolean</code></td><td><code>Boolean</code></td><td><code>BOOLEAN</code></td><td>true/false</td></tr>
-        <tr><td><code>date</code></td><td><code>Date</code></td><td><code>DATE</code></td><td>Date only</td></tr>
-        <tr><td><code>datetime</code></td><td><code>DateTime</code></td><td><code>TIMESTAMPTZ</code></td><td>Timestamp with timezone</td></tr>
-        <tr><td><code>selection</code></td><td><code>Selection</code></td><td><code>VARCHAR(50)</code></td><td>Fixed choice list</td></tr>
-        <tr><td><code>json</code></td><td><code>Json</code></td><td><code>JSONB</code></td><td>Structured JSON</td></tr>
-        <tr><td><code>many2one</code></td><td><code>Many2One</code></td><td><code>BIGINT</code></td><td>FK to related model id</td></tr>
-        <tr><td><code>many2many</code></td><td><code>Many2Many</code></td><td>*(no column)*</td><td>Relation table; see limits below</td></tr>
-        <tr><td><code>one2many</code></td><td><code>One2Many</code></td><td>*(no column)*</td><td>Inverse relation; see limits below</td></tr>
+        <table><thead><tr><th>Go type</th><th>PostgreSQL</th><th>Notes</th></tr></thead><tbody>
+        <tr><td><code>sdk.String</code></td><td><code>VARCHAR</code> (default 255)</td><td><code>size=</code> for length; <code>column=</code> for physical name</td></tr>
+        <tr><td><code>sdk.Text</code></td><td><code>TEXT</code></td><td></td></tr>
+        <tr><td><code>sdk.HTML</code></td><td><code>TEXT</code></td><td>Rich text; widget <code>html</code></td></tr>
+        <tr><td><code>sdk.Email</code></td><td><code>VARCHAR</code></td><td>Widget <code>email</code></td></tr>
+        <tr><td><code>sdk.Phone</code></td><td><code>VARCHAR</code></td><td>Widget <code>phone</code></td></tr>
+        <tr><td><code>sdk.URL</code></td><td><code>VARCHAR</code></td><td>Widget <code>url</code></td></tr>
+        <tr><td><code>sdk.UUID</code></td><td><code>VARCHAR(36)</code></td><td>Use <code>default=uuid</code> for server-generated values</td></tr>
+        <tr><td><code>sdk.Boolean</code></td><td><code>BOOLEAN</code></td><td></td></tr>
+        <tr><td><code>sdk.Integer</code></td><td><code>BIGINT</code></td><td><code>min=</code>, <code>max=</code></td></tr>
+        <tr><td><code>sdk.Float</code></td><td><code>REAL</code></td><td>32-bit</td></tr>
+        <tr><td><code>sdk.Float64</code></td><td><code>DOUBLE PRECISION</code></td><td>64-bit</td></tr>
+        <tr><td><code>sdk.Numeric</code></td><td><code>NUMERIC(p,s)</code></td><td><code>precision=</code>, <code>scale=</code></td></tr>
+        <tr><td><code>sdk.Money</code></td><td><code>NUMERIC(p,s)</code></td><td>Defaults 18,2; pair with <code>currency=FieldName</code></td></tr>
+        <tr><td><code>sdk.Date</code></td><td><code>DATE</code></td><td></td></tr>
+        <tr><td><code>sdk.Time</code></td><td><code>TEXT</code></td><td>Time-of-day string; widget <code>time</code></td></tr>
+        <tr><td><code>sdk.DateTime</code></td><td><code>TIMESTAMPTZ</code></td><td></td></tr>
+        <tr><td><code>sdk.Duration</code></td><td><code>NUMERIC(p,s)</code></td><td>Stored as decimal; widget <code>duration</code></td></tr>
+        <tr><td><code>sdk.Json</code></td><td><code>JSONB</code></td><td></td></tr>
+        <tr><td><code>sdk.Binary</code></td><td><code>TEXT</code></td><td>Attachment payload; widget <code>binary</code></td></tr>
+        <tr><td><code>sdk.Image</code></td><td><code>TEXT</code></td><td>Image payload; widget <code>image</code></td></tr>
+        <tr><td><code>sdk.Selection[T ~string]</code></td><td><code>VARCHAR(50)</code></td><td>Options from const blocks in <code>selection_types.go</code></td></tr>
+        <tr><td><code>sdk.Many2One[T]</code></td><td><code>BIGINT</code></td><td>FK; <code>ondelete=</code>; <code>comodel=</code> when using <code>sdk.Any</code></td></tr>
+        <tr><td><code>sdk.One2Many[T]</code></td><td>*(no column)*</td><td><code>inverse=</code> names the Many2one on the child</td></tr>
+        <tr><td><code>sdk.Many2Many[T]</code></td><td>*(no column)*</td><td><code>table=</code>, <code>left=</code>, <code>right=</code> for join table</td></tr>
+        <tr><td><code>sdk.Reference</code></td><td><code>VARCHAR</code></td><td>Polymorphic model name; widget <code>reference</code></td></tr>
+        <tr><td><code>sdk.Many2OneReference</code></td><td><code>BIGINT</code></td><td>Polymorphic id; <code>model_field=</code> names the model field</td></tr>
         </tbody></table>
-        <h2 id="fielddefinition-attributes">FieldDefinition attributes</h2>
-        <table><thead><tr><th>Attribute</th><th>Applies to</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><code>Required</code></td><td>all</td><td>NOT NULL on create/write</td></tr>
-        <tr><td><code>String</code></td><td>all</td><td>Human label in UI and errors</td></tr>
-        <tr><td><code>DefaultVal</code></td><td>scalars</td><td>Default on create</td></tr>
-        <tr><td><code>Selection</code></td><td><code>selection</code></td><td>Allowed values <code>[]string{"a","b"}</code></td></tr>
-        <tr><td><code>Relation</code></td><td>relational</td><td>Target model name</td></tr>
-        <tr><td><code>RelationTable</code></td><td><code>many2many</code></td><td>Join table name</td></tr>
-        <tr><td><code>Column1</code>, <code>Column2</code></td><td><code>many2many</code></td><td>Join table column names</td></tr>
-        <tr><td><code>Unique</code></td><td>scalars</td><td>UNIQUE index</td></tr>
-        <tr><td><code>Index</code></td><td>scalars</td><td>Non-unique index</td></tr>
-        </tbody></table>
-        <h2 id="relational-field-limits">Relational field limits</h2>
+        <h2 id="derived-fields">Derived fields</h2>
+        <p>Any scalar marker can carry:</p>
         <ul>
-        <li><strong>Many2one</strong> — stored as <code>BIGINT</code> FK; fully supported for CRUD and search.</li>
-        <li><strong>Many2many / One2many</strong> — no direct column on the parent table. UI can display relations; persistence is limited. Special cases (<code>company_ids</code>, <code>security_group_ids</code>) have dedicated handling in the kernel.</li>
-        <li>Do not assume automatic M2M/O2M write-through on arbitrary models without verifying behaviour.</li>
+        <li><strong><code>related=other_field.subfield</code></strong> — read-only mirror of a related value (no separate column logic beyond the source).</li>
+        <li><strong><code>compute=name</code></strong> — filled by a handler registered with <strong><code>orm.RegisterCompute</code></strong>; optional <strong><code>store</code></strong> persists to the column on write; <strong><code>readonly</code></strong> blocks client edits.</li>
         </ul>
-        <h2 id="model-inheritance">Model inheritance</h2>
-        <p><strong>ORM model <code>_inherit</code> is not supported.</strong> Extend behaviour with bridge modules, view XML inherit, or new models — not by merging Go struct definitions.</p>
+        <h2 id="common-struct-tags">Common struct tags</h2>
+        <p><code>required</code>, <code>unique</code>, <code>index</code>, <code>default=</code>, <code>string=</code> (label), <code>column=</code>, <code>size=</code>, <code>precision=</code>, <code>scale=</code>, <code>currency=</code>, <code>min=</code>, <code>max=</code>, <code>comodel=</code>, <code>inverse=</code>, <code>ondelete=</code>, <code>table=</code>, <code>left=</code>, <code>right=</code>, <code>model_field=</code>, <code>related=</code>, <code>compute=</code>, <code>store</code>, <code>readonly</code>, <code>groups=</code></p>
+        <p>Typed selections do not use inline <code>selection=</code> tags — define const blocks and use <strong><code>sdk.Selection[YourType]</code></strong>.</p>
+        <h2 id="registration">Registration</h2>
+        <p>Generated <strong><code>models/zmodels.go</code></strong> calls <strong><code>sdk.MustRegister</code></strong> on <code>make generate</code>. Authors do not write <code>Fields()</code> or hand-register models in addon <code>init()</code>. Cross-module relation types come from generated <strong><code>models/zrefs.go</code></strong> after listing modules in <strong><code>depends</code></strong>.</p>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li><a href="../guides/build/models-and-fields.html">Models & fields</a></li>
-        <li><a href="domain-filters.html">Domain filters</a></li>
-        <li><a href="widgets-and-views.html">Widgets & views</a></li>
+        <li><a href="../guides/build/models-and-fields.html">Models & fields</a> — declare every type with <code>my_module</code> examples</li>
+        <li><a href="field-attributes.html">Field attributes</a> — view XML attributes</li>
+        <li><a href="swc-widget-catalog.html">SWC widget catalog</a> — UI widgets per type</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>

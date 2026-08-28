@@ -61,6 +61,19 @@
     ]
   },
   {
+    "title": "How to run from `sumeru_custom_addons`",
+    "url": "addons/howtos/custom-addons-workspace.html",
+    "track": "addons",
+    "section": "How-tos",
+    "excerpt": "Goal: keep sumeru/ and sumeru_addons/ read-only while you develop client modules under addons/.",
+    "headings": [
+      "summary",
+      "quick-start",
+      "client-assets",
+      "see-also"
+    ]
+  },
+  {
     "title": "Custom HTTP route",
     "url": "addons/howtos/custom-http-route.html",
     "track": "addons",
@@ -104,15 +117,33 @@
     ]
   },
   {
+    "title": "my_module kitchen-sink demo",
+    "url": "addons/howtos/my-module-cookbook.html",
+    "track": "addons",
+    "section": "How-tos",
+    "excerpt": "Reference addon showing every field widget and workspace view type.",
+    "headings": [
+      "scaffold-vs-demo",
+      "get-it-running",
+      "models",
+      "menus-and-view-modes",
+      "view-type-file-map",
+      "widgets-on-the-cookbook-form",
+      "cross-module-relations-zrefs-go",
+      "see-also"
+    ]
+  },
+  {
     "title": "How to scaffold a new addon",
     "url": "addons/howtos/scaffold-new-addon.html",
     "track": "addons",
     "section": "How-tos",
-    "excerpt": "Goal: create a valid module tree with manifest, Go model stub, starter views, menus, and security files.",
+    "excerpt": "Goal: create a valid module tree with manifest, Go model stub (sdk.Model tags), starter views, menus, and security files.",
     "headings": [
       "prerequisites",
-      "steps",
-      "custom-output-directory",
+      "custom-workspace-usual-path",
+      "core-repo-sumeruaddons",
+      "what-the-scaffold-emits",
       "see-also"
     ]
   },
@@ -174,6 +205,7 @@
       "models",
       "wizards",
       "object-actions",
+      "analysis-and-forecast",
       "events",
       "kanban",
       "security-groups",
@@ -415,15 +447,30 @@
     "url": "guides/build/models-and-fields.html",
     "track": "guides",
     "section": "Building an Application",
-    "excerpt": "ModelName, Fields, field types, relations and how runtime records are maps.",
+    "excerpt": "sdk.Model tags, field markers, relations, and how runtime records are maps.",
     "headings": [
-      "basemodel-and-registration",
+      "sdk-model-and-generate",
       "field-types",
+      "strings",
+      "contact-identity",
+      "boolean",
+      "integers",
+      "float-numeric",
+      "money",
+      "selection",
+      "date-time",
+      "json-media",
+      "many2one",
+      "one2many-many2many",
+      "reference-fields",
+      "related-fields",
+      "relations-and-zrefs",
       "computed-fields",
       "fielddefinition",
       "runtime-records",
       "compile-and-run",
       "what-not-to-do",
+      "see-also",
       "next-step"
     ]
   },
@@ -533,12 +580,11 @@
     "excerpt": "Commands and generators used every day while developing Sumeru.",
     "headings": [
       "run-the-server",
+      "client-assets-swc",
       "database-i18n-and-module-utilities",
-      "integration-test-database",
       "refresh-addon-go-imports-zimportsgo",
       "scaffold-a-new-addon-sumeru-bp",
       "tests",
-      "formatting",
       "see-also"
     ]
   },
@@ -857,7 +903,7 @@
     "url": "guides/concepts/sdk.html",
     "track": "guides",
     "section": "Core Concepts",
-    "excerpt": "sdk.BaseModel, Field helpers and registry lookups.",
+    "excerpt": "sdk.Model tags, field markers, and generated registration.",
     "headings": [
       "stable-addon-surface",
       "compile-and-run",
@@ -874,6 +920,7 @@
     "headings": [
       "when-to-use",
       "directives",
+      "runtime-helpers",
       "example",
       "limitations",
       "build",
@@ -885,14 +932,14 @@
     "url": "guides/concepts/swc-architecture.html",
     "track": "guides",
     "section": "Core Concepts",
-    "excerpt": "SWC is Sumeru\u2019s browser workspace client: a custom reactive component runtime (TypeScript 7) that replaces server-rendered workspace HTML and progressive JavaScript.",
+    "excerpt": "SWC is Sumeru\u2019s browser workspace client: a TypeScript 7 component runtime that renders workspace views from JSON arch and records.",
     "headings": [
-      "folder-layout-sumeru-native",
+      "folder-layout",
       "architecture",
       "typescript-7-toolchain",
       "bootstrap",
       "shell-features",
-      "capability-mapping-owl-inspired-not-owl-code",
+      "runtime-capabilities",
       "swc-vision",
       "cutover",
       "addon-extension",
@@ -1068,7 +1115,7 @@
       "requirements",
       "create-the-database",
       "workspace-config",
-      "point-at-the-modules",
+      "bootstrap",
       "verify",
       "next-step",
       "what-not-to-do"
@@ -1079,7 +1126,7 @@
     "url": "guides/start/troubleshooting.html",
     "track": "guides",
     "section": "Start Here",
-    "excerpt": "\u201cMy new Go model is ignored\u201d / table never appears Confirm sdk.RegisterModel(..., Module: \" \") uses the exact manifest.json name . Ensure the addon root package is blank-imported in cmd/sumeru/zimports.go (or addon",
+    "excerpt": "\u201cMy new Go model is ignored\u201d / table never appears Confirm the model struct embeds sdk.Model with sumeru:\"model=dotted.name\" . Run make generate so models/zmodels.go calls sdk.MustRegister with your manifest na",
     "headings": [
       "my-new-go-model-is-ignored-table-never-appears",
       "module-not-found-or-wrong-addon-wins",
@@ -1095,7 +1142,7 @@
     "url": "index.html",
     "track": "guides",
     "section": "Start Here",
-    "excerpt": "Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL underneath, and server-rendered screens on top. No Node. No message broker.",
+    "excerpt": "Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL underneath, and a SWC workspace client with search, filters, and saved searches across list, form, kanban, graph, pivot, calendar, gantt, map, and cohort views.",
     "headings": [
       "what-sumeru-is",
       "core-concepts",
@@ -1155,7 +1202,7 @@
     "url": "reference/field-attributes.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Reference for elements inside arch XML. The Go parser (core/engine/parser/view_xml.go) and serializer (core/engine/swcmeta/arch.go) convert these attributes into JSON on arch.fields[]; SWC field widgets read that JSON at runtime.",
+    "excerpt": "Reference for the field element inside view arch XML. The Go parser (core/engine/parser/view_xml.go) and serializer (core/engine/swcmeta/arch.go) convert these attributes into JSON on arch.fields[]; SWC field widgets read that JSON at runtime.",
     "headings": [
       "attribute-reference",
       "basic-examples",
@@ -1163,7 +1210,7 @@
       "one2many-subview",
       "header-and-footer-fields",
       "json-shape-workspace-payload",
-      "dynamic-modifiers-planned",
+      "dynamic-modifiers-expr",
       "see-also"
     ]
   },
@@ -1172,12 +1219,12 @@
     "url": "reference/field-types.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Reference for model fields registered with sdk.RegisterModel. Source: sumeru/core/orm/model.go, registry.go.",
+    "excerpt": "Models embed sdk.Model and use typed field markers from sumeru/core/sdk. Schema is inferred at registration from Go types and sumeru struct tags. For declaration examples see Models & fields.",
     "headings": [
       "scalar-and-relational-types",
-      "fielddefinition-attributes",
-      "relational-field-limits",
-      "model-inheritance",
+      "derived-fields",
+      "common-struct-tags",
+      "registration",
       "see-also"
     ]
   },
@@ -1186,19 +1233,20 @@
     "url": "reference/http-routes.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Route registration: sumeru/core/server/web/routes_table.go. Constants: web_constants.go.",
+    "excerpt": "Route registration: sumeru/core/server/web/routes_table.go. Constants: web_constants.go. Live workspace I/O is SWC JSON (GET /web/swc/workspace) plus JSON-RPC (POST /api/rpc). Do not document removed HTML-workspace POSTs as live HTTP.",
     "headings": [
       "auth-modes",
       "public-routes",
       "setup-pre-init-only",
       "signed-in-shell",
       "workspace",
+      "removed-not-registered",
       "report-exchange",
       "get-export-webexportcsv-webexportpdf",
       "get-bulk-template-webbulktemplate",
       "post-bulk-upload-webbulkupload-webimportcsv",
       "post-bulk-confirm-cancel",
-      "workspace-flash-query-msg",
+      "historical-msg-flash-removed",
       "user-preferences",
       "object-actions",
       "addon-routes",
@@ -1315,9 +1363,10 @@
     "url": "reference/sdk-api.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Import sumeru/core/sdk from addon code \u2014 not sumeru/core/orm or sumeru/core/server directly. The SDK absorbs internal renames so downstream modules stay stable.",
+    "excerpt": "Import sumeru/core/sdk from addon code \u2014 not sumeru/core/orm or sumeru/core/server directly.",
     "headings": [
-      "types",
+      "model-definition",
+      "field-markers",
       "registration",
       "database-bootstrap",
       "queries",
@@ -1335,7 +1384,7 @@
     "url": "reference/swc-api.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Query params for /web/swc/workspace: action, menu_id, view_type, id, edit, q.",
+    "excerpt": "Query params for /web/swc/workspace:",
     "headings": [
       "http-endpoints",
       "websocket-bus",
@@ -1344,6 +1393,20 @@
       "client-registry",
       "recordstore",
       "bootstrap-window-swc-bootstrap",
+      "see-also"
+    ]
+  },
+  {
+    "title": "SWC notifications",
+    "url": "reference/swc-notifications.html",
+    "track": "reference",
+    "section": "Reference",
+    "excerpt": "Workspace toasts are rendered by NotificationService (core/swc/src/services/notification.ts). They appear in the top-right stack (#sum-toast-stack), follow Sumeru sum-toast-* CSS, and need no extra library.",
+    "headings": [
+      "api",
+      "behaviour",
+      "crud-vs-validation",
+      "what-not-to-do",
       "see-also"
     ]
   },
@@ -1397,7 +1460,9 @@
       "pivot",
       "graph",
       "calendar",
-      "stub-views",
+      "gantt-v1",
+      "map-v1",
+      "cohort-v1",
       "report-toolbar",
       "see-also"
     ]
@@ -1671,13 +1736,8 @@
     "headings": [
       "opening-a-workspace",
       "view-types",
-      "list-search",
-      "report-toolbar",
-      "saving-records",
-      "kanban",
-      "activity-panel",
-      "company-context",
-      "next-steps"
+      "collection-control-bar",
+      "report-toolbar"
     ]
   }
 ]

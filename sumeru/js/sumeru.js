@@ -248,6 +248,34 @@
 
   /* Copy buttons */
 
+  function initCopyControls() {
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+    $$("[data-copy]").forEach(function (btn) {
+      var timer = null;
+      btn.addEventListener("click", function () {
+        var text = btn.getAttribute("data-copy");
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(function () {
+          btn.setAttribute("data-copied", "true");
+          if (btn.classList.contains("install-bar-copy")) {
+            var hint = $(".install-bar-copy-hint", btn);
+            if (hint) hint.textContent = "Copied";
+          }
+          window.clearTimeout(timer);
+          timer = window.setTimeout(function () {
+            btn.removeAttribute("data-copied");
+            if (btn.classList.contains("install-bar-copy")) {
+              var hintReset = $(".install-bar-copy-hint", btn);
+              if (hintReset) hintReset.textContent = "Copy";
+            }
+          }, 1600);
+        }).catch(function () { /* ignore */ });
+      });
+    });
+  }
+
+  initCopyControls();
+
   if (navigator.clipboard && navigator.clipboard.writeText) {
     $$("pre").forEach(function (pre) {
       if (pre.closest(".code-block")) return;

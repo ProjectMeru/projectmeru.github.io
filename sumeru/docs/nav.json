@@ -242,6 +242,10 @@
             "href": "reference/swc-api.html"
           },
           {
+            "title": "SWC notifications",
+            "href": "reference/swc-notifications.html"
+          },
+          {
             "title": "Events & cron",
             "href": "reference/events-and-cron.html"
           },
@@ -322,6 +326,14 @@
           {
             "title": "Scaffold a new addon",
             "href": "addons/howtos/scaffold-new-addon.html"
+          },
+          {
+            "title": "Custom addons workspace",
+            "href": "addons/howtos/custom-addons-workspace.html"
+          },
+          {
+            "title": "my_module cookbook",
+            "href": "addons/howtos/my-module-cookbook.html"
           },
           {
             "title": "Add menu and action",
@@ -567,6 +579,7 @@
     "reference/sdk-api.html": "reference",
     "reference/json-rpc.html": "reference",
     "reference/swc-api.html": "reference",
+    "reference/swc-notifications.html": "reference",
     "reference/events-and-cron.html": "reference",
     "reference/multi-instance-cron.html": "reference",
     "reference/render-hooks.html": "reference",
@@ -584,6 +597,8 @@
     "addons/events-and-hooks.html": "addons",
     "addons/cross-module-flows.html": "addons",
     "addons/howtos/scaffold-new-addon.html": "addons",
+    "addons/howtos/custom-addons-workspace.html": "addons",
+    "addons/howtos/my-module-cookbook.html": "addons",
     "addons/howtos/add-menu-and-action.html": "addons",
     "addons/howtos/add-bridge-module.html": "addons",
     "addons/howtos/enable-report-on-view.html": "addons",
