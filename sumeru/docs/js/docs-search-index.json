@@ -65,10 +65,11 @@
     "url": "addons/howtos/custom-addons-workspace.html",
     "track": "addons",
     "section": "How-tos",
-    "excerpt": "Goal: keep sumeru/ free of local addon churn while still importing sumeru as a library.",
+    "excerpt": "Goal: keep sumeru/ and sumeru_addons/ read-only while you develop client modules under addons/.",
     "headings": [
       "summary",
-      "steps",
+      "quick-start",
+      "client-assets",
       "see-also"
     ]
   },
@@ -112,6 +113,23 @@
       "custom-kanban-columns",
       "react-to-stage-changes",
       "object-actions",
+      "see-also"
+    ]
+  },
+  {
+    "title": "my_module kitchen-sink demo",
+    "url": "addons/howtos/my-module-cookbook.html",
+    "track": "addons",
+    "section": "How-tos",
+    "excerpt": "Reference addon showing every field widget and workspace view type.",
+    "headings": [
+      "scaffold-vs-demo",
+      "get-it-running",
+      "models",
+      "menus-and-view-modes",
+      "view-type-file-map",
+      "widgets-on-the-cookbook-form",
+      "cross-module-relations-zrefs-go",
       "see-also"
     ]
   },
@@ -433,11 +451,26 @@
     "headings": [
       "sdk-model-and-generate",
       "field-types",
+      "strings",
+      "contact-identity",
+      "boolean",
+      "integers",
+      "float-numeric",
+      "money",
+      "selection",
+      "date-time",
+      "json-media",
+      "many2one",
+      "one2many-many2many",
+      "reference-fields",
+      "related-fields",
+      "relations-and-zrefs",
       "computed-fields",
       "fielddefinition",
       "runtime-records",
       "compile-and-run",
       "what-not-to-do",
+      "see-also",
       "next-step"
     ]
   },
@@ -547,12 +580,11 @@
     "excerpt": "Commands and generators used every day while developing Sumeru.",
     "headings": [
       "run-the-server",
+      "client-assets-swc",
       "database-i18n-and-module-utilities",
-      "integration-test-database",
       "refresh-addon-go-imports-zimportsgo",
       "scaffold-a-new-addon-sumeru-bp",
       "tests",
-      "formatting",
       "see-also"
     ]
   },
@@ -888,6 +920,7 @@
     "headings": [
       "when-to-use",
       "directives",
+      "runtime-helpers",
       "example",
       "limitations",
       "build",
@@ -899,14 +932,14 @@
     "url": "guides/concepts/swc-architecture.html",
     "track": "guides",
     "section": "Core Concepts",
-    "excerpt": "SWC is Sumeru\u2019s browser workspace client: a custom reactive component runtime (TypeScript 7) that replaces server-rendered workspace HTML and progressive JavaScript.",
+    "excerpt": "SWC is Sumeru\u2019s browser workspace client: a TypeScript 7 component runtime that renders workspace views from JSON arch and records.",
     "headings": [
-      "folder-layout-sumeru-native",
+      "folder-layout",
       "architecture",
       "typescript-7-toolchain",
       "bootstrap",
       "shell-features",
-      "capability-mapping-owl-inspired-not-owl-code",
+      "runtime-capabilities",
       "swc-vision",
       "cutover",
       "addon-extension",
@@ -1082,7 +1115,7 @@
       "requirements",
       "create-the-database",
       "workspace-config",
-      "point-at-the-modules",
+      "bootstrap",
       "verify",
       "next-step",
       "what-not-to-do"
@@ -1109,7 +1142,7 @@
     "url": "index.html",
     "track": "guides",
     "section": "Start Here",
-    "excerpt": "Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL underneath, and server-rendered screens on top. No Node. No message broker.",
+    "excerpt": "Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL underneath, and a SWC workspace client with search, filters, and saved searches across list, form, kanban, graph, pivot, calendar, gantt, map, and cohort views.",
     "headings": [
       "what-sumeru-is",
       "core-concepts",
@@ -1186,11 +1219,13 @@
     "url": "reference/field-types.html",
     "track": "reference",
     "section": "Reference",
-    "excerpt": "Models embed sdk.Model and use typed field markers. Schema is inferred at registration from Go types and sumeru struct tags.",
+    "excerpt": "Models embed sdk.Model and use typed field markers from sumeru/core/sdk. Schema is inferred at registration from Go types and sumeru struct tags. For declaration examples see Models & fields.",
     "headings": [
       "scalar-and-relational-types",
+      "derived-fields",
       "common-struct-tags",
-      "registration"
+      "registration",
+      "see-also"
     ]
   },
   {
@@ -1425,7 +1460,9 @@
       "pivot",
       "graph",
       "calendar",
-      "stub-views",
+      "gantt-v1",
+      "map-v1",
+      "cohort-v1",
       "report-toolbar",
       "see-also"
     ]
@@ -1699,13 +1736,8 @@
     "headings": [
       "opening-a-workspace",
       "view-types",
-      "list-search",
-      "report-toolbar",
-      "saving-records",
-      "kanban",
-      "activity-panel",
-      "company-context",
-      "next-steps"
+      "collection-control-bar",
+      "report-toolbar"
     ]
   }
 ]

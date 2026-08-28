@@ -51,7 +51,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                  <header class="docs-topbar">
+                                                          <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -78,9 +78,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -113,7 +113,7 @@
             class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Introduction</h1>
         <p class="docs-lede">Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL
-          underneath, and server-rendered screens on top. No Node. No message broker.</p>
+          underneath, and a SWC workspace client with search, filters, and saved searches across list, form, kanban, graph, pivot, calendar, gantt, map, and cohort views.</p>
         <div class="docs-callout is-caution">
           <p><strong>Pre-alpha.</strong> There is no tagged release, no upgrade path between versions, and no test suite
             on the business addons. Do not run your business on it yet.</p>
@@ -257,6 +257,8 @@
             (partial), <code>sale_crm</code>, <code>account</code>, <code>purchase</code> (partial), <code>hr</code>
             (partial)</li>
           <li>Setup wizard, Apps install UI, multi-company switcher</li>
+          <li>Collection control bar — search, filters, multi group-by, saved-search favorites on collection and analysis views</li>
+          <li>Workspace views — list, form, kanban, graph, pivot, calendar, gantt, map, cohort</li>
           <li>JSON-RPC API with API keys</li>
           <li>Lead -> won -> quotation -> sales order -> invoice -> posted journal entries</li>
         </ul>
@@ -267,7 +269,7 @@
           <li>Customer invoicing with double-entry journal entries</li>
           <li>Purchase orders that draft vendor bills</li>
           <li>Custom business addons using the same manifest / model / view contract</li>
-          <li>Internal tools that need server-rendered screens without a Node build</li>
+          <li>Internal tools on the same manifest / model / view contract as full ERP apps</li>
         </ul>
         <p>Not available yet: taxes, payments / bank reconciliation, computed order totals, inventory, manufacturing,
           automated tests on business addons. <strong>CSV/PDF export and bulk CSV import</strong> are available on views
@@ -277,7 +279,7 @@
         <p>Sumeru is for developers and organisations building serious business software in Go.</p>
         <p>It is especially useful for:</p>
         <ul>
-          <li>engineers who want an ERP-shaped kernel without Node, Docker or a message broker</li>
+          <li>engineers who want an ERP-shaped kernel in Go with a small operational footprint (no Docker or message broker required)</li>
           <li>product teams extending lead-to-cash with their own addons</li>
           <li>operators evaluating Apps, roles and multi-company once an engineer has stood the system up</li>
           <li>agencies that want a repeatable Go backend for client operational software</li>
@@ -292,7 +294,7 @@
         <ul>
           <li>Strong defaults, open boundaries: declare a model once; tables, forms and API follow.</li>
           <li>Addons never import each other; they integrate through events and registry lookups.</li>
-          <li>PostgreSQL only: no Node, no broker, no external cache or job queue required.</li>
+          <li>PostgreSQL for persistence; client UI bundles built locally with Node.js (npm) — not committed to git</li>
           <li>Documentation is part of the interface: these guides describe what the system actually does, including
             gaps.</li>
         </ul>
@@ -373,10 +375,11 @@
         <h2 id="prerequisites">Prerequisites</h2>
         <ul>
           <li>Go 1.26 or newer</li>
+          <li><a href="https://nodejs.org/">Node.js</a> (npm — builds the SWC workspace UI on first <code>make setup</code> or <code>make run</code>)</li>
           <li>PostgreSQL</li>
           <li>Comfort with HTTP (methods, status codes) and basic SQL</li>
         </ul>
-        <p>No Node, Docker, message broker or external cache is required for a local install.</p>
+        <p>SWC bundles under <code>core/engine/assets/</code> are gitignored. A fresh clone needs one asset build before the workspace UI loads. Docker, a message broker, and external cache are not required.</p>
 
         <h2 id="a-first-application">A first application</h2>
         <p>The smallest path that runs:</p>
@@ -390,9 +393,9 @@
           </div>
           <div class="docs-codebox-panels">
             <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main"
-              data-copy-text="psql -U postgres -c &quot;CREATE DATABASE sumeru;&quot;&#10;cd sumeru_custom_addons&#10;cp sumeru.conf.example sumeru.conf&#10;make replace-sumeru SUMERU_ROOT=../sumeru&#10;make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons&#10;make generate&#10;make run&#10;# visit http://localhost:8080/setup">
+              data-copy-text="psql -U postgres -c &quot;CREATE DATABASE sumeru;&quot;&#10;cd sumeru_custom_addons&#10;cp sumeru.conf.example sumeru.conf&#10;make setup&#10;make run&#10;# visit http://localhost:8080/setup">
               <pre
-                class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "CREATE DATABASE sumeru;"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cp sumeru.conf.example sumeru.conf</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make replace-sumeru SUMERU_ROOT=../sumeru</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make replace-sumeru-addons ADDONS_ROOT=../sumeru_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">visit http://localhost:8080/setup</span></span></code></pre>
+                class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "CREATE DATABASE sumeru;"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cp sumeru.conf.example sumeru.conf</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">visit http://localhost:8080/setup</span></span></code></pre>
             </div>
           </div>
         </div>

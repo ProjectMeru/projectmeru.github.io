@@ -332,6 +332,10 @@
             "href": "addons/howtos/custom-addons-workspace.html"
           },
           {
+            "title": "my_module cookbook",
+            "href": "addons/howtos/my-module-cookbook.html"
+          },
+          {
             "title": "Add menu and action",
             "href": "addons/howtos/add-menu-and-action.html"
           },
@@ -594,6 +598,7 @@
     "addons/cross-module-flows.html": "addons",
     "addons/howtos/scaffold-new-addon.html": "addons",
     "addons/howtos/custom-addons-workspace.html": "addons",
+    "addons/howtos/my-module-cookbook.html": "addons",
     "addons/howtos/add-menu-and-action.html": "addons",
     "addons/howtos/add-bridge-module.html": "addons",
     "addons/howtos/enable-report-on-view.html": "addons",

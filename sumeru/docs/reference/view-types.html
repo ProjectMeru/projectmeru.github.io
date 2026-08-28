@@ -46,9 +46,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -79,6 +79,7 @@
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>View types</h1>
         <p class="docs-lede">Sumeru workspace views are declared in XML (<code>type</code> on <code><view></code>) and rendered by SWC components registered in <code>core/swc/src/main.ts</code>. Include view modes in window actions: <code>view_mode="kanban,list,form"</code>.</p>
+        <p><strong>Live examples:</strong> every type below is implemented in <code>sumeru_custom_addons/addons/my_module/views/</code> — see <a href="../addons/howtos/my-module-cookbook.html">my_module cookbook</a>.</p>
         <h2 id="summary">Summary</h2>
         <table><thead><tr><th>Type</th><th>SWC class</th><th>Status</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>list</code> / <code>tree</code></td><td>ListView</td><td>Full</td><td>Tabular records, search, bulk delete</td></tr>
@@ -87,9 +88,9 @@
         <tr><td><code>pivot</code></td><td>PivotView</td><td>Full</td><td>HTML aggregation table</td></tr>
         <tr><td><code>graph</code></td><td>GraphView</td><td>v1</td><td>Bar chart via <code>read_group</code> RPC</td></tr>
         <tr><td><code>calendar</code></td><td>CalendarView</td><td>v1</td><td>Date-bucketed event list</td></tr>
-        <tr><td><code>gantt</code></td><td>GanttView</td><td>Stub</td><td>Placeholder</td></tr>
-        <tr><td><code>map</code></td><td>MapView</td><td>Stub</td><td>Placeholder</td></tr>
-        <tr><td><code>cohort</code></td><td>CohortView</td><td>Stub</td><td>Placeholder</td></tr>
+        <tr><td><code>gantt</code></td><td>GanttView</td><td>v1</td><td>CSS bars from <code>date_start</code>–<code>date_stop</code></td></tr>
+        <tr><td><code>map</code></td><td>MapView</td><td>v1</td><td>Marker list + OpenStreetMap links</td></tr>
+        <tr><td><code>cohort</code></td><td>CohortView</td><td>v1</td><td>Period table from <code>date_start</code> + measure</td></tr>
         </tbody></table>
         <h2 id="list-tree">List / tree</h2>
         <pre class="docs-pre"><code>&lt;view id="view_crm_lead_tree" model="crm.lead" type="list"&gt;
@@ -170,8 +171,26 @@
         <p>Same field roles as pivot (<code>type="row|col|measure"</code> on fields). SWC <code>GraphView</code> calls <code>read_group</code> RPC and renders a bar chart (v1).</p>
         <h2 id="calendar">Calendar</h2>
         <p>List-style arch with date/datetime fields. SWC buckets records by date for a month grid (v1).</p>
-        <h2 id="stub-views">Stub views</h2>
-        <p><code>gantt</code>, <code>map</code>, and <code>cohort</code> register in SWC but render placeholder UI. Do not rely on them in production modules yet.</p>
+        <h2 id="gantt-v1">Gantt (v1)</h2>
+        <pre class="docs-pre"><code>&lt;gantt date_start="date_start" date_stop="date_stop"&gt;
+  &lt;field name="name"/&gt;
+  &lt;field name="date_start"/&gt;
+  &lt;field name="date_stop"/&gt;
+&lt;/gantt&gt;</code></pre>
+        <p>Or <code><view type="gantt" date_start="…" date_stop="…"></code>. Rows are records; bar <code>left</code>/<code>width</code> come from the date range versus the visible scale (day/week/month). Click opens form. Same record set as calendar (500-row collection load).</p>
+        <h2 id="map-v1">Map (v1)</h2>
+        <pre class="docs-pre"><code>&lt;map latitude="latitude" longitude="longitude"&gt;
+  &lt;field name="name"/&gt;
+  &lt;field name="latitude"/&gt;
+  &lt;field name="longitude"/&gt;
+&lt;/map&gt;</code></pre>
+        <p>No map SDK. Rows with numeric lat/lng become a list plus an OpenStreetMap link (<code>?mlat=&mlon=</code>). Clicking the name opens form. Rows without coordinates are skipped.</p>
+        <h2 id="cohort-v1">Cohort (v1)</h2>
+        <pre class="docs-pre"><code>&lt;cohort date_start="create_date" interval="month" measure="amount"&gt;
+  &lt;field name="create_date"/&gt;
+  &lt;field name="amount"/&gt;
+&lt;/cohort&gt;</code></pre>
+        <p><code>interval</code> is <code>week</code> or <code>month</code> (default month). <code>measure</code> is a numeric field, or record count when omitted. Client-side HTML table from <code>payload.records</code> (same 500-row cap as pivot). Later-period cells show that period’s measure (not server-side retention SQL).</p>
         <h2 id="report-toolbar">Report toolbar</h2>
         <p>On list, form, and kanban views:</p>
         <pre class="docs-pre"><code>&lt;view model="sale.order" type="list" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre>

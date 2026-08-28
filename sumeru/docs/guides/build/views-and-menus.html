@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+                                                                  <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -67,9 +67,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -103,7 +103,7 @@
 <h2 id="how-ui-is-wired" data-toc="How UI is wired">How UI is wired</h2>
 <p>Every screen a user opens is three XML pieces working together:</p>
 <ol>
-  <li><strong>Views:</strong> how one model looks (<code>tree</code> / <code>form</code> / <code>kanban</code>).</li>
+  <li><strong>Views:</strong> how one model looks (<code>list</code> / <code>form</code> / <code>kanban</code> / analysis views).</li>
   <li><strong>Action:</strong> which model to open and in which view modes.</li>
   <li><strong>Menu:</strong> where that action appears in the sidebar.</li>
 </ol>
@@ -117,7 +117,11 @@
 <table class="docs-table">
   <thead><tr><th>Goal</th><th>Write</th><th>Next</th></tr></thead>
   <tbody>
-    <tr><td>A list of records</td><td><code>&lt;view type="tree"&gt;</code></td><td>Point an action's <code>view_mode</code> at <code>tree</code></td></tr>
+    <tr><td>A list of records</td><td><code>&lt;view type="list"&gt;</code> (alias <code>tree</code>)</td><td>Point an action's <code>view_mode</code> at <code>list</code></td></tr>
+    <tr><td>Analysis charts</td><td><code>graph</code>, <code>pivot</code>, <code>cohort</code></td><td>Reporting menus; shared collection control bar</td></tr>
+    <tr><td>Scheduling</td><td><code>calendar</code>, <code>gantt</code></td><td>Requires date fields on the model</td></tr>
+    <tr><td>Map</td><td><code>map</code></td><td>Requires latitude/longitude — see <code>my_module</code> places</td></tr>
+    <tr><td>Search toolbar</td><td><code>&lt;view type="search"&gt;</code></td><td>Filters for collection control bar — not a menu</td></tr>
     <tr><td>A detail screen</td><td><code>&lt;view type="form"&gt;</code></td><td>Include <code>form</code> in <code>view_mode</code></td></tr>
     <tr><td>Cards board</td><td><code>&lt;view type="kanban"&gt;</code> + <code>&lt;templates&gt;</code></td><td>Add <code>kanban</code> to <code>view_mode</code></td></tr>
     <tr><td>Sidebar entry</td><td><code>&lt;menuitem action="..."/&gt;</code></td><td>Action <code>id</code> must load before the menu</td></tr>
@@ -159,8 +163,8 @@
   </article>
   <article class="docs-attr">
     <h3><code>type</code> <span class="docs-attr-req">required</span></h3>
-    <p><strong>Syntax.</strong> <code>type="tree"</code> | <code>form</code> | <code>kanban</code> | <code>pivot</code>.</p>
-    <p><strong>Effect.</strong> Chooses the renderer. <code>tree</code> = list columns; <code>form</code> = sheet layout; <code>kanban</code> needs <code>&lt;templates&gt;</code>; <code>pivot</code> = read-only aggregation table (v1).</p>
+    <p><strong>Syntax.</strong> <code>type="list"</code> | <code>form</code> | <code>kanban</code> | <code>pivot</code> | <code>graph</code> | <code>calendar</code> | <code>gantt</code> | <code>cohort</code> | <code>map</code> | <code>search</code>. (<code>tree</code> is an alias for <code>list</code>.)</p>
+    <p><strong>Effect.</strong> Chooses the renderer. Live examples for every type: <a href="../../addons/howtos/my-module-cookbook.html">my_module cookbook</a> and <code>my_module/views/</code>.</p>
   </article>
   <article class="docs-attr">
     <h3><code>open</code> <span class="docs-attr-opt">optional</span></h3>

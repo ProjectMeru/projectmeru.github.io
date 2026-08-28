@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+                                                                  <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -67,9 +67,9 @@
           <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
-          <button type="button" class="docs-install-btn" data-copy="make replace-sumeru && make run" aria-label="Copy quick start commands">
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
             <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make replace-sumeru &amp;&amp; make run</code>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
             <span class="docs-install-icon" aria-hidden="true">
               <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
               <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
@@ -101,9 +101,9 @@
         <h1>Creating an addon</h1>
         <p class="docs-lede">How to use sumeru-bp, place an addon on addons_path, generate imports, install and update it.</p>
 <h2 id="overview">Overview</h2>
-<p>Addons live under <code>sumeru_custom_addons/addons/</code>. Scaffold with <code>make new MODULE=…</code> (or <code>sumeru-bp</code>), declare models with <code>sdk.Model</code> tags, list XML in the manifest, run <code>make generate</code>, then install.</p>
+<p>Addons live under <code>sumeru_custom_addons/addons/</code>. Scaffold with <code>make new MODULE=…</code> (minimal layout), or explore the pre-shipped <a href="../../addons/howtos/my-module-cookbook.html"><code>my_module</code> kitchen-sink demo</a> for every widget and view type. Declare models with <code>sdk.Model</code> tags, list XML in the manifest, run <code>make generate</code>, then <code>make install</code>.</p>
 <div class="docs-callout is-note">
-  <p><strong>Workspace.</strong> Work from <code>sumeru_custom_addons</code> (Go <strong>1.26.2+</strong>, PostgreSQL). Default HTTP port is <strong>8080</strong>.</p>
+  <p><strong>Scaffold vs demo.</strong> <code>make new MODULE=my_app</code> creates one model and starter views. <code>my_module</code> is already in the repo — use <code>make install MODULES=my_module</code> to explore it; do not run <code>make new MODULE=my_module</code> over the reference copy.</p>
 </div>
 <h2 id="scaffold-with-sumeru-bp">Scaffold with sumeru-bp</h2>
 <p>Use the workspace tab for client work. Name flag aliases: <code>-name</code>, <code>-bp</code>, <code>-boilerplate</code>, <code>-blueprint</code>.</p>
@@ -120,23 +120,23 @@
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="go-run" data-copy-text="cd sumeru_custom_addons&#10;make new MODULE=my_module&#10;make install MODULES=my_module">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make new MODULE=my_module</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make install MODULES=my_module</span></span></code></pre>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="go-run" data-copy-text="cd sumeru_custom_addons&#10;make setup&#10;make new MODULE=my_app&#10;make install MODULES=my_app">
+      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make new MODULE=my_app</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make install MODULES=my_app</span></span></code></pre>
     </div>
-    <div class="docs-codebox-panel" role="tabpanel" data-panel="make-bp" hidden data-copy-text="cd sumeru&#10;make bp NAME=my_module&#10;make generate">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make bp NAME=my_module</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span></code></pre>
+    <div class="docs-codebox-panel" role="tabpanel" data-panel="make-bp" hidden data-copy-text="cd sumeru&#10;make setup&#10;make bp NAME=my_app&#10;make generate">
+      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make bp NAME=my_app</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span></code></pre>
     </div>
   </div>
 </div>
 <p class="docs-muted">Workspace <code>make new</code> runs <code>sumeru-bp</code> then <code>make generate</code> (writes <code>zmodels.go</code> / <code>zrefs.go</code>; custom <code>init.go</code> is regenerated to models-only — put hooks in <code>models/</code>). Use Core make only when scaffolding inside the <code>sumeru</code> repo.</p>
-<h2 id="sample-model">Generated module</h2>
-<p>Browse the scaffold for <code>my_module</code>. Click a file in the tree or sidebar. Same layout as <a href="https://github.com/ProjectMeru/sumeru_custom_addons/tree/main/addons/my_module" rel="noopener">sumeru_custom_addons/addons/my_module</a>.</p>
+<h2 id="sample-model">Reference module (kitchen-sink)</h2>
+<p>Browse the pre-shipped <code>my_module</code> demo — six models, all view types, and the full widget set. Click a file in the tree or sidebar. Same layout as <a href="https://github.com/ProjectMeru/sumeru_custom_addons/tree/main/addons/my_module" rel="noopener">sumeru_custom_addons/addons/my_module</a>. For a guided tour see <a href="../../addons/howtos/my-module-cookbook.html">my_module cookbook</a>.</p>
 <div class="docs-codebox is-explorer is-wrap" data-codebox="sample-files">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
       <span class="docs-codebox-name">my_module</span>
-      <span class="docs-codebox-badge">scaffold</span>
+      <span class="docs-codebox-badge">reference demo</span>
     </div>
     <div class="docs-codebox-actions">
       <span class="docs-codebox-path" data-path>addons/my_module/</span>
