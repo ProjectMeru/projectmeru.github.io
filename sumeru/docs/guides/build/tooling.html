@@ -81,43 +81,106 @@
         <p class="docs-lede">Commands and generators used every day while developing Sumeru.</p>
         <h2 id="run-the-server">Run the server</h2>
         <p>From <strong><code>sumeru/</code></strong> (core) or <strong><code>sumeru_custom_addons/</code></strong> (workspace):</p>
-        <pre class="docs-pre is-shell"><code>make setup    # first time: config, imports, SWC + login JS bundles
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8e1afe88">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make setup    # first time: config, imports, SWC + login JS bundles
 make run      # generate → assets (if stale) → HTTP server
-make dev      # alias for make run</code></pre>
+make dev      # alias for make run"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup    # first time: config, imports, SWC + login JS bundles</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run      # generate → assets (if stale) → HTTP server</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make dev      # alias for make run</span></span></code></pre></div>
+  </div>
+</div>
         <p><code>make run</code> always regenerates Go imports and rebuilds client assets when bundles are missing or SWC sources changed. Requires <strong>Node.js</strong> (npm).</p>
         <p>In the workspace use <code>make install MODULES=x</code> and <code>make update MODULES=x</code> instead of raw <code>go run</code>.</p>
         <h2 id="client-assets-swc">Client assets (SWC)</h2>
-        <pre class="docs-pre is-shell"><code>make assets     # build when missing or sources changed
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-c2f7bcc1">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make assets     # build when missing or sources changed
 make swc        # always rebuild core/swc → core/engine/assets/
 make swc-check  # TypeScript strict check
-make check      # swc-check + go test ./...</code></pre>
+make check      # swc-check + go test ./..."><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make assets     # build when missing or sources changed</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make swc        # always rebuild core/swc → core/engine/assets/</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make swc-check  # TypeScript strict check</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make check      # swc-check + go test ./...</span></span></code></pre></div>
+  </div>
+</div>
         <p>Outputs under <code>core/engine/assets/swc/</code> and <code>core/engine/assets/js/</code> are <strong>gitignored</strong>. The workspace delegates <code>make assets</code> / <code>make swc</code> to <code>../sumeru</code>.</p>
         <h2 id="database-i18n-and-module-utilities">Database, i18n, and module utilities</h2>
-        <pre class="docs-pre is-shell"><code>make db-check       # validate sumeru.conf and PostgreSQL connectivity
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-0f833e45">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make db-check       # validate sumeru.conf and PostgreSQL connectivity
 make i18n-export    # export sys.translation rows to translations.csv
 make i18n-import    # import translations.csv into sys.translation
-make module ARGS='list'
-make module ARGS='install sales'
-make shell          # interactive ORM REPL</code></pre>
+make module ARGS=&#x27;list&#x27;
+make module ARGS=&#x27;install sales&#x27;
+make shell          # interactive ORM REPL"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make db-check       # validate sumeru.conf and PostgreSQL connectivity</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make i18n-export    # export sys.translation rows to translations.csv</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make i18n-import    # import translations.csv into sys.translation</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make module ARGS='list'</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make module ARGS='install sales'</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make shell          # interactive ORM REPL</span></span></code></pre></div>
+  </div>
+</div>
         <p>Standalone binaries:</p>
-        <pre class="docs-pre is-shell"><code>go run ./cmd/sumeru-migrate -- -c sumeru.conf
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-d4ce0db1">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go run ./cmd/sumeru-migrate -- -c sumeru.conf
 go run ./cmd/sumeru-module -- -c sumeru.conf list
-go run ./cmd/sumeru-shell -- -c sumeru.conf</code></pre>
+go run ./cmd/sumeru-shell -- -c sumeru.conf"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run ./cmd/sumeru-migrate -- -c sumeru.conf</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run ./cmd/sumeru-module -- -c sumeru.conf list</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run ./cmd/sumeru-shell -- -c sumeru.conf</span></span></code></pre></div>
+  </div>
+</div>
         <h2 id="refresh-addon-go-imports-zimportsgo">Refresh addon Go imports (<code>zimports.go</code>)</h2>
-        <pre class="docs-pre is-shell"><code>cd sumeru &amp;&amp; make generate
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-42d6cc00">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="cd sumeru &amp;&amp; make generate
 # workspace:
-cd sumeru_custom_addons &amp;&amp; make generate</code></pre>
+cd sumeru_custom_addons &amp;&amp; make generate"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru &amp;&amp; make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd"># workspace:</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons &amp;&amp; make generate</span></span></code></pre></div>
+  </div>
+</div>
         <p>Runs <strong><code>cmd/sumeru-import-gen</code></strong> with the workspace INI <code>addons_path</code>. See <strong><code>sumeru_custom_addons/README.md</code></strong>.</p>
         <h2 id="scaffold-a-new-addon-sumeru-bp">Scaffold a new addon (<code>sumeru-bp</code>)</h2>
         <p>From <strong><code>sumeru</code></strong> (kernel addons) or <strong><code>sumeru_custom_addons</code></strong> (<code>make new MODULE=x</code>):</p>
-        <pre class="docs-pre is-shell"><code>make bp NAME=my_app          # core
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8c1dc824">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make bp NAME=my_app          # core
 make new MODULE=my_app       # workspace → addons/
 make generate
-make install MODULES=my_app  # workspace</code></pre>
+make install MODULES=my_app  # workspace"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make bp NAME=my_app          # core</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make new MODULE=my_app       # workspace → addons/</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make install MODULES=my_app  # workspace</span></span></code></pre></div>
+  </div>
+</div>
         <h2 id="tests">Tests</h2>
-        <pre class="docs-pre is-shell"><code>make check      # swc-check + go test ./...
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8eb7fa08">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make check      # swc-check + go test ./...
 make swc-test   # vitest (core/swc)
-make test-integration</code></pre>
+make test-integration"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make check      # swc-check + go test ./...</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make swc-test   # vitest (core/swc)</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make test-integration</span></span></code></pre></div>
+  </div>
+</div>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="website/guides/start/configuration.html">Configuration</a></li>

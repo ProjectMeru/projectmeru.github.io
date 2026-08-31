@@ -93,18 +93,49 @@
         <p>Form <strong>Edit / Save / Cancel</strong> is owned by SWC <code>FormView.ts</code> (<code>sumeru/core/swc/src/views/FormView.ts</code>), not a Go chrome file.</p>
         <h2 id="shell-hook">Shell hook</h2>
         <p>Inject HTML into the top bar area:</p>
-        <pre class="docs-pre"><code>render.RegisterShellHook(func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-60d79cfc">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="render.RegisterShellHook(func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {
+    return template.HTML(`&lt;div class=&quot;my-hook&quot;&gt;...&lt;/div&gt;`)
+})"><pre class="docs-pre"><code data-lang="go">render.RegisterShellHook(func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {
     return template.HTML(`&lt;div class="my-hook"&gt;...&lt;/div&gt;`)
-})</code></pre>
+})</code></pre></div></div>
+</div>
         <p>Example: <code>sumeru/addons/sumeru_ai/init.go</code></p>
         <h2 id="notebook-hook">Notebook hook</h2>
         <p>Replace a notebook page body for a given model and tab title:</p>
-        <pre class="docs-pre"><code>render.RegisterNotebookHook("core.partner", "ai insights", func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1780e428">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="render.RegisterNotebookHook(&quot;core.partner&quot;, &quot;ai insights&quot;, func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {
     return template.HTML(`&lt;p&gt;Placeholder content&lt;/p&gt;`)
-})</code></pre>
+})"><pre class="docs-pre"><code data-lang="go">render.RegisterNotebookHook("core.partner", "ai insights", func(ctx context.Context, vr *render.ViewRecordData, ro bool) template.HTML {
+    return template.HTML(`&lt;p&gt;Placeholder content&lt;/p&gt;`)
+})</code></pre></div></div>
+</div>
         <h2 id="kanban-group-expander">Kanban group expander</h2>
         <p>Custom column loader for grouped kanban boards (SWC workspace). <strong>Package:</strong> <code>sumeru/core/engine/swcmeta</code></p>
-        <pre class="docs-pre"><code>swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-555e2f1f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="swcmeta.RegisterKanbanGroupExpander(&quot;crm.lead&quot;, &quot;stage_id&quot;, expandFn)"><pre class="docs-pre"><code data-lang="go">swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre></div></div>
+</div>
         <p>Expander functions return <code>[]swcmeta.KanbanColumn</code>. Example: <code>sumeru_addons/crm/services/hooks.go</code> (pipeline and forecast kanbans).</p>
         <h2 id="view-types">View types</h2>
         <table><thead><tr><th>Type</th><th>Status</th></tr></thead><tbody>

@@ -80,7 +80,63 @@
         <h1>Sumeru layered architecture</h1>
         <p class="docs-lede">Sumeru is a modular ERP built as a <strong>Go monolith</strong> with <strong>PostgreSQL</strong>, <strong>XML-defined</strong> UI and metadata, and a <strong>hybrid web client</strong> (SWC SPA inside a server-rendered shell). This document maps the six runtime layers, how requests flow through them, and how modules extend each other without forking core code.</p>
         <h2 id="six-layers">Six layers</h2>
-        <pre class="docs-pre"><code>flowchart TB
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-54eadc82">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">mermaid</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">mermaid</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="flowchart TB
+  subgraph ui [User interface]
+    SWC[&quot;core/swc — FormView, ListView, widgets&quot;]
+    Web[&quot;core/server/web — /web, /web/swc/workspace&quot;]
+    Render[&quot;core/engine/render — HTML shell&quot;]
+  end
+
+  subgraph logic [Business logic]
+    RPC[&quot;core/server/api — POST /api/rpc&quot;]
+    ORM[&quot;core/orm — CRUD, domain, compute, onchange&quot;]
+    SDK[&quot;core/sdk — addon-facing API&quot;]
+    Actions[&quot;orm.RegisterObjectAction — object buttons&quot;]
+  end
+
+  subgraph modules [Modules]
+    Manifest[&quot;manifest.json — depends, data&quot;]
+    Install[&quot;core/module/install.go — deps, schema, XML sync&quot;]
+    Discovery[&quot;core/module/discovery.go — addons_path&quot;]
+  end
+
+  subgraph security [Security]
+    ACL[&quot;sys.access CSV/XML&quot;]
+    Rules[&quot;sys.rule record rules&quot;]
+    Groups[&quot;core.group + implied_ids&quot;]
+    FieldACL[&quot;sys.field.access&quot;]
+  end
+
+  subgraph integrations [Integrations]
+    Mail[&quot;addons/mail — chatter, PostMessage&quot;]
+    Export[&quot;/web/export, bulk import&quot;]
+    Bus[&quot;/web/swc/bus WebSocket&quot;]
+    I18n[&quot;i18n export/import CLI&quot;]
+  end
+
+  subgraph db [Database]
+    PG[&quot;PostgreSQL&quot;]
+    Schema[&quot;core/orm/schema_sync.go — additive DDL&quot;]
+    Registry[&quot;orm.Registry + modelreg&quot;]
+  end
+
+  SWC --&gt; RPC
+  Web --&gt; ORM
+  RPC --&gt; ORM
+  ORM --&gt; security
+  Install --&gt; Schema
+  ORM --&gt; PG
+  Schema --&gt; PG
+  SDK --&gt; ORM
+  Manifest --&gt; Install"><pre class="docs-pre"><code data-lang="mermaid">flowchart TB
   subgraph ui [User interface]
     SWC["core/swc — FormView, ListView, widgets"]
     Web["core/server/web — /web, /web/swc/workspace"]
@@ -128,7 +184,8 @@
   ORM --&gt; PG
   Schema --&gt; PG
   SDK --&gt; ORM
-  Manifest --&gt; Install</code></pre>
+  Manifest --&gt; Install</code></pre></div></div>
+</div>
         <table><thead><tr><th>Layer</th><th>Primary paths</th><th>Request flow</th></tr></thead><tbody>
         <tr><td><strong>UI</strong></td><td><code>core/swc/src/views/</code>, <code>core/server/web/workspace.go</code>, <code>core/engine/parser/view_xml.go</code></td><td>Browser → <code>GET /web/swc/workspace</code> (arch + records JSON) → SWC renders; mutations → <code>POST /api/rpc</code></td></tr>
         <tr><td><strong>Business logic</strong></td><td><code>core/orm/</code>, <code>core/server/api/dispatch.go</code>, <code>core/sdk/</code></td><td>RPC → <code>dispatchRPC</code> → model methods → ORM with ACL/rules applied</td></tr>
@@ -172,20 +229,48 @@
         </tbody></table>
         <h3 id="view-inherit-example">View inherit (example)</h3>
         <p>The contacts addon adds <strong><code>customer_rank</code></strong> to the partner form:</p>
-        <pre class="docs-pre"><code>&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ae231140">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;view_core_partner_form_contacts_inherit&quot; model=&quot;sys.view&quot;&gt;
+  &lt;field name=&quot;inherit_id&quot; ref=&quot;contacts.view_core_partner_form&quot;/&gt;
+  &lt;field name=&quot;arch&quot; type=&quot;xml&quot;&gt;
+    &lt;xpath expr=&quot;//field[@name=&#x27;phone&#x27;]&quot; position=&quot;after&quot;&gt;
+      &lt;field name=&quot;customer_rank&quot; string=&quot;Customer Rank&quot;/&gt;
+    &lt;/xpath&gt;
+  &lt;/field&gt;
+&lt;/record&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;
   &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;
   &lt;field name="arch" type="xml"&gt;
     &lt;xpath expr="//field[@name='phone']" position="after"&gt;
       &lt;field name="customer_rank" string="Customer Rank"/&gt;
     &lt;/xpath&gt;
   &lt;/field&gt;
-&lt;/record&gt;</code></pre>
+&lt;/record&gt;</code></pre></div></div>
+</div>
         <h3 id="model-inherit-example">Model inherit (example)</h3>
         <p>Extend <strong><code>core.partner</code></strong> with a new stored field:</p>
-        <pre class="docs-pre"><code>type PartnerContacts struct {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6dc1538c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type PartnerContacts struct {
+    sdk.Model `sumeru:&quot;inherit=core.partner&quot;`
+    CustomerRank sdk.Integer `sumeru:&quot;string=Customer Rank,default=0&quot;`
+}"><pre class="docs-pre"><code data-lang="go">type PartnerContacts struct {
     sdk.Model `sumeru:"inherit=core.partner"`
     CustomerRank sdk.Integer `sumeru:"string=Customer Rank,default=0"`
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>Run <strong><code>make generate</code></strong> so <strong><code>models/zmodels.go</code></strong> registers the struct. On <code>-u contacts</code>, schema sync adds the <strong><code>customer_rank</code></strong> column to <strong><code>core_partner</code></strong>.</p>
         <h2 id="see-also">See also</h2>
         <ul>

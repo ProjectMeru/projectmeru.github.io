@@ -49,31 +49,6 @@
     ]
   },
   {
-    "title": "How to add a menu and window action",
-    "url": "addons/howtos/add-menu-and-action.html",
-    "track": "addons",
-    "section": "How-tos",
-    "excerpt": "Goal: open your model from the shell sidebar using a bound to a sys.action.window that targets your model.",
-    "headings": [
-      "steps",
-      "verify",
-      "see-also"
-    ]
-  },
-  {
-    "title": "How to run from `sumeru_custom_addons`",
-    "url": "addons/howtos/custom-addons-workspace.html",
-    "track": "addons",
-    "section": "How-tos",
-    "excerpt": "Goal: keep sumeru/ and sumeru_addons/ read-only while you develop client modules under addons/.",
-    "headings": [
-      "summary",
-      "quick-start",
-      "client-assets",
-      "see-also"
-    ]
-  },
-  {
     "title": "Custom HTTP route",
     "url": "addons/howtos/custom-http-route.html",
     "track": "addons",
@@ -138,20 +113,6 @@
     ]
   },
   {
-    "title": "How to scaffold a new addon",
-    "url": "addons/howtos/scaffold-new-addon.html",
-    "track": "addons",
-    "section": "How-tos",
-    "excerpt": "Goal: create a valid module tree with manifest, Go model stub (sdk.Model tags), starter views, menus, and security files.",
-    "headings": [
-      "prerequisites",
-      "custom-workspace-usual-path",
-      "core-repo-sumeruaddons",
-      "what-the-scaffold-emits",
-      "see-also"
-    ]
-  },
-  {
     "title": "Addons overview",
     "url": "addons/index.html",
     "track": "addons",
@@ -164,22 +125,6 @@
       "typical-install-order",
       "communication-mechanisms",
       "do-not-modify-for-customer-work",
-      "see-also"
-    ]
-  },
-  {
-    "title": "Manifest and layout",
-    "url": "addons/manifest-and-layout.html",
-    "track": "addons",
-    "section": "Addons development",
-    "excerpt": "Folder name must match manifest name (^[a-z][a-z0-9_]*$).",
-    "headings": [
-      "standard-directory-layout",
-      "manifestjson",
-      "initgo",
-      "security-load-order",
-      "hooksgo",
-      "custom-workspace",
       "see-also"
     ]
   },
@@ -306,6 +251,18 @@
     ]
   },
   {
+    "title": "How to add a menu and window action",
+    "url": "guides/build/add-menu-and-action.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Goal: open your model from the shell sidebar using a bound to a sys.action.window that targets your model.",
+    "headings": [
+      "steps",
+      "verify",
+      "see-also"
+    ]
+  },
+  {
     "title": "Build a module with SWC",
     "url": "guides/build/build-module-with-swc.html",
     "track": "guides",
@@ -320,6 +277,19 @@
       "6-debug",
       "checklist",
       "see-also"
+    ]
+  },
+  {
+    "title": "Build your first module",
+    "url": "guides/build/build-your-first-module.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Follow this path when you want a custom addon in sumeru_custom_addons/addons/ without guessing the order of steps.",
+    "headings": [
+      "checklist",
+      "step-3-model-view-together",
+      "step-7-install",
+      "next-steps"
     ]
   },
   {
@@ -348,6 +318,19 @@
       "2-custom-http-routes",
       "3-object-actions-workspace-buttons",
       "choosing-an-approach",
+      "see-also"
+    ]
+  },
+  {
+    "title": "Custom addons workspace",
+    "url": "guides/build/custom-addons-workspace.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Goal: keep sumeru/ and sumeru_addons/ read-only while you develop client modules under addons/.",
+    "headings": [
+      "summary",
+      "quick-start",
+      "client-assets",
       "see-also"
     ]
   },
@@ -417,6 +400,18 @@
     ]
   },
   {
+    "title": "How to install a module",
+    "url": "guides/build/install-module.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Goal: register a discovered addon in sys.module and load its manifest.data XML.",
+    "headings": [
+      "steps",
+      "verify",
+      "see-also"
+    ]
+  },
+  {
     "title": "JSON-RPC API",
     "url": "guides/build/json-rpc-api.html",
     "track": "guides",
@@ -437,11 +432,12 @@
     "url": "guides/build/manifests-and-depends.html",
     "track": "guides",
     "section": "Building an Application",
-    "excerpt": "Explain manifest fields and how depends drives install order without Go imports between addons.",
+    "excerpt": "Every addon root needs a manifest.json. Technical name must match the folder name. Generated zmodels.go registers models under that module.",
     "headings": [
+      "standard-directory-layout",
       "manifest-shape",
-      "fields",
-      "depends-without-go-imports",
+      "depends-without-go-imports-between-addons",
+      "initgo-vs-hooksgo",
       "data-load-order",
       "compile-and-run",
       "what-not-to-do",
@@ -457,6 +453,7 @@
     "headings": [
       "when-to-use",
       "steps",
+      "go-xml-together-contacts-example",
       "rules-and-limits",
       "live-example",
       "see-also"
@@ -605,6 +602,19 @@
       "refresh-addon-go-imports-zimportsgo",
       "scaffold-a-new-addon-sumeru-bp",
       "tests",
+      "see-also"
+    ]
+  },
+  {
+    "title": "How to update a module after XML or manifest changes",
+    "url": "guides/build/update-module.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Goal: reload manifest.data (views, menus, security XML, demo records) from disk without reinstalling from scratch.",
+    "headings": [
+      "when-to-use--u",
+      "steps",
+      "schema-go-models",
       "see-also"
     ]
   },
@@ -1183,6 +1193,7 @@
     "section": "Start Here",
     "excerpt": "Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL underneath, and a SWC workspace client with search, filters, and saved searches across list, form, kanban, graph, pivot, calendar, gantt, map, and cohort views.",
     "headings": [
+      "start-here",
       "what-sumeru-is",
       "core-concepts",
       "a-simple-example",

@@ -80,9 +80,20 @@
         <h1>Addons overview</h1>
         <p class="docs-lede"><strong>Repository:</strong> <code>sumeru_addons/</code> — Tier 2 standard business apps. Depends only on <code>sumeru</code> (Go module <code>replace sumeru => ../sumeru</code>).</p>
         <h2 id="three-repo-architecture">Three-repo architecture</h2>
-        <pre class="docs-pre"><code>sumeru/                 # Engine + kernel addons (pull-only)
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5e8270f3">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="sumeru/                 # Engine + kernel addons (pull-only)
 sumeru_addons/          # Standard business apps (pull-only)
-sumeru_custom_addons/   # Run server here + custom addons</code></pre>
+sumeru_custom_addons/   # Run server here + custom addons"><pre class="docs-pre"><code data-lang="text">sumeru/                 # Engine + kernel addons (pull-only)
+sumeru_addons/          # Standard business apps (pull-only)
+sumeru_custom_addons/   # Run server here + custom addons</code></pre></div></div>
+</div>
         <p>Run the HTTP server from <strong><code>sumeru_custom_addons</code></strong> so <code>addons_path</code> loads core, standard, and custom roots.</p>
         <h2 id="included-modules">Included modules</h2>
         <table><thead><tr><th>Module</th><th>Role</th></tr></thead><tbody>
@@ -97,7 +108,15 @@ sumeru_custom_addons/   # Run server here + custom addons</code></pre>
         </tbody></table>
         <p><strong>contacts</strong> is a kernel addon in <code>sumeru/addons/contacts/</code>, listed in install order but not in this repo.</p>
         <h2 id="dependency-graph">Dependency graph</h2>
-        <pre class="docs-pre"><code>base (core)
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c13e3bca">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="base (core)
 ├── utm
 ├── product
 ├── contacts, mail (core)
@@ -106,9 +125,28 @@ sumeru_custom_addons/   # Run server here + custom addons</code></pre>
 │   │   └── purchase (+ product)
 │   └── crm (+ utm, mail)
 │       └── sale (+ product)
-│           └── sale_crm</code></pre>
+│           └── sale_crm"><pre class="docs-pre"><code data-lang="text">base (core)
+├── utm
+├── product
+├── contacts, mail (core)
+│   ├── hr
+│   ├── account (+ product)
+│   │   └── purchase (+ product)
+│   └── crm (+ utm, mail)
+│       └── sale (+ product)
+│           └── sale_crm</code></pre></div></div>
+</div>
         <h2 id="typical-install-order">Typical install order</h2>
-        <pre class="docs-pre is-shell"><code>go run . -- -c sumeru.conf -i contacts,product,crm,sale,sale_crm,account,purchase,hr --stop-after-init</code></pre>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-4b08204a">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go run . -- -c sumeru.conf -i contacts,product,crm,sale,sale_crm,account,purchase,hr --stop-after-init"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -i contacts,product,crm,sale,sale_crm,account,purchase,hr --stop-after-init</span></span></code></pre></div>
+  </div>
+</div>
         <h2 id="communication-mechanisms">Communication mechanisms</h2>
         <table><thead><tr><th>Mechanism</th><th>How</th></tr></thead><tbody>
         <tr><td><code>addons_path</code></td><td>Later roots override duplicate manifest names</td></tr>

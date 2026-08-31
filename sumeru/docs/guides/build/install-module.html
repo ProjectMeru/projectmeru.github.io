@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add a Bridge Module | Sumeru Docs</title>
-  <meta name="description" content="Add a Bridge Module">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/add-bridge-module.html">
+  <title>Install a module | Sumeru Docs</title>
+  <meta name="description" content="Install a module">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/install-module.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
@@ -72,114 +72,45 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Add a bridge module</h1>
-        <p class="docs-lede">Bridge modules connect two existing apps with event-driven logic and no UI of their own. <strong><code>sale_crm</code></strong> is the reference implementation.</p>
-        <h2 id="when-to-use">When to use</h2>
-        <ul>
-        <li>Automate handoff between modules (e.g. Won deal → quotation)</li>
-        <li>Avoid duplicating models or views in either parent module</li>
-        <li>Keep dependency explicit in manifest</li>
-        </ul>
-        <h2 id="manifestjson">manifest.json</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-d262dedb">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-title">
-      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">json</span>
-    </div>
-    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
-  </div>
-  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
-  &quot;name&quot;: &quot;sale_crm&quot;,
-  &quot;display_name&quot;: &quot;Sales CRM Bridge&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;depends&quot;: [&quot;sale&quot;, &quot;crm&quot;],
-  &quot;application&quot;: false,
-  &quot;data&quot;: []
-}"><pre class="docs-pre"><code data-lang="json">{
-  "name": "sale_crm",
-  "display_name": "Sales CRM Bridge",
-  "version": "1.0.0",
-  "depends": ["sale", "crm"],
-  "application": false,
-  "data": []
-}</code></pre></div></div>
-</div>
-        <h2 id="initgo-pattern">init.go pattern</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-4616fd78">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-title">
-      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">go</span>
-    </div>
-    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
-  </div>
-  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="package sale_crm
-
-import (
-    &quot;context&quot;
-    &quot;sumeru/core/event&quot;
-    &quot;sumeru/core/orm&quot;
-)
-
-func init() {
-    event.Subscribe(&quot;record.updated&quot;, onLeadUpdated)
-}
-
-func onLeadUpdated(ctx context.Context, ev event.Event) error {
-    if ev.Payload[&quot;model&quot;] != &quot;crm.lead&quot; {
-        return nil
-    }
-    // check Won stage, idempotency, create sale.order
-    return nil
-}"><pre class="docs-pre"><code data-lang="go">package sale_crm
-
-import (
-    "context"
-    "sumeru/core/event"
-    "sumeru/core/orm"
-)
-
-func init() {
-    event.Subscribe("record.updated", onLeadUpdated)
-}
-
-func onLeadUpdated(ctx context.Context, ev event.Event) error {
-    if ev.Payload["model"] != "crm.lead" {
-        return nil
-    }
-    // check Won stage, idempotency, create sale.order
-    return nil
-}</code></pre></div></div>
-</div>
-        <h2 id="best-practices">Best practices</h2>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>How to install a module</h1>
+        <p class="docs-lede"><strong>Goal:</strong> register a discovered addon in <strong><code>sys.module</code></strong> and load its <strong><code>manifest.data</code></strong> XML.</p>
+        <h2 id="steps">Steps</h2>
         <ol>
-        <li><strong>Filter early</strong> — return nil if model/event does not match</li>
-        <li><strong>Idempotent</strong> — skip if target record already exists (see <code>sale_crm</code> quotation check)</li>
-        <li><strong>Bypass when needed</strong> — <code>orm.ContextWithBypass(ctx)</code> for system writes</li>
-        <li><strong>Export helpers</strong> — e.g. <code>CreateQuotationFromLead()</code> for tests and custom addons</li>
+        <li>Ensure the module directory sits under a path listed in <strong><code>addons_path</code></strong> in <strong><code>sumeru.conf</code></strong> (comma-separated). Later entries override same <strong><code>manifest.name</code></strong>.</li>
         </ol>
-        <h2 id="install">Install</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-38ebc3c8">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-actions">
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go run . -- -c sumeru.conf -i sale_crm --stop-after-init"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -i sale_crm --stop-after-init</span></span></code></pre></div>
-  </div>
-</div>
-        <p>Requires both <code>sale</code> and <code>crm</code> already installed.</p>
+        <ol>
+        <li>If the addon has Go <strong><code>init()</code></strong> registration, ensure <strong><code>cmd/sumeru/zimports.go</code></strong> blank-imports the addon root package:</li>
+        </ol>
+        <p>```bash</p>
+        <p>make generate</p>
+        <p>```</p>
+        <ol>
+        <li>Install (one-time per database):</li>
+        </ol>
+        <p>```bash shell copy</p>
+        <p>go run ./cmd/sumeru -- -c sumeru.conf -i engagement_cookbook --stop-after-init</p>
+        <p>```</p>
+        <p>Install multiple modules in dependency order in one go:</p>
+        <p>```bash shell copy</p>
+        <p>go run ./cmd/sumeru -- -c sumeru.conf -i base,engagement_cookbook --stop-after-init</p>
+        <p>```</p>
+        <ol>
+        <li>Start the server normally and use <strong>Apps</strong> or your menus to open data.</li>
+        </ol>
+        <h2 id="verify">Verify</h2>
+        <ul>
+        <li><strong><code>sys.module</code></strong> row for <strong><code>engagement_cookbook</code></strong> with installed state</li>
+        <li>Menus and views from <strong><code>manifest.data</code></strong> appear after sign-in (subject to access rights)</li>
+        </ul>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li><a href="modules/sale_crm.html">sale_crm module</a></li>
-        <li><a href="events-and-hooks.html">Events and hooks</a></li>
+        <li><a href="update-module.html">Update a module after XML or manifest changes</a></li>
+        <li><a href="../addons-and-modules.html">Addons overview</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

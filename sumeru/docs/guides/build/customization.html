@@ -81,39 +81,85 @@
         <p class="docs-lede">Extend Sumeru without forking <code>sumeru_addons</code>. Use <strong>view xpath inherit</strong> for UI changes and <strong><code>inherit=</code></strong> Go structs for new fields on existing models.</p>
         <h2 id="custom-addon-workspace">Custom addon workspace</h2>
         <p>Run the server from <code>sumeru_custom_addons</code> and point <code>addons_path</code> at core, standard, and your tree:</p>
-        <pre class="docs-pre"><code>addons_path = ../sumeru/addons,../sumeru_addons,./addons</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ed66f833">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">ini</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">ini</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="addons_path = ../sumeru/addons,../sumeru_addons,./addons"><pre class="docs-pre"><code data-lang="ini">addons_path = ../sumeru/addons,../sumeru_addons,./addons</code></pre></div></div>
+</div>
         <p>Later paths <strong>override</strong> earlier ones for the same module name. Put customer-specific modules in <code>./addons/</code>.</p>
         <p>Scaffold: <code>make bp MODULE=my_client_crm</code> (see <a href="tooling.html">Tooling</a>).</p>
         <h2 id="model-inherit-inherit">Model inherit (<code>inherit=</code>)</h2>
         <p>Add fields to an existing model from a dependent module:</p>
-        <pre class="docs-pre"><code>type PartnerContacts struct {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-16647d0b">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type PartnerContacts struct {
+    sdk.Model `sumeru:&quot;inherit=core.partner&quot;`
+    CustomerRank sdk.Integer `sumeru:&quot;string=Customer Rank,default=0&quot;`
+}"><pre class="docs-pre"><code data-lang="go">type PartnerContacts struct {
     sdk.Model `sumeru:"inherit=core.partner"`
     CustomerRank sdk.Integer `sumeru:"string=Customer Rank,default=0"`
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>Run <strong><code>make generate</code></strong>, then <strong><code>-u your_module</code></strong> so schema sync adds columns. The base module must load first via <strong><code>depends</code></strong>.</p>
-        <p>Full how-to: <a href="model-inheritance.html">Model inheritance</a>. Live example: <code>sumeru/addons/contacts/models/partner_extend.go</code>.</p>
+        <p>Full how-to: <a href="howtos/model-inherit.html">Model inherit</a>. Live example: <code>sumeru/addons/contacts/models/partner_extend.go</code>.</p>
         <h2 id="view-xml-inheritance">View XML inheritance</h2>
         <p>Patch another module's view arch with xpath:</p>
-        <pre class="docs-pre"><code>&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fbf6a426">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;view_core_partner_form_contacts_inherit&quot; model=&quot;sys.view&quot;&gt;
+  &lt;field name=&quot;inherit_id&quot; ref=&quot;contacts.view_core_partner_form&quot;/&gt;
+  &lt;field name=&quot;arch&quot; type=&quot;xml&quot;&gt;
+    &lt;xpath expr=&quot;//field[@name=&#x27;phone&#x27;]&quot; position=&quot;after&quot;&gt;
+      &lt;field name=&quot;customer_rank&quot; string=&quot;Customer Rank&quot;/&gt;
+    &lt;/xpath&gt;
+  &lt;/field&gt;
+&lt;/record&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;
   &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;
   &lt;field name="arch" type="xml"&gt;
     &lt;xpath expr="//field[@name='phone']" position="after"&gt;
       &lt;field name="customer_rank" string="Customer Rank"/&gt;
     &lt;/xpath&gt;
   &lt;/field&gt;
-&lt;/record&gt;</code></pre>
+&lt;/record&gt;</code></pre></div></div>
+</div>
         <p>Supported xpath: <code>//field[@name='fieldname']</code> with <code>position="after|before|inside|replace"</code>.</p>
-        <p>Full how-to: <a href="view-inheritance.html">View inherit xpath</a>.</p>
+        <p>Full how-to: <a href="howtos/view-inherit-xpath.html">View inherit xpath</a>.</p>
         <h2 id="bridge-modules">Bridge modules</h2>
         <p>When two standard apps need new automation (e.g. Won → quotation), add a small bridge module with <code>depends</code> on both — see <a href="../../addons/howtos/add-bridge-module.html">Add bridge module</a>. Example: <code>sale_crm</code> in <code>sumeru_addons</code>.</p>
         <h2 id="events-instead-of-forks">Events instead of forks</h2>
         <p>Subscribe to <code>record.updated</code> / <code>record.created</code> in your addon <code>init.go</code> instead of copying standard module Go code:</p>
-        <pre class="docs-pre"><code>event.Subscribe("record.updated", onLeadUpdated)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-74f14e9a">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="event.Subscribe(&quot;record.updated&quot;, onLeadUpdated)"><pre class="docs-pre"><code data-lang="go">event.Subscribe("record.updated", onLeadUpdated)</code></pre></div></div>
+</div>
         <p>Patterns: <a href="../../addons/cross-module-flows.html">Cross-module flows</a>, <a href="../../addons/events-and-hooks.html">Events & hooks</a>.</p>
         <h2 id="report-and-menu-extensions">Report and menu extensions</h2>
         <ul>
         <li>Enable CSV/PDF/bulk on views with XML only — <a href="../../addons/howtos/enable-report-on-view.html">Enable report on a view</a></li>
-        <li>Add menus and window actions — <a href="../../addons/howtos/add-menu-and-action.html">Add menu and action</a></li>
+        <li>Add menus and window actions — <a href="add-menu-and-action.html">Add menu and action</a></li>
         </ul>
         <h2 id="what-not-to-do">What not to do</h2>
         <ul>

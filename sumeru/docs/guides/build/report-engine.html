@@ -82,7 +82,32 @@
         <p class="docs-lede">CSV/PDF <strong>download</strong> and CSV <strong>bulk import</strong> for workspace views. The engine lives <strong>only in <code>sumeru/</code></strong> (<code>core/report/</code>, <code>core/sdk/report.go</code>, web handlers, render + JS). Addons enable features with <strong>XML on views</strong> — no export/import Go code in <code>sumeru_addons/</code> or <code>sumeru_custom_addons/</code>.</p>
         <p>Reporting is <strong>opt-in per view</strong>. If a view has no report XML or widgets, no <strong>Report</strong> toolbar appears.</p>
         <h2 id="architecture">Architecture</h2>
-        <pre class="docs-pre"><code>flowchart TB
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-882c66fe">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">mermaid</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">mermaid</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="flowchart TB
+  subgraph addon [Addon XML only]
+    ViewXML[&quot;view XML: report tag / attrs / widgets&quot;]
+  end
+  subgraph sumeru_core [sumeru core]
+    Parser[&quot;parser → CapabilitiesFromView&quot;]
+    Render[&quot;render: Report toolbar + JS&quot;]
+    Web[&quot;web handlers&quot;]
+    Engine[&quot;core/report&quot;]
+    BaseWizard[&quot;base: sys.bulk.import views&quot;]
+    SDK[&quot;core/sdk/report.go&quot;]
+    Engine --&gt; SDK
+    Web --&gt; Engine
+    Render --&gt; Web
+    BaseWizard --&gt; Engine
+  end
+  ViewXML --&gt; Parser
+  Parser --&gt; Render"><pre class="docs-pre"><code data-lang="mermaid">flowchart TB
   subgraph addon [Addon XML only]
     ViewXML["view XML: report tag / attrs / widgets"]
   end
@@ -99,7 +124,8 @@
     BaseWizard --&gt; Engine
   end
   ViewXML --&gt; Parser
-  Parser --&gt; Render</code></pre>
+  Parser --&gt; Render</code></pre></div></div>
+</div>
         <table><thead><tr><th>Layer</th><th>Location</th><th>Role</th></tr></thead><tbody>
         <tr><td>Engine</td><td><code>sumeru/core/report/</code></td><td>Export CSV/PDF, bulk template, staging, mapping preview, import execution</td></tr>
         <tr><td>SDK</td><td><code>sumeru/core/sdk/report.go</code></td><td>Stable facade for core and optional addon formatters</td></tr>
@@ -111,27 +137,70 @@
         <h2 id="enable-on-a-view-xml">Enable on a view (XML)</h2>
         <p>Three equivalent ways to declare capabilities. The parser merges them into one capability set.</p>
         <h3 id="option-1-report-child-recommended">Option 1 — <code><report></code> child (recommended)</h3>
-        <pre class="docs-pre"><code>&lt;view id="view_crm_lead_list" model="crm.lead" type="list"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-efb6f756">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_list&quot; model=&quot;crm.lead&quot; type=&quot;list&quot;&gt;
+    &lt;report download=&quot;csv,pdf&quot; upload=&quot;bulk&quot; pdf_sizes=&quot;a4,legal,letter&quot; modes=&quot;create,upsert&quot;/&gt;
+    &lt;field name=&quot;name&quot;/&gt;
+    ...
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_crm_lead_list" model="crm.lead" type="list"&gt;
     &lt;report download="csv,pdf" upload="bulk" pdf_sizes="a4,legal,letter" modes="create,upsert"/&gt;
     &lt;field name="name"/&gt;
     ...
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <h3 id="option-2-view-attributes">Option 2 — View attributes</h3>
-        <pre class="docs-pre"><code>&lt;view type="list" model="product.product"
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-2f94c412">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;list&quot; model=&quot;product.product&quot;
+      report_download=&quot;csv,pdf&quot;
+      bulk_upload=&quot;1&quot;
+      pdf_sizes=&quot;a4,legal,letter&quot;
+      bulk_modes=&quot;create,upsert&quot;&gt;
+    &lt;field name=&quot;name&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view type="list" model="product.product"
       report_download="csv,pdf"
       bulk_upload="1"
       pdf_sizes="a4,legal,letter"
       bulk_modes="create,upsert"&gt;
     &lt;field name="name"/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <h3 id="option-3-header-widgets-form-or-list">Option 3 — Header widgets (form or list)</h3>
-        <pre class="docs-pre"><code>&lt;view type="form" model="crm.lead"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d757fe25">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;form&quot; model=&quot;crm.lead&quot;&gt;
+    &lt;header&gt;
+        &lt;widget type=&quot;report_download&quot; formats=&quot;csv,pdf&quot; pdf_sizes=&quot;a4,legal,letter&quot;/&gt;
+        &lt;widget type=&quot;bulk_upload&quot; modes=&quot;create,upsert&quot;/&gt;
+    &lt;/header&gt;
+    ...
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view type="form" model="crm.lead"&gt;
     &lt;header&gt;
         &lt;widget type="report_download" formats="csv,pdf" pdf_sizes="a4,legal,letter"/&gt;
         &lt;widget type="bulk_upload" modes="create,upsert"/&gt;
     &lt;/header&gt;
     ...
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <h3 id="xml-reference">XML reference</h3>
         <table><thead><tr><th>Attribute / element</th><th>Values</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><code>download</code> / <code>report_download</code> / <code>formats</code></td><td><code>csv</code>, <code>pdf</code> (comma-separated)</td><td>Enable report download formats</td></tr>
@@ -158,7 +227,15 @@
         <p>List/kanban exports respect the <strong>window action domain</strong> (same rows as the current list, capped at 500). Form export uses the open record only.</p>
         <h2 id="bulk-upload-flow">Bulk upload flow</h2>
         <p>Bulk import <strong>reuses the same engine</strong> as export (field whitelist, coercion, ACL). There is <strong>no silent direct import</strong> — every upload goes through mapping and preview before data is written.</p>
-        <pre class="docs-pre"><code>sequenceDiagram
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-f11ab331">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">mermaid</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">mermaid</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="sequenceDiagram
   participant User
   participant View as EnabledView
   participant Engine as core_report
@@ -172,7 +249,22 @@
   User-&gt;&gt;MapForm: Map columns + Preview tab
   User-&gt;&gt;MapForm: Confirm import
   MapForm-&gt;&gt;Engine: ExecuteBulkImport
-  Engine-&gt;&gt;View: Redirect with result message</code></pre>
+  Engine-&gt;&gt;View: Redirect with result message"><pre class="docs-pre"><code data-lang="mermaid">sequenceDiagram
+  participant User
+  participant View as EnabledView
+  participant Engine as core_report
+  participant MapForm as sys_bulk_import
+
+  User-&gt;&gt;View: Report → Bulk upload
+  User-&gt;&gt;View: Select fields + import mode
+  User-&gt;&gt;View: Upload CSV
+  View-&gt;&gt;Engine: Stage file + create batch
+  Engine-&gt;&gt;MapForm: Open mapping form
+  User-&gt;&gt;MapForm: Map columns + Preview tab
+  User-&gt;&gt;MapForm: Confirm import
+  MapForm-&gt;&gt;Engine: ExecuteBulkImport
+  Engine-&gt;&gt;View: Redirect with result message</code></pre></div></div>
+</div>
         <h3 id="step-details">Step details</h3>
         <table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>
         <tr><td>Field selection</td><td>User picks model fields (same picker as download)</td></tr>
@@ -206,14 +298,30 @@
         </tbody></table>
         <p>To enable CRM lead export, add one line to the list view XML and update the module — <strong>no Go changes</strong> in the addon.</p>
         <p>Optional cell formatting for exports:</p>
-        <pre class="docs-pre"><code>import "sumeru/core/sdk"
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-75ff0e83">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import &quot;sumeru/core/sdk&quot;
+
+func init() {
+    sdk.RegisterReportCellFormatter(&quot;crm.lead&quot;, func(model, field string, raw interface{}) string {
+        // return display text for export cells
+        return sdk.AsString(raw)
+    })
+}"><pre class="docs-pre"><code data-lang="go">import "sumeru/core/sdk"
 
 func init() {
     sdk.RegisterReportCellFormatter("crm.lead", func(model, field string, raw interface{}) string {
         // return display text for export cells
         return sdk.AsString(raw)
     })
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <h2 id="bulk-import-wizard-sysbulkimport">Bulk import wizard (<code>sys.bulk.import</code>)</h2>
         <p>Registered in the <strong>base</strong> addon:</p>
         <ul>

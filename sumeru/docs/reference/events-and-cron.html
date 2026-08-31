@@ -81,10 +81,22 @@
         <h2 id="event-bus">Event bus</h2>
         <p class="docs-lede"><strong>Package:</strong> <code>sumeru/core/event</code></p>
         <p>In-process pub/sub for cross-module automation.</p>
-        <pre class="docs-pre"><code>event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-643880a7">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="event.Subscribe(&quot;record.updated&quot;, func(ctx context.Context, ev event.Event) error {
+    // ev.Payload[&quot;model&quot;], ev.Payload[&quot;id&quot;], ev.Payload[&quot;values&quot;], …
+    return nil
+})"><pre class="docs-pre"><code data-lang="go">event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {
     // ev.Payload["model"], ev.Payload["id"], ev.Payload["values"], …
     return nil
-})</code></pre>
+})</code></pre></div></div>
+</div>
         <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><code>Name</code></td><td>Event name (e.g. <code>record.created</code>, <code>record.updated</code>, <code>cron.tick</code>)</td></tr>
         <tr><td><code>Payload</code></td><td>Model name, record id, changed values, etc.</td></tr>
@@ -106,10 +118,22 @@
         <li>When <code>sys.cron.code</code> matches a handler registered via <code>RegisterCronHandler</code>, runs that Go function</li>
         <li>Updates <code>next_call</code> and <code>last_call</code> in the same transaction</li>
         </ol>
-        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-2426d692">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="scheduler.RegisterCronHandler(&quot;my_module.nightly_digest&quot;, func(ctx context.Context, payload map[string]interface{}) error {
     // payload includes cron row fields
     return nil
-})</code></pre>
+})"><pre class="docs-pre"><code data-lang="go">scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {
+    // payload includes cron row fields
+    return nil
+})</code></pre></div></div>
+</div>
         <p>There is <strong>no Python/safe_eval</strong> — cron <code>code</code> must match a registered Go handler or serve as a lookup key only. CRM’s <code>event.Subscribe("crm.cron_assign_leads")</code> is <strong>not</strong> backed by a bundled <code>sys.cron</code> row; use <strong>Assign Leads</strong> on the team form, or seed your own cron if you need a schedule.</p>
         <p>See <a href="multi-instance-cron.html">Multi-instance cron</a> for operational guidelines when running N replicas.</p>
         <h2 id="automation-addon">Automation addon</h2>

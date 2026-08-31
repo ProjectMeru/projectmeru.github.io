@@ -81,7 +81,16 @@
         <p class="docs-lede">Register addon-specific HTTP handlers from an addon <code>controllers/</code> package.</p>
         <h2 id="example-invoice-print">Example: invoice print</h2>
         <p><strong>File:</strong> <code>sumeru_addons/account/controllers/invoice_print.go</code></p>
-        <pre class="docs-pre"><code>router.Register(http.MethodGet, "/account/invoice/print", router.AuthSession, InvoicePrintHandler)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-bd0f891c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="router.Register(http.MethodGet, &quot;/account/invoice/print&quot;, router.AuthSession, InvoicePrintHandler)"><pre class="docs-pre"><code data-lang="go">router.Register(http.MethodGet, "/account/invoice/print", router.AuthSession, InvoicePrintHandler)</code></pre></div></div>
+</div>
         <p>The handler reads query params (e.g. <code>id=</code>), loads <code>account.move</code>, renders HTML for printing.</p>
         <h2 id="steps-for-your-addon">Steps for your addon</h2>
         <ol>

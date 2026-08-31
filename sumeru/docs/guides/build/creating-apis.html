@@ -85,10 +85,19 @@
         <p><strong>Methods:</strong> <code>search</code>, <code>search_read</code>, <code>read</code>, <code>create</code>, <code>write</code>, <code>unlink</code>, and batch variants.</p>
         <p>Full guide: <a href="json-rpc-api.html">JSON-RPC API</a>. Reference: <a href="../../reference/json-rpc.html">JSON-RPC</a>. API keys: <a href="../security/api-keys.html">API keys</a>.</p>
         <p>Example:</p>
-        <pre class="docs-pre is-shell"><code>curl -X POST http://localhost:8080/api/rpc \
-  -H "Authorization: Bearer YOUR_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"search_read","params":{"model":"crm.lead","domain":[],"fields":["name","stage_id"],"limit":5},"id":1}'</code></pre>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-86265191">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="curl -X POST http://localhost:8080/api/rpc \
+  -H &quot;Authorization: Bearer YOUR_KEY&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;search_read&quot;,&quot;params&quot;:{&quot;model&quot;:&quot;crm.lead&quot;,&quot;domain&quot;:[],&quot;fields&quot;:[&quot;name&quot;,&quot;stage_id&quot;],&quot;limit&quot;:5},&quot;id&quot;:1}&#x27;"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">curl -X POST http://localhost:8080/api/rpc \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Authorization: Bearer YOUR_KEY" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Content-Type: application/json" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -d '{"jsonrpc":"2.0","method":"search_read","params":{"model":"crm.lead","domain":[],"fields":["name","stage_id"],"limit":5},"id":1}'</span></span></code></pre></div>
+  </div>
+</div>
         <p>RPC enforces the same ACLs and record rules as the web UI.</p>
         <h2 id="2-custom-http-routes">2. Custom HTTP routes</h2>
         <p>Register addon routes from <code>init()</code> using <code>sumeru/core/server/router</code>:</p>
@@ -101,10 +110,22 @@
         <p><strong>CSRF:</strong> Web POST handlers that mutate state require a CSRF token (<code>core/server/web/csrf.go</code>). API-key and GET routes follow different rules.</p>
         <h2 id="3-object-actions-workspace-buttons">3. Object actions (workspace buttons)</h2>
         <p>Register handlers for toolbar buttons on forms and lists:</p>
-        <pre class="docs-pre"><code>orm.RegisterObjectAction("crm.lead", "action_set_won", func(ctx context.Context, ids []int64) error {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6124cd35">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="orm.RegisterObjectAction(&quot;crm.lead&quot;, &quot;action_set_won&quot;, func(ctx context.Context, ids []int64) error {
     // ...
     return nil
-})</code></pre>
+})"><pre class="docs-pre"><code data-lang="go">orm.RegisterObjectAction("crm.lead", "action_set_won", func(ctx context.Context, ids []int64) error {
+    // ...
+    return nil
+})</code></pre></div></div>
+</div>
         <p>Wire the button in XML with <code>type="object"</code> and <code>name="action_set_won"</code>. Used heavily in CRM and Accounting modules.</p>
         <h2 id="choosing-an-approach">Choosing an approach</h2>
         <table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody>

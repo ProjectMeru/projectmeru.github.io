@@ -80,7 +80,15 @@
         <h1>Sumeru Web Client (SWC)</h1>
         <p class="docs-lede">SWC is Sumeru’s <strong>browser workspace client</strong>: a TypeScript 7 component runtime that renders workspace views from JSON arch and records.</p>
         <h2 id="folder-layout">Folder layout</h2>
-        <pre class="docs-pre"><code>core/swc/src/
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d023d1a0">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="core/swc/src/
 ├── main.ts                 # bootstrap, register views/widgets, SwcApp.start
 ├── runtime/                # component kernel
 │   ├── component.ts        # SwcComponent, callSetup, patch, destroy
@@ -103,7 +111,31 @@
 ├── devtools/               # SWC Vision
 ├── i18n/
 ├── services/               # rpc, action, router, bus, dialog, …
-└── types/</code></pre>
+└── types/"><pre class="docs-pre"><code data-lang="text">core/swc/src/
+├── main.ts                 # bootstrap, register views/widgets, SwcApp.start
+├── runtime/                # component kernel
+│   ├── component.ts        # SwcComponent, callSetup, patch, destroy
+│   ├── component-host.ts   # nested components + slots
+│   ├── app.ts              # SwcApp, mount, ErrorBoundary
+│   ├── hooks.ts            # useState, useService, useTemplateRef, mount effects
+│   ├── scheduler.ts        # rAF scheduleRender / flushScheduledRenders
+│   ├── lifecycle.ts        # onWillStart, onWillPatch, onPatched (per instance)
+│   ├── portals.ts          # data-portal move/restore
+│   └── patch/
+│       └── keyed.ts        # keyed sibling reconciliation
+├── template/
+│   ├── html.ts             # html`` tagged literals (render + patch)
+│   ├── helpers.ts          # forEach, when
+│   └── sum/                # .sum.xml compiler (parser + codegen)
+├── model/                  # SwcRecord, modifiers
+├── views/                  # list, form, kanban, graph, pivot, calendar, gantt, map, cohort, chatter
+├── widgets/                # field registry + FieldHost
+├── shell/                  # layout, nav, launcher
+├── devtools/               # SWC Vision
+├── i18n/
+├── services/               # rpc, action, router, bus, dialog, …
+└── types/</code></pre></div></div>
+</div>
         <p>Tests mirror this layout under <code>core/swc/tests/{runtime,template,model,views,devtools}/</code>.</p>
         <h2 id="architecture">Architecture</h2>
         <table><thead><tr><th>Layer</th><th>Location</th><th>Role</th></tr></thead><tbody>
@@ -125,7 +157,16 @@
         </ul>
         <h2 id="bootstrap">Bootstrap</h2>
         <p>Authenticated workspace pages inject:</p>
-        <pre class="docs-pre"><code>window.__SWC_BOOTSTRAP__ = { csrfToken, rpcUrl, user, menus, apps, workspace, … };</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fcac7d68">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">javascript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">javascript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="window.__SWC_BOOTSTRAP__ = { csrfToken, rpcUrl, user, menus, apps, workspace, … };"><pre class="docs-pre"><code data-lang="javascript">window.__SWC_BOOTSTRAP__ = { csrfToken, rpcUrl, user, menus, apps, workspace, … };</code></pre></div></div>
+</div>
         <p>SWC reads bootstrap on <code>DOMContentLoaded</code>, mounts <code>ShellLayout</code> + <code>WorkspaceRouter</code>, and initializes shell chrome (sidebar, app launcher, view-tab SPA navigation).</p>
         <h2 id="shell-features">Shell features</h2>
         <table><thead><tr><th>Feature</th><th>Module</th><th>Behaviour</th></tr></thead><tbody>

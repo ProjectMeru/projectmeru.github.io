@@ -7,43 +7,21 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manifests & depends | Sumeru Docs</title>
-  <meta name="description" content="Explain manifest fields and how depends drives install order without Go imports between addons.">
+  <meta name="description" content="Manifests & depends">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/manifests-and-depends.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/build/manifests-and-depends.html">
-  <meta property="og:title" content="Manifests & depends | Sumeru Docs">
-  <meta property="og:description" content="Explain manifest fields and how depends drives install order without Go imports between addons.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Manifests & depends | Sumeru Docs">
-  <meta name="twitter:description" content="Explain manifest fields and how depends drives install order without Go imports between addons.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Manifests & depends",
-  "description": "Explain manifest fields and how depends drives install order without Go imports between addons.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/build/manifests-and-depends.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                            <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -97,76 +76,112 @@
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Manifests & depends</h1>
-        <p class="docs-lede">Explain manifest fields and how depends drives install order without Go imports between addons.</p>
-<h2 id="manifest-shape">Manifest shape</h2>
-<p>Every addon root needs a <code>manifest.json</code>. Technical <code>name</code> must match the folder name. Generated <code>zmodels.go</code> registers models under that module.</p>
-<div class="docs-codebox is-source is-wrap" data-codebox="src-ac3207cc">
+        <p class="docs-lede">Every addon root needs a <strong><code>manifest.json</code></strong>. Technical <strong><code>name</code></strong> must match the folder name. Generated <strong><code>zmodels.go</code></strong> registers models under that module.</p>
+        <h2 id="standard-directory-layout">Standard directory layout</h2>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5a21cd65">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">addons/engagement_cookbook/manifest.json</span>
+      <span class="docs-codebox-name">MODULE_STANDARD layout</span>
     </div>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">json</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
-    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{&#10;  &quot;name&quot;: &quot;my_module&quot;,&#10;  &quot;display_name&quot;: &quot;My Module&quot;,&#10;  &quot;version&quot;: &quot;1.0.0&quot;,&#10;  &quot;author&quot;: &quot;Your Company&quot;,&#10;  &quot;description&quot;: &quot;Premium standard module for Sumeru ERP.&quot;,&#10;  &quot;depends&quot;: [&quot;base&quot;],&#10;  &quot;application&quot;: true,&#10;  &quot;data&quot;: [&#10;    &quot;security/security.xml&quot;,&#10;    &quot;security/sys.access.csv&quot;,&#10;    &quot;views/actions.xml&quot;,&#10;    &quot;views/form_view.xml&quot;,&#10;    &quot;views/list_view.xml&quot;,&#10;    &quot;views/kanban_view.xml&quot;,&#10;    &quot;views/menus.xml&quot;&#10;  ]&#10;}">
-      <pre class="docs-pre is-lined" data-lang="json"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">{</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">  "name": "my_module",</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">  "display_name": "My Module",</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">  "version": "1.0.0",</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">  "author": "Your Company",</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">  "description": "Premium standard module for Sumeru ERP.",</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">  "depends": ["base"],</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">  "application": true,</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">  "data": [</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c">    "security/security.xml",</span></span><span class="docs-line" data-n="11"><span class="docs-line-n" aria-hidden="true">11</span><span class="docs-line-c">    "security/sys.access.csv",</span></span><span class="docs-line" data-n="12"><span class="docs-line-n" aria-hidden="true">12</span><span class="docs-line-c">    "views/actions.xml",</span></span><span class="docs-line" data-n="13"><span class="docs-line-n" aria-hidden="true">13</span><span class="docs-line-c">    "views/form_view.xml",</span></span><span class="docs-line" data-n="14"><span class="docs-line-n" aria-hidden="true">14</span><span class="docs-line-c">    "views/list_view.xml",</span></span><span class="docs-line" data-n="15"><span class="docs-line-n" aria-hidden="true">15</span><span class="docs-line-c">    "views/kanban_view.xml",</span></span><span class="docs-line" data-n="16"><span class="docs-line-n" aria-hidden="true">16</span><span class="docs-line-c">    "views/menus.xml"</span></span><span class="docs-line" data-n="17"><span class="docs-line-n" aria-hidden="true">17</span><span class="docs-line-c">  ]</span></span><span class="docs-line" data-n="18"><span class="docs-line-n" aria-hidden="true">18</span><span class="docs-line-c">}</span></span></code></pre>
-    </div>
-  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;technical_name&gt;/
+  manifest.json
+  init.go              # blank-import subpackages; optional event hooks
+  hooks.go             # event.Subscribe, render hooks (optional)
+  models/              # struct + sdk.Model; zmodels.go generated
+  services/            # business logic (optional)
+  views/               # XML menus, actions, views
+  security/            # groups, rules, sys.access.csv
+  data/                # seed/demo XML (optional)
+  controllers/         # HTTP routes (optional)"><pre class="docs-pre"><code data-lang="text">&lt;technical_name&gt;/
+  manifest.json
+  init.go              # blank-import subpackages; optional event hooks
+  hooks.go             # event.Subscribe, render hooks (optional)
+  models/              # struct + sdk.Model; zmodels.go generated
+  services/            # business logic (optional)
+  views/               # XML menus, actions, views
+  security/            # groups, rules, sys.access.csv
+  data/                # seed/demo XML (optional)
+  controllers/         # HTTP routes (optional)</code></pre></div></div>
 </div>
-<h2 id="fields">Fields that matter</h2>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Key</th><th>Meaning</th></tr></thead>
-  <tbody>
-    <tr><td><code>name</code></td><td>Technical id (snake_case); install with <code>-i my_module</code></td></tr>
-    <tr><td><code>display_name</code></td><td>UI label</td></tr>
-    <tr><td><code>depends</code></td><td>Install order; list technical names (usually includes <code>base</code>)</td></tr>
-    <tr><td><code>application</code></td><td>When true, appears as an installable app</td></tr>
-    <tr><td><code>data</code></td><td>Ordered list of XML/CSV files loaded on install/update</td></tr>
-  </tbody>
-</table>
-</div>
-<h2 id="depends-without-go-imports">Depends without Go imports between addons</h2>
-<p>Module order comes from the manifest graph, not from importing another addon's Go package. Prefer depending on <code>base</code> (and other modules you need) and referencing XML ids with <code>module.xml_id</code> style refs.</p>
-<h2 id="data-load-order">Data load order</h2>
-<p>List security before views that assume groups exist. The sample order is: security XML -> access CSV -> actions -> views -> menus.</p>
-<h2 id="compile-and-run">Compile and run</h2>
-<p>After editing the manifest <code>data</code> list:</p>
-<div class="docs-codebox is-shell is-wrap" data-codebox="shell-fe75fb3b">
+        <p>Folder name must match manifest <strong><code>name</code></strong> (<code>^[a-z][a-z0-9_]*$</code>).</p>
+        <blockquote><p>For a kernel reference layout see <a href="https://github.com/ProjectMeru/sumeru/tree/main/addons/contacts/"><code>sumeru/addons/contacts/</code></a>.</p></blockquote>
+        <h2 id="manifest-shape">Manifest shape</h2>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-8a0ceeb5">
   <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">manifest.json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;name&quot;: &quot;engagement_cookbook&quot;,
+  &quot;display_name&quot;: &quot;Engagements Cookbook&quot;,
+  &quot;version&quot;: &quot;2.0.0&quot;,
+  &quot;depends&quot;: [&quot;base&quot;, &quot;contacts&quot;],
+  &quot;application&quot;: true,
+  &quot;data&quot;: [
+    &quot;security/security.xml&quot;,
+    &quot;security/sys.access.csv&quot;,
+    &quot;views/actions.xml&quot;,
+    &quot;views/form_view.xml&quot;,
+    &quot;views/menus.xml&quot;
+  ]
+}"><pre class="docs-pre is-lined" data-lang="json"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">{</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">  "name": "engagement_cookbook",</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">  "display_name": "Engagements Cookbook",</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">  "version": "2.0.0",</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">  "depends": ["base", "contacts"],</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">  "application": true,</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">  "data": [</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">    "security/security.xml",</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">    "security/sys.access.csv",</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c">    "views/actions.xml",</span></span><span class="docs-line" data-n="11"><span class="docs-line-n" aria-hidden="true">11</span><span class="docs-line-c">    "views/form_view.xml",</span></span><span class="docs-line" data-n="12"><span class="docs-line-n" aria-hidden="true">12</span><span class="docs-line-c">    "views/menus.xml"</span></span><span class="docs-line" data-n="13"><span class="docs-line-n" aria-hidden="true">13</span><span class="docs-line-c">  ]</span></span><span class="docs-line" data-n="14"><span class="docs-line-n" aria-hidden="true">14</span><span class="docs-line-c">}</span></span></code></pre></div></div>
+</div>
+        <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>name</code></td><td>Technical module name (directory name)</td></tr>
+        <tr><td><code>depends</code></td><td>Modules that must install first</td></tr>
+        <tr><td><code>application</code></td><td><code>true</code> → shows as app tile on Home</td></tr>
+        <tr><td><code>data</code></td><td>XML/CSV load order on install/update</td></tr>
+        </tbody></table>
+        <p><strong>Bridge modules</strong> (e.g. <code>sale_crm</code>): <code>"application": false</code>, minimal <strong><code>data</code></strong>, logic in <strong><code>hooks.go</code></strong> / <strong><code>init.go</code></strong>.</p>
+        <h2 id="depends-without-go-imports-between-addons">Depends without Go imports between addons</h2>
+        <p>Module order comes from the manifest graph, not from importing another addon's Go package. Prefer depending on <strong><code>base</code></strong> (and other modules you need) and referencing XML ids with <strong><code>module.xml_id</code></strong> style refs.</p>
+        <h2 id="initgo-vs-hooksgo">init.go vs hooks.go</h2>
+        <p>In <strong><code>sumeru_addons</code></strong>, keep a hand-written <strong><code>init.go</code></strong> that blank-imports subpackages so <strong><code>init()</code></strong> runs.</p>
+        <p>In <strong><code>sumeru_custom_addons</code></strong>, workspace <strong><code>make generate</code></strong> <strong>overwrites</strong> each addon's <strong><code>init.go</code></strong> with a models-only blank import. Put <strong><code>event.Subscribe</code></strong>, render hooks, and cross-cutting logic in <strong><code>hooks.go</code></strong> at the addon root — see <strong><code>engagement_cookbook/hooks.go</code></strong>.</p>
+        <h2 id="data-load-order">Data load order</h2>
+        <p>List security before views that assume groups exist:</p>
+        <ol>
+        <li><code>security/security.xml</code> — groups</li>
+        <li><code>security/*_rules.xml</code> — record rules (optional)</li>
+        <li><code>security/sys.access.csv</code> — model ACLs</li>
+        <li><code>data/</code> — seed records</li>
+        <li><code>views/actions.xml</code> — window actions</li>
+        <li><code>views/*_{form,list,kanban,...}_views.xml</code> — base views before inherits</li>
+        <li><code>views/*_inherit_views.xml</code> — xpath view inherits</li>
+        <li><code>views/menus.xml</code> — <strong>always last</strong></li>
+        </ol>
+        <h2 id="compile-and-run">Compile and run</h2>
+        <p>After editing the manifest <strong><code>data</code></strong> list:</p>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-af724a61">
+  <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;go run . -- -c sumeru.conf -u my_module --stop-after-init&#10;make run">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -u my_module --stop-after-init</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre>
-    </div>
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="cd sumeru_custom_addons
+make generate
+make update MODULES=my_app"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make update MODULES=my_app</span></span></code></pre></div>
   </div>
 </div>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not invent a <code>depends</code> entry for a module that is not on <code>addons_path</code>.</li>
-  <li>Do not reorder <code>data</code> so menus load before the actions they reference.</li>
-  <li>Do not change <code>name</code> without renaming the folder and re-registering models.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Define tables in <a href="models-and-fields.html">Models &amp; fields</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/build/project-structure.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Project structure</span></a>
-      <a class="is-next" href="../../guides/build/models-and-fields.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Models & fields &rarr;</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <h2 id="what-not-to-do">What not to do</h2>
+        <ul>
+        <li>Do not invent a <strong><code>depends</code></strong> entry for a module that is not on <strong><code>addons_path</code></strong>.</li>
+        <li>Do not reorder <strong><code>data</code></strong> so menus load before the actions they reference.</li>
+        <li>Do not change <strong><code>name</code></strong> without renaming the folder and re-registering models.</li>
+        </ul>
+        <h2 id="next-step">Next step</h2>
+        <p><a href="models-and-fields.html">Define tables in Models & fields</a>.</p>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

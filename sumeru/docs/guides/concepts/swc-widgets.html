@@ -80,14 +80,53 @@
         <h1>SWC widgets and addon entries</h1>
         <p class="docs-lede">Register custom field widgets and views from addons using <strong>TypeScript 7</strong> modules.</p>
         <h2 id="manifest">Manifest</h2>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a71bdcde">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;name&quot;: &quot;my_module&quot;,
+  &quot;swc_entry&quot;: &quot;static/swc/main.js&quot;
+}"><pre class="docs-pre"><code data-lang="json">{
   "name": "my_module",
   "swc_entry": "static/swc/main.js"
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>The kernel serves addon static files under <code>/static/addon/<module>/…</code>. Compile your entry to the same ES2022 target as the core bundle (<code>make swc</code> in <code>core/swc</code> for reference).</p>
         <h2 id="register-a-field-widget">Register a field widget</h2>
         <p>Full walkthrough: <a href="build-module-with-swc.html">Build a module with SWC</a>.</p>
-        <pre class="docs-pre"><code>// static/swc/main.ts — import from the core bundle
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1a71513f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="// static/swc/main.ts — import from the core bundle
+const { registry, SwcComponent, html } = window.SumeruSWC;
+
+class MyWidget extends SwcComponent {
+  setup() {}
+  template() {
+    const { field, record, readonly } = this.props;
+    const val = String(record.get(field.name) ?? &quot;&quot;);
+    return html`&lt;div class=&quot;sum-field-widget&quot;&gt;
+      &lt;label class=&quot;sum-field-label&quot;&gt;${field.string ?? field.name}&lt;/label&gt;
+      &lt;div class=&quot;sum-field-control&quot;&gt;
+        &lt;input class=&quot;sum-field-input&quot; value=${val}
+          readonly=${readonly ? &quot;readonly&quot; : undefined}
+          @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }
+}
+
+registry.category(&quot;fields&quot;).add(&quot;my_widget&quot;, MyWidget);"><pre class="docs-pre"><code data-lang="typescript">// static/swc/main.ts — import from the core bundle
 const { registry, SwcComponent, html } = window.SumeruSWC;
 
 class MyWidget extends SwcComponent {
@@ -106,14 +145,42 @@ class MyWidget extends SwcComponent {
   }
 }
 
-registry.category("fields").add("my_widget", MyWidget);</code></pre>
+registry.category("fields").add("my_widget", MyWidget);</code></pre></div></div>
+</div>
         <p>Reference in view XML:</p>
-        <pre class="docs-pre"><code>&lt;field name="x" widget="my_widget"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-cd7867db">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;x&quot; widget=&quot;my_widget&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="x" widget="my_widget"/&gt;</code></pre></div></div>
+</div>
         <p>Use <code>renderFieldShell()</code> from the core bundle for consistent labels and accessibility (see <code>core/swc/src/widgets/field-shell.ts</code>).</p>
         <h2 id="register-a-view">Register a view</h2>
-        <pre class="docs-pre"><code>registry.category("views").add("my_view", MyListView);</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4b7b06df">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="registry.category(&quot;views&quot;).add(&quot;my_view&quot;, MyListView);"><pre class="docs-pre"><code data-lang="typescript">registry.category("views").add("my_view", MyListView);</code></pre></div></div>
+</div>
         <h2 id="register-a-service">Register a service</h2>
-        <pre class="docs-pre"><code>registry.category("services").add("my_service", myServiceInstance);</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-108f787b">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="registry.category(&quot;services&quot;).add(&quot;my_service&quot;, myServiceInstance);"><pre class="docs-pre"><code data-lang="typescript">registry.category("services").add("my_service", myServiceInstance);</code></pre></div></div>
+</div>
         <p>Use <code>useService("my_service")</code> inside components with an active <code>SwcEnv</code>.</p>
         <h2 id="conventions">Conventions</h2>
         <ul>
@@ -134,7 +201,16 @@ registry.category("fields").add("my_widget", MyWidget);</code></pre>
         <p>See the complete <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> (25+ registry keys including <code>boolean_toggle</code>, <code>many2many_tags</code>, <code>monetary</code>, <code>progress</code>, …).</p>
         <h2 id="global-exports">Global exports</h2>
         <p>The IIFE bundle exposes <code>window.SumeruSWC</code>:</p>
-        <pre class="docs-pre"><code>export { SwcApp, registry, SwcEnv };</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-89ac1bdd">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="export { SwcApp, registry, SwcEnv };"><pre class="docs-pre"><code data-lang="typescript">export { SwcApp, registry, SwcEnv };</code></pre></div></div>
+</div>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../../reference/swc-api.html">SWC API</a></li>

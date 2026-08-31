@@ -88,7 +88,7 @@
         <ol>
         <li><strong>Add an extension struct</strong> in your addon <code>models/</code> package:</li>
         </ol>
-        <p>```go</p>
+        <p>```go title="models/partner_extend.go" copy lines</p>
         <p>package models</p>
         <p>import "sumeru/core/sdk"</p>
         <p>type PartnerContacts struct {</p>
@@ -100,7 +100,7 @@
         <ol>
         <li><strong>Blank-import models</strong> from addon <code>init.go</code> if not already:</li>
         </ol>
-        <p>```go</p>
+        <p>```go title="init.go" copy</p>
         <p>import _ "sumeru/addons/contacts/models"</p>
         <p>```</p>
         <ol>
@@ -109,13 +109,47 @@
         <ol>
         <li><strong>Update schema</strong> by installing or updating your module:</li>
         </ol>
-        <p>```bash</p>
+        <p>```bash shell copy</p>
         <p>go run ./cmd/sumeru -- -c sumeru.conf -u contacts --stop-after-init</p>
         <p>```</p>
         <p><strong><code>SyncRegistrySchemaForModule</code></strong> includes models extended by the module and runs <strong>additive DDL</strong> for new columns.</p>
         <ol>
         <li><strong>Expose fields in the UI</strong> with view xpath inherit (see <a href="./view-inherit-xpath.html">View inherit xpath</a>).</li>
         </ol>
+        <h2 id="go-xml-together-contacts-example">Go + XML together (contacts example)</h2>
+        <div class="docs-codebox is-pair is-wrap" data-codebox="pair-641afd97">
+  <div class="docs-codebox-split is-50-50">
+    <div class="docs-codebox-pane" data-lang="go">
+      <div class="docs-codebox-titlebar">
+        <span class="docs-codebox-name">models/partner_extend.go</span>
+        <div class="docs-codebox-actions"><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+      </div>
+      <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="go" data-copy-text="package models
+
+import &quot;sumeru/core/sdk&quot;
+
+type PartnerContacts struct {
+	sdk.Model `sumeru:&quot;inherit=core.partner&quot;`
+
+	CustomerRank sdk.Integer `sumeru:&quot;string=Customer Rank,default=0&quot;`
+}"><pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">package models</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">import "sumeru/core/sdk"</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">type PartnerContacts struct {</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">	sdk.Model `sumeru:"inherit=core.partner"`</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">&nbsp;</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">	CustomerRank sdk.Integer `sumeru:"string=Customer Rank,default=0"`</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">}</span></span></code></pre></div>
+    </div>
+    <div class="docs-codebox-pane" data-lang="xml">
+      <div class="docs-codebox-titlebar">
+        <span class="docs-codebox-name">views/core_partner_form_inherit_views.xml</span>
+        <div class="docs-codebox-actions"><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+      </div>
+      <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="xml" data-copy-text="&lt;record id=&quot;view_core_partner_form_contacts_inherit&quot; model=&quot;sys.view&quot;&gt;
+    &lt;field name=&quot;inherit_id&quot; ref=&quot;contacts.view_core_partner_form&quot;/&gt;
+    &lt;field name=&quot;arch&quot; type=&quot;xml&quot;&gt;
+        &lt;xpath expr=&quot;//field[@name=&#x27;phone&#x27;]&quot; position=&quot;after&quot;&gt;
+            &lt;field name=&quot;customer_rank&quot; string=&quot;Customer Rank&quot;/&gt;
+        &lt;/xpath&gt;
+    &lt;/field&gt;
+&lt;/record&gt;"><pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    &lt;field name="arch" type="xml"&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">        &lt;xpath expr="//field[@name='phone']" position="after"&gt;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">            &lt;field name="customer_rank" string="Customer Rank"/&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">        &lt;/xpath&gt;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">    &lt;/field&gt;</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">&lt;/record&gt;</span></span></code></pre></div>
+    </div>
+  </div>
+</div>
         <h2 id="rules-and-limits">Rules and limits</h2>
         <ul>
         <li>The <strong>base model must register first</strong> (enforce with <strong><code>manifest.depends</code></strong> and correct addon import order).</li>

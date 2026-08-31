@@ -90,26 +90,81 @@
         <p>Unauthenticated requests receive error code <code>UNAUTHORIZED</code>.</p>
         <h2 id="request-shape">Request shape</h2>
         <p>Flat Sumeru format:</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-010fcece">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;model&quot;: &quot;core.user&quot;,
+  &quot;method&quot;: &quot;search_read&quot;,
+  &quot;args&quot;: [[[&quot;active&quot;, &quot;=&quot;, true]], [&quot;id&quot;, &quot;login&quot;]],
+  &quot;kwargs&quot;: { &quot;limit&quot;: 50, &quot;offset&quot;: 0 }
+}"><pre class="docs-pre"><code data-lang="json">{
   "model": "core.user",
   "method": "search_read",
   "args": [[["active", "=", true]], ["id", "login"]],
   "kwargs": { "limit": 50, "offset": 0 }
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>wrapper (also supported):</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-68a4e42c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;params&quot;: {
+    &quot;model&quot;: &quot;core.user&quot;,
+    &quot;method&quot;: &quot;search&quot;,
+    &quot;args&quot;: [[]],
+    &quot;kwargs&quot;: {}
+  }
+}"><pre class="docs-pre"><code data-lang="json">{
   "params": {
     "model": "core.user",
     "method": "search",
     "args": [[]],
     "kwargs": {}
   }
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <h2 id="response-envelope">Response envelope</h2>
         <p>Success:</p>
-        <pre class="docs-pre"><code>{ "ok": true, "result": &lt;data&gt;, "error": null }</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-75a0ee0d">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{ &quot;ok&quot;: true, &quot;result&quot;: &lt;data&gt;, &quot;error&quot;: null }"><pre class="docs-pre"><code data-lang="json">{ "ok": true, "result": &lt;data&gt;, "error": null }</code></pre></div></div>
+</div>
         <p>Error:</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6364808a">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;ok&quot;: false,
+  &quot;result&quot;: null,
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;ACCESS_DENIED&quot;,
+    &quot;message&quot;: &quot;...&quot;,
+    &quot;details&quot;: {}
+  }
+}"><pre class="docs-pre"><code data-lang="json">{
   "ok": false,
   "result": null,
   "error": {
@@ -117,7 +172,8 @@
     "message": "...",
     "details": {}
   }
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>Every response includes <code>X-Request-ID</code> when provided on the request.</p>
         <h2 id="public-methods">Public methods</h2>
         <table><thead><tr><th>Method</th><th>args</th><th>kwargs</th><th>result</th></tr></thead><tbody>
@@ -136,22 +192,51 @@
         <p>Default <code>kwargs.limit</code> is <strong>500</strong> (hard cap). Offset is applied in SQL via <code>SearchPage</code>.</p>
         <h3 id="read-group">read_group</h3>
         <p><code>args[0]</code> is a spec object:</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3979dcfe">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;domain&quot;: [[&quot;state&quot;, &quot;=&quot;, &quot;sale&quot;]],
+  &quot;groupby&quot;: [&quot;partner_id&quot;],
+  &quot;fields&quot;: [
+    {&quot;name&quot;: &quot;amount_total&quot;, &quot;field&quot;: &quot;amount_total&quot;, &quot;measure&quot;: &quot;sum&quot;},
+    {&quot;name&quot;: &quot;__count&quot;, &quot;field&quot;: &quot;id&quot;, &quot;measure&quot;: &quot;count&quot;}
+  ]
+}"><pre class="docs-pre"><code data-lang="json">{
   "domain": [["state", "=", "sale"]],
   "groupby": ["partner_id"],
   "fields": [
     {"name": "amount_total", "field": "amount_total", "measure": "sum"},
     {"name": "__count", "field": "id", "measure": "count"}
   ]
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>Measures: <code>sum</code>, <code>count</code>. Uses the same ACL and record rules as <code>search</code>.</p>
         <h3 id="call">call</h3>
         <p>Invokes a handler registered with <code>orm.RegisterObjectAction</code> (same as form object buttons):</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b2a099e6">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;model&quot;: &quot;crm.lead&quot;,
+  &quot;method&quot;: &quot;call&quot;,
+  &quot;args&quot;: [42, &quot;action_merge_wizard&quot;, { &quot;active_ids&quot;: &quot;3,7&quot; }]
+}"><pre class="docs-pre"><code data-lang="json">{
   "model": "crm.lead",
   "method": "call",
   "args": [42, "action_merge_wizard", { "active_ids": "3,7" }]
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p><code>args[0]</code> is the record id, <code>args[1]</code> the object-action name. Optional <code>args[2]</code> is a string map passed through to <code>orm.RunObjectAction</code> (used for list multi-select <code>active_ids</code>).</p>
         <h2 id="read-replica">Read replica</h2>
         <p>When <code>db_read_replica_dsn</code> is configured, <code>search</code>, <code>search_read</code>, and list workspace loads prefer the read replica connection.</p>

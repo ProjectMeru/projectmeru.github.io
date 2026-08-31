@@ -100,11 +100,24 @@
         <tr><td><code>cohort</code></td><td>v1</td><td>CohortView</td></tr>
         </tbody></table>
         <h2 id="pivot-fields-quick-reference">Pivot fields (quick reference)</h2>
-        <pre class="docs-pre"><code>&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-887b05fe">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;
+    &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;
+    &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;
+    &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
     &lt;field name="partner_id" type="row"/&gt;
     &lt;field name="date_order" type="col"/&gt;
     &lt;field name="amount_total" type="measure"/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <h2 id="common-view-attributes">Common view attributes</h2>
         <table><thead><tr><th>Attribute</th><th>View types</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>groups</code></td><td>all fields</td><td>Hide field unless user has ACL group</td></tr>

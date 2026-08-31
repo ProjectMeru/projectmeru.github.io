@@ -81,12 +81,26 @@
         <p class="docs-lede">Workspace toasts are rendered by <code>NotificationService</code> (<code>core/swc/src/services/notification.ts</code>). They appear in the <strong>top-right</strong> stack (<code>#sum-toast-stack</code>), follow Sumeru <code>sum-toast-*</code> CSS, and need no extra library.</p>
         <p>Use <code>env.services.notification</code> from any SWC component. Do not POST to removed <code>/web/record/save</code> routes for save feedback.</p>
         <h2 id="api">API</h2>
-        <pre class="docs-pre"><code>const n = this.env.services.notification;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1744de59">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="const n = this.env.services.notification;
+
+n.show({ kind: &quot;info&quot;, title: &quot;Queued&quot;, body: &quot;Export started.&quot; });
+n.success(&quot;Saved&quot;, &quot;Record saved successfully.&quot;);
+n.error(&quot;Save failed&quot;, err.message);
+n.warning(result.warning.title, result.warning.message, result.warning.details);"><pre class="docs-pre"><code data-lang="typescript">const n = this.env.services.notification;
 
 n.show({ kind: "info", title: "Queued", body: "Export started." });
 n.success("Saved", "Record saved successfully.");
 n.error("Save failed", err.message);
-n.warning(result.warning.title, result.warning.message, result.warning.details);</code></pre>
+n.warning(result.warning.title, result.warning.message, result.warning.details);</code></pre></div></div>
+</div>
         <table><thead><tr><th>Method</th><th>Kind class</th></tr></thead><tbody>
         <tr><td><code>show({ kind, title, body, details? }, timeoutMs?)</code></td><td><code>sum-toast--${kind}</code> (<code>info</code> if omitted)</td></tr>
         <tr><td><code>success(title, body, details?)</code></td><td><code>success</code></td></tr>

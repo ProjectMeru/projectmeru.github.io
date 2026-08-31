@@ -131,12 +131,21 @@
         <li>Natural language search is <strong>not</strong> core UX; see <a href="../using/feature-matrix.html">Feature matrix</a></li>
         </ul>
         <h2 id="typical-install-order">Typical install order</h2>
-        <pre class="docs-pre is-shell"><code>go run . -- -c sumeru.conf -i base,contacts,mail --stop-after-init</code></pre>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-588c4beb">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go run . -- -c sumeru.conf -i base,contacts,mail --stop-after-init"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -i base,contacts,mail --stop-after-init</span></span></code></pre></div>
+  </div>
+</div>
         <p>Then install <code>sumeru_addons</code> modules as needed.</p>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../guides/addons-and-modules.html">Addons and modules</a></li>
-        <li><a href="../addons/manifest-and-layout.html">Manifest and layout</a></li>
+        <li><a href="../guides/build/manifests-and-depends.html">Manifest and layout</a></li>
         <li><a href="business/platform/contacts-and-partners.html">Business: Contacts and partners</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

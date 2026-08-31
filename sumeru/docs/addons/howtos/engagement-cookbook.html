@@ -88,9 +88,18 @@
         </tbody></table>
         <h2 id="get-it-running">Get it running</h2>
         <p>From <strong><code>sumeru_custom_addons/</code></strong>:</p>
-        <pre class="docs-pre is-shell"><code>make setup
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-d53dd4be">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make setup
 make install MODULES=engagement_cookbook
-make run</code></pre>
+make run"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make install MODULES=engagement_cookbook</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre></div>
+  </div>
+</div>
         <p>Open <strong>Engagements Cookbook</strong> in the launcher. Demo engagements, deliverables, milestones, sites, and partners load from <strong><code>data/demo.xml</code></strong>.</p>
         <h2 id="models">Models</h2>
         <table><thead><tr><th>Model</th><th>Business role</th></tr></thead><tbody>
@@ -122,16 +131,41 @@ make run</code></pre>
         <h2 id="inheritance-examples">Inheritance examples</h2>
         <h3 id="model-inherit">Model inherit</h3>
         <p><code>PartnerEngagement</code> in <code>models/partner_extend.go</code>:</p>
-        <pre class="docs-pre"><code>type PartnerEngagement struct {
-    sdk.Model `sumeru:"inherit=core.partner"`
-    EngagementTier   sdk.Selection[EngagementTier] `sumeru:"string=Engagement Tier,default=standard"`
-    StrategicAccount sdk.Boolean                 `sumeru:"string=Strategic Account,default=false"`
-}</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-260b61bd">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">models/partner_extend.go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type PartnerEngagement struct {
+    sdk.Model `sumeru:&quot;inherit=core.partner&quot;`
+    EngagementTier   sdk.Selection[EngagementTier] `sumeru:&quot;string=Engagement Tier,default=standard&quot;`
+    StrategicAccount sdk.Boolean                 `sumeru:&quot;string=Strategic Account,default=false&quot;`
+}"><pre class="docs-pre is-lined" data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">type PartnerEngagement struct {</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    sdk.Model `sumeru:"inherit=core.partner"`</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    EngagementTier   sdk.Selection[EngagementTier] `sumeru:"string=Engagement Tier,default=standard"`</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">    StrategicAccount sdk.Boolean                 `sumeru:"string=Strategic Account,default=false"`</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">}</span></span></code></pre></div></div>
+</div>
         <p>Run <code>make generate</code> then <code>-u engagement_cookbook</code> so schema sync adds columns to <strong><code>core_partner</code></strong>.</p>
         <p>See also: kernel demo in <code>sumeru/addons/contacts/models/partner_extend.go</code> and <a href="core/howtos/model-inherit.html">Model inherit how-to</a>.</p>
         <h3 id="view-inherit">View inherit</h3>
         <p><code>views/partner_inherit_views.xml</code> xpath on <code>contacts.view_core_partner_form</code>:</p>
-        <pre class="docs-pre"><code>&lt;record id="view_engagement_partner_inherit" model="sys.view"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ca7ace7c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;view_engagement_partner_inherit&quot; model=&quot;sys.view&quot;&gt;
+    &lt;field name=&quot;inherit_id&quot; ref=&quot;contacts.view_core_partner_form&quot;/&gt;
+    &lt;field name=&quot;arch&quot; type=&quot;xml&quot;&gt;
+        &lt;xpath expr=&quot;//field[@name=&#x27;phone&#x27;]&quot; position=&quot;after&quot;&gt;
+            &lt;field name=&quot;engagement_tier&quot; string=&quot;Engagement Tier&quot;/&gt;
+            &lt;field name=&quot;strategic_account&quot; string=&quot;Strategic Account&quot;/&gt;
+        &lt;/xpath&gt;
+    &lt;/field&gt;
+&lt;/record&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;record id="view_engagement_partner_inherit" model="sys.view"&gt;
     &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;
     &lt;field name="arch" type="xml"&gt;
         &lt;xpath expr="//field[@name='phone']" position="after"&gt;
@@ -139,12 +173,24 @@ make run</code></pre>
             &lt;field name="strategic_account" string="Strategic Account"/&gt;
         &lt;/xpath&gt;
     &lt;/field&gt;
-&lt;/record&gt;</code></pre>
+&lt;/record&gt;</code></pre></div></div>
+</div>
         <h3 id="event-bridge">Event bridge</h3>
         <p><code>hooks.go</code> promotes client tier when a project reaches <strong><code>done</code></strong>:</p>
-        <pre class="docs-pre"><code>func init() {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-2db25ade">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="func init() {
+    event.Subscribe(&quot;record.updated&quot;, onProjectDoneUpdatePartner)
+}"><pre class="docs-pre"><code data-lang="go">func init() {
     event.Subscribe("record.updated", onProjectDoneUpdatePartner)
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>See <code>sale_crm</code> in <code>sumeru_addons</code> for production bridge modules.</p>
         <h2 id="view-type-file-map">View-type file map</h2>
         <table><thead><tr><th>Type</th><th>File</th></tr></thead><tbody>
@@ -156,15 +202,24 @@ make run</code></pre>
         </tbody></table>
         <h2 id="cross-module-relations">Cross-module relations</h2>
         <p>After changing <code>depends</code> or typed relations:</p>
-        <pre class="docs-pre is-shell"><code>make generate
-make update MODULES=engagement_cookbook</code></pre>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-3b005093">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate
+make update MODULES=engagement_cookbook"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make update MODULES=engagement_cookbook</span></span></code></pre></div>
+  </div>
+</div>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/addons/engagement_cookbook/README.md">In-repo README</a></li>
         <li><a href="core/howtos/model-inherit.html">Model inherit how-to</a></li>
         <li><a href="core/howtos/view-inherit-xpath.html">View inherit xpath</a></li>
         <li><a href="../../guides/build/creating-an-addon.html">Creating an addon</a></li>
-        <li><a href="custom-addons-workspace.html">Custom addons workspace</a></li>
+        <li><a href="../../guides/build/custom-addons-workspace.html">Custom addons workspace</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

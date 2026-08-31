@@ -93,19 +93,74 @@
         <tr><td><code>cohort</code></td><td>CohortView</td><td>v1</td><td>Period table from <code>date_start</code> + measure</td></tr>
         </tbody></table>
         <h2 id="list-tree">List / tree</h2>
-        <pre class="docs-pre"><code>&lt;view id="view_crm_lead_tree" model="crm.lead" type="list"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-079ffc35">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_tree&quot; model=&quot;crm.lead&quot; type=&quot;list&quot;&gt;
+  &lt;field name=&quot;name&quot;/&gt;
+  &lt;field name=&quot;partner_id&quot;/&gt;
+  &lt;field name=&quot;stage_id&quot;/&gt;
+  &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+  &lt;field name=&quot;user_id&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_crm_lead_tree" model="crm.lead" type="list"&gt;
   &lt;field name="name"/&gt;
   &lt;field name="partner_id"/&gt;
   &lt;field name="stage_id"/&gt;
   &lt;field name="priority" widget="priority"/&gt;
   &lt;field name="user_id"/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <table><thead><tr><th>View attribute</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>open="0"</code></td><td>Disable row click → form</td></tr>
         </tbody></table>
         <p><strong>SWC behaviour:</strong> Toolbar with New, search (<code>?q=</code> param), export/import, row selection + bulk delete, server page/sort. When <strong>two or more</strong> rows are selected, list header object buttons (<code>arch.header.buttons</code>) run via <code>call</code> with <code>active_ids</code>. Row click opens form via SPA navigation.</p>
         <h2 id="form">Form</h2>
-        <pre class="docs-pre"><code>&lt;view id="view_crm_lead_form" model="crm.lead" type="form"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-29977ed9">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_form&quot; model=&quot;crm.lead&quot; type=&quot;form&quot;&gt;
+  &lt;header&gt;
+    &lt;button name=&quot;action_convert_wizard&quot; type=&quot;object&quot; string=&quot;Convert&quot;/&gt;
+    &lt;button name=&quot;action_merge_wizard&quot; type=&quot;object&quot; string=&quot;Merge&quot;/&gt;
+    &lt;button name=&quot;action_lost_wizard&quot; type=&quot;object&quot; string=&quot;Lost&quot;/&gt;
+    &lt;field name=&quot;stage_id&quot; widget=&quot;statusbar&quot; options=&quot;clickable:1&quot;/&gt;
+  &lt;/header&gt;
+  &lt;sheet&gt;
+    &lt;div class=&quot;sum_title&quot;&gt;
+      &lt;h1&gt;&lt;field name=&quot;name&quot;/&gt;&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;sum_button_box&quot;&gt;
+      &lt;button type=&quot;object&quot; name=&quot;action_view_opportunities&quot; string=&quot;Opportunities&quot;/&gt;
+    &lt;/div&gt;
+    &lt;group&gt;
+      &lt;group string=&quot;Lead&quot;&gt;
+        &lt;field name=&quot;partner_id&quot;/&gt;
+        &lt;field name=&quot;email&quot; widget=&quot;email&quot;/&gt;
+        &lt;field name=&quot;phone&quot; widget=&quot;phone&quot;/&gt;
+      &lt;/group&gt;
+      &lt;group string=&quot;Assignment&quot;&gt;
+        &lt;field name=&quot;user_id&quot;/&gt;
+        &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+      &lt;/group&gt;
+    &lt;/group&gt;
+    &lt;notebook&gt;
+      &lt;page string=&quot;Internal notes&quot;&gt;
+        &lt;field name=&quot;description&quot; widget=&quot;text&quot;/&gt;
+      &lt;/page&gt;
+    &lt;/notebook&gt;
+  &lt;/sheet&gt;
+  &lt;chatter/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_crm_lead_form" model="crm.lead" type="form"&gt;
   &lt;header&gt;
     &lt;button name="action_convert_wizard" type="object" string="Convert"/&gt;
     &lt;button name="action_merge_wizard" type="object" string="Merge"/&gt;
@@ -137,7 +192,8 @@
     &lt;/notebook&gt;
   &lt;/sheet&gt;
   &lt;chatter/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <h3 id="form-layout-css-classes">Form layout CSS classes</h3>
         <table><thead><tr><th>Div class</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>sum_title</code></td><td>Hero title row (optional avatar column)</td></tr>
@@ -146,13 +202,28 @@
         </tbody></table>
         <p><strong>SWC behaviour:</strong> Record toolbar (Edit/Save/Cancel/New/Duplicate/Delete), field widgets via registry, optional ChatterPanel when <code><chatter/></code> is present. Object buttons toast RPC errors; validation stays inline. Wizards that return <code>{open}</code> open a form dialog; <code>{close}</code> dismisses it without an extra success toast.</p>
         <h2 id="kanban">Kanban</h2>
-        <pre class="docs-pre"><code>&lt;view id="view_crm_lead_kanban" model="crm.lead" type="kanban"
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-64308527">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_kanban&quot; model=&quot;crm.lead&quot; type=&quot;kanban&quot;
+      default_group_by=&quot;stage_id&quot; records_draggable=&quot;1&quot;&gt;
+  &lt;field name=&quot;name&quot;/&gt;
+  &lt;field name=&quot;partner_id&quot;/&gt;
+  &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+  &lt;field name=&quot;user_id&quot; widget=&quot;many2one&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_crm_lead_kanban" model="crm.lead" type="kanban"
       default_group_by="stage_id" records_draggable="1"&gt;
   &lt;field name="name"/&gt;
   &lt;field name="partner_id"/&gt;
   &lt;field name="priority" widget="priority"/&gt;
   &lt;field name="user_id" widget="many2one"/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <table><thead><tr><th>View attribute</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>default_group_by</code></td><td>Column group field</td></tr>
         <tr><td><code>group_by</code></td><td>Allowed group fields</td></tr>
@@ -161,41 +232,110 @@
         </tbody></table>
         <p><strong>SWC behaviour:</strong> Toolbar with New + search (<code>?q=</code>), grouped columns from server <code>arch.kanban.columns</code>, card click opens form. Quick-create merges workspace <code>defaults</code> into <code>rpc.create</code>. Drag-move errors toast; successful moves stay silent.</p>
         <h2 id="pivot">Pivot</h2>
-        <pre class="docs-pre"><code>&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-58e2a3cb">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;
+  &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;
+  &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;
+  &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
   &lt;field name="partner_id" type="row"/&gt;
   &lt;field name="date_order" type="col"/&gt;
   &lt;field name="amount_total" type="measure"/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <p>Read-only HTML table. Aggregates up to 500 rows from action domain.</p>
         <h2 id="graph">Graph</h2>
         <p>Same field roles as pivot (<code>type="row|col|measure"</code> on fields). SWC <code>GraphView</code> calls <code>read_group</code> RPC and renders a bar chart (v1).</p>
         <h2 id="calendar">Calendar</h2>
         <p>List-style arch with date/datetime fields. SWC buckets records by date for a month grid (v1).</p>
         <h2 id="gantt-v1">Gantt (v1)</h2>
-        <pre class="docs-pre"><code>&lt;gantt date_start="date_start" date_stop="date_stop"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d2ca6faf">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;gantt date_start=&quot;date_start&quot; date_stop=&quot;date_stop&quot;&gt;
+  &lt;field name=&quot;name&quot;/&gt;
+  &lt;field name=&quot;date_start&quot;/&gt;
+  &lt;field name=&quot;date_stop&quot;/&gt;
+&lt;/gantt&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;gantt date_start="date_start" date_stop="date_stop"&gt;
   &lt;field name="name"/&gt;
   &lt;field name="date_start"/&gt;
   &lt;field name="date_stop"/&gt;
-&lt;/gantt&gt;</code></pre>
+&lt;/gantt&gt;</code></pre></div></div>
+</div>
         <p>Or <code><view type="gantt" date_start="…" date_stop="…"></code>. Rows are records; bar <code>left</code>/<code>width</code> come from the date range versus the visible scale (day/week/month). Click opens form. Same record set as calendar (500-row collection load).</p>
         <h2 id="map-v1">Map (v1)</h2>
-        <pre class="docs-pre"><code>&lt;map latitude="latitude" longitude="longitude"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3c21cf1f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;map latitude=&quot;latitude&quot; longitude=&quot;longitude&quot;&gt;
+  &lt;field name=&quot;name&quot;/&gt;
+  &lt;field name=&quot;latitude&quot;/&gt;
+  &lt;field name=&quot;longitude&quot;/&gt;
+&lt;/map&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;map latitude="latitude" longitude="longitude"&gt;
   &lt;field name="name"/&gt;
   &lt;field name="latitude"/&gt;
   &lt;field name="longitude"/&gt;
-&lt;/map&gt;</code></pre>
+&lt;/map&gt;</code></pre></div></div>
+</div>
         <p>No map SDK. Rows with numeric lat/lng become a list plus an OpenStreetMap link (<code>?mlat=&mlon=</code>). Clicking the name opens form. Rows without coordinates are skipped.</p>
         <h2 id="cohort-v1">Cohort (v1)</h2>
-        <pre class="docs-pre"><code>&lt;cohort date_start="create_date" interval="month" measure="amount"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-09e659aa">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;cohort date_start=&quot;create_date&quot; interval=&quot;month&quot; measure=&quot;amount&quot;&gt;
+  &lt;field name=&quot;create_date&quot;/&gt;
+  &lt;field name=&quot;amount&quot;/&gt;
+&lt;/cohort&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;cohort date_start="create_date" interval="month" measure="amount"&gt;
   &lt;field name="create_date"/&gt;
   &lt;field name="amount"/&gt;
-&lt;/cohort&gt;</code></pre>
+&lt;/cohort&gt;</code></pre></div></div>
+</div>
         <p><code>interval</code> is <code>week</code> or <code>month</code> (default month). <code>measure</code> is a numeric field, or record count when omitted. Client-side HTML table from <code>payload.records</code> (same 500-row cap as pivot). Later-period cells show that period’s measure (not server-side retention SQL).</p>
         <h2 id="report-toolbar">Report toolbar</h2>
         <p>On list, form, and kanban views:</p>
-        <pre class="docs-pre"><code>&lt;view model="sale.order" type="list" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-25b62626">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view model=&quot;sale.order&quot; type=&quot;list&quot; report_download=&quot;csv,pdf&quot; bulk_upload=&quot;1&quot;&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view model="sale.order" type="list" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre></div></div>
+</div>
         <p>Or nested:</p>
-        <pre class="docs-pre"><code>&lt;report download="csv,pdf" upload="1"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-372b3f58">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;report download=&quot;csv,pdf&quot; upload=&quot;1&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;report download="csv,pdf" upload="1"/&gt;</code></pre></div></div>
+</div>
         <p>Enables Export CSV/PDF and Import CSV in the SWC toolbar.</p>
         <h2 id="see-also">See also</h2>
         <ul>
