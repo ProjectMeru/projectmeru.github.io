@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>guides/build/view-inheritance.html | Sumeru Docs</title>
-  <meta name="description" content="guides/build/view-inheritance.html">
+  <title>View inheritance | Sumeru Docs</title>
+  <meta name="description" content="View inheritance">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/view-inheritance.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -78,38 +78,38 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>How to extend a view with xpath inherit</h1>
-        <p class="docs-lede"><strong>Goal:</strong> change another module’s stored <strong><code>sys.view.arch</code></strong> by merging an xpath fragment (see <strong><code>inherit_id</code></strong> on <strong><code>sys.view</code></strong> records in module XML).</p>
+        <p class="docs-lede"><strong>Goal:</strong> change another module's stored <strong><code>sys.view.arch</code></strong> by merging an xpath fragment (see <strong><code>inherit_id</code></strong> on <strong><code>sys.view</code></strong> records in module XML).</p>
         <h2 id="when-to-use">When to use</h2>
         <ul>
         <li>You need an extra field or layout tweak on a <strong><code>base</code></strong> (or third-party) form without forking the whole XML arch.</li>
         </ul>
         <h2 id="steps">Steps</h2>
         <ol>
-        <li>Add a <strong><code><record></code></strong> with <strong><code>model="sys.view"</code></strong> in your module’s XML (after the parent view exists—usually list this file <strong>after</strong> the module that defines the parent view in <strong><code>depends</code></strong>, or run <strong><code>-u</code></strong> twice if ordering is tricky).</li>
-        </ol>
-        <ol>
-        <li>Set fields (field names match <strong><code>sys.view</code></strong> columns loaded from XML):</li>
-        </ol>
-        <p>- <strong><code>inherit_id</code></strong> — XML id of the <strong>parent</strong> view (e.g. <strong><code>base.view_core.company_form</code></strong>). Must resolve via <strong><code>sys.model_data</code></strong>.</p>
-        <p>- <strong><code>arch</code></strong> — fragment containing one or more <strong><code><xpath expr="…" position="after|before|replace|inside"></code></strong> operations.</p>
-        <p>Minimal shape:</p>
-        <p>```xml</p>
-        <p><record id="view_core.company_form_inherit_mymodule" model="sys.view"></p>
-        <p><field name="inherit_id" ref="base.view_core.company_form"/></p>
-        <p><field name="arch" type="xml"></p>
-        <p><xpath expr="//field[@name='email']" position="after"></p>
-        <p><field name="my_extra_flag"/></p>
-        <p></xpath></p>
-        <p></field></p>
-        <p></record></p>
-        <p>```</p>
-        <p>Adjust <strong><code>expr</code></strong> to match nodes in the <strong>parent arch string</strong> stored in the database (engine merges with <strong><code>viewinherit.ApplyInheritArch</code></strong>).</p>
-        <ol>
-        <li>Add the file to <strong><code>manifest.json</code></strong> → <strong><code>data</code></strong>.</li>
-        </ol>
-        <ol>
+        <li>Add a <strong><code><record></code></strong> with <strong><code>model="sys.view"</code></strong> in your module's XML (after the parent view exists — list this file after the module that defines the parent view in <strong><code>depends</code></strong>, or run <strong><code>-u</code></strong> twice if ordering is tricky).</li>
+        <li>Set <strong><code>inherit_id</code></strong> (parent view XML id) and <strong><code>arch</code></strong> (xpath fragment).</li>
+        <li>Add the file to <strong><code>manifest.json</code></strong> → <strong><code>data</code></strong> (after base views, in <code>*_inherit_views.xml</code>).</li>
         <li>Run <strong><code>-u your_module</code></strong>.</li>
         </ol>
+        <h2 id="live-example-contacts">Live example (contacts)</h2>
+        <p>The kernel <strong>contacts</strong> addon adds <strong><code>customer_rank</code></strong> to <strong><code>core.partner</code></strong>. Add the field with <strong><code>inherit=</code></strong> first — see <a href="./model-inherit.html">Model inherit</a> — then expose it in the form:</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3d8b1baf">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">views/core_partner_form_inherit_views.xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;view_core_partner_form_contacts_inherit&quot; model=&quot;sys.view&quot;&gt;
+    &lt;field name=&quot;inherit_id&quot; ref=&quot;contacts.view_core_partner_form&quot;/&gt;
+    &lt;field name=&quot;arch&quot; type=&quot;xml&quot;&gt;
+        &lt;xpath expr=&quot;//field[@name=&#x27;phone&#x27;]&quot; position=&quot;after&quot;&gt;
+            &lt;field name=&quot;customer_rank&quot; string=&quot;Customer Rank&quot;/&gt;
+        &lt;/xpath&gt;
+    &lt;/field&gt;
+&lt;/record&gt;"><pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">    &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    &lt;field name="arch" type="xml"&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">        &lt;xpath expr="//field[@name='phone']" position="after"&gt;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">            &lt;field name="customer_rank" string="Customer Rank"/&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">        &lt;/xpath&gt;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">    &lt;/field&gt;</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">&lt;/record&gt;</span></span></code></pre></div></div>
+</div>
+        <p>Source: <code>sumeru/addons/contacts/views/core_partner_form_inherit_views.xml</code></p>
         <h2 id="caveats">Caveats</h2>
         <ul>
         <li>The merge runs on the <strong>serialized arch</strong>; xpath expressions must match that structure.</li>
@@ -117,6 +117,7 @@
         </ul>
         <h2 id="see-also">See also</h2>
         <ul>
+        <li><a href="./model-inherit.html">Model inherit</a> — add fields with <code>inherit=</code> before xpath</li>
         <li><a href="views-and-menus.html">Views, actions, and menus</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

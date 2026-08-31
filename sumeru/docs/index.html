@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <script>
-    (function () { try { var k = 'sumeru-theme', t = localStorage.getItem(k); if (t !== 'light' && t !== 'dark') { t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; } document.documentElement.setAttribute('data-theme', t); } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); } })();
+    (function () { try { var k = 'sumeru-theme', t = localStorage.getItem(k); if (t !== 'light' && t !== 'dark') { t = 'light'; } document.documentElement.setAttribute('data-theme', t); } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); } })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Introduction | Sumeru Docs</title>
@@ -13,7 +13,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/">
@@ -51,7 +51,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                          <header class="docs-topbar">
+                                                                        <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -117,6 +117,40 @@
         <div class="docs-callout is-caution">
           <p><strong>Pre-alpha.</strong> There is no tagged release, no upgrade path between versions, and no test suite
             on the business addons. Do not run your business on it yet.</p>
+        </div>
+
+        <h2 id="start-here">Start here</h2>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th>I want to…</th>
+                <th>Start here</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Build a custom module</td>
+                <td><a href="guides/build/build-your-first-module.html">Build your first module</a></td>
+              </tr>
+              <tr>
+                <td>Learn SWC / views</td>
+                <td><a href="guides/build/views-and-menus.html">Views &amp; menus</a></td>
+              </tr>
+              <tr>
+                <td>Extend existing models</td>
+                <td><a href="guides/build/model-inheritance.html">Model inheritance</a></td>
+              </tr>
+              <tr>
+                <td>Use CRM / Sales as a user</td>
+                <td><a href="using/index.html">Business guides</a></td>
+              </tr>
+              <tr>
+                <td>Look up RPC / field types</td>
+                <td><a href="reference/index.html">Reference</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <h2 id="what-sumeru-is">What Sumeru Is</h2>

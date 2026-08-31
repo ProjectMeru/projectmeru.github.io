@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Launcher | Sumeru Docs</title>
-  <meta name="description" content="App Launcher">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/platform/app-launcher.html">
+  <title>Install a module | Sumeru Docs</title>
+  <meta name="description" content="Install a module">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/install-module.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
@@ -72,24 +72,45 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>App launcher</h1>
-        <p class="docs-lede">Quickly jump to any menu or app without browsing sidebars.</p>
-        <h2 id="open-the-launcher">Open the launcher</h2>
-        <p>Press <strong>Cmd+K</strong> (Mac) or <strong>Ctrl+K</strong> (Windows/Linux), or click the search icon in the top bar.</p>
-        <h2 id="what-it-searches">What it searches</h2>
-        <p>The launcher matches <strong>app and menu names</strong> from your installed modules — not record content. Type a few letters (e.g. “pipeline”, “invoice”) and select a result to open that screen.</p>
-        <h2 id="not-ai-search">Not AI search</h2>
-        <p>This is keyword matching on menu labels. <strong>Natural language search</strong> (e.g. “show me open leads from last week”) is planned but not available in the core product today. The optional <strong>Sumeru AI</strong> module adds placeholder hooks only.</p>
-        <h2 id="keyboard-shortcut-on-apps-and-settings">Keyboard shortcut on Apps and Settings</h2>
-        <p>On the Apps and Settings pages, press <strong><code>/</code></strong> to focus the page search filter quickly.</p>
-        <h2 id="next-steps">Next steps</h2>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>How to install a module</h1>
+        <p class="docs-lede"><strong>Goal:</strong> register a discovered addon in <strong><code>sys.module</code></strong> and load its <strong><code>manifest.data</code></strong> XML.</p>
+        <h2 id="steps">Steps</h2>
+        <ol>
+        <li>Ensure the module directory sits under a path listed in <strong><code>addons_path</code></strong> in <strong><code>sumeru.conf</code></strong> (comma-separated). Later entries override same <strong><code>manifest.name</code></strong>.</li>
+        </ol>
+        <ol>
+        <li>If the addon has Go <strong><code>init()</code></strong> registration, ensure <strong><code>cmd/sumeru/zimports.go</code></strong> blank-imports the addon root package:</li>
+        </ol>
+        <p>```bash</p>
+        <p>make generate</p>
+        <p>```</p>
+        <ol>
+        <li>Install (one-time per database):</li>
+        </ol>
+        <p>```bash shell copy</p>
+        <p>go run ./cmd/sumeru -- -c sumeru.conf -i engagement_cookbook --stop-after-init</p>
+        <p>```</p>
+        <p>Install multiple modules in dependency order in one go:</p>
+        <p>```bash shell copy</p>
+        <p>go run ./cmd/sumeru -- -c sumeru.conf -i base,engagement_cookbook --stop-after-init</p>
+        <p>```</p>
+        <ol>
+        <li>Start the server normally and use <strong>Apps</strong> or your menus to open data.</li>
+        </ol>
+        <h2 id="verify">Verify</h2>
         <ul>
-        <li><a href="home-and-apps.html">Home and apps</a></li>
+        <li><strong><code>sys.module</code></strong> row for <strong><code>engagement_cookbook</code></strong> with installed state</li>
+        <li>Menus and views from <strong><code>manifest.data</code></strong> appear after sign-in (subject to access rights)</li>
+        </ul>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="update-module.html">Update a module after XML or manifest changes</a></li>
+        <li><a href="../addons-and-modules.html">Addons overview</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

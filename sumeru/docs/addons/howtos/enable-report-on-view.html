@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enable Report on a View | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/enable-report-on-view.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -83,24 +83,67 @@
         <blockquote><p><strong>Form toolbar:</strong> On form views, <strong>Report</strong> appears next to <strong>Save</strong> (not on list landing pages unless the list view also declares report XML). Prefer enabling report on the <strong>form</strong> when users export a single record from detail view.</p></blockquote>
         <h2 id="1-add-xml-to-the-view">1. Add XML to the view</h2>
         <p>In your module’s view file under <code>views/</code>, add a <code><report></code> child to the list or form view:</p>
-        <pre class="docs-pre"><code>&lt;view id="view_crm_lead_list" model="crm.lead" type="list"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1f1c0bb8">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_list&quot; model=&quot;crm.lead&quot; type=&quot;list&quot;&gt;
+    &lt;report download=&quot;csv,pdf&quot; upload=&quot;bulk&quot; pdf_sizes=&quot;a4,legal,letter&quot;/&gt;
+    &lt;field name=&quot;name&quot;/&gt;
+    ...
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_crm_lead_list" model="crm.lead" type="list"&gt;
     &lt;report download="csv,pdf" upload="bulk" pdf_sizes="a4,legal,letter"/&gt;
     &lt;field name="name"/&gt;
     ...
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <p>Live example: <code>sumeru_addons/crm/views/crm_lead_list_views.xml</code>.</p>
         <h3 id="shorthand-alternatives">Shorthand alternatives</h3>
         <p>View attributes:</p>
-        <pre class="docs-pre"><code>&lt;view type="list" model="my_module.my_model" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3fbf16a8">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;list&quot; model=&quot;my_module.my_model&quot; report_download=&quot;csv,pdf&quot; bulk_upload=&quot;1&quot;&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view type="list" model="my_module.my_model" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre></div></div>
+</div>
         <p>Header widgets (forms):</p>
-        <pre class="docs-pre"><code>&lt;header&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b89dc4cf">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;header&gt;
+    &lt;widget type=&quot;report_download&quot; formats=&quot;csv,pdf&quot;/&gt;
+    &lt;widget type=&quot;bulk_upload&quot; modes=&quot;create,upsert&quot;/&gt;
+&lt;/header&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;header&gt;
     &lt;widget type="report_download" formats="csv,pdf"/&gt;
     &lt;widget type="bulk_upload" modes="create,upsert"/&gt;
-&lt;/header&gt;</code></pre>
+&lt;/header&gt;</code></pre></div></div>
+</div>
         <p>Full XML reference: <a href="core/guides/report-engine.md#enable-on-a-view-xml">Report engine</a>.</p>
         <h2 id="2-update-the-module">2. Update the module</h2>
         <p>From your Sumeru install directory:</p>
-        <pre class="docs-pre is-shell"><code>./sumeru -c sumeru.conf -u your_module</code></pre>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-af613953">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="./sumeru -c sumeru.conf -u your_module"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">./sumeru -c sumeru.conf -u your_module</span></span></code></pre></div>
+  </div>
+</div>
         <p>Restart the server if it is already running.</p>
         <h2 id="3-verify-in-the-workspace">3. Verify in the workspace</h2>
         <ol>
@@ -111,7 +154,24 @@
         </ol>
         <h2 id="4-optional-custom-export-cell-text">4. Optional — custom export cell text</h2>
         <p>If a field needs special formatting in CSV/PDF (not in the UI), register a formatter in your addon <code>init()</code>:</p>
-        <pre class="docs-pre"><code>import "sumeru/core/sdk"
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-64d8f253">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import &quot;sumeru/core/sdk&quot;
+
+func init() {
+    sdk.RegisterReportCellFormatter(&quot;my_module.my_model&quot;, func(model, field string, raw interface{}) string {
+        if field == &quot;state&quot; {
+            // custom labels for export
+        }
+        return sdk.AsString(raw)
+    })
+}"><pre class="docs-pre"><code data-lang="go">import "sumeru/core/sdk"
 
 func init() {
     sdk.RegisterReportCellFormatter("my_module.my_model", func(model, field string, raw interface{}) string {
@@ -120,7 +180,8 @@ func init() {
         }
         return sdk.AsString(raw)
     })
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>Do <strong>not</strong> add PDF libraries or custom <code>/web/export/*</code> routes in addons.</p>
         <h2 id="what-not-to-do">What not to do</h2>
         <table><thead><tr><th>Avoid</th><th>Why</th></tr></thead><tbody>
@@ -134,7 +195,7 @@ func init() {
         <li><a href="core/guides/report-engine.html">Report engine</a></li>
         <li><a href="business/platform/export-and-import.html">Export and import (business users)</a></li>
         <li><a href="core/guides/views-and-actions.html">Views, actions, and menus</a></li>
-        <li><a href="core/howtos/update-module.html">Update a module</a></li>
+        <li><a href="../../guides/build/update-module.html">Update a module</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

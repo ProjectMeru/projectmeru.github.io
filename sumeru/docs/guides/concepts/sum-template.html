@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sum template (.sum.xml) | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/sum-template.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -111,11 +111,24 @@
         </tbody></table>
         <h2 id="example">Example</h2>
         <p><code>MyPanel.sum.xml</code>:</p>
-        <pre class="docs-pre"><code>&lt;div class="sum-my-panel"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1ff3bac8">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;div class=&quot;sum-my-panel&quot;&gt;
+  &lt;div t-foreach=&quot;item in items&quot; t-key=&quot;item.id&quot;&gt;
+    &lt;span t-if=&quot;item.active&quot;&gt;{{ item.name }}&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;div class="sum-my-panel"&gt;
   &lt;div t-foreach="item in items" t-key="item.id"&gt;
     &lt;span t-if="item.active"&gt;{{ item.name }}&lt;/span&gt;
   &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;</code></pre></div></div>
+</div>
         <p>Compiles to a TypeScript module exporting a template function used by <code>SwcComponent.template()</code>.</p>
         <h2 id="limitations">Limitations</h2>
         <ul>

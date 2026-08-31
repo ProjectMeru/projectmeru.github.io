@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build a module with SWC | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/build-module-with-swc.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -80,7 +80,15 @@
         <h1>Build a module with SWC</h1>
         <p class="docs-lede">Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from <code>sumeru_custom_addons</code> (see <a href="creating-an-addon.html">Creating an addon</a>).</p>
         <h2 id="1-scaffold-the-module">1. Scaffold the module</h2>
-        <pre class="docs-pre"><code>my_crm/
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a8572ed4">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="my_crm/
 ├── manifest.json
 ├── models/
 │   └── lead.go
@@ -91,9 +99,38 @@
 │   └── sys.access.csv
 └── static/swc/          # optional
     ├── main.ts
-    └── esbuild.config.mjs</code></pre>
+    └── esbuild.config.mjs"><pre class="docs-pre"><code data-lang="text">my_crm/
+├── manifest.json
+├── models/
+│   └── lead.go
+├── views/
+│   ├── lead_views.xml
+│   └── lead_menus.xml
+├── security/
+│   └── sys.access.csv
+└── static/swc/          # optional
+    ├── main.ts
+    └── esbuild.config.mjs</code></pre></div></div>
+</div>
         <p><code>manifest.json</code>:</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-02f94800">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;name&quot;: &quot;my_crm&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;depends&quot;: [&quot;base&quot;],
+  &quot;data&quot;: [
+    &quot;security/sys.access.csv&quot;,
+    &quot;views/lead_views.xml&quot;,
+    &quot;views/lead_menus.xml&quot;
+  ]
+}"><pre class="docs-pre"><code data-lang="json">{
   "name": "my_crm",
   "version": "1.0.0",
   "depends": ["base"],
@@ -102,9 +139,30 @@
     "views/lead_views.xml",
     "views/lead_menus.xml"
   ]
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <h2 id="2-define-the-model">2. Define the model</h2>
-        <pre class="docs-pre"><code>package models
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-aa8ace2a">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="package models
+
+import &quot;sumeru/core/sdk&quot;
+
+type Lead struct {
+    sdk.Model `sumeru:&quot;model=my.crm.lead&quot;`
+
+    Name     sdk.String  `sumeru:&quot;required,string=Lead Name&quot;`
+    Email    sdk.Email   `sumeru:&quot;string=Email&quot;`
+    Phone    sdk.Phone   `sumeru:&quot;string=Phone&quot;`
+    Active   sdk.Boolean `sumeru:&quot;default=true,string=Active&quot;`
+    Priority sdk.String  `sumeru:&quot;selection=0:Low,1:Normal,2:High,string=Priority&quot;`
+}"><pre class="docs-pre"><code data-lang="go">package models
 
 import "sumeru/core/sdk"
 
@@ -116,11 +174,52 @@ type Lead struct {
     Phone    sdk.Phone   `sumeru:"string=Phone"`
     Active   sdk.Boolean `sumeru:"default=true,string=Active"`
     Priority sdk.String  `sumeru:"selection=0:Low,1:Normal,2:High,string=Priority"`
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>Run <strong><code>make generate</code></strong> so <code>models/zmodels.go</code> registers the model.</p>
         <h2 id="3-write-views">3. Write views</h2>
         <p><code>views/lead_views.xml</code>:</p>
-        <pre class="docs-pre"><code>&lt;sumeru&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1aa472ea">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;sumeru&gt;
+  &lt;data&gt;
+    &lt;view id=&quot;view_my_crm_lead_list&quot; model=&quot;my.crm.lead&quot; type=&quot;list&quot;&gt;
+      &lt;field name=&quot;name&quot;/&gt;
+      &lt;field name=&quot;email&quot;/&gt;
+      &lt;field name=&quot;phone&quot;/&gt;
+      &lt;field name=&quot;priority&quot; widget=&quot;priority&quot;/&gt;
+      &lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
+    &lt;/view&gt;
+
+    &lt;view id=&quot;view_my_crm_lead_form&quot; model=&quot;my.crm.lead&quot; type=&quot;form&quot;&gt;
+      &lt;sheet&gt;
+        &lt;div class=&quot;sum_title&quot;&gt;&lt;h1&gt;&lt;field name=&quot;name&quot;/&gt;&lt;/h1&gt;&lt;/div&gt;
+        &lt;group&gt;
+          &lt;field name=&quot;email&quot; widget=&quot;email&quot;/&gt;
+          &lt;field name=&quot;phone&quot; widget=&quot;phone&quot;/&gt;
+          &lt;field name=&quot;priority&quot; widget=&quot;priority&quot; options=&quot;mode:stars,stars:3&quot;/&gt;
+          &lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
+        &lt;/group&gt;
+      &lt;/sheet&gt;
+    &lt;/view&gt;
+
+    &lt;record id=&quot;action_my_crm_leads&quot; model=&quot;sys.action.window&quot;&gt;
+      &lt;field name=&quot;name&quot;&gt;Leads&lt;/field&gt;
+      &lt;field name=&quot;core_model&quot;&gt;my.crm.lead&lt;/field&gt;
+      &lt;field name=&quot;view_mode&quot;&gt;list,form&lt;/field&gt;
+    &lt;/record&gt;
+
+    &lt;menuitem id=&quot;menu_my_crm_root&quot; name=&quot;My CRM&quot; sequence=&quot;90&quot;/&gt;
+    &lt;menuitem id=&quot;menu_my_crm_leads&quot; name=&quot;Leads&quot; parent=&quot;menu_my_crm_root&quot;
+              action=&quot;action_my_crm_leads&quot;/&gt;
+  &lt;/data&gt;
+&lt;/sumeru&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;sumeru&gt;
   &lt;data&gt;
     &lt;view id="view_my_crm_lead_list" model="my.crm.lead" type="list"&gt;
       &lt;field name="name"/&gt;
@@ -152,18 +251,69 @@ type Lead struct {
     &lt;menuitem id="menu_my_crm_leads" name="Leads" parent="menu_my_crm_root"
               action="action_my_crm_leads"/&gt;
   &lt;/data&gt;
-&lt;/sumeru&gt;</code></pre>
+&lt;/sumeru&gt;</code></pre></div></div>
+</div>
         <p>See <a href="../../reference/field-attributes.html">Field attributes</a> and <a href="../../reference/view-types.html">View types</a> for all attributes.</p>
         <h2 id="4-install-and-verify">4. Install and verify</h2>
-        <pre class="docs-pre is-shell"><code>cd sumeru_custom_addons
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8a20b78d">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-actions">
+      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    </div>
+  </div>
+  <div class="docs-codebox-panels">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="cd sumeru_custom_addons
 go run . -- -c sumeru.conf -u my_crm --stop-after-init
-make run</code></pre>
+make run"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -u my_crm --stop-after-init</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre></div>
+  </div>
+</div>
         <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
         <h2 id="5-optional-custom-swc-widget">5. Optional — custom SWC widget</h2>
         <p>Add to <code>manifest.json</code>:</p>
-        <pre class="docs-pre"><code>"swc_entry": "static/swc/main.js"</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-f96b2914">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&quot;swc_entry&quot;: &quot;static/swc/main.js&quot;"><pre class="docs-pre"><code data-lang="json">"swc_entry": "static/swc/main.js"</code></pre></div></div>
+</div>
         <p><code>static/swc/main.ts</code>:</p>
-        <pre class="docs-pre"><code>import { registry } from "/static/swc/swc.js";
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-f68e79c4">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="import { registry } from &quot;/static/swc/swc.js&quot;;
+
+// SwcComponent and html are available on the global SumeruSWC bundle exports
+const { SwcComponent, html } = window.SumeruSWC as typeof import(&quot;@sumeru/swc&quot;);
+
+class ColorBadgeField extends SwcComponent {
+  template() {
+    const { field, record, readonly } = this.props as {
+      field: { name: string; string?: string };
+      record: { get: (n: string) =&gt; unknown; set: (n: string, v: unknown) =&gt; void };
+      readonly: boolean;
+    };
+    const val = String(record.get(field.name) ?? &quot;&quot;);
+    return html`&lt;div class=&quot;sum-field-widget sum-field-widget--row&quot;&gt;
+      &lt;label class=&quot;sum-field-label&quot;&gt;${field.string ?? field.name}&lt;/label&gt;
+      &lt;div class=&quot;sum-field-control&quot;&gt;
+        &lt;input class=&quot;sum-field-input&quot; type=&quot;color&quot; value=${val || &quot;#875a7b&quot;}
+          disabled=${readonly ? &quot;disabled&quot; : undefined}
+          @input=${(ev: Event) =&gt; record.set(field.name, (ev.target as HTMLInputElement).value)} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;`;
+  }
+}
+
+registry.category(&quot;fields&quot;).add(&quot;color_badge&quot;, ColorBadgeField);"><pre class="docs-pre"><code data-lang="typescript">import { registry } from "/static/swc/swc.js";
 
 // SwcComponent and html are available on the global SumeruSWC bundle exports
 const { SwcComponent, html } = window.SumeruSWC as typeof import("@sumeru/swc");
@@ -187,9 +337,19 @@ class ColorBadgeField extends SwcComponent {
   }
 }
 
-registry.category("fields").add("color_badge", ColorBadgeField);</code></pre>
+registry.category("fields").add("color_badge", ColorBadgeField);</code></pre></div></div>
+</div>
         <p>Build with esbuild targeting ES2022 (same as core <code>make swc</code>). Reference in XML:</p>
-        <pre class="docs-pre"><code>&lt;field name="priority" widget="color_badge"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-86e72eb4">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;priority&quot; widget=&quot;color_badge&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="priority" widget="color_badge"/&gt;</code></pre></div></div>
+</div>
         <p>The kernel injects addon URLs via <code>window.__SWC_ADDON_ENTRIES__</code> before SWC boots.</p>
         <h2 id="6-debug">6. Debug</h2>
         <ul>

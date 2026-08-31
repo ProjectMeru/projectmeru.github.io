@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SDK API | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/sdk-api.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,12 +82,26 @@
         <p>Source: <code>sumeru/core/sdk/</code></p>
         <h2 id="model-definition">Model definition</h2>
         <p>Define models as structs embedding <code>sdk.Model</code> with typed fields and <code>sumeru</code> struct tags. Run <strong><code>make generate</code></strong> to produce <code>models/zmodels.go</code>, which calls <code>sdk.MustRegister</code>. Authors do not write registration or field metadata by hand.</p>
-        <pre class="docs-pre"><code>type MyModel struct {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-aef442b1">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="type MyModel struct {
+    sdk.Model `sumeru:&quot;model=my.module&quot;`
+    Name      sdk.String  `sumeru:&quot;required,string=Name&quot;`
+    State     sdk.String  `sumeru:&quot;selection=draft:Draft,done:Done,string=State&quot;`
+    PartnerID sdk.Many2One[sdk.Any] `sumeru:&quot;comodel=core.partner,string=Partner&quot;`
+}"><pre class="docs-pre"><code data-lang="go">type MyModel struct {
     sdk.Model `sumeru:"model=my.module"`
     Name      sdk.String  `sumeru:"required,string=Name"`
     State     sdk.String  `sumeru:"selection=draft:Draft,done:Done,string=State"`
     PartnerID sdk.Many2One[sdk.Any] `sumeru:"comodel=core.partner,string=Partner"`
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>See <a href="../guides/models-and-fields.html">Models and fields</a> and <a href="field-types.html">Field types</a>.</p>
         <h2 id="field-markers">Field markers</h2>
         <table><thead><tr><th>Type</th><th>Purpose</th></tr></thead><tbody>
@@ -98,10 +112,22 @@
         <p>Selection fields use <code>sdk.String</code> with a <code>selection=</code> tag (not a separate type).</p>
         <h2 id="registration">Registration</h2>
         <p>Generated only — do not call manually:</p>
-        <pre class="docs-pre"><code>// models/zmodels.go (generated)
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-9edc9c61">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="// models/zmodels.go (generated)
+func init() {
+    sdk.MustRegister(&quot;my_module&quot;, &amp;MyModel{}, &amp;MyModelLine{})
+}"><pre class="docs-pre"><code data-lang="go">// models/zmodels.go (generated)
 func init() {
     sdk.MustRegister("my_module", &amp;MyModel{}, &amp;MyModelLine{})
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <h2 id="database-bootstrap">Database bootstrap</h2>
         <table><thead><tr><th>Function</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>InitDB(InitDBInput{DSN})</code></td><td>Open PostgreSQL</td></tr>

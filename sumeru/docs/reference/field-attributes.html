@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Field attributes | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/field-attributes.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -94,28 +94,69 @@
         <tr><td><code>type</code></td><td>pivot only</td><td><code>row</code>, <code>col</code>, <code>measure</code></td><td>Pivot/graph axis role.</td></tr>
         </tbody></table>
         <h2 id="basic-examples">Basic examples</h2>
-        <pre class="docs-pre"><code>&lt;field name="name" string="Company name" placeholder="Acme Corp"/&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c32d04cf">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;name&quot; string=&quot;Company name&quot; placeholder=&quot;Acme Corp&quot;/&gt;
+&lt;field name=&quot;email&quot; widget=&quot;email&quot; placeholder=&quot;name@example.com&quot;/&gt;
+&lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;
+&lt;field name=&quot;create_date&quot; readonly=&quot;1&quot;/&gt;
+&lt;field name=&quot;internal_ref&quot; invisible=&quot;1&quot;/&gt;
+&lt;field name=&quot;phone&quot; widget=&quot;phone&quot; required=&quot;1&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="name" string="Company name" placeholder="Acme Corp"/&gt;
 &lt;field name="email" widget="email" placeholder="name@example.com"/&gt;
 &lt;field name="active" widget="boolean_toggle"/&gt;
 &lt;field name="create_date" readonly="1"/&gt;
 &lt;field name="internal_ref" invisible="1"/&gt;
-&lt;field name="phone" widget="phone" required="1"/&gt;</code></pre>
+&lt;field name="phone" widget="phone" required="1"/&gt;</code></pre></div></div>
+</div>
         <h2 id="options-syntax">Options syntax</h2>
         <p><code>options</code> is a comma-separated list of <code>key:value</code> pairs (no JSON required):</p>
-        <pre class="docs-pre"><code>&lt;field name="state" widget="statusbar" options="clickable:1"/&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5b60a67c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;state&quot; widget=&quot;statusbar&quot; options=&quot;clickable:1&quot;/&gt;
+&lt;field name=&quot;priority&quot; widget=&quot;priority&quot; options=&quot;mode:stars,stars:5&quot;/&gt;
+&lt;field name=&quot;partner_id&quot; widget=&quot;many2one&quot;
+       options=&quot;domain:[(&#x27;company_id&#x27;,&#x27;=&#x27;, $company_id$)]&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="state" widget="statusbar" options="clickable:1"/&gt;
 &lt;field name="priority" widget="priority" options="mode:stars,stars:5"/&gt;
 &lt;field name="partner_id" widget="many2one"
-       options="domain:[('company_id','=', $company_id$)]"/&gt;</code></pre>
+       options="domain:[('company_id','=', $company_id$)]"/&gt;</code></pre></div></div>
+</div>
         <p>The <code>$field_name$</code> placeholder in domain strings is replaced at runtime with the current record value (<code>core/swc/src/model/modifiers.ts</code>).</p>
         <h2 id="one2many-subview">One2many subview</h2>
         <p>Embed a nested list inside a one2many field:</p>
-        <pre class="docs-pre"><code>&lt;field name="order_line_ids"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-32757451">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;order_line_ids&quot;&gt;
+  &lt;list editable=&quot;bottom&quot;&gt;
+    &lt;field name=&quot;product_id&quot;/&gt;
+    &lt;field name=&quot;quantity&quot;/&gt;
+    &lt;field name=&quot;price_unit&quot;/&gt;
+  &lt;/list&gt;
+&lt;/field&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="order_line_ids"&gt;
   &lt;list editable="bottom"&gt;
     &lt;field name="product_id"/&gt;
     &lt;field name="quantity"/&gt;
     &lt;field name="price_unit"/&gt;
   &lt;/list&gt;
-&lt;/field&gt;</code></pre>
+&lt;/field&gt;</code></pre></div></div>
+</div>
         <table><thead><tr><th>Subview attribute</th><th>Values</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>editable</code></td><td><code>top</code>, <code>bottom</code></td><td>Inline edit row position in the embedded list</td></tr>
         </tbody></table>
@@ -125,7 +166,26 @@
         <p>Fields inside <code><header></code> serialize to <code>arch.header.fields[]</code> (e.g. statusbar). Fields in the form <code><sheet></code> serialize through groups, notebook pages, and divs.</p>
         <h2 id="json-shape-workspace-payload">JSON shape (workspace payload)</h2>
         <p>Each field becomes an <code>SwcArchField</code> object:</p>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ebe4e710">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;name&quot;: &quot;partner_id&quot;,
+  &quot;string&quot;: &quot;Customer&quot;,
+  &quot;type&quot;: &quot;many2one&quot;,
+  &quot;widget&quot;: &quot;many2one&quot;,
+  &quot;relation&quot;: &quot;res.partner&quot;,
+  &quot;placeholder&quot;: &quot;&quot;,
+  &quot;readonly&quot;: false,
+  &quot;required&quot;: false,
+  &quot;invisible&quot;: false,
+  &quot;options&quot;: { &quot;relation&quot;: &quot;res.partner&quot; }
+}"><pre class="docs-pre"><code data-lang="json">{
   "name": "partner_id",
   "string": "Customer",
   "type": "many2one",
@@ -136,15 +196,36 @@
   "required": false,
   "invisible": false,
   "options": { "relation": "res.partner" }
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p>See <a href="../guides/arch-json-pipeline.html">Arch JSON pipeline</a> for the full payload.</p>
         <h2 id="dynamic-modifiers-expr">Dynamic modifiers (<code>*_expr</code>)</h2>
         <p>The Go serializer (<code>core/engine/swcmeta/arch.go</code>) emits <code>readonly_expr</code>, <code>required_expr</code>, and <code>invisible_expr</code> on <code>arch.fields[]</code> when the XML attribute is a <strong>non-literal expression</strong>. Boolean literals (<code>1</code>, <code>true</code>, <code>0</code>, <code>false</code>, …) stay on <code>readonly</code> / <code>required</code> / <code>invisible</code>. SWC's client (<code>model/modifiers.ts</code>) evaluates those expression strings.</p>
-        <pre class="docs-pre"><code>&lt;field name="partner_id" readonly="state == 'done'"/&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e237c26c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;partner_id&quot; readonly=&quot;state == &#x27;done&#x27;&quot;/&gt;
+&lt;field name=&quot;amount&quot; required=&quot;type == &#x27;invoice&#x27;&quot;/&gt;
+&lt;field name=&quot;reason&quot; invisible=&quot;state != &#x27;lost&#x27;&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="partner_id" readonly="state == 'done'"/&gt;
 &lt;field name="amount" required="type == 'invoice'"/&gt;
-&lt;field name="reason" invisible="state != 'lost'"/&gt;</code></pre>
+&lt;field name="reason" invisible="state != 'lost'"/&gt;</code></pre></div></div>
+</div>
         <p>Those become <code>ReadonlyExpr</code> / <code>RequiredExpr</code> / <code>InvisibleExpr</code> on the JSON field. Static flags still work:</p>
-        <pre class="docs-pre"><code>&lt;field name="create_date" readonly="1"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-679c1d17">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;create_date&quot; readonly=&quot;1&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="create_date" readonly="1"/&gt;</code></pre></div></div>
+</div>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../guides/build/views-and-menus.html">Views & menus</a> — full view XML reference</li>

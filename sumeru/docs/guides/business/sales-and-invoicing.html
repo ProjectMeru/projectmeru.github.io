@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sales and invoicing | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/business/sales-and-invoicing.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,7 +82,16 @@
         <h2 id="prerequisites">Prerequisites</h2>
         <p>Install order: <strong>Products</strong>, <strong>Contacts</strong>, <strong>CRM</strong>, <strong>Sales</strong>, <strong>Sales CRM Bridge</strong>, <strong>Invoicing</strong> (<code>account</code>).</p>
         <h2 id="document-flow">Document flow</h2>
-        <pre class="docs-pre"><code>Quotation (draft) → Quotation sent → Sales order → Customer invoice → Payment</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d4938c12">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="Quotation (draft) → Quotation sent → Sales order → Customer invoice → Payment"><pre class="docs-pre"><code data-lang="text">Quotation (draft) → Quotation sent → Sales order → Customer invoice → Payment</code></pre></div></div>
+</div>
         <p>Automation: confirming a sales order triggers a <strong>draft customer invoice</strong> (when Invoicing is installed). Posting and payment are separate steps.</p>
         <h2 id="quotations">Quotations</h2>
         <ol>

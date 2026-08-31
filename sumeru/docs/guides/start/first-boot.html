@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>First boot | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/start/first-boot.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/start/first-boot.html">
@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                  <header class="docs-topbar">
+                                                                                <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -136,7 +136,7 @@
     </div>
   </div>
 </div>
-        <p>Install order matters and follows <code>depends</code>. You can name modules explicitly, use <code>make install MODULES=all</code>, or explore the pre-shipped kitchen-sink demo with <code>make install MODULES=my_module</code>.</p>
+        <p>Install order matters and follows <code>depends</code>. You can name modules explicitly, use <code>make install MODULES=all</code>, or explore the pre-shipped kitchen-sink demo with <code>make install MODULES=engagement_cookbook</code>.</p>
 
         <h2 id="run">Run it</h2>
         <div class="docs-codebox is-shell" data-codebox="shell-64201366">
@@ -169,7 +169,7 @@
     </div>
   </div>
 </div>
-        <p><code>make run</code> runs <code>generate</code>, then <code>assets</code> (rebuilds SWC when sources changed), then starts the HTTP server. Go code changes need a rebuild (<code>make run</code>). XML changes need <code>make update</code>, because views, menus and access rules live in the database once installed. For the full widget and view-type reference, see <a href="../../addons/howtos/my-module-cookbook.html">my_module kitchen-sink demo</a>.</p>
+        <p><code>make run</code> runs <code>generate</code>, then <code>assets</code> (rebuilds SWC when sources changed), then starts the HTTP server. Go code changes need a rebuild (<code>make run</code>). XML changes need <code>make update</code>, because views, menus and access rules live in the database once installed. For the full widget and view-type reference, see <a href="../../addons/howtos/engagement-cookbook.html">Engagements cookbook</a>.</p>
 
         <h2 id="for-business-teams">For business teams</h2>
         <p>Once the server is up, operators use Apps, roles and the lead-to-cash flow. Those guides live under Business:</p>

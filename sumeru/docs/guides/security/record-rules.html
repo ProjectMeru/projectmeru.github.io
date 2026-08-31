@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Record rules | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/security/record-rules.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -97,14 +97,30 @@
         <p>Administrators edit rules under <strong>Settings → Security → Record rules</strong> when <code>security_admin.xml</code> is loaded.</p>
         <h2 id="loading-from-addons">Loading from addons</h2>
         <p>Place rules in <code>security/*_rules.xml</code> (or inline in <code>security.xml</code>). List the file in <code>manifest.json</code> → <code>data</code> after groups and ACLs.</p>
-        <pre class="docs-pre"><code>&lt;record id="rule_sale_order_company" model="sys.rule"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-58fedaa7">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;rule_sale_order_company&quot; model=&quot;sys.rule&quot;&gt;
+  &lt;field name=&quot;name&quot;&gt;Sales orders: multi-company&lt;/field&gt;
+  &lt;field name=&quot;model_id&quot; ref=&quot;model_sale_order&quot;/&gt;
+  &lt;field name=&quot;domain_force&quot;&gt;[[&quot;company_id&quot;, &quot;in&quot;, &quot;$company_ids&quot;]]&lt;/field&gt;
+  &lt;field name=&quot;perm_read&quot; eval=&quot;True&quot;/&gt;
+  &lt;field name=&quot;perm_write&quot; eval=&quot;True&quot;/&gt;
+  &lt;field name=&quot;global&quot; eval=&quot;True&quot;/&gt;
+&lt;/record&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;record id="rule_sale_order_company" model="sys.rule"&gt;
   &lt;field name="name"&gt;Sales orders: multi-company&lt;/field&gt;
   &lt;field name="model_id" ref="model_sale_order"/&gt;
   &lt;field name="domain_force"&gt;[["company_id", "in", "$company_ids"]]&lt;/field&gt;
   &lt;field name="perm_read" eval="True"/&gt;
   &lt;field name="perm_write" eval="True"/&gt;
   &lt;field name="global" eval="True"/&gt;
-&lt;/record&gt;</code></pre>
+&lt;/record&gt;</code></pre></div></div>
+</div>
         <p>Run <code>-u your_module</code> after changes. Rule cache invalidates on update.</p>
         <h2 id="global-vs-group-rules">Global vs group rules</h2>
         <ul>
@@ -114,7 +130,16 @@
         <p>Keep domains testable — overly complex rules are hard to debug.</p>
         <h2 id="multi-company-pattern">Multi-company pattern</h2>
         <p>Typical pattern for business documents:</p>
-        <pre class="docs-pre"><code>[["company_id", "in", "$company_ids"]]</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c42df7b2">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[[&quot;company_id&quot;, &quot;in&quot;, &quot;$company_ids&quot;]]"><pre class="docs-pre"><code data-lang="json">[["company_id", "in", "$company_ids"]]</code></pre></div></div>
+</div>
         <p>The active company comes from the company switcher (<code>POST /web/company/switch</code>). This is <strong>not</strong> multi-tenant SaaS — one PostgreSQL database, shared schema. See <a href="isolation-model.html">Isolation model</a>.</p>
         <h2 id="worked-example-crm-own-leads">Worked example: CRM own leads</h2>
         <ol>
@@ -129,7 +154,7 @@
         <ul>
         <li><a href="../build/security-and-access.html">Security & access</a></li>
         <li><a href="../../reference/domain-filters.html">Domain filters</a></li>
-        <li><a href="../../addons/manifest-and-layout.html">Manifest & layout</a> — security load order</li>
+        <li><a href="../build/manifests-and-depends.html">Manifest & layout</a> — security load order</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

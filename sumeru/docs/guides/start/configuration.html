@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Configuration | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/start/configuration.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,7 +82,15 @@
         <p><strong>Pre-alpha.</strong> No tagged release or upgrade path. Use for evaluation and development only.</p>
         <h2 id="the-config-file">The config file</h2>
         <p>Copy <code>sumeru.conf.example</code> next to your workspace <code>go.mod</code> and edit. Paths in the INI resolve against the <strong>config file directory</strong>, not your shell cwd.</p>
-        <pre class="docs-pre"><code>[options]
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a1ee2b45">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">ini</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">ini</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[options]
 db_host = localhost
 db_port = 5432
 db_user = postgres
@@ -96,7 +104,22 @@ setup_localhost_only = true
 setup_token =
 addons_path = ../sumeru/addons,../sumeru_addons,./addons
 log_enabled = true
-log_stdout = true</code></pre>
+log_stdout = true"><pre class="docs-pre"><code data-lang="ini">[options]
+db_host = localhost
+db_port = 5432
+db_user = postgres
+db_password = postgres
+db_name = sumeru
+db_sslmode = disable
+http_port = 8080
+http_interface =
+dev_mode = true
+setup_localhost_only = true
+setup_token =
+addons_path = ../sumeru/addons,../sumeru_addons,./addons
+log_enabled = true
+log_stdout = true</code></pre></div></div>
+</div>
         <h2 id="database-required">Database (required)</h2>
         <table><thead><tr><th>Key</th><th>Purpose</th><th>Default</th></tr></thead><tbody>
         <tr><td><code>db_host</code></td><td>PostgreSQL host</td><td>—</td></tr>
@@ -189,7 +212,16 @@ log_stdout = true</code></pre>
         </tbody></table>
         <h2 id="addons-path">addons_path</h2>
         <p>This key decides which addons exist. Typical workspace layout:</p>
-        <pre class="docs-pre"><code>addons_path = ../sumeru/addons,../sumeru_addons,./addons</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-76e5c4e1">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">ini</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">ini</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="addons_path = ../sumeru/addons,../sumeru_addons,./addons"><pre class="docs-pre"><code data-lang="ini">addons_path = ../sumeru/addons,../sumeru_addons,./addons</code></pre></div></div>
+</div>
         <p>Core kernel apps → standard business apps → your custom addons.</p>
         <h2 id="next-step">Next step</h2>
         <p>Continue with <a href="first-boot.html">First boot</a> to initialise the database and install business addons.</p>

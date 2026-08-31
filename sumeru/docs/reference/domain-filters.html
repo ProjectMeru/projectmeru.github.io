@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Domain filters | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/domain-filters.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -81,7 +81,16 @@
         <p class="docs-lede">Domains filter records in <code>search</code>, <code>search_read</code>, JSON-RPC, record rules, and list/kanban export windows. Source: <code>sumeru/core/orm/crud_domain.go</code>, <code>domain_json.go</code>.</p>
         <h2 id="shape">Shape</h2>
         <p>A domain is a JSON array of <strong>triples</strong> <code>[field, operator, value]</code> combined with AND by default.</p>
-        <pre class="docs-pre"><code>[["state", "=", "draft"], ["company_id", "=", 1]]</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3f3177b0">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[[&quot;state&quot;, &quot;=&quot;, &quot;draft&quot;], [&quot;company_id&quot;, &quot;=&quot;, 1]]"><pre class="docs-pre"><code data-lang="json">[["state", "=", "draft"], ["company_id", "=", 1]]</code></pre></div></div>
+</div>
         <h2 id="supported-operators">Supported operators</h2>
         <table><thead><tr><th>Operator</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><code>=</code></td><td>Equal</td></tr>
@@ -93,7 +102,16 @@
         </tbody></table>
         <h2 id="or-composition">OR composition</h2>
         <p>Prefix Polish notation: repeat <code>|</code> once per extra OR branch, then list leaf triples.</p>
-        <pre class="docs-pre"><code>["|", ["state", "=", "draft"], ["state", "=", "sent"]]</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e39aea6a">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[&quot;|&quot;, [&quot;state&quot;, &quot;=&quot;, &quot;draft&quot;], [&quot;state&quot;, &quot;=&quot;, &quot;sent&quot;]]"><pre class="docs-pre"><code data-lang="json">["|", ["state", "=", "draft"], ["state", "=", "sent"]]</code></pre></div></div>
+</div>
         <p>Two branches → one <code>|</code> prefix. Three branches → two <code>|</code> prefixes, then three triples.</p>
         <h2 id="list-search">List search</h2>
         <p>Workspace list views append an OR-of-<code>ilike</code> domain when <code>?q=</code> is present, searching Char/Text columns visible in the list view.</p>
@@ -121,11 +139,38 @@
         <p>Domains in XML or JSON may reference records by XML id; the engine resolves them via <code>sys.model_data</code> before SQL is built.</p>
         <h2 id="examples">Examples</h2>
         <p><strong>RPC search_read</strong> — open sales orders:</p>
-        <pre class="docs-pre"><code>{"method": "search_read", "params": {"model": "sale.order", "domain": [["state", "=", "sale"]]}}</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c7734b56">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{&quot;method&quot;: &quot;search_read&quot;, &quot;params&quot;: {&quot;model&quot;: &quot;sale.order&quot;, &quot;domain&quot;: [[&quot;state&quot;, &quot;=&quot;, &quot;sale&quot;]]}}"><pre class="docs-pre"><code data-lang="json">{"method": "search_read", "params": {"model": "sale.order", "domain": [["state", "=", "sale"]]}}</code></pre></div></div>
+</div>
         <p><strong>Text search</strong> — name contains "acme" (case-insensitive):</p>
-        <pre class="docs-pre"><code>[["name", "ilike", "%acme%"]]</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c2e626b7">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[[&quot;name&quot;, &quot;ilike&quot;, &quot;%acme%&quot;]]"><pre class="docs-pre"><code data-lang="json">[["name", "ilike", "%acme%"]]</code></pre></div></div>
+</div>
         <p><strong>Record rule</strong> — own company only:</p>
-        <pre class="docs-pre"><code>[["company_id", "in", "$company_ids"]]</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-da92f17f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[[&quot;company_id&quot;, &quot;in&quot;, &quot;$company_ids&quot;]]"><pre class="docs-pre"><code data-lang="json">[["company_id", "in", "$company_ids"]]</code></pre></div></div>
+</div>
         <p><strong>Export window</strong> — list/kanban exports apply the window action domain (max 500 rows).</p>
         <h2 id="see-also">See also</h2>
         <ul>

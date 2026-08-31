@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arch JSON pipeline | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/arch-json-pipeline.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -80,13 +80,35 @@
         <h1>Arch JSON pipeline</h1>
         <p class="docs-lede">SWC never parses view XML in the browser. The Go kernel parses arch once per request and returns JSON that SWC components consume directly.</p>
         <h2 id="flow">Flow</h2>
-        <pre class="docs-pre"><code>sys.view arch (XML)
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-7361df82">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="sys.view arch (XML)
     → parser.ParseViewFromArch (view_xml.go)
     → swcmeta.SerializeView (arch.go)
     → GET /web/swc/workspace JSON payload
-    → WorkspaceRouter → ListView / FormView / …</code></pre>
+    → WorkspaceRouter → ListView / FormView / …"><pre class="docs-pre"><code data-lang="text">sys.view arch (XML)
+    → parser.ParseViewFromArch (view_xml.go)
+    → swcmeta.SerializeView (arch.go)
+    → GET /web/swc/workspace JSON payload
+    → WorkspaceRouter → ListView / FormView / …</code></pre></div></div>
+</div>
         <h2 id="request">Request</h2>
-        <pre class="docs-pre"><code>GET /web/swc/workspace?action=12&amp;menu_id=5&amp;view_type=form&amp;id=7&amp;edit=1&amp;q=acme</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c479cc81">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="GET /web/swc/workspace?action=12&amp;menu_id=5&amp;view_type=form&amp;id=7&amp;edit=1&amp;q=acme"><pre class="docs-pre"><code data-lang="text">GET /web/swc/workspace?action=12&amp;menu_id=5&amp;view_type=form&amp;id=7&amp;edit=1&amp;q=acme</code></pre></div></div>
+</div>
         <table><thead><tr><th>Query param</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>action</code></td><td>Window action id (optional if <code>model</code> is set)</td></tr>
         <tr><td><code>menu_id</code></td><td>Menu context</td></tr>
@@ -100,7 +122,42 @@
         <tr><td><code>offset</code></td><td>List page offset</td></tr>
         </tbody></table>
         <h2 id="payload-shape">Payload shape</h2>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-285a47f3">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;actionId&quot;: 12,
+  &quot;menuId&quot;: &quot;5&quot;,
+  &quot;viewType&quot;: &quot;form&quot;,
+  &quot;model&quot;: &quot;crm.lead&quot;,
+  &quot;recordId&quot;: 7,
+  &quot;formEdit&quot;: false,
+  &quot;csrfToken&quot;: &quot;…&quot;,
+  &quot;arch&quot;: {
+    &quot;type&quot;: &quot;form&quot;,
+    &quot;model&quot;: &quot;crm.lead&quot;,
+    &quot;header&quot;: { &quot;buttons&quot;: [], &quot;fields&quot;: [] },
+    &quot;sheet&quot;: {
+      &quot;groups&quot;: [{ &quot;string&quot;: &quot;Lead&quot;, &quot;fields&quot;: [{ &quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;char&quot; }] }],
+      &quot;notebook&quot;: []
+    },
+    &quot;hasChatter&quot;: true
+  },
+  &quot;record&quot;: { &quot;id&quot;: 7, &quot;name&quot;: &quot;Acme deal&quot; },
+  &quot;viewTabs&quot;: [
+    { &quot;mode&quot;: &quot;kanban&quot;, &quot;label&quot;: &quot;Kanban&quot;, &quot;href&quot;: &quot;/web?…&quot;, &quot;active&quot;: false },
+    { &quot;mode&quot;: &quot;list&quot;, &quot;label&quot;: &quot;List&quot;, &quot;href&quot;: &quot;/web?…&quot;, &quot;active&quot;: false },
+    { &quot;mode&quot;: &quot;form&quot;, &quot;label&quot;: &quot;Form&quot;, &quot;href&quot;: &quot;/web?…&amp;id=7&quot;, &quot;active&quot;: true }
+  ],
+  &quot;listSearch&quot;: &quot;&quot;,
+  &quot;listTotal&quot;: 0,
+  &quot;defaults&quot;: { &quot;type&quot;: &quot;opportunity&quot; }
+}"><pre class="docs-pre"><code data-lang="json">{
   "actionId": 12,
   "menuId": "5",
   "viewType": "form",
@@ -127,7 +184,8 @@
   "listSearch": "",
   "listTotal": 0,
   "defaults": { "type": "opportunity" }
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p><code>defaults</code> is the window action <code>default_*</code> context, without the prefix. New forms and kanban quick-create merge it into the record.</p>
         <h2 id="arch-enrichment">Arch enrichment</h2>
         <p><code>swcmeta/enrichField</code> merges ORM metadata into each arch field:</p>
@@ -139,13 +197,28 @@
         <p>Records in the payload are ACL-redacted the same way as JSON-RPC reads.</p>
         <h2 id="kanban-extension">Kanban extension</h2>
         <p>For <code>type="kanban"</code>, the server adds grouped columns:</p>
-        <pre class="docs-pre"><code>"kanban": {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-df7926ea">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&quot;kanban&quot;: {
+  &quot;groupField&quot;: &quot;stage_id&quot;,
+  &quot;draggable&quot;: true,
+  &quot;columns&quot;: [
+    { &quot;value&quot;: 1, &quot;label&quot;: &quot;New&quot;, &quot;records&quot;: [{ &quot;id&quot;: 3, &quot;name&quot;: &quot;Lead A&quot; }] }
+  ]
+}"><pre class="docs-pre"><code data-lang="json">"kanban": {
   "groupField": "stage_id",
   "draggable": true,
   "columns": [
     { "value": 1, "label": "New", "records": [{ "id": 3, "name": "Lead A" }] }
   ]
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <h2 id="client-types">Client types</h2>
         <p>TypeScript definitions: <code>core/swc/src/types/workspace.ts</code> (<code>SwcWorkspacePayload</code>, <code>SwcArchField</code>, <code>SwcViewArch</code>).</p>
         <p>Go definitions: <code>core/engine/swcmeta/types.go</code>.</p>

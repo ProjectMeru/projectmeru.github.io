@@ -54,8 +54,16 @@
         "title": "Building an Application",
         "items": [
           {
+            "title": "Build your first module",
+            "href": "guides/build/build-your-first-module.html"
+          },
+          {
             "title": "Creating an addon",
             "href": "guides/build/creating-an-addon.html"
+          },
+          {
+            "title": "Custom addons workspace",
+            "href": "guides/build/custom-addons-workspace.html"
           },
           {
             "title": "Project structure",
@@ -76,6 +84,22 @@
           {
             "title": "View inheritance",
             "href": "guides/build/view-inheritance.html"
+          },
+          {
+            "title": "Model inheritance",
+            "href": "guides/build/model-inheritance.html"
+          },
+          {
+            "title": "Add menu and action",
+            "href": "guides/build/add-menu-and-action.html"
+          },
+          {
+            "title": "Install a module",
+            "href": "guides/build/install-module.html"
+          },
+          {
+            "title": "Update a module",
+            "href": "guides/build/update-module.html"
           },
           {
             "title": "Build a module with SWC",
@@ -138,6 +162,10 @@
           {
             "title": "Three modules",
             "href": "guides/concepts/three-modules.html"
+          },
+          {
+            "title": "Architecture layers",
+            "href": "guides/concepts/architecture-layers.html"
           },
           {
             "title": "ORM",
@@ -306,10 +334,6 @@
             "href": "addons/index.html"
           },
           {
-            "title": "Manifest & layout",
-            "href": "addons/manifest-and-layout.html"
-          },
-          {
             "title": "Events & hooks",
             "href": "addons/events-and-hooks.html"
           },
@@ -324,20 +348,8 @@
         "title": "How-tos",
         "items": [
           {
-            "title": "Scaffold a new addon",
-            "href": "addons/howtos/scaffold-new-addon.html"
-          },
-          {
-            "title": "Custom addons workspace",
-            "href": "addons/howtos/custom-addons-workspace.html"
-          },
-          {
-            "title": "my_module cookbook",
-            "href": "addons/howtos/my-module-cookbook.html"
-          },
-          {
-            "title": "Add menu and action",
-            "href": "addons/howtos/add-menu-and-action.html"
+            "title": "Engagements cookbook",
+            "href": "addons/howtos/engagement-cookbook.html"
           },
           {
             "title": "Add bridge module",
@@ -537,12 +549,18 @@
     "guides/start/configuration.html": "guides",
     "guides/start/first-boot.html": "guides",
     "guides/start/troubleshooting.html": "guides",
+    "guides/build/build-your-first-module.html": "guides",
     "guides/build/creating-an-addon.html": "guides",
+    "guides/build/custom-addons-workspace.html": "guides",
     "guides/build/project-structure.html": "guides",
     "guides/build/manifests-and-depends.html": "guides",
     "guides/build/models-and-fields.html": "guides",
     "guides/build/views-and-menus.html": "guides",
     "guides/build/view-inheritance.html": "guides",
+    "guides/build/model-inheritance.html": "guides",
+    "guides/build/add-menu-and-action.html": "guides",
+    "guides/build/install-module.html": "guides",
+    "guides/build/update-module.html": "guides",
     "guides/build/build-module-with-swc.html": "guides",
     "guides/build/report-engine.html": "guides",
     "guides/build/creating-apis.html": "guides",
@@ -557,6 +575,7 @@
     "guides/build/deployment.html": "guides",
     "guides/build/scale-architecture.html": "guides",
     "guides/concepts/three-modules.html": "guides",
+    "guides/concepts/architecture-layers.html": "guides",
     "guides/concepts/orm.html": "guides",
     "guides/concepts/module-loader.html": "guides",
     "guides/concepts/engine-and-server.html": "guides",
@@ -593,13 +612,9 @@
     "reference/limitations.html": "reference",
     "reference/platform-gaps.html": "reference",
     "addons/index.html": "addons",
-    "addons/manifest-and-layout.html": "addons",
     "addons/events-and-hooks.html": "addons",
     "addons/cross-module-flows.html": "addons",
-    "addons/howtos/scaffold-new-addon.html": "addons",
-    "addons/howtos/custom-addons-workspace.html": "addons",
-    "addons/howtos/my-module-cookbook.html": "addons",
-    "addons/howtos/add-menu-and-action.html": "addons",
+    "addons/howtos/engagement-cookbook.html": "addons",
     "addons/howtos/add-bridge-module.html": "addons",
     "addons/howtos/enable-report-on-view.html": "addons",
     "addons/howtos/extend-crm-pipeline.html": "addons",
@@ -639,5 +654,23 @@
     "guides/business/purchase-and-hr.html": "business",
     "guides/business/multi-company.html": "business",
     "guides/business/editions-and-licensing.html": "business"
-  }
+  },
+  "learningPaths": [
+    {
+      "id": "first-module",
+      "title": "Build your first module",
+      "steps": [
+        "guides/start/installation.html",
+        "guides/build/custom-addons-workspace.html",
+        "guides/build/build-your-first-module.html",
+        "guides/build/creating-an-addon.html",
+        "guides/build/manifests-and-depends.html",
+        "guides/build/models-and-fields.html",
+        "guides/build/views-and-menus.html",
+        "guides/build/install-module.html",
+        "guides/build/add-menu-and-action.html",
+        "addons/howtos/engagement-cookbook.html"
+      ]
+    }
+  ]
 }

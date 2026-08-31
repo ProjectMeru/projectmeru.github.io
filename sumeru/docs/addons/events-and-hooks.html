@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events and Hooks | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/events-and-hooks.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -81,13 +81,28 @@
         <p class="docs-lede">Standard business addons automate cross-module behavior through the in-process event bus and ORM extension points.</p>
         <h2 id="event-subscription">Event subscription</h2>
         <p><strong>Package:</strong> <code>sumeru/core/event</code></p>
-        <pre class="docs-pre"><code>event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-26d16748">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="event.Subscribe(&quot;record.updated&quot;, func(ctx context.Context, ev event.Event) error {
+    if ev.Payload[&quot;model&quot;] != &quot;crm.lead&quot; {
+        return nil
+    }
+    // read ev.Payload[&quot;id&quot;], ev.Payload[&quot;values&quot;]
+    return nil
+})"><pre class="docs-pre"><code data-lang="go">event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {
     if ev.Payload["model"] != "crm.lead" {
         return nil
     }
     // read ev.Payload["id"], ev.Payload["values"]
     return nil
-})</code></pre>
+})</code></pre></div></div>
+</div>
         <p>Common events:</p>
         <table><thead><tr><th>Event</th><th>When</th></tr></thead><tbody>
         <tr><td><code>record.created</code></td><td>After insert commit</td></tr>
@@ -100,18 +115,48 @@
         <p>Use <code>orm.ContextWithBypass(ctx)</code> when the handler must write records the triggering user cannot access (e.g. auto-creating a quotation).</p>
         <h2 id="object-actions">Object actions</h2>
         <p>UI buttons on forms call registered handlers:</p>
-        <pre class="docs-pre"><code>orm.RegisterObjectAction("crm.lead", "action_set_won", handler)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1b0da92f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="orm.RegisterObjectAction(&quot;crm.lead&quot;, &quot;action_set_won&quot;, handler)"><pre class="docs-pre"><code data-lang="go">orm.RegisterObjectAction("crm.lead", "action_set_won", handler)</code></pre></div></div>
+</div>
         <p>Handler returns redirect URL or sets <code>vals["next"]</code>. See <code>sumeru_addons/crm/services/hooks.go</code> and <code>account/services/actions.go</code>.</p>
         <h2 id="kanban-expanders">Kanban expanders</h2>
         <p><strong>Package:</strong> <code>sumeru/core/engine/swcmeta</code></p>
-        <pre class="docs-pre"><code>swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4e905b6e">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="swcmeta.RegisterKanbanGroupExpander(&quot;crm.lead&quot;, &quot;stage_id&quot;, expandFn)"><pre class="docs-pre"><code data-lang="go">swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", expandFn)</code></pre></div></div>
+</div>
         <p>Used for CRM pipeline and forecast kanbans in the SWC workspace.</p>
         <h2 id="cron-handlers">Cron handlers</h2>
         <p>Register a Go handler keyed by a <strong><code>sys.cron</code> row’s <code>code</code> field</strong> that you seed yourself:</p>
-        <pre class="docs-pre"><code>scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-749d7a00">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="scheduler.RegisterCronHandler(&quot;my_module.nightly_digest&quot;, func(ctx context.Context, payload map[string]interface{}) error {
     // run periodic work
     return nil
-})</code></pre>
+})"><pre class="docs-pre"><code data-lang="go">scheduler.RegisterCronHandler("my_module.nightly_digest", func(ctx context.Context, payload map[string]interface{}) error {
+    // run periodic work
+    return nil
+})</code></pre></div></div>
+</div>
         <p>The scheduler still publishes <code>cron.tick</code> and any custom <code>event_name</code> on the cron row.</p>
         <p>CRM subscribes to <code>crm.cron_assign_leads</code> in <code>crm/services/hooks.go</code> for round-robin assignment, but <strong>does not seed a <code>sys.cron</code> row</strong>. Shipped UX is the <strong>Assign Leads</strong> object button on the team form. Subscribe to that event (or add your own cron that publishes it) only if you want a schedule.</p>
         <p>Alternatively, subscribe to <code>cron.tick</code> or a custom event name — the automation addon uses the same bus.</p>
@@ -123,7 +168,16 @@
         </ul>
         <p>See <a href="website/guides/build/events-and-automation.html">Events & automation</a> for XML examples.</p>
         <h2 id="http-routes">HTTP routes</h2>
-        <pre class="docs-pre"><code>router.Register(http.MethodGet, "/account/invoice/print", router.AuthSession, handler)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b9bfcbbc">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="router.Register(http.MethodGet, &quot;/account/invoice/print&quot;, router.AuthSession, handler)"><pre class="docs-pre"><code data-lang="go">router.Register(http.MethodGet, "/account/invoice/print", router.AuthSession, handler)</code></pre></div></div>
+</div>
         <p>See <a href="howtos/custom-http-route.html">Custom HTTP route</a>.</p>
         <h2 id="service-layer">Service layer</h2>
         <p>Keep heavy logic in <code>services/</code> packages:</p>

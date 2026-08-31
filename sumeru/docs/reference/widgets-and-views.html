@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Widgets and views | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/widgets-and-views.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -100,11 +100,24 @@
         <tr><td><code>cohort</code></td><td>v1</td><td>CohortView</td></tr>
         </tbody></table>
         <h2 id="pivot-fields-quick-reference">Pivot fields (quick reference)</h2>
-        <pre class="docs-pre"><code>&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-887b05fe">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_sale_order_pivot&quot; model=&quot;sale.order&quot; type=&quot;pivot&quot;&gt;
+    &lt;field name=&quot;partner_id&quot; type=&quot;row&quot;/&gt;
+    &lt;field name=&quot;date_order&quot; type=&quot;col&quot;/&gt;
+    &lt;field name=&quot;amount_total&quot; type=&quot;measure&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_sale_order_pivot" model="sale.order" type="pivot"&gt;
     &lt;field name="partner_id" type="row"/&gt;
     &lt;field name="date_order" type="col"/&gt;
     &lt;field name="amount_total" type="measure"/&gt;
-&lt;/view&gt;</code></pre>
+&lt;/view&gt;</code></pre></div></div>
+</div>
         <h2 id="common-view-attributes">Common view attributes</h2>
         <table><thead><tr><th>Attribute</th><th>View types</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>groups</code></td><td>all fields</td><td>Hide field unless user has ACL group</td></tr>
@@ -115,7 +128,7 @@
         <tr><td><code>bulk_upload</code></td><td>list, form, kanban</td><td>Bulk CSV import</td></tr>
         </tbody></table>
         <h2 id="view-inheritance">View inheritance</h2>
-        <p>Extend existing views with xpath — see <a href="../guides/build/view-inheritance.html">View inheritance</a>. <strong>Model <code>_inherit</code> is not supported</strong> — only view arch inherit.</p>
+        <p>Extend existing views with xpath — see <a href="../guides/build/view-inheritance.html">View inheritance</a>. Add stored fields with <a href="website/guides/build/model-inheritance.html">Model inheritance</a> (<code>inherit=</code> struct tag) before xpath.</p>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="swc-api.html">SWC API</a></li>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Models & fields | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html">
@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                      <header class="docs-topbar">
+                                    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -101,12 +101,12 @@
         <h1>Models & fields</h1>
         <p class="docs-lede">sdk.Model tags, field markers, relations, and how runtime records are maps.</p>
 <h2 id="sdk-model-and-generate">sdk.Model and generate</h2>
-<p>Prefer <code>sumeru/core/sdk</code> over importing <code>sumeru/core/orm</code> directly. Embed <code>sdk.Model</code> with a <code>sumeru:"model=…"</code> tag. After adding a struct, run <code>make generate</code> so <code>models/zmodels.go</code> registers it. Full field cookbook: <a href="https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/addons/my_module/models/models.go" rel="noopener">my_module/models.go</a> and the <a href="../../addons/howtos/my-module-cookbook.html">kitchen-sink cookbook</a>.</p>
+<p>Prefer <code>sumeru/core/sdk</code> over importing <code>sumeru/core/orm</code> directly. Embed <code>sdk.Model</code> with a <code>sumeru:"model=…"</code> tag, or extend an existing model with <code>sumeru:"inherit=…"</code> — see <a href="model-inheritance.html">Model inheritance</a>. After adding a struct, run <code>make generate</code> so <code>models/zmodels.go</code> registers it. Full field cookbook: <a href="https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/addons/engagement_cookbook/models/engagement_project.go" rel="noopener">engagement_cookbook models</a> and the <a href="../../addons/howtos/engagement-cookbook.html">Engagements cookbook</a>.</p>
 <div class="docs-codebox is-source is-wrap" data-codebox="src-intro">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">addons/my_module/models/models.go (excerpt)</span>
+      <span class="docs-codebox-name">addons/engagement_cookbook/models/models.go (excerpt)</span>
     </div>
     <div class="docs-codebox-actions">
       <span class="docs-codebox-hint">go</span>
@@ -476,7 +476,7 @@ StoredLineCount sdk.Integer `sumeru:&quot;compute=stored_line_count,store,readon
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">addons/my_module/models/my_module_line.go</span>
+      <span class="docs-codebox-name">addons/engagement_cookbook/models/my_module_line.go</span>
     </div>
     <div class="docs-codebox-actions">
       <span class="docs-codebox-hint">go</span>
@@ -570,9 +570,9 @@ func init() {
     </div>
   </div>
   <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;make install MODULES=my_module&#10;make run">
+    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;make install MODULES=engagement_cookbook&#10;make run">
       <pre class="docs-pre is-lined" data-lang="shell"><code>make generate
-make install MODULES=my_module
+make install MODULES=engagement_cookbook
 make run</code></pre>
     </div>
   </div>
@@ -594,7 +594,7 @@ make run</code></pre>
   <li><a href="../../reference/field-types.html">Field types reference</a> — SQL mapping</li>
   <li><a href="../../reference/field-attributes.html">Field attributes</a> — view XML</li>
   <li><a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> — UI widgets per type</li>
-  <li><a href="../../addons/howtos/my-module-cookbook.html">my_module cookbook</a> — live examples for every type</li>
+  <li><a href="../../addons/howtos/engagement-cookbook.html">Engagements cookbook</a> — live examples for every type</li>
 </ul>
 
 <h2 id="next-step">Next step</h2>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SWC API reference | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/swc-api.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -98,10 +98,51 @@
         </tbody></table>
         <h3 id="websocket-bus">WebSocket bus</h3>
         <p>Upgrade <code>GET /web/swc/bus</code> with standard WebSocket headers after session login. The server forwards in-process outbox queue messages as JSON:</p>
-        <pre class="docs-pre"><code>{ "channel": "record.updated", "payload": { "model": "crm.lead", "id": 1 } }</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b7255ce8">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{ &quot;channel&quot;: &quot;record.updated&quot;, &quot;payload&quot;: { &quot;model&quot;: &quot;crm.lead&quot;, &quot;id&quot;: 1 } }"><pre class="docs-pre"><code data-lang="json">{ "channel": "record.updated", "payload": { "model": "crm.lead", "id": 1 } }</code></pre></div></div>
+</div>
         <p>Non-upgrade GET requests return <strong>404</strong> (no error log). Enable in bootstrap with <code>busEnabled: true</code>; the client connects from <code>ShellLayout</code> when set.</p>
         <h2 id="workspace-json-schema">Workspace JSON schema</h2>
-        <pre class="docs-pre"><code>{
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1b38118b">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;actionId&quot;: 12,
+  &quot;menuId&quot;: &quot;5&quot;,
+  &quot;viewType&quot;: &quot;list&quot;,
+  &quot;model&quot;: &quot;sale.order&quot;,
+  &quot;recordId&quot;: 0,
+  &quot;formEdit&quot;: false,
+  &quot;csrfToken&quot;: &quot;…&quot;,
+  &quot;arch&quot;: {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;model&quot;: &quot;sale.order&quot;,
+    &quot;fields&quot;: [{ &quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;char&quot; }],
+    &quot;kanban&quot;: { &quot;groupField&quot;: &quot;stage_id&quot;, &quot;draggable&quot;: true, &quot;quickCreate&quot;: true, &quot;columns&quot;: [] }
+  },
+  &quot;records&quot;: [],
+  &quot;viewTabs&quot;: [{ &quot;mode&quot;: &quot;list&quot;, &quot;label&quot;: &quot;List&quot;, &quot;href&quot;: &quot;/web?…&quot;, &quot;active&quot;: true }],
+  &quot;breadcrumbs&quot;: [],
+  &quot;listSearch&quot;: &quot;&quot;,
+  &quot;listTotal&quot;: 42,
+  &quot;listSort&quot;: &quot;&quot;,
+  &quot;listOffset&quot;: 0,
+  &quot;listFilter&quot;: &quot;&quot;,
+  &quot;formBaseQuery&quot;: &quot;action=12&amp;menu_id=5&amp;view_type=form&amp;id=7&quot;,
+  &quot;defaults&quot;: { &quot;state&quot;: &quot;draft&quot; }
+}"><pre class="docs-pre"><code data-lang="json">{
   "actionId": 12,
   "menuId": "5",
   "viewType": "list",
@@ -125,7 +166,8 @@
   "listFilter": "",
   "formBaseQuery": "action=12&amp;menu_id=5&amp;view_type=form&amp;id=7",
   "defaults": { "state": "draft" }
-}</code></pre>
+}</code></pre></div></div>
+</div>
         <p><code>defaults</code> comes from the window action context keys <code>default_*</code> (for example <code>{"default_type":"opportunity"}</code> → <code>"type": "opportunity"</code>). New forms merge them into <code>record</code>; kanban quick-create merges them into <code>rpc.create</code>.</p>
         <p>Records are redacted with the same rules as ORM <code>RedactRecordForRead</code>.</p>
         <p>See <a href="../guides/arch-json-pipeline.html">Arch JSON pipeline</a> for the XML → JSON pipeline.</p>
@@ -139,14 +181,37 @@
         </ul>
         <p>Send header <code>X-CSRF-Token</code> with the bootstrap <code>csrfToken</code>.</p>
         <p>Client helper:</p>
-        <pre class="docs-pre"><code>await rpc.callMethod("crm.lead", "action_merge_wizard", recordId, {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-2219499f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="await rpc.callMethod(&quot;crm.lead&quot;, &quot;action_merge_wizard&quot;, recordId, {
+  active_ids: &quot;3,7&quot;,
+});"><pre class="docs-pre"><code data-lang="typescript">await rpc.callMethod("crm.lead", "action_merge_wizard", recordId, {
   active_ids: "3,7",
-});</code></pre>
+});</code></pre></div></div>
+</div>
         <h2 id="client-registry">Client registry</h2>
-        <pre class="docs-pre"><code>registry.category("fields").add("many2one", Many2OneField);
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5f06b962">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="registry.category(&quot;fields&quot;).add(&quot;many2one&quot;, Many2OneField);
+registry.category(&quot;views&quot;).add(&quot;list&quot;, ListView);
+registry.category(&quot;services&quot;).add(&quot;rpc&quot;, rpcService);
+registry.category(&quot;main_components&quot;).add(&quot;shell&quot;, ShellLayout);"><pre class="docs-pre"><code data-lang="typescript">registry.category("fields").add("many2one", Many2OneField);
 registry.category("views").add("list", ListView);
 registry.category("services").add("rpc", rpcService);
-registry.category("main_components").add("shell", ShellLayout);</code></pre>
+registry.category("main_components").add("shell", ShellLayout);</code></pre></div></div>
+</div>
         <p>Categories: <code>fields</code>, <code>views</code>, <code>services</code>, <code>main_components</code>, <code>actions</code>, <code>systray</code>.</p>
         <h2 id="recordstore">RecordStore</h2>
         <ul>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workspace Basics | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/platform/workspace-basics.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -90,14 +90,15 @@
         <tr><td><strong>Calendar / Gantt</strong></td><td>Time-based planning</td></tr>
         <tr><td><strong>Map</strong></td><td>Records with geographic coordinates</td></tr>
         </tbody></table>
-        <p>Switch views using tabs or buttons in the workspace header when available. The <strong>My Module</strong> demo app (developer workspace) exercises every view type.</p>
+        <p>Switch views using tabs or buttons in the workspace header when available. The <strong>Engagements cookbook</strong> demo app (developer workspace) exercises every view type.</p>
         <h2 id="collection-control-bar">Collection control bar</h2>
         <p>List, kanban, graph, pivot, cohort, and other collection views share a <strong>control bar</strong> at the top:</p>
         <ul>
-        <li><strong>Search</strong> — text filter across visible fields</li>
-        <li><strong>Filters</strong> — pick predefined or custom domain rules (multi-value supported)</li>
-        <li><strong>Group By</strong> — group rows by one or more fields</li>
-        <li><strong>Favorites</strong> — save and recall filter/search/group state as saved searches</li>
+        <li><strong>Search</strong> — dedicated search icon slot, text filter across visible fields, clear button when text is entered</li>
+        <li><strong>Filter tags</strong> — active filters shown inline inside the search bar</li>
+        <li><strong>Filters</strong> — pill chip button (icon + label + badge + chevron) for predefined or custom domain rules</li>
+        <li><strong>Group By</strong> — pill chip button for grouping rows by one or more fields</li>
+        <li><strong>Favorites</strong> — pill chip button to save and recall filter/search/group state as saved searches</li>
         </ul>
         <p>Analysis views use the same bar so reporting stays consistent with operational lists.</p>
         <h2 id="report-toolbar">Report toolbar</h2>

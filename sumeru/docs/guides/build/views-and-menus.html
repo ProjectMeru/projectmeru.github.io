@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Views & menus | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/views-and-menus.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/build/views-and-menus.html">
@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                  <header class="docs-topbar">
+                                                                                <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -164,7 +164,7 @@
   <article class="docs-attr">
     <h3><code>type</code> <span class="docs-attr-req">required</span></h3>
     <p><strong>Syntax.</strong> <code>type="list"</code> | <code>form</code> | <code>kanban</code> | <code>pivot</code> | <code>graph</code> | <code>calendar</code> | <code>gantt</code> | <code>cohort</code> | <code>map</code> | <code>search</code>. (<code>tree</code> is an alias for <code>list</code>.)</p>
-    <p><strong>Effect.</strong> Chooses the renderer. Live examples for every type: <a href="../../addons/howtos/my-module-cookbook.html">my_module cookbook</a> and <code>my_module/views/</code>.</p>
+    <p><strong>Effect.</strong> Chooses the renderer. Live examples for every type: <a href="../../addons/howtos/engagement-cookbook.html">Engagements cookbook</a> and <code>my_module/views/</code>.</p>
   </article>
   <article class="docs-attr">
     <h3><code>open</code> <span class="docs-attr-opt">optional</span></h3>

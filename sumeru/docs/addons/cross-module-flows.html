@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cross-Module Flows | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/cross-module-flows.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -80,12 +80,26 @@
         <h1>Cross-module flows</h1>
         <p class="docs-lede">How standard business modules connect at runtime.</p>
         <h2 id="lead-to-cash-revenue">Lead to cash (revenue)</h2>
-        <pre class="docs-pre"><code>utm.* (attribution on crm.lead)
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d026100c">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="utm.* (attribution on crm.lead)
   → crm.lead (pipeline stages)
   → [Won stage] sale_crm creates sale.order (draft quotation)
   → sale.order confirmed (state=sale)
   → account auto-creates account.move (customer invoice)
-  → post invoice → register payment → reconcile</code></pre>
+  → post invoice → register payment → reconcile"><pre class="docs-pre"><code data-lang="text">utm.* (attribution on crm.lead)
+  → crm.lead (pipeline stages)
+  → [Won stage] sale_crm creates sale.order (draft quotation)
+  → sale.order confirmed (state=sale)
+  → account auto-creates account.move (customer invoice)
+  → post invoice → register payment → reconcile</code></pre></div></div>
+</div>
         <table><thead><tr><th>Step</th><th>Trigger</th><th>Implementation</th></tr></thead><tbody>
         <tr><td>Won → quotation</td><td><code>record.updated</code> on <code>crm.lead</code></td><td><code>sale_crm/init.go</code></td></tr>
         <tr><td>SO → invoice</td><td><code>record.updated</code> on <code>sale.order</code> when <code>state=sale</code></td><td><code>account/services/hooks.go</code></td></tr>
@@ -93,10 +107,22 @@
         <tr><td>Payment</td><td>Wizard <code>account.payment.register</code></td><td><code>account/services/payment.go</code></td></tr>
         </tbody></table>
         <h2 id="procure-to-pay-spend">Procure to pay (spend)</h2>
-        <pre class="docs-pre"><code>product.product
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e6c6b337">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="product.product
   → purchase.order (RFQ → confirmed PO)
   → [state=purchase] account auto-creates vendor bill
-  → post bill → register payment</code></pre>
+  → post bill → register payment"><pre class="docs-pre"><code data-lang="text">product.product
+  → purchase.order (RFQ → confirmed PO)
+  → [state=purchase] account auto-creates vendor bill
+  → post bill → register payment</code></pre></div></div>
+</div>
         <table><thead><tr><th>Step</th><th>Trigger</th><th>Implementation</th></tr></thead><tbody>
         <tr><td>PO → bill</td><td><code>record.updated</code> on <code>purchase.order</code></td><td><code>account/services/hooks.go</code></td></tr>
         <tr><td>Product GL accounts</td><td>Invoice line creation</td><td><code>account/services/invoice.go</code></td></tr>

@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Launcher | Sumeru Docs</title>
-  <meta name="description" content="App Launcher">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/platform/app-launcher.html">
+  <title>Add menu and action | Sumeru Docs</title>
+  <meta name="description" content="Add menu and action">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/add-menu-and-action.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
@@ -72,24 +72,48 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>App launcher</h1>
-        <p class="docs-lede">Quickly jump to any menu or app without browsing sidebars.</p>
-        <h2 id="open-the-launcher">Open the launcher</h2>
-        <p>Press <strong>Cmd+K</strong> (Mac) or <strong>Ctrl+K</strong> (Windows/Linux), or click the search icon in the top bar.</p>
-        <h2 id="what-it-searches">What it searches</h2>
-        <p>The launcher matches <strong>app and menu names</strong> from your installed modules — not record content. Type a few letters (e.g. “pipeline”, “invoice”) and select a result to open that screen.</p>
-        <h2 id="not-ai-search">Not AI search</h2>
-        <p>This is keyword matching on menu labels. <strong>Natural language search</strong> (e.g. “show me open leads from last week”) is planned but not available in the core product today. The optional <strong>Sumeru AI</strong> module adds placeholder hooks only.</p>
-        <h2 id="keyboard-shortcut-on-apps-and-settings">Keyboard shortcut on Apps and Settings</h2>
-        <p>On the Apps and Settings pages, press <strong><code>/</code></strong> to focus the page search filter quickly.</p>
-        <h2 id="next-steps">Next steps</h2>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>How to add a menu and window action</h1>
+        <p class="docs-lede"><strong>Goal:</strong> open your model from the shell sidebar using a <strong><code><menuitem></code></strong> bound to a <strong><code>sys.action.window</code></strong> that targets your model.</p>
+        <h2 id="steps">Steps</h2>
+        <ol>
+        <li><strong>Window action</strong> — in <strong><code>views/actions.xml</code></strong> (or any <strong><code>data</code></strong> XML file), define <strong><code>sys.action.window</code></strong>:</li>
+        </ol>
+        <p>```xml title="views/actions.xml" copy lines</p>
+        <p><action id="action_engagement_project" type="window" model="engagement.project"</p>
+        <p>name="Engagements" view_mode="list,form,kanban"/></p>
+        <p>```</p>
+        <ol>
+        <li><strong>Views</strong> — ensure <code>sys.view</code> rows exist for the types you listed (usually via <code><view type="list"></code> and <code><view type="form"></code> in XML). Synced inline views get a default <strong><code>sys.view.name</code></strong> of <code><model>.<type></code> (see <code>core/module</code> view sync).</li>
+        </ol>
+        <ol>
+        <li><strong>Menus</strong> — in <strong><code>views/menus.xml</code></strong>:</li>
+        </ol>
+        <p>```xml title="views/menus.xml" copy lines</p>
+        <p><menuitem id="menu_engagement_root" name="Engagements" sequence="40" web_icon="apps"/></p>
+        <p><menuitem id="menu_engagement_projects" name="Projects" parent="menu_engagement_root"</p>
+        <p>action="action_engagement_project" sequence="10" web_icon="list"/></p>
+        <p>```</p>
+        <p>Use your module prefix when referencing XML ids from another file in the same addon, following how <strong><code>base</code></strong> references <strong><code>base.action_core.company</code></strong>.</p>
+        <ol>
+        <li>Add both XML paths to <strong><code>manifest.json</code></strong> → <strong><code>data</code></strong>, in order: actions before menus if menus reference actions.</li>
+        </ol>
+        <ol>
+        <li>Run <strong><code>-u engagement_cookbook</code></strong> (or restart with equivalent reload) so records sync.</li>
+        </ol>
+        <h2 id="verify">Verify</h2>
         <ul>
-        <li><a href="home-and-apps.html">Home and apps</a></li>
+        <li>Menu appears under the expected parent</li>
+        <li>Clicking opens <strong>list</strong> or <strong>form</strong> without 404/empty model errors</li>
+        </ul>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="views-and-menus.html">Views, actions, and menus</a></li>
+        <li><a href="build-your-first-module.html">Build your first module</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SWC widget catalog | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/swc-widget-catalog.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -79,7 +79,7 @@
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>SWC widget catalog</h1>
         <p class="docs-lede">Built-in field widgets registered in <code>core/swc/src/widgets/registry.ts</code>. Reference a widget in view XML with <code>widget="…"</code> on <code><field></code>. When omitted, SWC infers a widget from the ORM field type.</p>
-        <p><strong>Live form:</strong> <code>sumeru_custom_addons/addons/my_module/views/form_view.xml</code> exercises every built-in widget — see <a href="../addons/howtos/my-module-cookbook.html">my_module cookbook</a>.</p>
+        <p><strong>Live form:</strong> <code>sumeru_custom_addons/addons/engagement_cookbook/views/form_view.xml</code> exercises every built-in widget — see <a href="../addons/howtos/engagement-cookbook.html">engagement_cookbook cookbook</a>.</p>
         <h2 id="registry-keys">Registry keys</h2>
         <table><thead><tr><th>Widget key</th><th>Component</th><th>ORM types</th><th>Default when omitted</th></tr></thead><tbody>
         <tr><td><code>default</code>, <code>char</code></td><td>DefaultField</td><td>Char</td><td>Char fields</td></tr>
@@ -109,48 +109,149 @@
         </tbody></table>
         <h2 id="scalar-widgets">Scalar widgets</h2>
         <h3 id="default-char-email-integer-float">default / char / email / integer / float</h3>
-        <pre class="docs-pre"><code>&lt;field name="name"/&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-91037082">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;name&quot;/&gt;
+&lt;field name=&quot;email&quot; widget=&quot;email&quot;/&gt;
+&lt;field name=&quot;amount&quot; widget=&quot;float&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="name"/&gt;
 &lt;field name="email" widget="email"/&gt;
-&lt;field name="amount" widget="float"/&gt;</code></pre>
+&lt;field name="amount" widget="float"/&gt;</code></pre></div></div>
+</div>
         <p>Renders a text or number input. Email uses <code>type="email"</code>. Autocomplete tokens are inferred from field names (<code>email</code>, <code>phone</code>, <code>name</code>, …) in <code>field-shell.ts</code>.</p>
         <h3 id="text">text</h3>
-        <pre class="docs-pre"><code>&lt;field name="note" widget="text"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a0cbee72">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;note&quot; widget=&quot;text&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="note" widget="text"/&gt;</code></pre></div></div>
+</div>
         <p>Multiline textarea for Text fields.</p>
         <h3 id="date-datetime">date / datetime</h3>
-        <pre class="docs-pre"><code>&lt;field name="date_start" widget="date"/&gt;
-&lt;field name="scheduled_at" widget="datetime"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-56d13951">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;date_start&quot; widget=&quot;date&quot;/&gt;
+&lt;field name=&quot;scheduled_at&quot; widget=&quot;datetime&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="date_start" widget="date"/&gt;
+&lt;field name="scheduled_at" widget="datetime"/&gt;</code></pre></div></div>
+</div>
         <p>Native inline <code><input type="date"></code> or <code>datetime-local</code> with Today/Clear actions.</p>
         <h2 id="boolean-widgets">Boolean widgets</h2>
         <h3 id="boolean">boolean</h3>
-        <pre class="docs-pre"><code>&lt;field name="active" widget="boolean"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-78fb36a9">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;active&quot; widget=&quot;boolean&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="active" widget="boolean"/&gt;</code></pre></div></div>
+</div>
         <p>Standard checkbox in the field shell.</p>
         <h3 id="boolean-toggle">boolean_toggle</h3>
-        <pre class="docs-pre"><code>&lt;field name="active" widget="boolean_toggle"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0a114470">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;active&quot; widget=&quot;boolean_toggle&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="active" widget="boolean_toggle"/&gt;</code></pre></div></div>
+</div>
         <p>Compact toggle with On/Off label. Works in list and form views.</p>
         <h3 id="radio">radio</h3>
-        <pre class="docs-pre"><code>&lt;field name="type" widget="radio"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-89f09a1e">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;type&quot; widget=&quot;radio&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="type" widget="radio"/&gt;</code></pre></div></div>
+</div>
         <p>Radio group for selection or boolean fields.</p>
         <h2 id="relational-widgets">Relational widgets</h2>
         <h3 id="many2one">many2one</h3>
-        <pre class="docs-pre"><code>&lt;field name="partner_id" widget="many2one"
-       options="domain:[('customer','=',True)]"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ef151361">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;partner_id&quot; widget=&quot;many2one&quot;
+       options=&quot;domain:[(&#x27;customer&#x27;,&#x27;=&#x27;,True)]&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="partner_id" widget="many2one"
+       options="domain:[('customer','=',True)]"/&gt;</code></pre></div></div>
+</div>
         <p>Autocomplete search with RPC <code>search_read</code>. Domain supports <code>$field_name$</code> placeholders.</p>
         <h3 id="many2many-tags">many2many_tags</h3>
-        <pre class="docs-pre"><code>&lt;field name="tag_ids" widget="many2many_tags"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-88b456d0">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;tag_ids&quot; widget=&quot;many2many_tags&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="tag_ids" widget="many2many_tags"/&gt;</code></pre></div></div>
+</div>
         <p>Tag chips with add/remove. Default widget for Many2many when <code>widget</code> is omitted.</p>
         <h3 id="one2many">one2many</h3>
-        <pre class="docs-pre"><code>&lt;field name="line_ids"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d888b063">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;line_ids&quot;&gt;
+  &lt;list editable=&quot;bottom&quot;&gt;
+    &lt;field name=&quot;product_id&quot;/&gt;
+    &lt;field name=&quot;quantity&quot;/&gt;
+  &lt;/list&gt;
+&lt;/field&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="line_ids"&gt;
   &lt;list editable="bottom"&gt;
     &lt;field name="product_id"/&gt;
     &lt;field name="quantity"/&gt;
   &lt;/list&gt;
-&lt;/field&gt;</code></pre>
+&lt;/field&gt;</code></pre></div></div>
+</div>
         <p>Embedded editable list. Opens dialog for create when configured.</p>
         <h2 id="special-widgets">Special widgets</h2>
         <h3 id="statusbar">statusbar</h3>
-        <pre class="docs-pre"><code>&lt;header&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-321fc8f3">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;header&gt;
+  &lt;field name=&quot;state&quot; widget=&quot;statusbar&quot; options=&quot;clickable:1&quot;/&gt;
+&lt;/header&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;header&gt;
   &lt;field name="state" widget="statusbar" options="clickable:1"/&gt;
-&lt;/header&gt;</code></pre>
+&lt;/header&gt;</code></pre></div></div>
+</div>
         <p>Workflow stage chips. Options:</p>
         <table><thead><tr><th>Option</th><th>Values</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>clickable</code></td><td><code>1</code></td><td>Click stage to write field value</td></tr>
@@ -158,36 +259,135 @@
         <tr><td><code>relation</code></td><td>model name</td><td>Related model for state labels</td></tr>
         </tbody></table>
         <h3 id="priority">priority</h3>
-        <pre class="docs-pre"><code>&lt;field name="priority" widget="priority" options="mode:stars,stars:5"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-42174c22">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;priority&quot; widget=&quot;priority&quot; options=&quot;mode:stars,stars:5&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="priority" widget="priority" options="mode:stars,stars:5"/&gt;</code></pre></div></div>
+</div>
         <p>Star rating or select dropdown. Options: <code>mode</code> (<code>stars</code> / <code>select</code>), <code>stars</code> / <code>max</code> (count).</p>
         <h3 id="image">image</h3>
-        <pre class="docs-pre"><code>&lt;field name="image" widget="image"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1512dc93">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;image&quot; widget=&quot;image&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="image" widget="image"/&gt;</code></pre></div></div>
+</div>
         <p>Image upload with crop support. Use <code>options</code> for circle avatar on kanban.</p>
         <h3 id="monetary">monetary</h3>
-        <pre class="docs-pre"><code>&lt;field name="amount_total" widget="monetary" options="currency_symbol:$"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-82539040">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;amount_total&quot; widget=&quot;monetary&quot; options=&quot;currency_symbol:$&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="amount_total" widget="monetary" options="currency_symbol:$"/&gt;</code></pre></div></div>
+</div>
         <p>Formatted currency display.</p>
         <h3 id="html">html</h3>
-        <pre class="docs-pre"><code>&lt;field name="description" widget="html"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4c69c91a">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;description&quot; widget=&quot;html&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="description" widget="html"/&gt;</code></pre></div></div>
+</div>
         <p>Read-only HTML preview or editable textarea depending on readonly mode.</p>
         <h3 id="binary">binary</h3>
-        <pre class="docs-pre"><code>&lt;field name="attachment" widget="binary"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-dfec20f6">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;attachment&quot; widget=&quot;binary&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="attachment" widget="binary"/&gt;</code></pre></div></div>
+</div>
         <p>File upload field.</p>
         <h3 id="reference">reference</h3>
-        <pre class="docs-pre"><code>&lt;field name="ref" widget="reference"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-184db782">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;ref&quot; widget=&quot;reference&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="ref" widget="reference"/&gt;</code></pre></div></div>
+</div>
         <p>Generic model+id reference (limited v1 UI).</p>
         <h3 id="color">color</h3>
-        <pre class="docs-pre"><code>&lt;field name="color" widget="color"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-268e8bf6">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;color&quot; widget=&quot;color&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="color" widget="color"/&gt;</code></pre></div></div>
+</div>
         <p>Color picker input.</p>
         <h3 id="url">url</h3>
-        <pre class="docs-pre"><code>&lt;field name="website" widget="url"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e01be639">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;website&quot; widget=&quot;url&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="website" widget="url"/&gt;</code></pre></div></div>
+</div>
         <p>URL input with link affordance.</p>
         <h3 id="progress-progressbar">progress / progressbar</h3>
-        <pre class="docs-pre"><code>&lt;field name="progress" widget="progressbar"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fa73d062">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;progress&quot; widget=&quot;progressbar&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="progress" widget="progressbar"/&gt;</code></pre></div></div>
+</div>
         <p>Progress bar for numeric completion fields.</p>
         <h2 id="custom-widgets">Custom widgets</h2>
         <p>Register from an addon entry module:</p>
-        <pre class="docs-pre"><code>registry.category("fields").add("my_widget", MyWidgetClass);</code></pre>
-        <pre class="docs-pre"><code>&lt;field name="x" widget="my_widget"/&gt;</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e608bf25">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">typescript</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">typescript</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="registry.category(&quot;fields&quot;).add(&quot;my_widget&quot;, MyWidgetClass);"><pre class="docs-pre"><code data-lang="typescript">registry.category("fields").add("my_widget", MyWidgetClass);</code></pre></div></div>
+</div>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d50f3ee4">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;field name=&quot;x&quot; widget=&quot;my_widget&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;field name="x" widget="my_widget"/&gt;</code></pre></div></div>
+</div>
         <p>See <a href="../guides/build-module-with-swc.html">Build a module with SWC</a> and <a href="../guides/concepts/swc-widgets.html">SWC widgets</a>.</p>
         <h2 id="see-also">See also</h2>
         <ul>

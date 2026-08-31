@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Extend CRM Pipeline | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/extend-crm-pipeline.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -83,29 +83,74 @@
         <ol>
         <li>Create XML data in your custom addon:</li>
         </ol>
-        <pre class="docs-pre"><code>&lt;record id="stage_negotiation" model="crm.stage"&gt;
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-49240255">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;record id=&quot;stage_negotiation&quot; model=&quot;crm.stage&quot;&gt;
+    &lt;field name=&quot;name&quot;&gt;Negotiation&lt;/field&gt;
+    &lt;field name=&quot;sequence&quot;&gt;25&lt;/field&gt;
+&lt;/record&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;record id="stage_negotiation" model="crm.stage"&gt;
     &lt;field name="name"&gt;Negotiation&lt;/field&gt;
     &lt;field name="sequence"&gt;25&lt;/field&gt;
-&lt;/record&gt;</code></pre>
+&lt;/record&gt;</code></pre></div></div>
+</div>
         <ol>
         <li>Add the file to your manifest <code>data</code> list.</li>
         <li>Update module: <code>go run . -- -c sumeru.conf -u crm,my_custom --stop-after-init</code></li>
         </ol>
         <h2 id="custom-kanban-columns">Custom kanban columns</h2>
         <p>Register a group expander in your addon <code>init.go</code>:</p>
-        <pre class="docs-pre"><code>swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", myExpandFn)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5cee2d54">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="swcmeta.RegisterKanbanGroupExpander(&quot;crm.lead&quot;, &quot;stage_id&quot;, myExpandFn)"><pre class="docs-pre"><code data-lang="go">swcmeta.RegisterKanbanGroupExpander("crm.lead", "stage_id", myExpandFn)</code></pre></div></div>
+</div>
         <p>See <code>sumeru_addons/crm/services/hooks.go</code> for the reference implementation.</p>
         <h2 id="react-to-stage-changes">React to stage changes</h2>
-        <pre class="docs-pre"><code>event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5af2a2f2">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="event.Subscribe(&quot;record.updated&quot;, func(ctx context.Context, ev event.Event) error {
+    if ev.Payload[&quot;model&quot;] != &quot;crm.lead&quot; {
+        return nil
+    }
+    // inspect stage_id in values
+    return nil
+})"><pre class="docs-pre"><code data-lang="go">event.Subscribe("record.updated", func(ctx context.Context, ev event.Event) error {
     if ev.Payload["model"] != "crm.lead" {
         return nil
     }
     // inspect stage_id in values
     return nil
-})</code></pre>
+})</code></pre></div></div>
+</div>
         <h2 id="object-actions">Object actions</h2>
         <p>Add a form button via XML inherit and register:</p>
-        <pre class="docs-pre"><code>orm.RegisterObjectAction("crm.lead", "action_my_custom", handler)</code></pre>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ab3f1e6f">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">go</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">go</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="orm.RegisterObjectAction(&quot;crm.lead&quot;, &quot;action_my_custom&quot;, handler)"><pre class="docs-pre"><code data-lang="go">orm.RegisterObjectAction("crm.lead", "action_my_custom", handler)</code></pre></div></div>
+</div>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../../using/modules/crm.html">CRM module reference</a></li>

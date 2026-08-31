@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multi-instance cron | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/multi-instance-cron.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -81,11 +81,24 @@
         <p class="docs-lede">When you run <strong>more than one Sumeru process</strong> against the same database, each process starts the built-in scheduler (<code>scheduler.Start</code> in <code>core/server/run.go</code>).</p>
         <h2 id="safe-concurrent-execution">Safe concurrent execution</h2>
         <p>Due cron rows are selected inside a transaction with:</p>
-        <pre class="docs-pre"><code>SELECT … FROM sys_cron
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-af8698df">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">sql</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">sql</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="SELECT … FROM sys_cron
 WHERE active AND (next_call IS NULL OR next_call &lt;= $now)
 ORDER BY id
 FOR UPDATE SKIP LOCKED
-LIMIT 20</code></pre>
+LIMIT 20"><pre class="docs-pre"><code data-lang="sql">SELECT … FROM sys_cron
+WHERE active AND (next_call IS NULL OR next_call &lt;= $now)
+ORDER BY id
+FOR UPDATE SKIP LOCKED
+LIMIT 20</code></pre></div></div>
+</div>
         <p>Only one instance locks a given row; others skip locked rows. After the handler runs, <code>next_call</code> and <code>last_call</code> are updated in the same transaction.</p>
         <h2 id="operational-guidelines">Operational guidelines</h2>
         <ol>
