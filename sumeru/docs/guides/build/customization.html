@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customization | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/customization.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -78,24 +78,32 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Customization</h1>
-        <p class="docs-lede">Extend Sumeru without forking <code>sumeru_addons</code>. <strong>ORM model <code>_inherit</code> is not supported</strong> — do not expect runtime model inheritance or merged models.</p>
+        <p class="docs-lede">Extend Sumeru without forking <code>sumeru_addons</code>. Use <strong>view xpath inherit</strong> for UI changes and <strong><code>inherit=</code></strong> Go structs for new fields on existing models.</p>
         <h2 id="custom-addon-workspace">Custom addon workspace</h2>
         <p>Run the server from <code>sumeru_custom_addons</code> and point <code>addons_path</code> at core, standard, and your tree:</p>
         <pre class="docs-pre"><code>addons_path = ../sumeru/addons,../sumeru_addons,./addons</code></pre>
         <p>Later paths <strong>override</strong> earlier ones for the same module name. Put customer-specific modules in <code>./addons/</code>.</p>
         <p>Scaffold: <code>make bp MODULE=my_client_crm</code> (see <a href="tooling.html">Tooling</a>).</p>
+        <h2 id="model-inherit-inherit">Model inherit (<code>inherit=</code>)</h2>
+        <p>Add fields to an existing model from a dependent module:</p>
+        <pre class="docs-pre"><code>type PartnerContacts struct {
+    sdk.Model `sumeru:"inherit=core.partner"`
+    CustomerRank sdk.Integer `sumeru:"string=Customer Rank,default=0"`
+}</code></pre>
+        <p>Run <strong><code>make generate</code></strong>, then <strong><code>-u your_module</code></strong> so schema sync adds columns. The base module must load first via <strong><code>depends</code></strong>.</p>
+        <p>Full how-to: <a href="model-inheritance.html">Model inheritance</a>. Live example: <code>sumeru/addons/contacts/models/partner_extend.go</code>.</p>
         <h2 id="view-xml-inheritance">View XML inheritance</h2>
         <p>Patch another module's view arch with xpath:</p>
-        <pre class="docs-pre"><code>&lt;record id="view_crm_lead_form_inherit_client" model="sys.view"&gt;
-  &lt;field name="inherit_id" ref="crm.view_crm_lead_form"/&gt;
+        <pre class="docs-pre"><code>&lt;record id="view_core_partner_form_contacts_inherit" model="sys.view"&gt;
+  &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;
   &lt;field name="arch" type="xml"&gt;
-    &lt;xpath expr="//field[@name='email']" position="after"&gt;
-      &lt;field name="x_client_score"/&gt;
+    &lt;xpath expr="//field[@name='phone']" position="after"&gt;
+      &lt;field name="customer_rank" string="Customer Rank"/&gt;
     &lt;/xpath&gt;
   &lt;/field&gt;
 &lt;/record&gt;</code></pre>
         <p>Supported xpath: <code>//field[@name='fieldname']</code> with <code>position="after|before|inside|replace"</code>.</p>
-        <p>Full how-to: <a href="view-inheritance.html">View inheritance</a>.</p>
+        <p>Full how-to: <a href="view-inheritance.html">View inherit xpath</a>.</p>
         <h2 id="bridge-modules">Bridge modules</h2>
         <p>When two standard apps need new automation (e.g. Won → quotation), add a small bridge module with <code>depends</code> on both — see <a href="../../addons/howtos/add-bridge-module.html">Add bridge module</a>. Example: <code>sale_crm</code> in <code>sumeru_addons</code>.</p>
         <h2 id="events-instead-of-forks">Events instead of forks</h2>
@@ -110,14 +118,13 @@
         <h2 id="what-not-to-do">What not to do</h2>
         <ul>
         <li>Do not fork <code>sumeru_addons</code> for customer projects</li>
-        <li>Do not rely on model <code>_inherit</code> — it is not implemented</li>
         <li>Do not bypass ACLs with raw SQL in addons</li>
         </ul>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="project-structure.html">Project structure</a></li>
         <li><a href="creating-an-addon.html">Creating an addon</a></li>
-        <li><a href="../../reference/limitations.html">Limitations</a></li>
+        <li><a href="architecture/layers.html">Architecture layers</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

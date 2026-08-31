@@ -103,6 +103,27 @@
     ]
   },
   {
+    "title": "Engagements Cookbook",
+    "url": "addons/howtos/engagement-cookbook.html",
+    "track": "addons",
+    "section": "How-tos",
+    "excerpt": "Tutorial business app for custom-module authors in sumeru_custom_addons/addons/engagement_cookbook/. Models a client engagements practice while teaching widgets, views, depends, model inherit, view xpath inherit, and event bridges.",
+    "headings": [
+      "scaffold-vs-cookbook",
+      "get-it-running",
+      "models",
+      "module-dependencies",
+      "menus",
+      "inheritance-examples",
+      "model-inherit",
+      "view-inherit",
+      "event-bridge",
+      "view-type-file-map",
+      "cross-module-relations",
+      "see-also"
+    ]
+  },
+  {
     "title": "Extend CRM pipeline",
     "url": "addons/howtos/extend-crm-pipeline.html",
     "track": "addons",
@@ -113,23 +134,6 @@
       "custom-kanban-columns",
       "react-to-stage-changes",
       "object-actions",
-      "see-also"
-    ]
-  },
-  {
-    "title": "my_module kitchen-sink demo",
-    "url": "addons/howtos/my-module-cookbook.html",
-    "track": "addons",
-    "section": "How-tos",
-    "excerpt": "Reference addon showing every field widget and workspace view type.",
-    "headings": [
-      "scaffold-vs-demo",
-      "get-it-running",
-      "models",
-      "menus-and-view-modes",
-      "view-type-file-map",
-      "widgets-on-the-cookbook-form",
-      "cross-module-relations-zrefs-go",
       "see-also"
     ]
   },
@@ -174,6 +178,7 @@
       "manifestjson",
       "initgo",
       "security-load-order",
+      "hooksgo",
       "custom-workspace",
       "see-also"
     ]
@@ -351,9 +356,10 @@
     "url": "guides/build/customization.html",
     "track": "guides",
     "section": "Building an Application",
-    "excerpt": "Extend Sumeru without forking sumeru_addons. ORM model _inherit is not supported \u2014 do not expect runtime model inheritance or merged models.",
+    "excerpt": "Extend Sumeru without forking sumeru_addons. Use view xpath inherit for UI changes and inherit= Go structs for new fields on existing models.",
     "headings": [
       "custom-addon-workspace",
+      "model-inherit-inherit",
       "view-xml-inheritance",
       "bridge-modules",
       "events-instead-of-forks",
@@ -440,6 +446,20 @@
       "compile-and-run",
       "what-not-to-do",
       "next-step"
+    ]
+  },
+  {
+    "title": "How to extend a model with inherit=",
+    "url": "guides/build/model-inheritance.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Goal: add stored fields (and matching view xpath) to an existing ORM model from a dependent module without duplicating the base struct.",
+    "headings": [
+      "when-to-use",
+      "steps",
+      "rules-and-limits",
+      "live-example",
+      "see-also"
     ]
   },
   {
@@ -593,10 +613,11 @@
     "url": "guides/build/view-inheritance.html",
     "track": "guides",
     "section": "Building an Application",
-    "excerpt": "Goal: change another module\u2019s stored sys.view.arch by merging an xpath fragment (see inherit_id on sys.view records in module XML).",
+    "excerpt": "Goal: change another module's stored sys.view.arch by merging an xpath fragment (see inherit_id on sys.view records in module XML).",
     "headings": [
       "when-to-use",
       "steps",
+      "live-example-contacts",
       "caveats",
       "see-also"
     ]
@@ -806,6 +827,24 @@
       "kanban-extension",
       "client-types",
       "spa-navigation",
+      "see-also"
+    ]
+  },
+  {
+    "title": "Sumeru layered architecture",
+    "url": "guides/concepts/architecture-layers.html",
+    "track": "guides",
+    "section": "Core Concepts",
+    "excerpt": "Sumeru is a modular ERP built as a Go monolith with PostgreSQL, XML-defined UI and metadata, and a hybrid web client (SWC SPA inside a server-rendered shell). This document maps the six runtime layers, how requests flow through them, and how modules extend each other without forking core code.",
+    "headings": [
+      "six-layers",
+      "end-to-end-traces",
+      "open-partner-form",
+      "save-via-rpc",
+      "install-contacts-module",
+      "inheritance-catalog",
+      "view-inherit-example",
+      "model-inherit-example",
       "see-also"
     ]
   },
@@ -1289,6 +1328,7 @@
     "section": "Reference",
     "excerpt": "Built-in modules under sumeru/addons/. Installed via -i base (and dependencies) before business apps.",
     "headings": [
+      "reference-layout-contacts",
       "base",
       "contacts",
       "mail",

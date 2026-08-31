@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Launcher | Sumeru Docs</title>
-  <meta name="description" content="App Launcher">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/platform/app-launcher.html">
+  <title>Model inheritance | Sumeru Docs</title>
+  <meta name="description" content="Model inheritance">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/model-inheritance.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
@@ -72,24 +72,67 @@
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>App launcher</h1>
-        <p class="docs-lede">Quickly jump to any menu or app without browsing sidebars.</p>
-        <h2 id="open-the-launcher">Open the launcher</h2>
-        <p>Press <strong>Cmd+K</strong> (Mac) or <strong>Ctrl+K</strong> (Windows/Linux), or click the search icon in the top bar.</p>
-        <h2 id="what-it-searches">What it searches</h2>
-        <p>The launcher matches <strong>app and menu names</strong> from your installed modules — not record content. Type a few letters (e.g. “pipeline”, “invoice”) and select a result to open that screen.</p>
-        <h2 id="not-ai-search">Not AI search</h2>
-        <p>This is keyword matching on menu labels. <strong>Natural language search</strong> (e.g. “show me open leads from last week”) is planned but not available in the core product today. The optional <strong>Sumeru AI</strong> module adds placeholder hooks only.</p>
-        <h2 id="keyboard-shortcut-on-apps-and-settings">Keyboard shortcut on Apps and Settings</h2>
-        <p>On the Apps and Settings pages, press <strong><code>/</code></strong> to focus the page search filter quickly.</p>
-        <h2 id="next-steps">Next steps</h2>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>How to extend a model with inherit=</h1>
+        <p class="docs-lede"><strong>Goal:</strong> add stored fields (and matching view xpath) to an existing ORM model from a dependent module without duplicating the base struct.</p>
+        <h2 id="when-to-use">When to use</h2>
         <ul>
-        <li><a href="home-and-apps.html">Home and apps</a></li>
+        <li>Your module <strong><code>depends</code></strong> on the module that owns the model (e.g. contacts depends on base for <strong><code>core.partner</code></strong>).</li>
+        <li>You need new columns on the same PostgreSQL table, not a separate model.</li>
+        </ul>
+        <h2 id="steps">Steps</h2>
+        <ol>
+        <li><strong>Add an extension struct</strong> in your addon <code>models/</code> package:</li>
+        </ol>
+        <p>```go</p>
+        <p>package models</p>
+        <p>import "sumeru/core/sdk"</p>
+        <p>type PartnerContacts struct {</p>
+        <p>sdk.Model <code>sumeru:"inherit=core.partner"</code></p>
+        <p>CustomerRank sdk.Integer <code>sumeru:"string=Customer Rank,default=0"</code></p>
+        <p>}</p>
+        <p>```</p>
+        <p>Use <strong><code>inherit=</code></strong> with the <strong>technical model name</strong> of the target. Do not set <strong><code>model=</code></strong> on the same struct — the tags are mutually exclusive.</p>
+        <ol>
+        <li><strong>Blank-import models</strong> from addon <code>init.go</code> if not already:</li>
+        </ol>
+        <p>```go</p>
+        <p>import _ "sumeru/addons/contacts/models"</p>
+        <p>```</p>
+        <ol>
+        <li>Run <strong><code>make generate</code></strong> (or <strong><code>make build</code></strong>) so <strong><code>models/zmodels.go</code></strong> calls <strong><code>sdk.MustRegister</code></strong> for the extension struct.</li>
+        </ol>
+        <ol>
+        <li><strong>Update schema</strong> by installing or updating your module:</li>
+        </ol>
+        <p>```bash</p>
+        <p>go run ./cmd/sumeru -- -c sumeru.conf -u contacts --stop-after-init</p>
+        <p>```</p>
+        <p><strong><code>SyncRegistrySchemaForModule</code></strong> includes models extended by the module and runs <strong>additive DDL</strong> for new columns.</p>
+        <ol>
+        <li><strong>Expose fields in the UI</strong> with view xpath inherit (see <a href="./view-inherit-xpath.html">View inherit xpath</a>).</li>
+        </ol>
+        <h2 id="rules-and-limits">Rules and limits</h2>
+        <ul>
+        <li>The <strong>base model must register first</strong> (enforce with <strong><code>manifest.depends</code></strong> and correct addon import order).</li>
+        <li><strong>Duplicate field names</strong> on the same model cause a <strong>startup panic</strong> with a clear error.</li>
+        <li><strong>Go method override</strong> on models is not supported in v1 — use <strong><code>RegisterObjectAction</code></strong> or <strong><code>event.Subscribe</code></strong> for behavior.</li>
+        <li><strong>Delegation inherit</strong> (parent table per record) is out of scope for this mechanism.</li>
+        </ul>
+        <h2 id="live-example">Live example</h2>
+        <ul>
+        <li>Go: <a href="sumeru/addons/contacts/models/partner_extend.go"><code>sumeru/addons/contacts/models/partner_extend.go</code></a></li>
+        <li>View: <a href="sumeru/addons/contacts/views/core_partner_form_inherit_views.xml"><code>sumeru/addons/contacts/views/core_partner_form_inherit_views.xml</code></a></li>
+        </ul>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="../models-and-fields.html">Models and fields</a></li>
+        <li><a href="../customization.html">Customization</a></li>
+        <li><a href="architecture/layers.html">Architecture layers</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

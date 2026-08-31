@@ -6,9 +6,9 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scaffold a new addon | Sumeru Docs</title>
-  <meta name="description" content="Scaffold a new addon">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/scaffold-new-addon.html">
+  <title>Engagements Cookbook | Sumeru Docs</title>
+  <meta name="description" content="Engagements Cookbook">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/engagement-cookbook.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
@@ -77,54 +77,94 @@
     <main class="docs-main" id="main">
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>How to scaffold a new addon</h1>
-        <p class="docs-lede"><strong>Goal:</strong> create a valid module tree with manifest, Go model stub (<code>sdk.Model</code> tags), starter views, menus, and security files.</p>
-        <p>There are <strong>two</strong> entry points. Prefer the custom workspace unless you are contributing a module inside the kernel repo.</p>
-        <h2 id="prerequisites">Prerequisites</h2>
-        <ul>
-        <li>Go toolchain per <strong><code>sumeru/go.mod</code></strong></li>
-        <li>Sibling layout: <code>sumeru/</code>, <code>sumeru_addons/</code>, <code>sumeru_custom_addons/</code></li>
-        </ul>
-        <h2 id="custom-workspace-usual-path">Custom workspace (usual path)</h2>
+        <h1>Engagements Cookbook</h1>
+        <p class="docs-lede"><strong>Tutorial business app</strong> for custom-module authors in <strong><code>sumeru_custom_addons/addons/engagement_cookbook/</code></strong>. Models a <strong>client engagements</strong> practice while teaching widgets, views, <strong><code>depends</code></strong>, <strong>model inherit</strong>, <strong>view xpath inherit</strong>, and <strong>event bridges</strong>.</p>
+        <h2 id="scaffold-vs-cookbook">Scaffold vs cookbook</h2>
+        <table><thead><tr><th></th><th><code>make new MODULE=x</code></th><th><code>engagement_cookbook</code></th></tr></thead><tbody>
+        <tr><td>Models</td><td>1 stub</td><td>6 business models + partner inherit</td></tr>
+        <tr><td>Views</td><td>list, form, kanban</td><td>All 10 view types + search</td></tr>
+        <tr><td>Depends</td><td><code>base</code></td><td><code>base</code>, <code>contacts</code>, <code>hr</code>, <code>mail</code></td></tr>
+        <tr><td>Use when</td><td>Starting production work</td><td>Learning full addon patterns</td></tr>
+        </tbody></table>
+        <h2 id="get-it-running">Get it running</h2>
         <p>From <strong><code>sumeru_custom_addons/</code></strong>:</p>
         <pre class="docs-pre is-shell"><code>make setup
-make new MODULE=my_app
-make install MODULES=my_app
+make install MODULES=engagement_cookbook
 make run</code></pre>
-        <p>For learning widgets and every view type, install the pre-shipped kitchen-sink demo instead: <code>make install MODULES=engagement_cookbook</code> — see <a href="engagement-cookbook.html">engagement_cookbook cookbook</a>.</p>
-        <p><code>make new</code> runs <code>sumeru-bp</code> into <code>addons/</code> then <strong><code>make generate</code></strong>. Generated files (do not hand-edit):</p>
-        <table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>
-        <tr><td><code>models/zmodels.go</code></td><td><code>sdk.MustRegister</code> for each <code>sdk.Model</code> struct</td></tr>
-        <tr><td><code>models/zrefs.go</code></td><td>Typed relation handles when you use cross-module Many2One types</td></tr>
-        <tr><td><code>init.go</code></td><td>Blank-import of <code>models/</code> only — <strong>rewritten</strong> on every generate</td></tr>
-        <tr><td><code>addonimports/zimports.go</code></td><td>Workspace blank-imports for discovered addons</td></tr>
+        <p>Open <strong>Engagements Cookbook</strong> in the launcher. Demo engagements, deliverables, milestones, sites, and partners load from <strong><code>data/demo.xml</code></strong>.</p>
+        <h2 id="models">Models</h2>
+        <table><thead><tr><th>Model</th><th>Business role</th></tr></thead><tbody>
+        <tr><td><code>engagement.project</code></td><td>Client engagement — workflow, budget, relations, chatter</td></tr>
+        <tr><td><code>engagement.deliverable</code></td><td>Billable lines (<code>line_total</code> computed)</td></tr>
+        <tr><td><code>engagement.milestone</code></td><td>Calendar + gantt milestones</td></tr>
+        <tr><td><code>engagement.site</code></td><td>Map markers linked to projects</td></tr>
+        <tr><td><code>engagement.tag</code></td><td>Labels (M2M on projects)</td></tr>
+        <tr><td><code>engagement.service.line</code></td><td>Consulting / implementation / support</td></tr>
         </tbody></table>
-        <p>Put event hooks and object actions in <code>models/</code> (or another package imported from <code>models/</code>). Do not put lasting logic in custom-workspace <code>init.go</code>.</p>
-        <p>Use **<code>^[a-z][a-z0-9_]*$</code><strong> for the module name (e.g. </strong><code>sale_demo</code><strong>, not </strong><code>SaleDemo</code>**).</p>
-        <h2 id="core-repo-sumeruaddons">Core repo (<code>sumeru/addons</code>)</h2>
-        <p>When scaffolding inside the kernel checkout:</p>
-        <pre class="docs-pre is-shell"><code>cd sumeru
-make bp NAME=engagement_cookbook
-make generate
-go run ./cmd/sumeru -- -c sumeru.conf -i engagement_cookbook --stop-after-init</code></pre>
-        <p><code>make bp</code> is <code>go run ./cmd/sumeru-bp -- -bp NAME</code>. There is no <code>scaffold</code> subcommand and no <code>WITH_MODELS</code> flag. Models use <code>sdk.Model</code> tags; registration is always generated.</p>
-        <p>Custom output directory:</p>
-        <pre class="docs-pre is-shell"><code>go run ./cmd/sumeru-bp -- -bp engagement_cookbook -out addons</code></pre>
-        <p>Default is already <strong><code>addons/</code></strong> under the detected repo root.</p>
-        <h2 id="what-the-scaffold-emits">What the scaffold emits</h2>
-        <p>Copied from <code>sumeru/cmd/sumeru-bp/templates/</code>:</p>
-        <ul>
-        <li><code>models/models.go</code> — <code>sdk.Model</code> + <code>sdk.String</code> / <code>sdk.Text</code> / <code>sdk.Boolean</code> / <code>sdk.Integer</code> tags</li>
-        <li><code>views/list_view.xml</code> (not <code>tree_view.xml</code>)</li>
-        <li><code>views/form_view.xml</code>, <code>views/kanban_view.xml</code>, <code>views/actions.xml</code>, <code>views/menus.xml</code></li>
-        <li><code>security/sys.access.csv</code> (not <code>ir.model.access.csv</code>)</li>
-        <li>Window action as <code>sys.action.window</code></li>
-        </ul>
+        <p><strong>Partner inherit:</strong> <code>PartnerEngagement</code> extends <strong><code>core.partner</code></strong> with <code>engagement_tier</code> and <code>strategic_account</code> (<code>models/partner_extend.go</code>).</p>
+        <h2 id="module-dependencies">Module dependencies</h2>
+        <table><thead><tr><th>Module</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>base</code></td><td>Companies, users, partners, security</td></tr>
+        <tr><td><code>contacts</code></td><td>Partner UI + view inherit parent</td></tr>
+        <tr><td><code>hr</code></td><td>Lead consultant on engagements</td></tr>
+        <tr><td><code>mail</code></td><td>Chatter on engagement form</td></tr>
+        </tbody></table>
+        <h2 id="menus">Menus</h2>
+        <table><thead><tr><th>Section</th><th>Menu</th><th>View modes</th></tr></thead><tbody>
+        <tr><td>Operations → Engagements</td><td><code>action_engagement_project</code></td><td>kanban, list, form, calendar, gantt</td></tr>
+        <tr><td>Operations → Deliverables</td><td><code>action_engagement_deliverable</code></td><td>list, form</td></tr>
+        <tr><td>Planning → Milestones</td><td><code>action_engagement_milestone</code></td><td>calendar, gantt, list, form</td></tr>
+        <tr><td>Planning → Client sites</td><td><code>action_engagement_site</code></td><td>map, list, form</td></tr>
+        <tr><td>Analytics → Engagement analysis</td><td><code>action_engagement_analysis</code></td><td>graph, pivot, cohort, list</td></tr>
+        <tr><td>Clients → Contacts (extended)</td><td><code>action_engagement_contacts</code></td><td>list, form, kanban</td></tr>
+        <tr><td>Configuration</td><td>Tags, Service lines, About</td><td>manager</td></tr>
+        </tbody></table>
+        <h2 id="inheritance-examples">Inheritance examples</h2>
+        <h3 id="model-inherit">Model inherit</h3>
+        <p><code>PartnerEngagement</code> in <code>models/partner_extend.go</code>:</p>
+        <pre class="docs-pre"><code>type PartnerEngagement struct {
+    sdk.Model `sumeru:"inherit=core.partner"`
+    EngagementTier   sdk.Selection[EngagementTier] `sumeru:"string=Engagement Tier,default=standard"`
+    StrategicAccount sdk.Boolean                 `sumeru:"string=Strategic Account,default=false"`
+}</code></pre>
+        <p>Run <code>make generate</code> then <code>-u engagement_cookbook</code> so schema sync adds columns to <strong><code>core_partner</code></strong>.</p>
+        <p>See also: kernel demo in <code>sumeru/addons/contacts/models/partner_extend.go</code> and <a href="core/howtos/model-inherit.html">Model inherit how-to</a>.</p>
+        <h3 id="view-inherit">View inherit</h3>
+        <p><code>views/partner_inherit_views.xml</code> xpath on <code>contacts.view_core_partner_form</code>:</p>
+        <pre class="docs-pre"><code>&lt;record id="view_engagement_partner_inherit" model="sys.view"&gt;
+    &lt;field name="inherit_id" ref="contacts.view_core_partner_form"/&gt;
+    &lt;field name="arch" type="xml"&gt;
+        &lt;xpath expr="//field[@name='phone']" position="after"&gt;
+            &lt;field name="engagement_tier" string="Engagement Tier"/&gt;
+            &lt;field name="strategic_account" string="Strategic Account"/&gt;
+        &lt;/xpath&gt;
+    &lt;/field&gt;
+&lt;/record&gt;</code></pre>
+        <h3 id="event-bridge">Event bridge</h3>
+        <p><code>hooks.go</code> promotes client tier when a project reaches <strong><code>done</code></strong>:</p>
+        <pre class="docs-pre"><code>func init() {
+    event.Subscribe("record.updated", onProjectDoneUpdatePartner)
+}</code></pre>
+        <p>See <code>sale_crm</code> in <code>sumeru_addons</code> for production bridge modules.</p>
+        <h2 id="view-type-file-map">View-type file map</h2>
+        <table><thead><tr><th>Type</th><th>File</th></tr></thead><tbody>
+        <tr><td>list / form / kanban / search / graph / pivot / calendar / gantt / cohort</td><td><code>views/*_view.xml</code></td></tr>
+        <tr><td>milestones</td><td><code>views/event_views.xml</code></td></tr>
+        <tr><td>map</td><td><code>views/place_views.xml</code></td></tr>
+        <tr><td>deliverables</td><td><code>views/line_views.xml</code></td></tr>
+        <tr><td>partner inherit</td><td><code>views/partner_inherit_views.xml</code></td></tr>
+        </tbody></table>
+        <h2 id="cross-module-relations">Cross-module relations</h2>
+        <p>After changing <code>depends</code> or typed relations:</p>
+        <pre class="docs-pre is-shell"><code>make generate
+make update MODULES=engagement_cookbook</code></pre>
         <h2 id="see-also">See also</h2>
         <ul>
+        <li><a href="https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/addons/engagement_cookbook/README.md">In-repo README</a></li>
+        <li><a href="core/howtos/model-inherit.html">Model inherit how-to</a></li>
+        <li><a href="core/howtos/view-inherit-xpath.html">View inherit xpath</a></li>
         <li><a href="../../guides/build/creating-an-addon.html">Creating an addon</a></li>
         <li><a href="custom-addons-workspace.html">Custom addons workspace</a></li>
-        <li><a href="../../guides/build/tooling.html">Tooling</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
         <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>

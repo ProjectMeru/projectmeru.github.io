@@ -12,7 +12,7 @@
 
   function currentTheme() {
     var t = document.documentElement.getAttribute('data-theme');
-    return t === 'light' ? 'light' : 'dark';
+    return t === 'dark' ? 'dark' : 'light';
   }
 
   function applyTheme(theme) {

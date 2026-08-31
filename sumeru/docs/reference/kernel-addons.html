@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kernel Addons | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/kernel-addons.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -79,42 +79,54 @@
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>Kernel addons</h1>
         <p class="docs-lede">Built-in modules under <strong><code>sumeru/addons/</code></strong>. Installed via <code>-i base</code> (and dependencies) before business apps.</p>
-        <table><thead><tr><th>Module</th><th>Application</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><strong>base</strong></td><td>No (kernel)</td><td>Users, companies, partners, groups, system metadata, geo, i18n, API keys</td></tr>
-        <tr><td><strong>contacts</strong></td><td>Yes</td><td>Address book UI on <code>core.partner</code> (list/form/kanban)</td></tr>
-        <tr><td><strong>mail</strong></td><td>Yes</td><td>Messages, chatter, activities (<code>mail.message</code>, <code>mail.activity</code>)</td></tr>
-        <tr><td><strong>automation</strong></td><td>Yes</td><td>Cron, declarative server actions, workflow transitions</td></tr>
-        <tr><td><strong>sumeru_ai</strong></td><td>Yes</td><td>AI hooks — search interceptor (pass-through), shell/notebook placeholders</td></tr>
+        <table><thead><tr><th>Module</th><th>Application</th><th>Depends</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><strong>base</strong></td><td>No (kernel)</td><td>—</td><td>Users, companies, partners, groups, system metadata, geo, i18n, API keys</td></tr>
+        <tr><td><strong>contacts</strong></td><td>Yes</td><td>base</td><td>Address book UI on <code>core.partner</code> — <strong>reference layout</strong> for new addons</td></tr>
+        <tr><td><strong>mail</strong></td><td>Technical</td><td>base</td><td>Messages, chatter, activities (<code>mail.message</code>, <code>mail.activity</code>)</td></tr>
+        <tr><td><strong>automation</strong></td><td>Technical</td><td>base, mail</td><td>Cron, declarative server actions, workflow transitions</td></tr>
+        <tr><td><strong>sumeru_ai</strong></td><td>Yes (opt-in)</td><td>base</td><td>AI hooks — search interceptor (pass-through), shell/notebook placeholders (<code>auto_import: false</code>)</td></tr>
         </tbody></table>
+        <h2 id="reference-layout-contacts">Reference layout: contacts</h2>
+        <p>Use <strong><code>addons/contacts/</code></strong> as the gold standard when scaffolding new kernel or custom addons:</p>
+        <ul>
+        <li>Split views: <code>{model}_{type}_views.xml</code> (e.g. <code>core_partner_form_views.xml</code>)</li>
+        <li>Window actions in <code>views/actions.xml</code> with <code><action type="window"></code> shorthand</li>
+        <li>Security first in manifest, <strong><code>views/menus.xml</code> always last</strong></li>
+        <li>Model extend in <code>models/partner_extend.go</code>, view inherit in <code>views/core_partner_form_inherit_views.xml</code></li>
+        <li>Event hooks in <code>hooks.go</code>, not <code>init.go</code></li>
+        </ul>
+        <p>Full rules: <a href="sumeru/core/module/addon_template/MODULE_STANDARD.txt">MODULE_STANDARD.txt</a></p>
         <h2 id="base">base</h2>
         <ul>
         <li><strong>Models:</strong> <code>core.user</code>, <code>core.company</code>, <code>core.partner</code>, <code>core.group</code>, <code>sys.menu</code>, <code>sys.model</code>, <code>sys.config.parameter</code>, …</li>
         <li><strong>Required for:</strong> All other modules</li>
         <li><strong>Install:</strong> <code>go run . -- -c sumeru.conf -i base --stop-after-init</code></li>
+        <li><strong>Layout:</strong> ~30 split view files, consolidated <code>views/menus.xml</code>, per-model action files</li>
         </ul>
         <h2 id="contacts">contacts</h2>
         <ul>
         <li><strong>Depends:</strong> <code>base</code></li>
         <li><strong>Purpose:</strong> Partner/customer/vendor UI; required by CRM, Sales, Accounting, HR</li>
-        <li><strong>Note:</strong> Lives in core repo, not <code>sumeru_addons</code></li>
+        <li><strong>Inherit demo:</strong> <code>PartnerContacts</code> extends <code>core.partner</code> with <code>customer_rank</code></li>
         </ul>
         <h2 id="mail">mail</h2>
         <ul>
         <li><strong>Depends:</strong> <code>base</code></li>
         <li><strong>Purpose:</strong> Chatter thread on forms, activity scheduling, activity panel in shell</li>
         <li><strong>Web route:</strong> <code>POST /web/chatter/post</code></li>
-        <li><strong>Required for:</strong> CRM activities, team follow-ups</li>
+        <li><strong>Required for:</strong> CRM activities, automation server actions on events</li>
         </ul>
         <h2 id="automation">automation</h2>
         <ul>
-        <li><strong>Depends:</strong> <code>base</code></li>
+        <li><strong>Depends:</strong> <code>base</code>, <code>mail</code></li>
         <li><strong>Models:</strong> <code>sys.cron</code>, <code>sys.server.action</code>, <code>sys.workflow.transition</code></li>
+        <li><strong>Hooks:</strong> <code>hooks.go</code> registers event subscribers (not in <code>init.go</code>)</li>
         <li><strong>Status:</strong> Event subscriber executes declarative server actions (<code>publish:</code> / <code>write:</code>); cron rows dispatch to registered Go handlers (see <a href="events-and-cron.html">Events and cron</a>)</li>
         </ul>
         <h2 id="sumeru-ai">sumeru_ai</h2>
         <ul>
         <li><strong>Depends:</strong> <code>base</code></li>
-        <li><strong>Status:</strong> Partial — opt-in module</li>
+        <li><strong>Status:</strong> Partial — opt-in module (<code>auto_import: false</code>)</li>
         <li>Registers <code>RegisterSearchInterceptor</code> (pass-through), shell hook, and partner notebook hook</li>
         <li>Natural language search is <strong>not</strong> core UX; see <a href="../using/feature-matrix.html">Feature matrix</a></li>
         </ul>
@@ -124,6 +136,7 @@
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="../guides/addons-and-modules.html">Addons and modules</a></li>
+        <li><a href="../addons/manifest-and-layout.html">Manifest and layout</a></li>
         <li><a href="business/platform/contacts-and-partners.html">Business: Contacts and partners</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>

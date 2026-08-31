@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom addons workspace | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/addons/howtos/custom-addons-workspace.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -87,7 +87,7 @@
         <li>Local <strong><code>sumeru.conf</code></strong> (gitignored)</li>
         <li>Makefile targets that delegate SWC builds to <strong><code>../sumeru</code></strong></li>
         </ul>
-        <p><strong>Pre-shipped reference:</strong> <strong><code>addons/my_module</code></strong> — kitchen-sink demo (all view types and widgets). It is <strong>not</strong> recreated by <code>make new MODULE=my_module</code>; clone the repo to get it.</p>
+        <p><strong>Pre-shipped reference:</strong> <strong><code>addons/engagement_cookbook</code></strong> — kitchen-sink demo (all view types and widgets). It is <strong>not</strong> recreated by <code>make new MODULE=my_module</code>; clone the repo to get it.</p>
         <h2 id="quick-start">Quick start</h2>
         <ol>
         <li>Copy <strong><code>sumeru.conf.example</code></strong> → <strong><code>sumeru.conf</code></strong> and set database + <strong><code>addons_path</code></strong> (typically <code>../sumeru/addons</code>, <code>../sumeru_addons</code>, <code>./addons</code>).</li>
@@ -96,7 +96,7 @@
         <li>From <strong><code>sumeru_custom_addons/</code></strong>:</li>
         </ol>
         <pre class="docs-pre is-shell"><code>make setup
-make install MODULES=my_module   # optional: explore kitchen-sink demo
+make install MODULES=engagement_cookbook   # optional: explore kitchen-sink demo
 make run</code></pre>
         <table><thead><tr><th>Target</th><th>Effect</th></tr></thead><tbody>
         <tr><td><code>make setup</code></td><td><code>go.mod</code> replaces, <code>make generate</code>, <strong>SWC assets</strong>, create <code>sumeru.conf</code> if missing</td></tr>
@@ -117,7 +117,7 @@ make run</code></pre>
         <h2 id="see-also">See also</h2>
         <ul>
         <li><a href="https://github.com/ProjectMeru/sumeru_custom_addons/blob/main/README.md"><code>sumeru_custom_addons/README.md</code></a></li>
-        <li><a href="my-module-cookbook.html">my_module kitchen-sink demo</a></li>
+        <li><a href="engagement-cookbook.html">Engagements cookbook</a></li>
         <li><a href="../../guides/build/creating-an-addon.html">Creating an addon</a></li>
         <li><a href="scaffold-new-addon.html">Scaffold a new addon</a></li>
         <li><a href="../../guides/build/tooling.html">Tooling</a></li>

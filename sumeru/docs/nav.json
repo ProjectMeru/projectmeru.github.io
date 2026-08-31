@@ -78,6 +78,10 @@
             "href": "guides/build/view-inheritance.html"
           },
           {
+            "title": "Model inheritance",
+            "href": "guides/build/model-inheritance.html"
+          },
+          {
             "title": "Build a module with SWC",
             "href": "guides/build/build-module-with-swc.html"
           },
@@ -138,6 +142,10 @@
           {
             "title": "Three modules",
             "href": "guides/concepts/three-modules.html"
+          },
+          {
+            "title": "Architecture layers",
+            "href": "guides/concepts/architecture-layers.html"
           },
           {
             "title": "ORM",
@@ -332,8 +340,8 @@
             "href": "addons/howtos/custom-addons-workspace.html"
           },
           {
-            "title": "my_module cookbook",
-            "href": "addons/howtos/my-module-cookbook.html"
+            "title": "Engagements cookbook",
+            "href": "addons/howtos/engagement-cookbook.html"
           },
           {
             "title": "Add menu and action",
@@ -543,6 +551,7 @@
     "guides/build/models-and-fields.html": "guides",
     "guides/build/views-and-menus.html": "guides",
     "guides/build/view-inheritance.html": "guides",
+    "guides/build/model-inheritance.html": "guides",
     "guides/build/build-module-with-swc.html": "guides",
     "guides/build/report-engine.html": "guides",
     "guides/build/creating-apis.html": "guides",
@@ -557,6 +566,7 @@
     "guides/build/deployment.html": "guides",
     "guides/build/scale-architecture.html": "guides",
     "guides/concepts/three-modules.html": "guides",
+    "guides/concepts/architecture-layers.html": "guides",
     "guides/concepts/orm.html": "guides",
     "guides/concepts/module-loader.html": "guides",
     "guides/concepts/engine-and-server.html": "guides",
@@ -598,7 +608,7 @@
     "addons/cross-module-flows.html": "addons",
     "addons/howtos/scaffold-new-addon.html": "addons",
     "addons/howtos/custom-addons-workspace.html": "addons",
-    "addons/howtos/my-module-cookbook.html": "addons",
+    "addons/howtos/engagement-cookbook.html": "addons",
     "addons/howtos/add-menu-and-action.html": "addons",
     "addons/howtos/add-bridge-module.html": "addons",
     "addons/howtos/enable-report-on-view.html": "addons",

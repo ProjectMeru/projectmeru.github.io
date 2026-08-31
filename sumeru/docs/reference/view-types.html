@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script>
-(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>View types | Sumeru Docs</title>
@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/view-types.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#f3f3f0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -79,7 +79,7 @@
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>View types</h1>
         <p class="docs-lede">Sumeru workspace views are declared in XML (<code>type</code> on <code><view></code>) and rendered by SWC components registered in <code>core/swc/src/main.ts</code>. Include view modes in window actions: <code>view_mode="kanban,list,form"</code>.</p>
-        <p><strong>Live examples:</strong> every type below is implemented in <code>sumeru_custom_addons/addons/my_module/views/</code> — see <a href="../addons/howtos/my-module-cookbook.html">my_module cookbook</a>.</p>
+        <p><strong>Live examples:</strong> every type below is implemented in <code>sumeru_custom_addons/addons/engagement_cookbook/views/</code> — see <a href="../addons/howtos/engagement-cookbook.html">engagement_cookbook cookbook</a>.</p>
         <h2 id="summary">Summary</h2>
         <table><thead><tr><th>Type</th><th>SWC class</th><th>Status</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>list</code> / <code>tree</code></td><td>ListView</td><td>Full</td><td>Tabular records, search, bulk delete</td></tr>
