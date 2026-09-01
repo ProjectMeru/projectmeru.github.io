@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference ERP patterns in Sumeru | Sumeru Docs</title>
+  <meta name="description" content="Reference ERP patterns in Sumeru">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/reference-erp-patterns.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#f3f3f0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+    <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+<a class="docs-brand" href="../../index.html">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
+    </a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-business">Addon Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Reference ERP patterns in Sumeru</h1>
+        <p class="docs-lede">Use this cookbook when porting addons from <strong>erp_0</strong> (the reference tree under <code>sumeru_erp/erp_0</code>) or other Python/XML ERP modules into Sumeru. Sumeru is Go-centric: business logic belongs in Go services; views stay XML; UI extensions use SWC.</p>
+        <h2 id="quick-mapping">Quick mapping</h2>
+        <table><thead><tr><th>Reference pattern</th><th>Sumeru equivalent</th><th>Notes</th></tr></thead><tbody>
+        <tr><td><code>__manifest__.py</code> <code>depends</code></td><td><code>manifest.json</code> <code>depends</code></td><td>JSON manifest in addon root</td></tr>
+        <tr><td><code>__manifest__.py</code> <code>data</code> XML</td><td><code>manifest.json</code> <code>data</code></td><td>Same relative paths</td></tr>
+        <tr><td><code>__manifest__.py</code> <code>assets</code></td><td><code>manifest.json</code> <code>assets</code></td><td>CSS/JS at <code>/static/addon-asset/<module>/…</code>; CSS + JS auto-injected in shell</td></tr>
+        <tr><td>Theme SCSS bundle</td><td><code>static/css/theme-overrides.css</code></td><td>Convention-based CSS variables override</td></tr>
+        <tr><td><code>_inherit</code> model</td><td><code>inherit=</code> struct tag</td><td>Schema sync on <code>-u</code>; no delegation inherit yet</td></tr>
+        <tr><td><code>_inherits</code> delegation</td><td>Bridge module or separate model</td><td>Not implemented</td></tr>
+        <tr><td><code>t-foreach</code> in server template report</td><td>Go loop → <code>ExportTemplatePDF</code> table rows</td><td>See <a href="template-reports.html">Template reports</a></td></tr>
+        <tr><td><code>t-if</code> in view arch</td><td><code>invisible_expr</code> / Sum templates</td><td>No general <code>t-if</code> in <code>sys.view</code> arch</td></tr>
+        <tr><td><code>//field[@name='x']</code> xpath</td><td><code>core/engine/viewinherit</code></td><td>Also <code>group</code>, <code>sheet</code>, <code>button</code>, …</td></tr>
+        <tr><td><code>eval=</code> on XML fields</td><td>Literals + ref tuples only</td><td>No Python safe_eval</td></tr>
+        <tr><td><code>@api.depends</code> compute</td><td><code>orm.RegisterCompute</code></td><td>Go function per model</td></tr>
+        <tr><td><code>@api.onchange</code></td><td><code>orm.RegisterOnchange</code></td><td>RPC + SWC <code>RecordStore</code></td></tr>
+        <tr><td><code>ir.actions.report</code> template PDF</td><td><code>ExportTemplatePDF</code> spike + object action</td><td>Tabular PDF via view <code><report download="pdf"></code></td></tr>
+        <tr><td><code>/web/export/xlsx</code></td><td><code>GET /web/export/xlsx</code></td><td>Opt-in <code>download="xlsx"</code> on view</td></tr>
+        <tr><td>Chart.js graph view</td><td>SWC <code>GraphView</code> + Chart.js</td><td><code>read_group</code> RPC</td></tr>
+        <tr><td><code>--dev reload</code></td><td><code>make swc</code> + browser refresh</td><td>No HMR yet</td></tr>
+        <tr><td><code>post_init_hook</code></td><td>Go <code>hooks.go</code> + <code>event.Subscribe</code></td><td>No JSON manifest hook name</td></tr>
+        </tbody></table>
+        <h2 id="views-and-inheritance">Views and inheritance</h2>
+        <p><strong>Reference:</strong> extension view with xpath on a group inside a form sheet.</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6291a778">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;xpath expr=&quot;//group[@string=&#x27;Order Lines&#x27;]&quot; position=&quot;inside&quot;&gt;
+    &lt;field name=&quot;custom_note&quot;/&gt;
+&lt;/xpath&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;xpath expr="//group[@string='Order Lines']" position="inside"&gt;
+    &lt;field name="custom_note"/&gt;
+&lt;/xpath&gt;</code></pre></div></div>
+</div>
+        <p><strong>Sumeru:</strong> Same xpath syntax in inherit arch (<code>inherit_id</code> / <code>inherit=</code> on <code><view></code>). Supported positions: <code>after</code>, <code>before</code>, <code>inside</code>, <code>replace</code>, <code>attributes</code>. Targets include <code>field</code>, <code>button</code>, <code>group</code>, <code>sheet</code>, <code>header</code>, <code>notebook</code>, <code>page</code>, and more.</p>
+        <p><strong>Reference:</strong> primary view <code>mode="primary"</code>.</p>
+        <p><strong>Sumeru:</strong> Define a full arch or use <code>inherit=</code> on model fields; primary/extension modes are not separate flags — use a new view id or inherit arch.</p>
+        <h2 id="reporting">Reporting</h2>
+        <p><strong>Reference:</strong> list export CSV/XLSX and printable invoice PDF.</p>
+        <p><strong>Sumeru list export:</strong></p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-bf3eec90">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;list&quot; model=&quot;sale.order&quot;&gt;
+    &lt;report download=&quot;csv,pdf,xlsx&quot; pdf_sizes=&quot;a4,letter&quot;/&gt;
+    &lt;field name=&quot;name&quot;/&gt;
+&lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view type="list" model="sale.order"&gt;
+    &lt;report download="csv,pdf,xlsx" pdf_sizes="a4,letter"/&gt;
+    &lt;field name="name"/&gt;
+&lt;/view&gt;</code></pre></div></div>
+</div>
+        <p><strong>Sumeru document PDF:</strong> build <code>report.TemplatePDFInput</code> in a Go object action handler (see template-reports guide). Not driven by server-side XML templates.</p>
+        <h2 id="assets-and-theming">Assets and theming</h2>
+        <p><strong>Reference manifest:</strong></p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-746692e3">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">python</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">python</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&#x27;assets&#x27;: {
+    &#x27;web.assets_backend&#x27;: [&#x27;my_module/static/src/css/custom.scss&#x27;],
+}"><pre class="docs-pre"><code data-lang="python">'assets': {
+    'web.assets_backend': ['my_module/static/src/css/custom.scss'],
+}</code></pre></div></div>
+</div>
+        <p><strong>Sumeru manifest.json:</strong></p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-8e393a63">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;assets&quot;: [
+    &quot;static/css/custom.css&quot;,
+    &quot;static/js/widget.js&quot;
+  ]
+}"><pre class="docs-pre"><code data-lang="json">{
+  "assets": [
+    "static/css/custom.css",
+    "static/js/widget.js"
+  ]
+}</code></pre></div></div>
+</div>
+        <p>CSS entries are injected into the shell stylesheet list when the module is installed. For theme tokens, prefer <code>--sum-*</code> overrides in <code>static/css/theme-overrides.css</code>.</p>
+        <h2 id="swc-vs-server-templates">SWC vs server templates</h2>
+        <table><thead><tr><th>UI need</th><th>Use</th></tr></thead><tbody>
+        <tr><td>Form/list/kanban layout</td><td>View XML → arch JSON → SWC view class</td></tr>
+        <tr><td>Custom widget in workspace</td><td>Sum template (<code>.sum.xml</code>) or SWC TypeScript</td></tr>
+        <tr><td>Portal / website page</td><td>Deferred — not in kernel pre-beta</td></tr>
+        <tr><td>Loops in kanban card</td><td>Kanban <code>t-name="kanban-box"</code> arch (partial)</td></tr>
+        </tbody></table>
+        <h2 id="module-layout">Module layout</h2>
+        <p>Follow <a href="sumeru/addons/MODULE_STANDARD.txt">MODULE_STANDARD.txt</a>: one XML file per model view set, <code>manifest.json</code>, <code>models/*.go</code>, optional <code>static/</code>.</p>
+        <h2 id="what-not-to-port-verbatim">What not to port verbatim</h2>
+        <ul>
+        <li>Python ORM decorators → rewrite as Go registrations</li>
+        <li>Server template loops in view arch → modifiers, Sum templates, or Go</li>
+        <li><code>safe_eval</code> domains in XML → Go domains or static XML domains</li>
+        <li>Asset bundle keys (<code>web.assets_backend</code>) → flat <code>assets</code> array paths</li>
+        </ul>
+        <h2 id="see-also">See also</h2>
+        <ul>
+        <li><a href="addons-and-modules.html">Addons and modules</a></li>
+        <li><a href="report-engine.html">Report engine</a></li>
+        <li><a href="meta/platform-gaps.html">Platform gaps</a></li>
+        <li><a href="../../reference/limitations.html">Limitations</a></li>
+        </ul>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
+
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../../js/docs-nav-data.js"></script>
+  <script src="../../js/fuse.min.js"></script>
+  <script src="../../js/docs-search.js"></script>
+  <script src="../../js/docs.js"></script>
+</body>
+</html>

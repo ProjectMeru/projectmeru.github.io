@@ -80,7 +80,7 @@
         <h1>SWC widgets and addon entries</h1>
         <p class="docs-lede">Register custom field widgets and views from addons using <strong>TypeScript 7</strong> modules.</p>
         <h2 id="manifest">Manifest</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-a71bdcde">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-271dfdca">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -99,7 +99,7 @@
         <p>The kernel serves addon static files under <code>/static/addon/<module>/…</code>. Compile your entry to the same ES2022 target as the core bundle (<code>make swc</code> in <code>core/swc</code> for reference).</p>
         <h2 id="register-a-field-widget">Register a field widget</h2>
         <p>Full walkthrough: <a href="build-module-with-swc.html">Build a module with SWC</a>.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1a71513f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-7fa5a79b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -148,7 +148,7 @@ class MyWidget extends SwcComponent {
 registry.category("fields").add("my_widget", MyWidget);</code></pre></div></div>
 </div>
         <p>Reference in view XML:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-cd7867db">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0956448d">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -160,7 +160,7 @@ registry.category("fields").add("my_widget", MyWidget);</code></pre></div></div>
 </div>
         <p>Use <code>renderFieldShell()</code> from the core bundle for consistent labels and accessibility (see <code>core/swc/src/widgets/field-shell.ts</code>).</p>
         <h2 id="register-a-view">Register a view</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-4b7b06df">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-cb3ce09f">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -171,7 +171,7 @@ registry.category("fields").add("my_widget", MyWidget);</code></pre></div></div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="registry.category(&quot;views&quot;).add(&quot;my_view&quot;, MyListView);"><pre class="docs-pre"><code data-lang="typescript">registry.category("views").add("my_view", MyListView);</code></pre></div></div>
 </div>
         <h2 id="register-a-service">Register a service</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-108f787b">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-75918ce0">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -201,7 +201,7 @@ registry.category("fields").add("my_widget", MyWidget);</code></pre></div></div>
         <p>See the complete <a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a> (25+ registry keys including <code>boolean_toggle</code>, <code>many2many_tags</code>, <code>monetary</code>, <code>progress</code>, …).</p>
         <h2 id="global-exports">Global exports</h2>
         <p>The IIFE bundle exposes <code>window.SumeruSWC</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-89ac1bdd">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1093a2e2">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>

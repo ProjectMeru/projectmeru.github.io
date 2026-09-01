@@ -80,7 +80,7 @@
         <h1>Build a module with SWC</h1>
         <p class="docs-lede">Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from <code>sumeru_custom_addons</code> (see <a href="creating-an-addon.html">Creating an addon</a>).</p>
         <h2 id="1-scaffold-the-module">1. Scaffold the module</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-a8572ed4">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5bfc5c1f">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -113,7 +113,7 @@
     └── esbuild.config.mjs</code></pre></div></div>
 </div>
         <p><code>manifest.json</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-02f94800">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-33e28601">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -142,7 +142,7 @@
 }</code></pre></div></div>
 </div>
         <h2 id="2-define-the-model">2. Define the model</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-aa8ace2a">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ebcf60a8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -179,7 +179,7 @@ type Lead struct {
         <p>Run <strong><code>make generate</code></strong> so <code>models/zmodels.go</code> registers the model.</p>
         <h2 id="3-write-views">3. Write views</h2>
         <p><code>views/lead_views.xml</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1aa472ea">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b70d8df5">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -255,7 +255,7 @@ type Lead struct {
 </div>
         <p>See <a href="../../reference/field-attributes.html">Field attributes</a> and <a href="../../reference/view-types.html">View types</a> for all attributes.</p>
         <h2 id="4-install-and-verify">4. Install and verify</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8a20b78d">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-884aa930">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -270,7 +270,7 @@ make run"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><sp
         <p>Open <strong>My CRM → Leads</strong>. SWC renders list and form from <code>/web/swc/workspace</code> JSON. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="../../reference/swc-notifications.html">SWC notifications</a>.</p>
         <h2 id="5-optional-custom-swc-widget">5. Optional — custom SWC widget</h2>
         <p>Add to <code>manifest.json</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-f96b2914">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-167dc17a">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -281,7 +281,7 @@ make run"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><sp
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&quot;swc_entry&quot;: &quot;static/swc/main.js&quot;"><pre class="docs-pre"><code data-lang="json">"swc_entry": "static/swc/main.js"</code></pre></div></div>
 </div>
         <p><code>static/swc/main.ts</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-f68e79c4">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-db51e690">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -340,7 +340,7 @@ class ColorBadgeField extends SwcComponent {
 registry.category("fields").add("color_badge", ColorBadgeField);</code></pre></div></div>
 </div>
         <p>Build with esbuild targeting ES2022 (same as core <code>make swc</code>). Reference in XML:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-86e72eb4">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0bc478d9">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>

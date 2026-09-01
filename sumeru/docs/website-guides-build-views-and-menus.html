@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Views &amp; menus | Sumeru Docs</title>
+  <meta name="description" content="How XML views bind to model names, menu trees and when you need -u.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/website-guides-build-views-and-menus.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#f3f3f0">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Sumeru Docs">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/website-guides-build-views-and-menus.html">
+  <meta property="og:title" content="Views &amp; menus | Sumeru Docs">
+  <meta property="og:description" content="How XML views bind to model names, menu trees and when you need -u.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Views &amp; menus | Sumeru Docs">
+  <meta name="twitter:description" content="How XML views bind to model names, menu trees and when you need -u.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Views & menus",
+  "description": "How XML views bind to model names, menu trees and when you need -u.",
+  "url": "https://projectmeru.github.io/sumeru/docs/website-guides-build-views-and-menus.html",
+  "author": {"@type": "Organization", "name": "Project Meru"},
+  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+  <header class="docs-topbar">
+    <button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="docs-brand" href="index.html">
+      <img src="../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span>Docs</span>
+    </a>
+    <a class="docs-product-link" href="../index.html">&larr; <span class="full">Sumeru</span></a>
+    <span class="docs-status is-prealpha" title="No tagged release">Pre-alpha</span>
+    <div class="docs-topbar-spacer"></div>
+    <div class="docs-topbar-actions">
+      <button type="button" class="docs-icon-btn docs-search-btn" aria-label="Search documentation" title="Search (/)">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+      </button>
+      <a class="docs-icon-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" aria-label="Documentation"><div class="docs-sidebar-group"><p class="docs-sidebar-title">Home</p><ul class="docs-sidebar-list"><li><a href="index.html">Documentation home</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Start here</p><ul class="docs-sidebar-list"><li><a href="website-index.html">Introduction</a></li><li><a href="website-guides-start-installation.html">Installation</a></li><li><a href="website-guides-start-configuration.html">Configuration</a></li><li><a href="website-guides-start-first-boot.html">First boot</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Building</p><ul class="docs-sidebar-list"><li><a href="website-guides-build-creating-an-addon.html">Creating an addon</a></li><li><a href="website-guides-build-project-structure.html">Project structure</a></li><li><a href="website-guides-build-manifests-and-depends.html">Manifests &amp; depends</a></li><li><a href="website-guides-build-models-and-fields.html">Models &amp; fields</a></li><li><a href="website-guides-build-views-and-menus.html">Views &amp; menus</a></li><li><a href="website-guides-build-report-engine.html">Report engine</a></li><li><a href="website-guides-build-security-and-access.html">Security &amp; access</a></li><li><a href="website-guides-build-data-xml.html">Data XML</a></li><li><a href="website-guides-build-events-and-automation.html">Events &amp; automation</a></li><li><a href="website-guides-build-json-rpc-api.html">JSON-RPC API</a></li><li><a href="website-guides-build-testing.html">Testing</a></li><li><a href="website-guides-build-deployment.html">Deployment</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Concepts</p><ul class="docs-sidebar-list"><li><a href="website-guides-concepts-three-modules.html">Three modules</a></li><li><a href="website-guides-concepts-orm.html">ORM</a></li><li><a href="website-guides-concepts-module-loader.html">Module loader</a></li><li><a href="website-guides-concepts-engine-and-server.html">Engine &amp; server</a></li><li><a href="website-guides-concepts-event-bus.html">Event bus</a></li><li><a href="website-guides-concepts-scheduler.html">Scheduler</a></li><li><a href="website-guides-concepts-cache.html">Cache</a></li><li><a href="website-guides-concepts-sdk.html">SDK</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Using Sumeru</p><ul class="docs-sidebar-list"><li><a href="website-guides-business-overview.html">Overview</a></li><li><a href="website-guides-business-apps-and-install.html">Apps &amp; install</a></li><li><a href="website-guides-business-lead-to-cash.html">Lead-to-cash</a></li><li><a href="website-guides-business-contacts-and-crm.html">Contacts &amp; CRM</a></li><li><a href="website-guides-business-sales-and-invoicing.html">Sales &amp; invoicing</a></li><li><a href="website-guides-business-purchase-and-hr.html">Purchase &amp; HR</a></li><li><a href="website-guides-business-multi-company.html">Multi-company</a></li><li><a href="website-guides-business-editions-and-licensing.html">Editions &amp; licensing</a></li><li><a href="using/index.html">Business user hub</a></li><li><a href="using/glossary.html">Glossary</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Security</p><ul class="docs-sidebar-list"><li><a href="website-guides-security-overview.html">Overview</a></li><li><a href="website-guides-security-api-keys.html">API keys</a></li><li><a href="website-guides-security-isolation-model.html">Isolation model</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Reference</p><ul class="docs-sidebar-list"><li><a href="reference/http-routes.html">HTTP routes</a></li><li><a href="reference/sdk-api.html">SDK API</a></li><li><a href="reference/json-rpc.html">JSON-RPC</a></li><li><a href="reference/swc-api.html">SWC API</a></li><li><a href="reference/events-and-cron.html">Events and cron</a></li><li><a href="reference/render-hooks.html">Render hooks</a></li><li><a href="reference/kernel-addons.html">Kernel addons</a></li><li><a href="reference/sdk-api.html">SDK API</a></li><li><a href="reference/http-routes.html">HTTP routes</a></li><li><a href="reference/json-rpc.html">JSON-RPC</a></li><li><a href="reference/events-and-cron.html">Events and cron</a></li><li><a href="reference/render-hooks.html">Render hooks</a></li><li><a href="reference/kernel-addons.html">Kernel addons</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Addons</p><ul class="docs-sidebar-list"><li><a href="addons/overview.html">Overview</a></li><li><a href="addons/manifest-and-layout.html">Manifest and layout</a></li><li><a href="addons/events-and-hooks.html">Events and hooks</a></li><li><a href="addons/index.html">Addons developer hub</a></li><li><a href="addons/overview.html">Overview</a></li><li><a href="addons/manifest-and-layout.html">Manifest and layout</a></li><li><a href="addons/events-and-hooks.html">Events and hooks</a></li><li><a href="addons/cross-module-flows.html">Cross-module flows</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Addons — How-tos</p><ul class="docs-sidebar-list"><li><a href="addons/howtos/enable-report-on-view.html">Enable report on a view</a></li><li><a href="addons/howtos/extend-crm-pipeline.html">Extend CRM pipeline</a></li><li><a href="addons/howtos/custom-http-route.html">Custom HTTP route</a></li><li><a href="addons/howtos/extend-crm-pipeline.html">Extend CRM pipeline</a></li><li><a href="addons/howtos/enable-report-on-view.html">Enable report on a view</a></li><li><a href="addons/howtos/add-bridge-module.html">Add a bridge module</a></li><li><a href="addons/howtos/custom-http-route.html">Custom HTTP route</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Getting started</p><ul class="docs-sidebar-list"><li><a href="using/getting-started/what-is-sumeru.html">What is Sumeru?</a></li><li><a href="guides/start/installation.html">Installation</a></li><li><a href="guides/start/configuration.html">Configuration</a></li><li><a href="guides/start/first-run.html">First run</a></li><li><a href="using/getting-started/what-is-sumeru.html">What is Sumeru?</a></li><li><a href="using/getting-started/logging-in.html">Logging in</a></li><li><a href="using/getting-started/installing-apps.html">Installing apps</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Platform</p><ul class="docs-sidebar-list"><li><a href="using/platform/workspace-basics.html">Workspace basics</a></li><li><a href="using/platform/export-and-import.html">Export and import</a></li><li><a href="using/platform/settings.html">Settings</a></li><li><a href="using/platform/home-and-apps.html">Home and apps</a></li><li><a href="using/platform/workspace-basics.html">Workspace basics</a></li><li><a href="using/platform/export-and-import.html">Export and import</a></li><li><a href="using/platform/app-launcher.html">App launcher</a></li><li><a href="using/platform/settings.html">Settings</a></li><li><a href="using/platform/contacts-and-partners.html">Contacts and partners</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Reference &amp; status</p><ul class="docs-sidebar-list"><li><a href="reference/feature-matrix.html">Feature matrix</a></li><li><a href="reference/doc-changelog.html">Documentation changelog</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Core</p><ul class="docs-sidebar-list"><li><a href="build/index.html">Core developer hub</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Architecture</p><ul class="docs-sidebar-list"><li><a href="concepts/overview.html">Overview</a></li><li><a href="concepts/orm-boundaries.html">ORM boundaries</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Guides</p><ul class="docs-sidebar-list"><li><a href="build/addons-and-modules.html">Addons and modules</a></li><li><a href="build/models-and-fields.html">Models and fields</a></li><li><a href="build/views-and-actions.html">Views, actions, and menus</a></li><li><a href="build/report-engine.html">Report engine</a></li><li><a href="build/security-and-access.html">Security and access</a></li><li><a href="build/web-and-render.html">Web and render</a></li><li><a href="build/naming-conventions.html">Naming conventions</a></li><li><a href="build/icons-and-assets.html">Icons and assets</a></li><li><a href="build/logging.html">Logging</a></li><li><a href="build/tooling.html">Tooling</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">How-tos</p><ul class="docs-sidebar-list"><li><a href="howtos/index.html">How-tos index</a></li><li><a href="howtos/scaffold-new-addon.html">Scaffold a new addon</a></li><li><a href="howtos/first-module.html">First module tutorial</a></li><li><a href="howtos/install-module.html">Install a module</a></li><li><a href="howtos/update-module.html">Update a module</a></li><li><a href="howtos/add-model.html">Add a model</a></li><li><a href="howtos/add-menu-and-action.html">Add a menu and action</a></li><li><a href="howtos/view-inherit-xpath.html">View inherit with xpath</a></li><li><a href="howtos/custom-addons-workspace.html">Custom addons workspace</a></li><li><a href="howtos/troubleshooting.html">Troubleshooting</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Addons — Modules</p><ul class="docs-sidebar-list"><li><a href="addons/modules/utm.html">UTM</a></li><li><a href="addons/modules/product.html">Product</a></li><li><a href="addons/modules/crm.html">CRM</a></li><li><a href="addons/modules/sale.html">Sale</a></li><li><a href="addons/modules/sale_crm.html">Sale CRM bridge</a></li><li><a href="addons/modules/account.html">Account</a></li><li><a href="addons/modules/purchase.html">Purchase</a></li><li><a href="addons/modules/hr.html">HR</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Modules</p><ul class="docs-sidebar-list"><li><a href="using/modules/crm.html">CRM</a></li><li><a href="using/modules/sales.html">Sales</a></li><li><a href="using/modules/invoicing.html">Invoicing</a></li><li><a href="using/modules/purchase.html">Purchase</a></li><li><a href="using/modules/products.html">Products</a></li><li><a href="using/modules/employees.html">Employees</a></li><li><a href="using/modules/marketing-tracking.html">Marketing tracking</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Workflows</p><ul class="docs-sidebar-list"><li><a href="using/workflows/lead-to-cash.html">Lead to cash</a></li><li><a href="using/workflows/procure-to-pay.html">Procure to pay</a></li></ul></div></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <h1>Views &amp; menus</h1>
+        <p class="docs-lede">How XML views bind to model names, menu trees and when you need -u.</p>
+<h2 id="how-ui-is-wired">How UI is wired</h2>
+<p>Every screen a user opens is three XML pieces working together:</p>
+<ul>
+<li><strong>Views:</strong> how one model looks (<code>list</code> / <code>form</code> / <code>kanban</code> / analysis views).</li>
+<li><strong>Action:</strong> which model to open and in which view modes.</li>
+<li><strong>Menu:</strong> where that action appears in the sidebar.<br />
+List the files in <code>manifest.json</code> -&gt; <code>data</code> in that order (security -&gt; actions -&gt; views -&gt; menus). Root element is always <code>&lt;sumeru&gt;&lt;data&gt;...&lt;/data&gt;&lt;/sumeru&gt;</code>.<br />
+<strong>Pre-alpha.</strong> Attribute names below match shipping <code>sumeru</code> / <code>sumeru_addons</code> XML. Do not assume attributes work unless listed here.</li>
+</ul>
+<h2 id="quick-map">Quick map</h2>
+<p>[Table — see website HTML]</p>
+<h2 id="view"><view></h2>
+<p>Primary UI for one model. The engine stores the inner XML as <code>arch</code> on <code>sys.view</code>.</p>
+<pre><code>[src-45b35530 — see website HTML for full codebox]
+</code></pre>
+<h3 id="id-required"><code>id</code> required</h3>
+<p><strong>Syntax.</strong> <code>id=&quot;view_my_module_tree&quot;</code>. Letters, digits, <code>_</code>, <code>.</code>.<br />
+<strong>Effect.</strong> Stable XML id. Other modules inherit with <code>ref=&quot;my_module.view_my_module_tree&quot;</code>. Must be unique inside the module.</p>
+<h3 id="model-required"><code>model</code> required</h3>
+<p><strong>Syntax.</strong> <code>model=&quot;my.module&quot;</code>. Exact string from Go <code>ModelName()</code>.<br />
+<strong>Effect.</strong> Binds every nested <code>&lt;field name=&quot;...&quot;/&gt;</code> to that model's schema. Wrong model -&gt; missing columns / empty UI.</p>
+<h3 id="type-required"><code>type</code> required</h3>
+<p><strong>Syntax.</strong> <code>type=&quot;list&quot;</code> | <code>form</code> | <code>kanban</code> | <code>pivot</code> | <code>graph</code> | <code>calendar</code> | <code>gantt</code> | <code>cohort</code> | <code>map</code> | <code>search</code>. (<code>tree</code> is an alias for <code>list</code>.)<br />
+<a href="../../addons/howtos/engagement-cookbook.html"><strong>Effect.</strong> Chooses the renderer. Live examples for every type: Engagements cookbook</a>and <code>my_module/views/</code>.</p>
+<h3 id="open-optional"><code>open</code> optional</h3>
+<p><strong>Syntax.</strong> On trees only: <code>open=&quot;0&quot;</code>.<br />
+<strong>Effect.</strong> Disables click-row -&gt; open form. Use for read-only report lists (e.g. invoice analysis).</p>
+<pre><code>[src-f580a5f6 — see website HTML for full codebox]
+</code></pre>
+<h2 id="field-in-views"><field> in views</h2>
+<p>Inside <code>&lt;view&gt;</code>, each <code>&lt;field&gt;</code> maps one model field into the UI. Default widget comes from the field type; override with <code>widget</code>.</p>
+<pre><code>[src-93d78f5a — see website HTML for full codebox]
+</code></pre>
+<h3 id="name-required"><code>name</code> required</h3>
+<p><strong>Syntax.</strong> <code>name=&quot;active&quot;</code>. Must match a key in <code>Fields()</code>.<br />
+<strong>Effect.</strong> Selects which DB/ORM value to read and write. Unknown names are ignored or break render.</p>
+<h3 id="string-optional"><code>string</code> optional</h3>
+<p><strong>Syntax.</strong> <code>string=&quot;Active&quot;</code>.<br />
+<strong>Effect.</strong> Overrides the label from the model's <code>String</code> / field definition for this view only. Tree column header and form label use it.</p>
+<h3 id="widget-optional"><code>widget</code> optional</h3>
+<p><a href="#widgets"><strong>Syntax.</strong> <code>widget=&quot;boolean_toggle&quot;</code> (see Widgets</a>).<br />
+<strong>Effect.</strong> Swaps the default control (plain text/checkbox) for a specialised renderer. Wrong widget for the type -&gt; odd or empty UI.</p>
+<h3 id="placeholder-optional"><code>placeholder</code> optional</h3>
+<p><strong>Syntax.</strong> <code>placeholder=&quot;e.g. SO001&quot;</code>.<br />
+<strong>Effect.</strong> Grey hint inside empty inputs. Does not set a default value and is not stored.</p>
+<h3 id="options-optional"><code>options</code> optional</h3>
+<p><strong>Syntax.</strong> JSON-ish string: <code>options=&quot;{'clickable': '1'}&quot;</code> (single quotes as in shipping XML).<br />
+<a href="../../reference/swc-widget-catalog.html"><strong>Effect.</strong> Widget-specific knobs — statusbar <code>clickable</code>, priority <code>mode:stars</code>, many2one <code>domain:[…]</code>. See SWC widget catalog</a>.</p>
+<h3 id="readonly-optional"><code>readonly</code> optional</h3>
+<p><strong>Syntax.</strong> <code>readonly=&quot;1&quot;</code>.<br />
+<strong>Effect.</strong> Field displays but the user cannot edit it in this view (e.g. computed timestamps, key prefixes).</p>
+<h3 id="required-optional"><code>required</code> optional</h3>
+<p><strong>Syntax.</strong> <code>required=&quot;1&quot;</code>.<br />
+<a href="../../reference/field-attributes.html"><strong>Effect.</strong> Client-side required validation before save (merged with model-level <code>Required</code> from Go <code>Fields()</code>). See Field attributes</a>.</p>
+<h3 id="invisible-optional"><code>invisible</code> optional</h3>
+<p><strong>Syntax.</strong> <code>invisible=&quot;1&quot;</code>.<br />
+<strong>Effect.</strong> Field stays in the arch (still loaded) but is not shown. Use sparingly in pre-alpha.</p>
+<pre><code>[src-ea2ff95a — see website HTML for full codebox]
+</code></pre>
+<h2 id="field-in-record"><field> in <record></h2>
+<p>Different job: set a column on a data row (groups, inherit views, defaults), not draw a widget.</p>
+<pre><code>[src-515a3240 — see website HTML for full codebox]
+</code></pre>
+<h3 id="name"><code>name</code></h3>
+<p><strong>Effect.</strong> Target column on <code>model</code>.</p>
+<h3 id="ref"><code>ref</code></h3>
+<p><strong>Syntax.</strong> <code>ref=&quot;base.group_user&quot;</code> or same-module id.<br />
+<strong>Effect.</strong> Writes the database id of that XML record (Many2one-style links).</p>
+<h3 id="eval"><code>eval</code></h3>
+<p><strong>Syntax.</strong> <code>eval=&quot;[(4, ref('group_my_module_user'))]&quot;</code>.<br />
+<strong>Effect.</strong> Evaluated expression. Common for M2M link commands like [(4, ref(...))].</p>
+<h3 id="typexml"><code>type=&quot;xml&quot;</code></h3>
+<p><strong>Effect.</strong> Treats child nodes as XML arch (required for inherit <code>arch</code> blobs).</p>
+<h2 id="widgets">Widgets</h2>
+<p>Omit <code>widget</code> for the default control. Set it when you need a specific interaction.</p>
+<h3 id="boolean-toggle"><code>boolean_toggle</code></h3>
+<p><strong>Use on.</strong> <code>Boolean</code> fields. <strong>Effect.</strong> Switch control instead of a plain checkbox. Works in trees and forms.</p>
+<pre><code>[src-a6576079 — see website HTML for full codebox]
+</code></pre>
+<h3 id="handle"><code>handle</code></h3>
+<p><strong>Use on.</strong> Integer <code>sequence</code> (or similar) columns in <strong>trees</strong>. <strong>Effect.</strong> Drag handle so users reorder rows; writes the sequence field.</p>
+<pre><code>[src-d373e344 — see website HTML for full codebox]
+</code></pre>
+<h3 id="statusbar"><code>statusbar</code></h3>
+<p><strong>Use on.</strong> Selection / state fields, usually inside <code>&lt;header&gt;</code>. <strong>Effect.</strong> Shows stages as chips. With <code>options=&quot;{'clickable': '1'}&quot;</code>, users can click a stage to write the field (sale / purchase / CRM).</p>
+<pre><code>[src-94b1902a — see website HTML for full codebox]
+</code></pre>
+<h3 id="selection"><code>selection</code></h3>
+<p><strong>Use on.</strong> <code>Selection</code> or Many2one fields that should look like a dropdown. <strong>Effect.</strong> Select control (many2one uses the selection-style UI / cascade helpers where wired).</p>
+<pre><code>[src-f72a133a — see website HTML for full codebox]
+</code></pre>
+<h3 id="email"><code>email</code></h3>
+<p><strong>Use on.</strong> Char email fields. <strong>Effect.</strong> Email-oriented input/display (company / partner forms).</p>
+<pre><code>[src-ef78077b — see website HTML for full codebox]
+</code></pre>
+<h3 id="priority"><code>priority</code></h3>
+<p><strong>Use on.</strong> Priority / ranking selection or int. <strong>Effect.</strong> Compact priority control (stars / rank) instead of a raw number.</p>
+<pre><code>[src-967ae653 — see website HTML for full codebox]
+</code></pre>
+<h3 id="mail-thread"><code>mail_thread</code></h3>
+<p><strong>Use on.</strong> A text / related field inside <code>&lt;chatter&gt;</code>. <strong>Effect.</strong> Hooks the activity / messages panel to that field.</p>
+<pre><code>[src-2d820fcc — see website HTML for full codebox]
+</code></pre>
+<h2 id="button"><button></h2>
+<p>Place in <code>&lt;header&gt;</code> (or sheet). Click runs server-side logic named by <code>name</code>.</p>
+<pre><code>[src-c103ac18 — see website HTML for full codebox]
+</code></pre>
+<h3 id="name-required-1"><code>name</code> required</h3>
+<p><strong>Effect.</strong> Method to invoke on the current record (e.g. <code>action_post</code>, <code>action_confirm</code>). Must exist on the model / addon code path.</p>
+<h3 id="string-required"><code>string</code> required</h3>
+<p><strong>Effect.</strong> Visible button label.</p>
+<h3 id="type-required-1"><code>type</code> required</h3>
+<p><strong>Syntax.</strong> <code>type=&quot;object&quot;</code> in all current samples.<br />
+<strong>Effect.</strong> Calls a method on the record. Not a URL, not a window action.</p>
+<h3 id="class-optional"><code>class</code> optional</h3>
+<p><strong>Syntax.</strong> <code>class=&quot;sum_highlight&quot;</code> (or empty).<br />
+<strong>Effect.</strong> Visual emphasis for the primary action in the header.</p>
+<pre><code>[src-41298ba8 — see website HTML for full codebox]
+</code></pre>
+<h2 id="form-layout">Form layout</h2>
+<p>Forms are nested containers. XML order is screen order.</p>
+<h3 id="header"><code>&lt;header&gt;</code></h3>
+<p><strong>Effect.</strong> Top chrome: buttons + statusbar. Keep workflow actions here.</p>
+<h3 id="sheet"><code>&lt;sheet&gt;</code></h3>
+<p><strong>Effect.</strong> Main body card. Put title, groups, notebooks inside.</p>
+<h3 id="group"><code>&lt;group&gt;</code></h3>
+<p><strong>Attributes.</strong> <code>string=&quot;Address&quot;</code> (section title), <code>colspan=&quot;2&quot;</code> (span full width).<br />
+<strong>Effect.</strong> Nested <code>&lt;group&gt;&lt;group&gt;...&lt;/group&gt;&lt;group&gt;...&lt;/group&gt;&lt;/group&gt;</code> builds a two-column grid.</p>
+<h3 id="notebook--page"><code>&lt;notebook&gt;</code> / <code>&lt;page&gt;</code></h3>
+<p><strong>Page attributes.</strong> <code>string</code> = tab label; <code>name</code> = optional technical tab id.<br />
+<strong>Effect.</strong> Tabs under the sheet. Only one page visible at a time.</p>
+<h3 id="div-classsum-title"><code>&lt;div class=&quot;sum_title&quot;&gt;</code></h3>
+<p><strong>Effect.</strong> Title block styling. Put the primary <code>name</code> field in an <code>&lt;h1&gt;</code>.</p>
+<h3 id="chatter"><code>&lt;chatter&gt;</code></h3>
+<p><strong>Effect.</strong> Hosts <code>widget=&quot;mail_thread&quot;</code> beside/under the form (messages / log).</p>
+<pre><code>[src-b48e9d86 — see website HTML for full codebox]
+</code></pre>
+<h2 id="action"><action></h2>
+<p>A window action is what menus point at. It does not draw fields; it chooses the model and view modes.</p>
+<pre><code>[src-4a69d3d9 — see website HTML for full codebox]
+</code></pre>
+<h3 id="id-required-1"><code>id</code> required</h3>
+<p><strong>Effect.</strong> Target of <code>&lt;menuitem action=&quot;...&quot;/&gt;</code>.</p>
+<h3 id="type-required-2"><code>type</code> required</h3>
+<p><strong>Syntax.</strong> <code>type=&quot;window&quot;</code>.<br />
+<strong>Effect.</strong> Opens a model workspace (list/form/kanban switcher).</p>
+<h3 id="model-required-1"><code>model</code> required</h3>
+<p><strong>Effect.</strong> Which model's views to load. Must match view <code>model</code> values.</p>
+<h3 id="name-required-2"><code>name</code> required</h3>
+<p><strong>Effect.</strong> Title shown in the workspace chrome.</p>
+<h3 id="view-mode-required"><code>view_mode</code> required</h3>
+<p><strong>Syntax.</strong> Comma-separated, <strong>order = default tab order</strong>: <code>tree,form,kanban</code>.<br />
+<strong>Effect.</strong> Only listed modes appear. First mode is the landing view.</p>
+<h3 id="help-optional"><code>&lt;help&gt;</code> optional</h3>
+<p><strong>Effect.</strong> Empty-list placeholder. Class <code>sum-view-nocontent-smiling-face</code> is the usual styling hook.</p>
+<h2 id="menuitem"><menuitem></h2>
+<p>Build a tree: root (app) -&gt; section -&gt; leaf with <code>action</code>.</p>
+<pre><code>[src-5c249b79 — see website HTML for full codebox]
+</code></pre>
+<h3 id="id-required-2"><code>id</code> required</h3>
+<p><strong>Effect.</strong> XML id for <code>parent=&quot;...&quot;</code> links.</p>
+<h3 id="name-required-3"><code>name</code> required</h3>
+<p><strong>Effect.</strong> Sidebar label. Must be <strong>globally unique</strong> across addons (DB constraint on <code>sys.menu.name</code>). Prefer &quot;My module records&quot;, not a second &quot;Configuration&quot;.</p>
+<h3 id="sequence-required-in-practice"><code>sequence</code> required in practice</h3>
+<p><strong>Syntax.</strong> Integer, lower = higher in the list.<br />
+<strong>Effect.</strong> Sort order among siblings.</p>
+<h3 id="parent-optional"><code>parent</code> optional</h3>
+<p><strong>Effect.</strong> Nest under another menu. Omit on app roots.</p>
+<h3 id="action-optional"><code>action</code> optional</h3>
+<p><strong>Effect.</strong> Leaf click opens that window action. Section nodes omit it.</p>
+<h3 id="web-icon-optional"><code>web_icon</code> optional</h3>
+<p><strong>Syntax.</strong> Sprite key: <code>shield</code>, <code>package</code>, <code>settings</code>, <code>users</code>, <code>file-text</code>, <code>shopping-cart</code>, ...<br />
+<strong>Effect.</strong> Icon in the app switcher / sidebar (<code>menu-icons.svg#i-KEY</code>).</p>
+<h3 id="groups-optional"><code>groups</code> optional</h3>
+<p><strong>Syntax.</strong> <code>groups=&quot;account.group_account_invoice&quot;</code>.<br />
+<strong>Effect.</strong> Menu is hidden unless the user belongs to that security group.</p>
+<pre><code>[src-dea67366 — see website HTML for full codebox]
+</code></pre>
+<h2 id="end-to-end-examples">End-to-end examples</h2>
+<h3 id="tree-view">Tree view</h3>
+<pre><code>[src-4d78f747 — see website HTML for full codebox]
+</code></pre>
+<p>Drag handle reorders via <code>sequence</code>; toggle flips <code>active</code>; click a row opens the form (unless <code>open=&quot;0&quot;</code>).</p>
+<h3 id="form-view">Form view</h3>
+<pre><code>[src-0abd3fd7 — see website HTML for full codebox]
+</code></pre>
+<h3 id="kanban-view">Kanban view</h3>
+<p>Declare preload fields, then the card template. <code>t-name=&quot;kanban-box&quot;</code> is the card root.</p>
+<pre><code>[src-f88fe64b — see website HTML for full codebox]
+</code></pre>
+<h3 id="pivot-view">Pivot view</h3>
+<p>Set <code>type=&quot;row&quot;</code>, <code>type=&quot;col&quot;</code>, or <code>type=&quot;measure&quot;</code> on nested <code>&lt;field&gt;</code> elements. The engine aggregates up to <strong>500 rows</strong> from the action domain into a read-only HTML table. No CSV/PDF export or drill-down in v1.</p>
+<pre><code>[src-pivot-v1 — see website HTML for full codebox]
+</code></pre>
+<p>Include <code>pivot</code> in the window action <code>view_mode</code>, e.g. <code>tree,form,pivot</code>.</p>
+<h3 id="action--menus">Action + menus</h3>
+<pre><code>[src-7b9f585f — see website HTML for full codebox]
+</code></pre>
+<pre><code>[src-5efaf98b — see website HTML for full codebox]
+</code></pre>
+<h2 id="xml-inheritance">XML inheritance</h2>
+<p>Change another module's arch without copying the whole view.</p>
+<pre><code>[src-f874e481 — see website HTML for full codebox]
+</code></pre>
+<h3 id="inherit-id--ref"><code>inherit_id</code> + <code>ref</code></h3>
+<p><strong>Effect.</strong> Parent view to patch (must already exist).</p>
+<h3 id="expr"><code>expr</code></h3>
+<p><strong>Syntax.</strong> Supported today: <code>//field[@name='...']</code>.<br />
+<strong>Effect.</strong> Locates the anchor field in the flattened arch.</p>
+<h3 id="position"><code>position</code></h3>
+<p><strong>Values.</strong> <code>after</code> | <code>before</code> | <code>replace</code> | <code>inside</code>.<br />
+<strong>Effect.</strong> Where the xpath body is applied relative to the match (<code>inside</code> appends before <code>&lt;/view&gt;</code> in the flattened arch).</p>
+<pre><code>[src-2fa6ac46 — see website HTML for full codebox]
+</code></pre>
+<p><strong>Narrow xpath.</strong> Implementation lives in <code>core/engine/viewinherit</code>. Exotic xpath expressions beyond simple field selectors will fail. Stick to <code>//field[@name='...']</code>.</p>
+<h2 id="report-exchange-on-views">Report exchange on views</h2>
+<p><a href="report-engine.html">Enable CSV/PDF download and bulk CSV import on list, kanban, and form views. Full engine reference: Report engine</a>.</p>
+<p>[Table — see website HTML]</p>
+<p>When any capability is enabled, a <strong>Report</strong> toolbar appears. Pivot views do not support export in v1.</p>
+<h2 id="kanban-view-attributes">Kanban view attributes</h2>
+<p>On <code>&lt;view type=&quot;kanban&quot;&gt;</code> (or nested <code>&lt;kanban&gt;</code> root):</p>
+<h3 id="default-group-by"><code>default_group_by</code></h3>
+<p><strong>Syntax.</strong> Field name, e.g. <code>stage_id</code>.<br />
+<strong>Effect.</strong> Columns grouped by that field. Falls back to <code>group_by</code> when unset.</p>
+<h3 id="group-by"><code>group_by</code></h3>
+<p><strong>Syntax.</strong> Field name.<br />
+<strong>Effect.</strong> Secondary grouping field when <code>default_group_by</code> is empty.</p>
+<h3 id="records-draggable"><code>records_draggable</code></h3>
+<p><strong>Syntax.</strong> <code>1</code> / <code>true</code> to enable drag between columns. Disable with <code>false</code>, <code>0</code>, <code>off</code>, or <code>no</code>.<br />
+<strong>Effect.</strong> Drag-and-drop cards between kanban columns when enabled and user has write access.</p>
+<h3 id="quick-create"><code>quick_create</code></h3>
+<p><strong>Syntax.</strong> Enable inline create in a grouped kanban column. Disable with <code>0</code>, <code>false</code>, <code>off</code>, or <code>no</code> (CRM forecast uses <code>quick_create=&quot;0&quot;</code>).<br />
+<strong>Effect.</strong> Default <strong>on</strong> when the board is grouped. Quick-create merges action <code>default_*</code> values into the new record.</p>
+<h2 id="profile-photo-and-image-fields">Profile photo and image fields</h2>
+<p><code>widget=&quot;image&quot;</code> on a binary or text field renders a file upload control without crop UI.<br />
+When a form has both an <code>image</code> field and a <code>&lt;div class=&quot;sum_title&quot;&gt;</code> title block, the engine shows an <strong>avatar crop wizard</strong> (circular preview). Pan/zoom is stored in <code>image_crop</code> as JSON: <code>{&quot;x&quot;:0,&quot;y&quot;:0,&quot;zoom&quot;:1}</code>. User profile forms in Settings use this path.<br />
+On kanban cards, image fields render full photos by default. Use <code>widget=&quot;circle&quot;</code> for a circular avatar thumbnail.</p>
+<h2 id="field-groups-attribute">Field <code>groups</code> attribute</h2>
+<p>On <code>&lt;field groups=&quot;module.group_xml_id&quot;&gt;</code>, the field is hidden when the signed-in user lacks that access group (same comma-separated group list as menu <code>groups</code>). Empty or missing <code>groups</code> means visible to everyone who can open the form.</p>
+<h2 id="form-validation-and-toasts">Form validation and toasts</h2>
+<p><a href="../../reference/swc-notifications.html">The live workspace is <strong>SWC</strong>. Toasts come from <code>env.services.notification</code> (top-right stack, close button, hover-pause, 6s auto-dismiss). See SWC notifications</a>.</p>
+<ul>
+<li><strong>Client required check</strong> — empty required fields stay <strong>inline</strong> on the form (<code>sum-flash</code>). They are not a validation toast.</li>
+<li><strong>RPC / network errors</strong> — error toast. Successful save, delete, duplicate, and object buttons show a success toast unless the action returns <code>{close}</code>, <code>{open}</code>, or <code>{redirect}</code>.</li>
+<li><strong>Kanban</strong> — quick-create success toast; create/move RPC failures toast. Successful drag-move stays silent.<br />
+<a href="../../reference/http-routes.html"><strong>Removed HTTP</strong> — do not POST to <code>/web/record/save</code> (not registered). SWC uses JSON-RPC and <code>env.services.notification</code>. See HTTP routes</a>- .</li>
+</ul>
+<h2 id="when-to-run--u">When to run -u</h2>
+<p>After any XML / CSV change: update the module so data sync reloads arch and menus.</p>
+<pre><code>[shell-0fe257d7 — see website HTML for full codebox]
+</code></pre>
+<h2 id="what-not-to-do">What not to do</h2>
+<ul>
+<li>Root element must be <code>&lt;sumeru&gt;</code> only — not legacy ERP root tags.</li>
+<li>Do not reuse menu <code>name</code> values across addons.</li>
+<li>Do not list menus before actions in <code>data</code>.<br />
+<a href="../../reference/swc-widget-catalog.html">Do not invent widget names; use the SWC widget catalog</a>- .</li>
+<li>Do not skip <code>-u</code> after XML edits and wonder why the UI is stale.</li>
+</ul>
+<h2 id="swc-reference">SWC reference</h2>
+<p><a href="../../reference/field-attributes.html">Field attributes</a>- — complete <code>&lt;field&gt;</code> attribute table<br />
+<a href="../../reference/swc-widget-catalog.html">SWC widget catalog</a>- — all built-in widgets and options<br />
+<a href="../../reference/view-types.html">View types</a>- — list, form, kanban, pivot, graph, calendar<br />
+<a href="../build/build-module-with-swc.html">Build a module with SWC</a>- — end-to-end addon walkthrough<br />
+<a href="../concepts/arch-json-pipeline.html">Arch JSON pipeline</a>- — how XML becomes workspace JSON</p>
+<h2 id="next-step">Next step</h2>
+<p><a href="report-engine.html">Configure export and import ACL in Report engine</a><a href="security-and-access.html">, then gate menus in Security &amp; access</a>.<br />
+<a href="../../../../index.html">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of Project Meru</a>.<br />
+On this page</p>
+<p>No results. Try different keywords.</p>
+
+        <nav class="docs-next" aria-label="Page"><a class="is-prev" href="website-guides-build-models-and-fields.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Models &amp; fields</span></a><a class="is-next" href="website-guides-build-report-engine.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Report engine &rarr;</span></a></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). <a href="https://github.com/ProjectMeru/sumeru/issues/new/choose">Was this helpful?</a> · Part of <a href="../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+
+  <script src="js/docs.js"></script>
+  <script src="js/docs-search-index.js"></script>
+</body>
+</html>

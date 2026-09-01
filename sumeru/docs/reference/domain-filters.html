@@ -81,7 +81,7 @@
         <p class="docs-lede">Domains filter records in <code>search</code>, <code>search_read</code>, JSON-RPC, record rules, and list/kanban export windows. Source: <code>sumeru/core/orm/crud_domain.go</code>, <code>domain_json.go</code>.</p>
         <h2 id="shape">Shape</h2>
         <p>A domain is a JSON array of <strong>triples</strong> <code>[field, operator, value]</code> combined with AND by default.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3f3177b0">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d9d2430b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -102,7 +102,7 @@
         </tbody></table>
         <h2 id="or-composition">OR composition</h2>
         <p>Prefix Polish notation: repeat <code>|</code> once per extra OR branch, then list leaf triples.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-e39aea6a">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fb0daa30">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -139,7 +139,7 @@
         <p>Domains in XML or JSON may reference records by XML id; the engine resolves them via <code>sys.model_data</code> before SQL is built.</p>
         <h2 id="examples">Examples</h2>
         <p><strong>RPC search_read</strong> — open sales orders:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-c7734b56">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-262e50cb">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -150,7 +150,7 @@
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{&quot;method&quot;: &quot;search_read&quot;, &quot;params&quot;: {&quot;model&quot;: &quot;sale.order&quot;, &quot;domain&quot;: [[&quot;state&quot;, &quot;=&quot;, &quot;sale&quot;]]}}"><pre class="docs-pre"><code data-lang="json">{"method": "search_read", "params": {"model": "sale.order", "domain": [["state", "=", "sale"]]}}</code></pre></div></div>
 </div>
         <p><strong>Text search</strong> — name contains "acme" (case-insensitive):</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-c2e626b7">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-9516b84c">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -161,7 +161,7 @@
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="[[&quot;name&quot;, &quot;ilike&quot;, &quot;%acme%&quot;]]"><pre class="docs-pre"><code data-lang="json">[["name", "ilike", "%acme%"]]</code></pre></div></div>
 </div>
         <p><strong>Record rule</strong> — own company only:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-da92f17f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a52e67b8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>

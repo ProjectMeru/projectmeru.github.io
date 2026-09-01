@@ -522,6 +522,23 @@
     ]
   },
   {
+    "title": "Reference ERP patterns in Sumeru",
+    "url": "guides/build/reference-erp-patterns.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Use this cookbook when porting addons from erp_0 (the reference tree under sumeru_erp/erp_0) or other Python/XML ERP modules into Sumeru. Sumeru is Go-centric: business logic belongs in Go services; views stay XML; UI extensions use SWC.",
+    "headings": [
+      "quick-mapping",
+      "views-and-inheritance",
+      "reporting",
+      "assets-and-theming",
+      "swc-vs-server-templates",
+      "module-layout",
+      "what-not-to-port-verbatim",
+      "see-also"
+    ]
+  },
+  {
     "title": "Report engine",
     "url": "guides/build/report-engine.html",
     "track": "guides",
@@ -571,6 +588,22 @@
       "compile-and-run",
       "what-not-to-do",
       "next-step"
+    ]
+  },
+  {
+    "title": "Template-driven PDF reports",
+    "url": "guides/build/template-reports.html",
+    "track": "guides",
+    "section": "Building an Application",
+    "excerpt": "Sumeru ships tabular CSV/PDF/XLSX export from workspace views today (core/report/export_csv.go, export_pdf.go, export_xlsx.go). This guide describes the next step: layout PDFs for invoices, orders, and other printable documents \u2014 without a server-side XML template engine.",
+    "headings": [
+      "problem",
+      "recommended-architecture-p0-spike",
+      "spike-api-implemented",
+      "xml-manifest-hook-future",
+      "html-pdf-path-deferred",
+      "relation-to-view-report-download",
+      "see-also"
     ]
   },
   {

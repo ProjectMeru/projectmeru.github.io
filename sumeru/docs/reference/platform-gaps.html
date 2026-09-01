@@ -106,6 +106,10 @@
         <tr><td>Async plumbing</td><td>Outbox drain → in-process queue; mail queue worker</td></tr>
         <tr><td>SWC realtime bus</td><td>WebSocket <code>/web/swc/bus</code> forwards outbox events to logged-in sessions</td></tr>
         <tr><td>Developer CLIs</td><td><code>sumeru-shell</code>, <code>sumeru-module</code>, <code>sumeru-migrate</code>, <code>sumeru-i18n-import</code>, <code>make test-db</code></td></tr>
+        <tr><td>XLSX list export</td><td><code>GET /web/export/xlsx</code> + view <code>download="xlsx"</code></td></tr>
+        <tr><td>Manifest <code>assets</code></td><td>CSS/JS paths in <code>manifest.json</code> → <code>/static/addon-asset/…</code></td></tr>
+        <tr><td>Xpath inherit expansion</td><td>Targets beyond field/button (<code>group</code>, <code>sheet</code>, …)</td></tr>
+        <tr><td>Template PDF spike</td><td><code>ExportTemplatePDF</code> for document-layout PDFs</td></tr>
         </tbody></table>
         <p>Do <strong>not</strong> double-count these as open gaps — see also <a href="../using/feature-matrix.html">Feature matrix</a>.</p>
         <h2 id="still-open-kernel-platform-p0p1">Still open — kernel / platform (P0–P1)</h2>
@@ -114,7 +118,7 @@
         <tr><td>Rich computed graph</td><td>Declarative depends/constraints/onchange</td><td>RegisterCompute + onchange RPC; SWC modifier expressions v1</td><td>Business logic stays in Go services for complex rules</td></tr>
         <tr><td>Metadata ORM</td><td>Runtime model/field registry</td><td><code>sys.model</code> exists; no runtime field creation</td><td>Customization needs recompile + <code>-u</code></td></tr>
         <tr><td>Rich server actions</td><td>Scriptable automation, webhooks</td><td>Declarative <code>publish:</code> / <code>write:</code> only</td><td>Power users need Go for complex automation</td></tr>
-        <tr><td>Graph / calendar / gantt</td><td>Full view types</td><td>Graph, calendar, gantt, map, and cohort v1 in SWC</td><td>Chart libraries / map SDK still out of scope</td></tr>
+        <tr><td>Graph / calendar / gantt</td><td>Full view types</td><td>Graph (Chart.js), calendar, gantt, map, cohort v1 in SWC</td><td>Pivot/graph file export still missing</td></tr>
         <tr><td>Full mail gateway</td><td>SMTP/IMAP, templates, followers</td><td>Chatter UI + transactional SMTP stub</td><td>No full notification stack</td></tr>
         <tr><td>Multi-process in one host</td><td>Prefork worker pools</td><td>One HTTP listener per binary</td><td>Scale out = N processes behind LB</td></tr>
         <tr><td>Attachment filestore</td><td>Central attachment store, object storage hooks</td><td>Binary fields only</td><td>Large files / CDN unclear</td></tr>
@@ -126,7 +130,7 @@
         <tr><td>Field <strong>onchange</strong></td><td><strong>Implemented</strong></td><td>Go <code>RegisterOnchange</code> + <code>POST /api/rpc</code> onchange; SWC <code>RecordStore.applyOnchange</code></td></tr>
         <tr><td>sum-template (<code>.sum.xml</code>)</td><td><strong>Implemented</strong></td><td>Compiler in <code>template/sum/</code> + esbuild plugin</td></tr>
         <tr><td>SWC Vision devtools</td><td><strong>Implemented</strong></td><td><code>devtools/bridge.ts</code>, in-app panel, optional browser extension</td></tr>
-        <tr><td>Rich graph/charts</td><td>Partial v1</td><td><code>GraphView</code> uses <code>read_group</code> RPC; richer charting is future work</td></tr>
+        <tr><td>Rich graph/charts</td><td><strong>Implemented v1</strong></td><td><code>GraphView</code> uses Chart.js + <code>read_group</code> RPC</td></tr>
         <tr><td>List/kanban toolbar search</td><td><strong>Implemented</strong></td><td>Search beside New button; SPA view-tab sync on record open</td></tr>
         <tr><td>Form field a11y</td><td><strong>Implemented</strong></td><td>Label <code>for</code> association, autocomplete tokens, native date input</td></tr>
         </tbody></table>

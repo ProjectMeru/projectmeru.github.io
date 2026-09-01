@@ -82,7 +82,8 @@
         <table><thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead><tbody>
         <tr><td>PostgreSQL ORM + model sync</td><td><strong>Implemented</strong></td><td><code>sumeru/core/orm</code></td></tr>
         <tr><td>Addon manifests + install/update</td><td><strong>Implemented</strong></td><td><code>-i</code> / <code>-u</code> CLI flags; <code>-i all</code> supported</td></tr>
-        <tr><td>XML views (list, form, kanban, pivot)</td><td><strong>Implemented</strong></td><td>Workspace at <code>/web</code>; pivot v1 aggregates in HTML</td></tr>
+        <tr><td>XML views (list, form, kanban, pivot, graph, calendar, gantt, map, cohort)</td><td><strong>Implemented</strong></td><td>SWC workspace; graph uses Chart.js over <code>read_group</code></td></tr>
+        <tr><td>Model inherit (<code>inherit=</code> tag)</td><td><strong>Implemented</strong></td><td>Schema sync on <code>-u</code>; view xpath to expose fields</td></tr>
         <tr><td>List quick search</td><td><strong>Implemented</strong></td><td><code>?q=</code> on list views; <code>ilike</code> across visible columns</td></tr>
         <tr><td>Security groups, ACLs, record rules</td><td><strong>Implemented</strong></td><td><code>sys.access</code>, <code>sys.rule</code></td></tr>
         <tr><td>Web shell (home, apps, settings)</td><td><strong>Implemented</strong></td><td><code>/web/home</code>, <code>/web/apps</code>, <code>/web/settings</code></td></tr>
@@ -96,7 +97,7 @@
         <tr><td>Multi-company switch</td><td><strong>Implemented</strong></td><td>POST <code>/web/company/switch</code></td></tr>
         <tr><td>Mail chatter + activities</td><td><strong>Implemented</strong></td><td>Requires <code>mail</code> addon</td></tr>
         <tr><td>Transactional email (SMTP)</td><td><strong>Partial</strong></td><td>Password reset when <code>smtp_host</code> / <code>smtp_from</code> configured</td></tr>
-        <tr><td>Report download (CSV/PDF)</td><td><strong>Implemented</strong></td><td>Opt-in per view via XML; max 500 rows</td></tr>
+        <tr><td>Report download (CSV/PDF/XLSX)</td><td><strong>Partial</strong></td><td>CSV/PDF/XLSX list export opt-in via XML; tabular PDF only; max 500 rows</td></tr>
         <tr><td>Bulk CSV import with mapping</td><td><strong>Implemented</strong></td><td>Template → upload → <code>sys.bulk.import</code> → confirm</td></tr>
         <tr><td>Legacy CSV import route</td><td><strong>Implemented</strong></td><td><code>POST /web/import/csv</code> → same bulk flow (no direct import)</td></tr>
         <tr><td>Event bus (<code>record.created</code>, <code>record.updated</code>)</td><td><strong>Implemented</strong></td><td>In-process pub/sub</td></tr>
@@ -122,7 +123,7 @@
         <tr><td>Scheduled jobs / automation</td><td><code>automation</code> + <code>core/scheduler</code></td><td>Implemented (Go handlers, declarative actions)</td></tr>
         <tr><td><code>read_group</code> aggregation</td><td><code>read_group</code> RPC + ORM</td><td>Implemented (sum/count)</td></tr>
         <tr><td>Object method RPC</td><td><code>call</code> RPC</td><td>Implemented (registered object actions only)</td></tr>
-        <tr><td>Pivot / graph views</td><td>Pivot v1 (HTML table)</td><td>Implemented (read-only; no graph view)</td></tr>
+        <tr><td>Pivot / graph views</td><td>Pivot v1 (HTML table) + graph v1 (Chart.js)</td><td>Partial (read-only pivot; graph without drill-down/export)</td></tr>
         <tr><td>HTTP bind / DB pool tuning</td><td><code>http_interface</code>, pool INI keys</td><td>Implemented</td></tr>
         <tr><td>Install-all modules CLI</td><td><code>-i all</code> CLI</td><td>Implemented</td></tr>
         <tr><td>Inventory / stock</td><td>—</td><td>Not present (deferred)</td></tr>

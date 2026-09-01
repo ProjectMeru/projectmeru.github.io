@@ -94,7 +94,7 @@
         <tr><td><code>type</code></td><td>pivot only</td><td><code>row</code>, <code>col</code>, <code>measure</code></td><td>Pivot/graph axis role.</td></tr>
         </tbody></table>
         <h2 id="basic-examples">Basic examples</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-c32d04cf">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6ca4dec1">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -116,7 +116,7 @@
 </div>
         <h2 id="options-syntax">Options syntax</h2>
         <p><code>options</code> is a comma-separated list of <code>key:value</code> pairs (no JSON required):</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-5b60a67c">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4bf63591">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -135,7 +135,7 @@
         <p>The <code>$field_name$</code> placeholder in domain strings is replaced at runtime with the current record value (<code>core/swc/src/model/modifiers.ts</code>).</p>
         <h2 id="one2many-subview">One2many subview</h2>
         <p>Embed a nested list inside a one2many field:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-32757451">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ea333694">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -166,7 +166,7 @@
         <p>Fields inside <code><header></code> serialize to <code>arch.header.fields[]</code> (e.g. statusbar). Fields in the form <code><sheet></code> serialize through groups, notebook pages, and divs.</p>
         <h2 id="json-shape-workspace-payload">JSON shape (workspace payload)</h2>
         <p>Each field becomes an <code>SwcArchField</code> object:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-ebe4e710">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b15b0265">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -201,7 +201,7 @@
         <p>See <a href="../guides/arch-json-pipeline.html">Arch JSON pipeline</a> for the full payload.</p>
         <h2 id="dynamic-modifiers-expr">Dynamic modifiers (<code>*_expr</code>)</h2>
         <p>The Go serializer (<code>core/engine/swcmeta/arch.go</code>) emits <code>readonly_expr</code>, <code>required_expr</code>, and <code>invisible_expr</code> on <code>arch.fields[]</code> when the XML attribute is a <strong>non-literal expression</strong>. Boolean literals (<code>1</code>, <code>true</code>, <code>0</code>, <code>false</code>, …) stay on <code>readonly</code> / <code>required</code> / <code>invisible</code>. SWC's client (<code>model/modifiers.ts</code>) evaluates those expression strings.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-e237c26c">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1b418a2a">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -216,7 +216,7 @@
 &lt;field name="reason" invisible="state != 'lost'"/&gt;</code></pre></div></div>
 </div>
         <p>Those become <code>ReadonlyExpr</code> / <code>RequiredExpr</code> / <code>InvisibleExpr</code> on the JSON field. Static flags still work:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-679c1d17">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ee7f64c9">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>

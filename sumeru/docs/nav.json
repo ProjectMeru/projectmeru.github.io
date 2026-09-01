@@ -110,6 +110,14 @@
             "href": "guides/build/report-engine.html"
           },
           {
+            "title": "Template PDF reports",
+            "href": "guides/build/template-reports.html"
+          },
+          {
+            "title": "Reference ERP patterns",
+            "href": "guides/build/reference-erp-patterns.html"
+          },
+          {
             "title": "Creating APIs",
             "href": "guides/build/creating-apis.html"
           },
@@ -563,6 +571,8 @@
     "guides/build/update-module.html": "guides",
     "guides/build/build-module-with-swc.html": "guides",
     "guides/build/report-engine.html": "guides",
+    "guides/build/template-reports.html": "guides",
+    "guides/build/reference-erp-patterns.html": "guides",
     "guides/build/creating-apis.html": "guides",
     "guides/build/customization.html": "guides",
     "guides/build/security-and-access.html": "guides",

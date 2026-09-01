@@ -92,7 +92,7 @@
         </ol>
         <h2 id="live-example-contacts">Live example (contacts)</h2>
         <p>The kernel <strong>contacts</strong> addon adds <strong><code>customer_rank</code></strong> to <strong><code>core.partner</code></strong>. Add the field with <strong><code>inherit=</code></strong> first — see <a href="./model-inherit.html">Model inherit</a> — then expose it in the form:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3d8b1baf">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-56fd9684">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -113,6 +113,7 @@
         <h2 id="caveats">Caveats</h2>
         <ul>
         <li>The merge runs on the <strong>serialized arch</strong>; xpath expressions must match that structure.</li>
+        <li>Duplicate targets (e.g. two <code>//field[@name='phone']</code>) match the <strong>first</strong> occurrence only.</li>
         <li>Errors print as view-inherit warnings during sync; fix xpath and re-run <strong><code>-u</code></strong>.</li>
         </ul>
         <h2 id="see-also">See also</h2>

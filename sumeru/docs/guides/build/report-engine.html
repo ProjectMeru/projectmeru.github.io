@@ -82,7 +82,7 @@
         <p class="docs-lede">CSV/PDF <strong>download</strong> and CSV <strong>bulk import</strong> for workspace views. The engine lives <strong>only in <code>sumeru/</code></strong> (<code>core/report/</code>, <code>core/sdk/report.go</code>, web handlers, render + JS). Addons enable features with <strong>XML on views</strong> — no export/import Go code in <code>sumeru_addons/</code> or <code>sumeru_custom_addons/</code>.</p>
         <p>Reporting is <strong>opt-in per view</strong>. If a view has no report XML or widgets, no <strong>Report</strong> toolbar appears.</p>
         <h2 id="architecture">Architecture</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-882c66fe">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e40294c1">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -137,7 +137,7 @@
         <h2 id="enable-on-a-view-xml">Enable on a view (XML)</h2>
         <p>Three equivalent ways to declare capabilities. The parser merges them into one capability set.</p>
         <h3 id="option-1-report-child-recommended">Option 1 — <code><report></code> child (recommended)</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-efb6f756">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d08710ad">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -146,17 +146,17 @@
     <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view id=&quot;view_crm_lead_list&quot; model=&quot;crm.lead&quot; type=&quot;list&quot;&gt;
-    &lt;report download=&quot;csv,pdf&quot; upload=&quot;bulk&quot; pdf_sizes=&quot;a4,legal,letter&quot; modes=&quot;create,upsert&quot;/&gt;
+    &lt;report download=&quot;csv,pdf,xlsx&quot; upload=&quot;bulk&quot; pdf_sizes=&quot;a4,legal,letter&quot; modes=&quot;create,upsert&quot;/&gt;
     &lt;field name=&quot;name&quot;/&gt;
     ...
 &lt;/view&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view id="view_crm_lead_list" model="crm.lead" type="list"&gt;
-    &lt;report download="csv,pdf" upload="bulk" pdf_sizes="a4,legal,letter" modes="create,upsert"/&gt;
+    &lt;report download="csv,pdf,xlsx" upload="bulk" pdf_sizes="a4,legal,letter" modes="create,upsert"/&gt;
     &lt;field name="name"/&gt;
     ...
 &lt;/view&gt;</code></pre></div></div>
 </div>
         <h3 id="option-2-view-attributes">Option 2 — View attributes</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-2f94c412">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-59bd37b5">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -179,7 +179,7 @@
 &lt;/view&gt;</code></pre></div></div>
 </div>
         <h3 id="option-3-header-widgets-form-or-list">Option 3 — Header widgets (form or list)</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-d757fe25">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-9fe9ba9d">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -203,7 +203,7 @@
 </div>
         <h3 id="xml-reference">XML reference</h3>
         <table><thead><tr><th>Attribute / element</th><th>Values</th><th>Meaning</th></tr></thead><tbody>
-        <tr><td><code>download</code> / <code>report_download</code> / <code>formats</code></td><td><code>csv</code>, <code>pdf</code> (comma-separated)</td><td>Enable report download formats</td></tr>
+        <tr><td><code>download</code> / <code>report_download</code> / <code>formats</code></td><td><code>csv</code>, <code>pdf</code>, <code>xlsx</code> (comma-separated)</td><td>Enable report download formats</td></tr>
         <tr><td><code>upload</code> / <code>bulk_upload</code></td><td><code>bulk</code>, <code>1</code>, <code>true</code>, <code>yes</code>, <code>on</code></td><td>Enable bulk CSV upload</td></tr>
         <tr><td><code>pdf_sizes</code></td><td><code>a4</code>, <code>legal</code>, <code>letter</code></td><td>Allowed PDF page sizes (default: all three)</td></tr>
         <tr><td><code>modes</code> / <code>bulk_modes</code></td><td><code>create</code>, <code>upsert</code></td><td>Import modes offered in UI (default: both)</td></tr>
@@ -219,7 +219,7 @@
         <h2 id="download-flow">Download flow</h2>
         <ol>
         <li>User opens a view with download enabled.</li>
-        <li>Clicks <strong>Report</strong> in the toolbar → chooses <strong>Download CSV</strong> or <strong>Download PDF</strong>.</li>
+        <li>Clicks <strong>Report</strong> in the toolbar → chooses <strong>Download CSV</strong>, <strong>Download Excel</strong>, or <strong>Download PDF</strong>.</li>
         <li>Field picker opens (defaults = visible view columns); user selects fields.</li>
         <li>For PDF, user picks page size (A4 / Legal / Letter).</li>
         <li>Browser downloads the file.</li>
@@ -227,7 +227,7 @@
         <p>List/kanban exports respect the <strong>window action domain</strong> (same rows as the current list, capped at 500). Form export uses the open record only.</p>
         <h2 id="bulk-upload-flow">Bulk upload flow</h2>
         <p>Bulk import <strong>reuses the same engine</strong> as export (field whitelist, coercion, ACL). There is <strong>no silent direct import</strong> — every upload goes through mapping and preview before data is written.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-f11ab331">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-abf767f7">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -298,7 +298,7 @@
         </tbody></table>
         <p>To enable CRM lead export, add one line to the list view XML and update the module — <strong>no Go changes</strong> in the addon.</p>
         <p>Optional cell formatting for exports:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-75ff0e83">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ba7ad7fb">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>

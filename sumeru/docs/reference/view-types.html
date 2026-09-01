@@ -93,7 +93,7 @@
         <tr><td><code>cohort</code></td><td>CohortView</td><td>v1</td><td>Period table from <code>date_start</code> + measure</td></tr>
         </tbody></table>
         <h2 id="list-tree">List / tree</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-079ffc35">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-394df3b1">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -120,7 +120,7 @@
         </tbody></table>
         <p><strong>SWC behaviour:</strong> Toolbar with New, search (<code>?q=</code> param), export/import, row selection + bulk delete, server page/sort. When <strong>two or more</strong> rows are selected, list header object buttons (<code>arch.header.buttons</code>) run via <code>call</code> with <code>active_ids</code>. Row click opens form via SPA navigation.</p>
         <h2 id="form">Form</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-29977ed9">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-51cb55a3">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -202,7 +202,7 @@
         </tbody></table>
         <p><strong>SWC behaviour:</strong> Record toolbar (Edit/Save/Cancel/New/Duplicate/Delete), field widgets via registry, optional ChatterPanel when <code><chatter/></code> is present. Object buttons toast RPC errors; validation stays inline. Wizards that return <code>{open}</code> open a form dialog; <code>{close}</code> dismisses it without an extra success toast.</p>
         <h2 id="kanban">Kanban</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-64308527">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-8998767b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -232,7 +232,7 @@
         </tbody></table>
         <p><strong>SWC behaviour:</strong> Toolbar with New + search (<code>?q=</code>), grouped columns from server <code>arch.kanban.columns</code>, card click opens form. Quick-create merges workspace <code>defaults</code> into <code>rpc.create</code>. Drag-move errors toast; successful moves stay silent.</p>
         <h2 id="pivot">Pivot</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-58e2a3cb">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6c46d970">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -256,7 +256,7 @@
         <h2 id="calendar">Calendar</h2>
         <p>List-style arch with date/datetime fields. SWC buckets records by date for a month grid (v1).</p>
         <h2 id="gantt-v1">Gantt (v1)</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-d2ca6faf">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d5bf1253">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -276,7 +276,7 @@
 </div>
         <p>Or <code><view type="gantt" date_start="…" date_stop="…"></code>. Rows are records; bar <code>left</code>/<code>width</code> come from the date range versus the visible scale (day/week/month). Click opens form. Same record set as calendar (500-row collection load).</p>
         <h2 id="map-v1">Map (v1)</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3c21cf1f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1cfd003e">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -296,7 +296,7 @@
 </div>
         <p>No map SDK. Rows with numeric lat/lng become a list plus an OpenStreetMap link (<code>?mlat=&mlon=</code>). Clicking the name opens form. Rows without coordinates are skipped.</p>
         <h2 id="cohort-v1">Cohort (v1)</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-09e659aa">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b310a3ce">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -315,7 +315,7 @@
         <p><code>interval</code> is <code>week</code> or <code>month</code> (default month). <code>measure</code> is a numeric field, or record count when omitted. Client-side HTML table from <code>payload.records</code> (same 500-row cap as pivot). Later-period cells show that period’s measure (not server-side retention SQL).</p>
         <h2 id="report-toolbar">Report toolbar</h2>
         <p>On list, form, and kanban views:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-25b62626">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4e92c5ad">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -326,7 +326,7 @@
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view model=&quot;sale.order&quot; type=&quot;list&quot; report_download=&quot;csv,pdf&quot; bulk_upload=&quot;1&quot;&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view model="sale.order" type="list" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre></div></div>
 </div>
         <p>Or nested:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-372b3f58">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-665d0439">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>

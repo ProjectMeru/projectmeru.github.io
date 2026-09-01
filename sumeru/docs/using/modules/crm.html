@@ -7,125 +7,152 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRM | Sumeru Docs</title>
-  <meta name="description" content="CRM">
+  <meta name="description" content="Manage leads and opportunities through your sales pipeline.">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/using/modules/crm.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Sumeru Docs">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/using/modules/crm.html">
+  <meta property="og:title" content="CRM | Sumeru Docs">
+  <meta property="og:description" content="Manage leads and opportunities through your sales pipeline.">
+  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CRM | Sumeru Docs">
+  <meta name="twitter:description" content="Manage leads and opportunities through your sales pipeline.">
+  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "CRM",
+  "description": "Manage leads and opportunities through your sales pipeline.",
+  "url": "https://projectmeru.github.io/sumeru/docs/using/modules/crm.html",
+  "author": {"@type": "Organization", "name": "Project Meru"},
+  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
+}
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-    <header class="docs-topbar">
-    <div class="docs-header-shell">
-      <div class="docs-header-bar">
-        <div class="docs-header-left">
-<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+  <header class="docs-topbar">
+    <button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-<a class="docs-brand" href="../../index.html">
+    <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
       <span class="brand-name">Sumeru</span>
-      <span class="brand-docs">Docs</span>
+      <span>Docs</span>
     </a>
-          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
-        </div>
-        <div class="docs-header-search">
-          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
-            <span class="docs-search-label">Search</span>
-            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
-          </button>
-        </div>
-        <div class="docs-header-right">
-          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-          </a>
-          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
-            <span class="docs-install-prompt" aria-hidden="true">$</span>
-            <code class="docs-install-code">make setup &amp;&amp; make run</code>
-            <span class="docs-install-icon" aria-hidden="true">
-              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
-            </span>
-          </button>
-          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
-            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
-          </button>
-        </div>
-      </div>
-      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
-        <div class="docs-track-rail">
-          <ul class="docs-track-list"></ul>
-          <span class="docs-track-marker" aria-hidden="true"></span>
-        </div>
-      </nav>
+    <a class="docs-product-link" href="../../../index.html">&larr; <span class="full">Sumeru</span></a>
+    <span class="docs-status is-prealpha" title="No tagged release">Pre-alpha</span>
+    <div class="docs-topbar-spacer"></div>
+    <div class="docs-topbar-actions">
+      <button type="button" class="docs-icon-btn docs-search-btn" aria-label="Search documentation" title="Search (/)">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+      </button>
+      <a class="docs-icon-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+      </button>
     </div>
   </header>
 
   <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" aria-label="Documentation"><div class="docs-sidebar-group"><p class="docs-sidebar-title">Home</p><ul class="docs-sidebar-list"><li><a href="../../index.html">Documentation home</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Start here</p><ul class="docs-sidebar-list"><li><a href="../../website-index.html">Introduction</a></li><li><a href="../../website-guides-start-installation.html">Installation</a></li><li><a href="../../website-guides-start-configuration.html">Configuration</a></li><li><a href="../../website-guides-start-first-boot.html">First boot</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Building</p><ul class="docs-sidebar-list"><li><a href="../../website-guides-build-creating-an-addon.html">Creating an addon</a></li><li><a href="../../website-guides-build-project-structure.html">Project structure</a></li><li><a href="../../website-guides-build-manifests-and-depends.html">Manifests &amp; depends</a></li><li><a href="../../website-guides-build-models-and-fields.html">Models &amp; fields</a></li><li><a href="../../website-guides-build-views-and-menus.html">Views &amp; menus</a></li><li><a href="../../website-guides-build-report-engine.html">Report engine</a></li><li><a href="../../website-guides-build-security-and-access.html">Security &amp; access</a></li><li><a href="../../website-guides-build-data-xml.html">Data XML</a></li><li><a href="../../website-guides-build-events-and-automation.html">Events &amp; automation</a></li><li><a href="../../website-guides-build-json-rpc-api.html">JSON-RPC API</a></li><li><a href="../../website-guides-build-testing.html">Testing</a></li><li><a href="../../website-guides-build-deployment.html">Deployment</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Concepts</p><ul class="docs-sidebar-list"><li><a href="../../website-guides-concepts-three-modules.html">Three modules</a></li><li><a href="../../website-guides-concepts-orm.html">ORM</a></li><li><a href="../../website-guides-concepts-module-loader.html">Module loader</a></li><li><a href="../../website-guides-concepts-engine-and-server.html">Engine &amp; server</a></li><li><a href="../../website-guides-concepts-event-bus.html">Event bus</a></li><li><a href="../../website-guides-concepts-scheduler.html">Scheduler</a></li><li><a href="../../website-guides-concepts-cache.html">Cache</a></li><li><a href="../../website-guides-concepts-sdk.html">SDK</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Using Sumeru</p><ul class="docs-sidebar-list"><li><a href="../../website-guides-business-overview.html">Overview</a></li><li><a href="../../website-guides-business-apps-and-install.html">Apps &amp; install</a></li><li><a href="../../website-guides-business-lead-to-cash.html">Lead-to-cash</a></li><li><a href="../../website-guides-business-contacts-and-crm.html">Contacts &amp; CRM</a></li><li><a href="../../website-guides-business-sales-and-invoicing.html">Sales &amp; invoicing</a></li><li><a href="../../website-guides-business-purchase-and-hr.html">Purchase &amp; HR</a></li><li><a href="../../website-guides-business-multi-company.html">Multi-company</a></li><li><a href="../../website-guides-business-editions-and-licensing.html">Editions &amp; licensing</a></li><li><a href="../index.html">Business user hub</a></li><li><a href="../glossary.html">Glossary</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Security</p><ul class="docs-sidebar-list"><li><a href="../../website-guides-security-overview.html">Overview</a></li><li><a href="../../website-guides-security-api-keys.html">API keys</a></li><li><a href="../../website-guides-security-isolation-model.html">Isolation model</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Reference</p><ul class="docs-sidebar-list"><li><a href="../../reference/http-routes.html">HTTP routes</a></li><li><a href="../../reference/sdk-api.html">SDK API</a></li><li><a href="../../reference/json-rpc.html">JSON-RPC</a></li><li><a href="../../reference/swc-api.html">SWC API</a></li><li><a href="../../reference/events-and-cron.html">Events and cron</a></li><li><a href="../../reference/render-hooks.html">Render hooks</a></li><li><a href="../../reference/kernel-addons.html">Kernel addons</a></li><li><a href="../../reference/sdk-api.html">SDK API</a></li><li><a href="../../reference/http-routes.html">HTTP routes</a></li><li><a href="../../reference/json-rpc.html">JSON-RPC</a></li><li><a href="../../reference/events-and-cron.html">Events and cron</a></li><li><a href="../../reference/render-hooks.html">Render hooks</a></li><li><a href="../../reference/kernel-addons.html">Kernel addons</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Addons</p><ul class="docs-sidebar-list"><li><a href="../../addons/overview.html">Overview</a></li><li><a href="../../addons/manifest-and-layout.html">Manifest and layout</a></li><li><a href="../../addons/events-and-hooks.html">Events and hooks</a></li><li><a href="../../addons/index.html">Addons developer hub</a></li><li><a href="../../addons/overview.html">Overview</a></li><li><a href="../../addons/manifest-and-layout.html">Manifest and layout</a></li><li><a href="../../addons/events-and-hooks.html">Events and hooks</a></li><li><a href="../../addons/cross-module-flows.html">Cross-module flows</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Addons — How-tos</p><ul class="docs-sidebar-list"><li><a href="../../addons/howtos/enable-report-on-view.html">Enable report on a view</a></li><li><a href="../../addons/howtos/extend-crm-pipeline.html">Extend CRM pipeline</a></li><li><a href="../../addons/howtos/custom-http-route.html">Custom HTTP route</a></li><li><a href="../../addons/howtos/extend-crm-pipeline.html">Extend CRM pipeline</a></li><li><a href="../../addons/howtos/enable-report-on-view.html">Enable report on a view</a></li><li><a href="../../addons/howtos/add-bridge-module.html">Add a bridge module</a></li><li><a href="../../addons/howtos/custom-http-route.html">Custom HTTP route</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Getting started</p><ul class="docs-sidebar-list"><li><a href="../getting-started/what-is-sumeru.html">What is Sumeru?</a></li><li><a href="../../guides/start/installation.html">Installation</a></li><li><a href="../../guides/start/configuration.html">Configuration</a></li><li><a href="../../guides/start/first-run.html">First run</a></li><li><a href="../getting-started/what-is-sumeru.html">What is Sumeru?</a></li><li><a href="../getting-started/logging-in.html">Logging in</a></li><li><a href="../getting-started/installing-apps.html">Installing apps</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Platform</p><ul class="docs-sidebar-list"><li><a href="../platform/workspace-basics.html">Workspace basics</a></li><li><a href="../platform/export-and-import.html">Export and import</a></li><li><a href="../platform/settings.html">Settings</a></li><li><a href="../platform/home-and-apps.html">Home and apps</a></li><li><a href="../platform/workspace-basics.html">Workspace basics</a></li><li><a href="../platform/export-and-import.html">Export and import</a></li><li><a href="../platform/app-launcher.html">App launcher</a></li><li><a href="../platform/settings.html">Settings</a></li><li><a href="../platform/contacts-and-partners.html">Contacts and partners</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Reference &amp; status</p><ul class="docs-sidebar-list"><li><a href="../../reference/feature-matrix.html">Feature matrix</a></li><li><a href="../../reference/doc-changelog.html">Documentation changelog</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Core</p><ul class="docs-sidebar-list"><li><a href="../../build/index.html">Core developer hub</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Architecture</p><ul class="docs-sidebar-list"><li><a href="../../concepts/overview.html">Overview</a></li><li><a href="../../concepts/orm-boundaries.html">ORM boundaries</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Guides</p><ul class="docs-sidebar-list"><li><a href="../../build/addons-and-modules.html">Addons and modules</a></li><li><a href="../../build/models-and-fields.html">Models and fields</a></li><li><a href="../../build/views-and-actions.html">Views, actions, and menus</a></li><li><a href="../../build/report-engine.html">Report engine</a></li><li><a href="../../build/security-and-access.html">Security and access</a></li><li><a href="../../build/web-and-render.html">Web and render</a></li><li><a href="../../build/naming-conventions.html">Naming conventions</a></li><li><a href="../../build/icons-and-assets.html">Icons and assets</a></li><li><a href="../../build/logging.html">Logging</a></li><li><a href="../../build/tooling.html">Tooling</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">How-tos</p><ul class="docs-sidebar-list"><li><a href="../../howtos/index.html">How-tos index</a></li><li><a href="../../howtos/scaffold-new-addon.html">Scaffold a new addon</a></li><li><a href="../../howtos/first-module.html">First module tutorial</a></li><li><a href="../../howtos/install-module.html">Install a module</a></li><li><a href="../../howtos/update-module.html">Update a module</a></li><li><a href="../../howtos/add-model.html">Add a model</a></li><li><a href="../../howtos/add-menu-and-action.html">Add a menu and action</a></li><li><a href="../../howtos/view-inherit-xpath.html">View inherit with xpath</a></li><li><a href="../../howtos/custom-addons-workspace.html">Custom addons workspace</a></li><li><a href="../../howtos/troubleshooting.html">Troubleshooting</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Addons — Modules</p><ul class="docs-sidebar-list"><li><a href="../../addons/modules/utm.html">UTM</a></li><li><a href="../../addons/modules/product.html">Product</a></li><li><a href="../../addons/modules/crm.html">CRM</a></li><li><a href="../../addons/modules/sale.html">Sale</a></li><li><a href="../../addons/modules/sale_crm.html">Sale CRM bridge</a></li><li><a href="../../addons/modules/account.html">Account</a></li><li><a href="../../addons/modules/purchase.html">Purchase</a></li><li><a href="../../addons/modules/hr.html">HR</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Modules</p><ul class="docs-sidebar-list"><li><a href="crm.html">CRM</a></li><li><a href="sales.html">Sales</a></li><li><a href="invoicing.html">Invoicing</a></li><li><a href="purchase.html">Purchase</a></li><li><a href="products.html">Products</a></li><li><a href="employees.html">Employees</a></li><li><a href="marketing-tracking.html">Marketing tracking</a></li></ul></div><div class="docs-sidebar-group"><p class="docs-sidebar-title">Workflows</p><ul class="docs-sidebar-list"><li><a href="../workflows/lead-to-cash.html">Lead to cash</a></li><li><a href="../workflows/procure-to-pay.html">Procure to pay</a></li></ul></div></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-biz">Business users</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
         <h1>CRM</h1>
         <p class="docs-lede">Manage <strong>leads</strong> and <strong>opportunities</strong> through your sales pipeline.</p>
-        <h2 id="main-screens">Main screens</h2>
-        <table><thead><tr><th>Menu</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><strong>Pipeline</strong></td><td>Kanban board of opportunities by stage</td></tr>
-        <tr><td><strong>Leads</strong></td><td>Incoming leads to qualify</td></tr>
-        <tr><td><strong>My Activities</strong></td><td>Scheduled follow-ups</td></tr>
-        <tr><td><strong>Forecast</strong></td><td>Deals grouped by expected close month</td></tr>
-        <tr><td><strong>Reporting → Pipeline Analysis</strong></td><td>Graph/pivot on opportunities</td></tr>
-        <tr><td><strong>Reporting → Leads Analysis</strong></td><td>Graph/pivot on leads</td></tr>
-        </tbody></table>
-        <h2 id="typical-workflow">Typical workflow</h2>
-        <ol>
-        <li><strong>Create a lead</strong> — name, customer, expected revenue, source.</li>
-        <li><strong>Qualify</strong> — move through stages (New → Qualified → Proposition).</li>
-        <li><strong>Convert</strong> — use <strong>Convert</strong> on the form when the deal is real (lead → opportunity).</li>
-        <li><strong>Win, lose, or merge</strong> — <strong>Won</strong> closes the deal; <strong>Lost</strong> records a reason and feedback; <strong>Merge</strong> combines duplicate opportunities.</li>
-        </ol>
-        <h2 id="when-you-mark-a-deal-won">When you mark a deal Won</h2>
-        <p>If <strong>Sales CRM Bridge</strong> is installed and the opportunity has a <strong>customer</strong>, Sumeru automatically creates a <strong>draft quotation</strong> in Sales.</p>
-        <h2 id="sales-teams">Sales teams</h2>
-        <p>Managers can configure <strong>teams</strong>. Round-robin assignment is the <strong>Assign Leads</strong> button on the team form (not a bundled scheduled job).</p>
-        <h2 id="configuration-managers">Configuration (managers)</h2>
-        <ul>
-        <li><strong>Stages</strong> — pipeline columns</li>
-        <li><strong>Tags</strong> — classify leads</li>
-        <li><strong>Lost reasons</strong> — why deals failed</li>
-        <li><strong>Sales teams</strong> — groups and assignment rules</li>
-        </ul>
-        <h2 id="tips">Tips</h2>
-        <ul>
-        <li>Set <strong>expected closing date</strong> for forecast views.</li>
-        <li>Use <strong>activities</strong> to schedule calls and meetings (requires Mail app).</li>
-        <li>Add <strong>UTM</strong> campaign/source for marketing reports.</li>
-        </ul>
-        <h2 id="export-and-import-leads">Export and import leads</h2>
-        <p>The <strong>Leads</strong> list supports <strong>Report</strong> (when enabled by your team):</p>
-        <ul>
-        <li>Export leads to CSV or PDF for analysis or sharing</li>
-        <li>Bulk-import leads from a spreadsheet (template → upload → map columns → preview → confirm)</li>
-        </ul>
-        <p>See <a href="../platform/export-and-import.html">Export and import</a>.</p>
-        <h2 id="next-steps">Next steps</h2>
-        <ul>
-        <li><a href="sales.html">Sales</a></li>
-        <li><a href="../../guides/business/lead-to-cash.html">Lead to cash</a></li>
-        </ul>
-    <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+<h2 id="main-screens">Main screens</h2>
+<div class="docs-table-wrap"><table class="docs-table">
+<thead>
+<tr>
+<th>Menu</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td>Kanban board of opportunities by stage</td>
+</tr>
+<tr>
+<td><strong>Leads</strong></td>
+<td>Incoming leads to qualify</td>
+</tr>
+<tr>
+<td><strong>My Activities</strong></td>
+<td>Scheduled follow-ups</td>
+</tr>
+<tr>
+<td><strong>Forecast</strong></td>
+<td>Deals grouped by expected close month</td>
+</tr>
+<tr>
+<td><strong>Reporting → Pipeline Analysis</strong></td>
+<td>Graph/pivot on opportunities</td>
+</tr>
+<tr>
+<td><strong>Reporting → Leads Analysis</strong></td>
+<td>Graph/pivot on leads</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="typical-workflow">Typical workflow</h2>
+<ol>
+<li><strong>Create a lead</strong> — name, customer, expected revenue, source.</li>
+<li><strong>Qualify</strong> — move through stages (New → Qualified → Proposition).</li>
+<li><strong>Convert</strong> — use <strong>Convert</strong> on the form when the deal is real (lead → opportunity).</li>
+<li><strong>Win, lose, or merge</strong> — <strong>Won</strong> closes the deal; <strong>Lost</strong> records a reason and feedback; <strong>Merge</strong> combines duplicate opportunities.</li>
+</ol>
+<h2 id="when-you-mark-a-deal-won">When you mark a deal Won</h2>
+<p>If <strong>Sales CRM Bridge</strong> is installed and the opportunity has a <strong>customer</strong>, Sumeru automatically creates a <strong>draft quotation</strong> in Sales.</p>
+<h2 id="sales-teams">Sales teams</h2>
+<p>Managers can configure <strong>teams</strong>. Round-robin assignment is the <strong>Assign Leads</strong> button on the team form (not a bundled scheduled job).</p>
+<h2 id="configuration-managers">Configuration (managers)</h2>
+<ul>
+<li><strong>Stages</strong> — pipeline columns</li>
+<li><strong>Tags</strong> — classify leads</li>
+<li><strong>Lost reasons</strong> — why deals failed</li>
+<li><strong>Sales teams</strong> — groups and assignment rules</li>
+</ul>
+<h2 id="tips">Tips</h2>
+<ul>
+<li>Set <strong>expected closing date</strong> for forecast views.</li>
+<li>Use <strong>activities</strong> to schedule calls and meetings (requires Mail app).</li>
+<li>Add <strong>UTM</strong> campaign/source for marketing reports.</li>
+</ul>
+<h2 id="export-and-import-leads">Export and import leads</h2>
+<p>The <strong>Leads</strong> list supports <strong>Report</strong> (when enabled by your team):</p>
+<ul>
+<li>Export leads to CSV or PDF for analysis or sharing</li>
+<li>Bulk-import leads from a spreadsheet (template → upload → map columns → preview → confirm)</li>
+</ul>
+<p>See <a href="../platform/export-and-import.html">Export and import</a>.</p>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><a href="sales.html">Sales</a></li>
+<li><a href="../workflows/lead-to-cash.html">Lead to cash</a></li>
+</ul>
+
+        <nav class="docs-next" aria-label="Page"><a class="is-prev" href="../platform/contacts-and-partners.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Contacts and partners</span></a><a class="is-next" href="sales.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Sales &rarr;</span></a></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). <a href="https://github.com/ProjectMeru/sumeru/issues/new/choose">Was this helpful?</a> · Part of <a href="../../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 
@@ -134,23 +161,8 @@
       <ul class="docs-toc-list"></ul>
     </aside>
   </div>
-  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
-    <div class="docs-search-backdrop" data-search-close></div>
-    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
-      <div class="docs-search-input-wrap">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
-        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
-        <kbd class="docs-kbd">Esc</kbd>
-      </div>
-      <ul class="docs-search-results" data-search-results role="listbox"></ul>
-      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
-    </div>
-  </div>
 
-  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
-  <script src="../../js/docs-nav-data.js"></script>
-  <script src="../../js/fuse.min.js"></script>
-  <script src="../../js/docs-search.js"></script>
   <script src="../../js/docs.js"></script>
+  <script src="../../js/docs-search-index.js"></script>
 </body>
 </html>

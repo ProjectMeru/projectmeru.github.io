@@ -81,7 +81,7 @@
         <p class="docs-lede">Commands and generators used every day while developing Sumeru.</p>
         <h2 id="run-the-server">Run the server</h2>
         <p>From <strong><code>sumeru/</code></strong> (core) or <strong><code>sumeru_custom_addons/</code></strong> (workspace):</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8e1afe88">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-456d8fc8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -96,7 +96,7 @@ make dev      # alias for make run"><pre class="docs-pre is-shell"><code><span c
         <p><code>make run</code> always regenerates Go imports and rebuilds client assets when bundles are missing or SWC sources changed. Requires <strong>Node.js</strong> (npm).</p>
         <p>In the workspace use <code>make install MODULES=x</code> and <code>make update MODULES=x</code> instead of raw <code>go run</code>.</p>
         <h2 id="client-assets-swc">Client assets (SWC)</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-c2f7bcc1">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-83d84a09">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -111,7 +111,7 @@ make check      # swc-check + go test ./..."><pre class="docs-pre is-shell"><cod
 </div>
         <p>Outputs under <code>core/engine/assets/swc/</code> and <code>core/engine/assets/js/</code> are <strong>gitignored</strong>. The workspace delegates <code>make assets</code> / <code>make swc</code> to <code>../sumeru</code>.</p>
         <h2 id="database-i18n-and-module-utilities">Database, i18n, and module utilities</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-0f833e45">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-bbd92ad1">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -127,7 +127,7 @@ make shell          # interactive ORM REPL"><pre class="docs-pre is-shell"><code
   </div>
 </div>
         <p>Standalone binaries:</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-d4ce0db1">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-54c2e433">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -140,7 +140,7 @@ go run ./cmd/sumeru-shell -- -c sumeru.conf"><pre class="docs-pre is-shell"><cod
   </div>
 </div>
         <h2 id="refresh-addon-go-imports-zimportsgo">Refresh addon Go imports (<code>zimports.go</code>)</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-42d6cc00">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-f877e035">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -155,7 +155,7 @@ cd sumeru_custom_addons &amp;&amp; make generate"><pre class="docs-pre is-shell"
         <p>Runs <strong><code>cmd/sumeru-import-gen</code></strong> with the workspace INI <code>addons_path</code>. See <strong><code>sumeru_custom_addons/README.md</code></strong>.</p>
         <h2 id="scaffold-a-new-addon-sumeru-bp">Scaffold a new addon (<code>sumeru-bp</code>)</h2>
         <p>From <strong><code>sumeru</code></strong> (kernel addons) or <strong><code>sumeru_custom_addons</code></strong> (<code>make new MODULE=x</code>):</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8c1dc824">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-9f762daa">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -169,7 +169,7 @@ make install MODULES=my_app  # workspace"><pre class="docs-pre is-shell"><code><
   </div>
 </div>
         <h2 id="tests">Tests</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-8eb7fa08">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-fe792ade">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>

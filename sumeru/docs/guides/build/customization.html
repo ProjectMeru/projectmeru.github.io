@@ -81,7 +81,7 @@
         <p class="docs-lede">Extend Sumeru without forking <code>sumeru_addons</code>. Use <strong>view xpath inherit</strong> for UI changes and <strong><code>inherit=</code></strong> Go structs for new fields on existing models.</p>
         <h2 id="custom-addon-workspace">Custom addon workspace</h2>
         <p>Run the server from <code>sumeru_custom_addons</code> and point <code>addons_path</code> at core, standard, and your tree:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-ed66f833">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-9e3b155b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -95,7 +95,7 @@
         <p>Scaffold: <code>make bp MODULE=my_client_crm</code> (see <a href="tooling.html">Tooling</a>).</p>
         <h2 id="model-inherit-inherit">Model inherit (<code>inherit=</code>)</h2>
         <p>Add fields to an existing model from a dependent module:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-16647d0b">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d67abff8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -115,7 +115,7 @@
         <p>Full how-to: <a href="howtos/model-inherit.html">Model inherit</a>. Live example: <code>sumeru/addons/contacts/models/partner_extend.go</code>.</p>
         <h2 id="view-xml-inheritance">View XML inheritance</h2>
         <p>Patch another module's view arch with xpath:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-fbf6a426">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4a2e7aea">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -145,7 +145,7 @@
         <p>When two standard apps need new automation (e.g. Won → quotation), add a small bridge module with <code>depends</code> on both — see <a href="../../addons/howtos/add-bridge-module.html">Add bridge module</a>. Example: <code>sale_crm</code> in <code>sumeru_addons</code>.</p>
         <h2 id="events-instead-of-forks">Events instead of forks</h2>
         <p>Subscribe to <code>record.updated</code> / <code>record.created</code> in your addon <code>init.go</code> instead of copying standard module Go code:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-74f14e9a">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-ad40e154">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
