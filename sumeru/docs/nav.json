@@ -1,425 +1,26 @@
 {
   "tracks": [
     {
-      "id": "guides",
-      "label": "Guides",
-      "href": "index.html"
-    },
-    {
-      "id": "reference",
-      "label": "Reference",
-      "href": "reference/index.html"
-    },
-    {
-      "id": "addons",
-      "label": "Addons",
-      "href": "addons/index.html"
-    },
-    {
       "id": "business",
       "label": "Business",
       "href": "using/index.html"
+    },
+    {
+      "id": "developers",
+      "label": "Developers",
+      "href": "index.html"
+    },
+    {
+      "id": "maintainers",
+      "label": "Maintainers",
+      "href": "guides/maintainers/index.html"
     }
   ],
   "sidebars": {
-    "guides": [
-      {
-        "id": "start",
-        "title": "Start Here",
-        "items": [
-          {
-            "title": "Introduction",
-            "href": "index.html"
-          },
-          {
-            "title": "Installation",
-            "href": "guides/start/installation.html"
-          },
-          {
-            "title": "Configuration",
-            "href": "guides/start/configuration.html"
-          },
-          {
-            "title": "First boot",
-            "href": "guides/start/first-boot.html"
-          },
-          {
-            "title": "Troubleshooting",
-            "href": "guides/start/troubleshooting.html"
-          }
-        ]
-      },
-      {
-        "id": "build",
-        "title": "Building an Application",
-        "items": [
-          {
-            "title": "Build your first module",
-            "href": "guides/build/build-your-first-module.html"
-          },
-          {
-            "title": "Creating an addon",
-            "href": "guides/build/creating-an-addon.html"
-          },
-          {
-            "title": "Custom addons workspace",
-            "href": "guides/build/custom-addons-workspace.html"
-          },
-          {
-            "title": "Project structure",
-            "href": "guides/build/project-structure.html"
-          },
-          {
-            "title": "Manifests & depends",
-            "href": "guides/build/manifests-and-depends.html"
-          },
-          {
-            "title": "Models & fields",
-            "href": "guides/build/models-and-fields.html"
-          },
-          {
-            "title": "Views & menus",
-            "href": "guides/build/views-and-menus.html"
-          },
-          {
-            "title": "View inheritance",
-            "href": "guides/build/view-inheritance.html"
-          },
-          {
-            "title": "Model inheritance",
-            "href": "guides/build/model-inheritance.html"
-          },
-          {
-            "title": "Add menu and action",
-            "href": "guides/build/add-menu-and-action.html"
-          },
-          {
-            "title": "Install a module",
-            "href": "guides/build/install-module.html"
-          },
-          {
-            "title": "Update a module",
-            "href": "guides/build/update-module.html"
-          },
-          {
-            "title": "Build a module with SWC",
-            "href": "guides/build/build-module-with-swc.html"
-          },
-          {
-            "title": "Report engine",
-            "href": "guides/build/report-engine.html"
-          },
-          {
-            "title": "Template PDF reports",
-            "href": "guides/build/template-reports.html"
-          },
-          {
-            "title": "Reference ERP patterns",
-            "href": "guides/build/reference-erp-patterns.html"
-          },
-          {
-            "title": "Creating APIs",
-            "href": "guides/build/creating-apis.html"
-          },
-          {
-            "title": "Customization",
-            "href": "guides/build/customization.html"
-          },
-          {
-            "title": "Security & access",
-            "href": "guides/build/security-and-access.html"
-          },
-          {
-            "title": "Data XML",
-            "href": "guides/build/data-xml.html"
-          },
-          {
-            "title": "Events & automation",
-            "href": "guides/build/events-and-automation.html"
-          },
-          {
-            "title": "JSON-RPC API",
-            "href": "guides/build/json-rpc-api.html"
-          },
-          {
-            "title": "Naming conventions",
-            "href": "guides/build/naming-conventions.html"
-          },
-          {
-            "title": "Tooling",
-            "href": "guides/build/tooling.html"
-          },
-          {
-            "title": "Testing",
-            "href": "guides/build/testing.html"
-          },
-          {
-            "title": "Deployment",
-            "href": "guides/build/deployment.html"
-          },
-          {
-            "title": "Scale architecture",
-            "href": "guides/build/scale-architecture.html"
-          }
-        ]
-      },
-      {
-        "id": "concepts",
-        "title": "Core Concepts",
-        "items": [
-          {
-            "title": "Three modules",
-            "href": "guides/concepts/three-modules.html"
-          },
-          {
-            "title": "Architecture layers",
-            "href": "guides/concepts/architecture-layers.html"
-          },
-          {
-            "title": "ORM",
-            "href": "guides/concepts/orm.html"
-          },
-          {
-            "title": "Module loader",
-            "href": "guides/concepts/module-loader.html"
-          },
-          {
-            "title": "Engine & server",
-            "href": "guides/concepts/engine-and-server.html"
-          },
-          {
-            "title": "Web & render",
-            "href": "guides/concepts/web-and-render.html"
-          },
-          {
-            "title": "SWC architecture",
-            "href": "guides/concepts/swc-architecture.html"
-          },
-          {
-            "title": "SWC widgets",
-            "href": "guides/concepts/swc-widgets.html"
-          },
-          {
-            "title": "Arch JSON pipeline",
-            "href": "guides/concepts/arch-json-pipeline.html"
-          },
-          {
-            "title": "Sum template",
-            "href": "guides/concepts/sum-template.html"
-          },
-          {
-            "title": "SWC Vision devtools",
-            "href": "guides/concepts/swc-devtools.html"
-          },
-          {
-            "title": "Event bus",
-            "href": "guides/concepts/event-bus.html"
-          },
-          {
-            "title": "Scheduler",
-            "href": "guides/concepts/scheduler.html"
-          },
-          {
-            "title": "Cache",
-            "href": "guides/concepts/cache.html"
-          },
-          {
-            "title": "SDK",
-            "href": "guides/concepts/sdk.html"
-          }
-        ]
-      },
-      {
-        "id": "security",
-        "title": "Security",
-        "items": [
-          {
-            "title": "Overview",
-            "href": "guides/security/overview.html"
-          },
-          {
-            "title": "Record rules",
-            "href": "guides/security/record-rules.html"
-          },
-          {
-            "title": "API keys",
-            "href": "guides/security/api-keys.html"
-          },
-          {
-            "title": "Isolation model",
-            "href": "guides/security/isolation-model.html"
-          }
-        ]
-      }
-    ],
-    "reference": [
-      {
-        "id": "reference",
-        "title": "Reference",
-        "items": [
-          {
-            "title": "Overview",
-            "href": "reference/index.html"
-          },
-          {
-            "title": "HTTP routes",
-            "href": "reference/http-routes.html"
-          },
-          {
-            "title": "SDK API",
-            "href": "reference/sdk-api.html"
-          },
-          {
-            "title": "JSON-RPC",
-            "href": "reference/json-rpc.html"
-          },
-          {
-            "title": "SWC API",
-            "href": "reference/swc-api.html"
-          },
-          {
-            "title": "SWC notifications",
-            "href": "reference/swc-notifications.html"
-          },
-          {
-            "title": "Events & cron",
-            "href": "reference/events-and-cron.html"
-          },
-          {
-            "title": "Multi-instance cron",
-            "href": "reference/multi-instance-cron.html"
-          },
-          {
-            "title": "Render hooks",
-            "href": "reference/render-hooks.html"
-          },
-          {
-            "title": "Kernel addons",
-            "href": "reference/kernel-addons.html"
-          },
-          {
-            "title": "Field types",
-            "href": "reference/field-types.html"
-          },
-          {
-            "title": "Field attributes",
-            "href": "reference/field-attributes.html"
-          },
-          {
-            "title": "Domain filters",
-            "href": "reference/domain-filters.html"
-          },
-          {
-            "title": "Widgets & views",
-            "href": "reference/widgets-and-views.html"
-          },
-          {
-            "title": "SWC widget catalog",
-            "href": "reference/swc-widget-catalog.html"
-          },
-          {
-            "title": "View types",
-            "href": "reference/view-types.html"
-          },
-          {
-            "title": "Limitations",
-            "href": "reference/limitations.html"
-          },
-          {
-            "title": "Platform gaps",
-            "href": "reference/platform-gaps.html"
-          }
-        ]
-      }
-    ],
-    "addons": [
-      {
-        "id": "addons-start",
-        "title": "Addons development",
-        "items": [
-          {
-            "title": "Overview",
-            "href": "addons/index.html"
-          },
-          {
-            "title": "Events & hooks",
-            "href": "addons/events-and-hooks.html"
-          },
-          {
-            "title": "Cross-module flows",
-            "href": "addons/cross-module-flows.html"
-          }
-        ]
-      },
-      {
-        "id": "addons-howtos",
-        "title": "How-tos",
-        "items": [
-          {
-            "title": "Engagements cookbook",
-            "href": "addons/howtos/engagement-cookbook.html"
-          },
-          {
-            "title": "Add bridge module",
-            "href": "addons/howtos/add-bridge-module.html"
-          },
-          {
-            "title": "Enable report on a view",
-            "href": "addons/howtos/enable-report-on-view.html"
-          },
-          {
-            "title": "Extend CRM pipeline",
-            "href": "addons/howtos/extend-crm-pipeline.html"
-          },
-          {
-            "title": "Custom HTTP route",
-            "href": "addons/howtos/custom-http-route.html"
-          }
-        ]
-      },
-      {
-        "id": "addons-modules",
-        "title": "Standard modules",
-        "items": [
-          {
-            "title": "CRM",
-            "href": "addons/modules/crm.html"
-          },
-          {
-            "title": "Sales",
-            "href": "addons/modules/sale.html"
-          },
-          {
-            "title": "Sales CRM bridge",
-            "href": "addons/modules/sale_crm.html"
-          },
-          {
-            "title": "Invoicing",
-            "href": "addons/modules/account.html"
-          },
-          {
-            "title": "Purchase",
-            "href": "addons/modules/purchase.html"
-          },
-          {
-            "title": "Products",
-            "href": "addons/modules/product.html"
-          },
-          {
-            "title": "HR",
-            "href": "addons/modules/hr.html"
-          },
-          {
-            "title": "UTM",
-            "href": "addons/modules/utm.html"
-          }
-        ]
-      }
-    ],
     "business": [
       {
         "id": "biz-start",
-        "title": "Getting started",
+        "title": "Start",
         "items": [
           {
             "title": "Overview",
@@ -430,12 +31,16 @@
             "href": "using/getting-started/what-is-sumeru.html"
           },
           {
+            "title": "Local demo",
+            "href": "using/getting-started/demo.html"
+          },
+          {
             "title": "Logging in",
             "href": "using/getting-started/logging-in.html"
           },
           {
-            "title": "Apps & install",
-            "href": "guides/business/apps-and-install.html"
+            "title": "Installing apps",
+            "href": "using/getting-started/installing-apps.html"
           },
           {
             "title": "Feature matrix",
@@ -444,45 +49,53 @@
           {
             "title": "Glossary",
             "href": "using/glossary.html"
+          },
+          {
+            "title": "License",
+            "href": "guides/business/editions-and-licensing.html"
           }
         ]
       },
       {
-        "id": "biz-platform",
-        "title": "Platform",
+        "id": "biz-customize",
+        "title": "Run and customize",
         "items": [
           {
-            "title": "Business overview",
-            "href": "guides/business/overview.html"
+            "title": "Home and apps",
+            "href": "using/platform/home-and-apps.html"
           },
           {
-            "title": "Home & apps",
-            "href": "using/platform/home-and-apps.html"
+            "title": "Workspace",
+            "href": "using/platform/workspace-basics.html"
           },
           {
             "title": "App launcher",
             "href": "using/platform/app-launcher.html"
           },
           {
-            "title": "Workspace basics",
-            "href": "using/platform/workspace-basics.html"
+            "title": "Contacts",
+            "href": "using/platform/contacts-and-partners.html"
           },
           {
-            "title": "Contacts & partners",
-            "href": "using/platform/contacts-and-partners.html"
+            "title": "Settings",
+            "href": "using/platform/settings.html"
+          },
+          {
+            "title": "Access control",
+            "href": "guides/security/access-control.html"
           },
           {
             "title": "Export and import",
             "href": "using/platform/export-and-import.html"
           },
           {
-            "title": "Settings",
-            "href": "using/platform/settings.html"
+            "title": "Multi-company",
+            "href": "guides/business/multi-company.html"
           }
         ]
       },
       {
-        "id": "biz-modules",
+        "id": "biz-apps",
         "title": "Apps",
         "items": [
           {
@@ -506,6 +119,10 @@
             "href": "using/modules/products.html"
           },
           {
+            "title": "Inventory",
+            "href": "using/modules/inventory.html"
+          },
+          {
             "title": "Employees",
             "href": "using/modules/employees.html"
           },
@@ -516,154 +133,452 @@
         ]
       },
       {
-        "id": "biz-workflows",
-        "title": "Workflows",
+        "id": "biz-flows",
+        "title": "Business flows",
         "items": [
           {
-            "title": "Lead-to-cash",
-            "href": "guides/business/lead-to-cash.html"
+            "title": "Lead to cash",
+            "href": "using/workflows/lead-to-cash.html"
           },
           {
-            "title": "Procure-to-pay",
-            "href": "guides/business/procure-to-pay.html"
+            "title": "Procure to pay",
+            "href": "using/workflows/procure-to-pay.html"
           },
           {
-            "title": "Contacts & CRM",
+            "title": "Contacts and CRM",
             "href": "guides/business/contacts-and-crm.html"
           },
           {
-            "title": "Sales & invoicing",
+            "title": "Sales and invoicing",
             "href": "guides/business/sales-and-invoicing.html"
           },
           {
-            "title": "Purchase & HR",
+            "title": "Purchase and HR",
             "href": "guides/business/purchase-and-hr.html"
+          }
+        ]
+      }
+    ],
+    "developers": [
+      {
+        "id": "dev-start",
+        "title": "Start",
+        "items": [
+          {
+            "title": "Introduction",
+            "href": "index.html"
           },
           {
-            "title": "Multi-company",
-            "href": "guides/business/multi-company.html"
+            "title": "Installation",
+            "href": "guides/start/installation.html"
           },
           {
-            "title": "Editions & licensing",
-            "href": "guides/business/editions-and-licensing.html"
+            "title": "Configuration",
+            "href": "guides/start/configuration.html"
+          },
+          {
+            "title": "First boot",
+            "href": "guides/start/first-run.html"
+          },
+          {
+            "title": "Troubleshooting",
+            "href": "guides/start/troubleshooting.html"
+          }
+        ]
+      },
+      {
+        "id": "dev-module",
+        "title": "Create a module",
+        "items": [
+          {
+            "title": "Build your first module",
+            "href": "guides/build/build-your-first-module.html"
+          },
+          {
+            "title": "Creating an addon",
+            "href": "guides/build/creating-an-addon.html"
+          },
+          {
+            "title": "Custom addons workspace",
+            "href": "guides/build/custom-addons-workspace.html"
+          },
+          {
+            "title": "Project structure",
+            "href": "guides/build/project-structure.html"
+          },
+          {
+            "title": "Manifests and depends",
+            "href": "guides/build/manifests-and-depends.html"
+          },
+          {
+            "title": "Models and fields",
+            "href": "guides/build/models-and-fields.html"
+          },
+          {
+            "title": "Field types",
+            "href": "reference/field-types.html"
+          },
+          {
+            "title": "Field attributes",
+            "href": "reference/field-attributes.html"
+          },
+          {
+            "title": "Views and menus",
+            "href": "guides/build/views-and-menus.html"
+          },
+          {
+            "title": "Add a menu and action",
+            "href": "guides/build/add-menu-and-action.html"
+          },
+          {
+            "title": "Install a module",
+            "href": "guides/build/install-module.html"
+          },
+          {
+            "title": "Update a module",
+            "href": "guides/build/update-module.html"
+          },
+          {
+            "title": "Naming",
+            "href": "guides/build/naming-conventions.html"
+          },
+          {
+            "title": "Commands",
+            "href": "guides/build/tooling.html"
+          },
+          {
+            "title": "Icons and assets",
+            "href": "guides/build/icons-and-assets.html"
+          }
+        ]
+      },
+      {
+        "id": "dev-extend",
+        "title": "Extend a module",
+        "items": [
+          {
+            "title": "Model inheritance",
+            "href": "guides/build/model-inheritance.html"
+          },
+          {
+            "title": "View inheritance",
+            "href": "guides/build/view-inheritance.html"
+          },
+          {
+            "title": "XPath cookbook",
+            "href": "guides/build/xpath-cookbook.html"
+          },
+          {
+            "title": "Customization",
+            "href": "guides/build/customization.html"
+          },
+          {
+            "title": "Bridge module",
+            "href": "addons/howtos/add-bridge-module.html"
+          },
+          {
+            "title": "Extend CRM",
+            "href": "addons/howtos/extend-crm-pipeline.html"
+          },
+          {
+            "title": "Events and hooks",
+            "href": "addons/events-and-hooks.html"
+          },
+          {
+            "title": "Cross-module flows",
+            "href": "addons/cross-module-flows.html"
+          }
+        ]
+      },
+      {
+        "id": "dev-security",
+        "title": "Access in modules",
+        "items": [
+          {
+            "title": "Groups, ACL, and record rules",
+            "href": "guides/security/access-control.html"
+          },
+          {
+            "title": "Record rules",
+            "href": "guides/security/record-rules.html"
+          },
+          {
+            "title": "Security and access",
+            "href": "guides/build/security-and-access.html"
+          },
+          {
+            "title": "Domain filters",
+            "href": "reference/domain-filters.html"
+          }
+        ]
+      },
+      {
+        "id": "dev-cookbook",
+        "title": "Cookbook",
+        "items": [
+          {
+            "title": "Engagements cookbook",
+            "href": "addons/howtos/engagement-cookbook.html"
+          },
+          {
+            "title": "Report engine",
+            "href": "guides/build/report-engine.html"
+          },
+          {
+            "title": "Template PDF reports",
+            "href": "guides/build/template-reports.html"
+          },
+          {
+            "title": "Enable a report",
+            "href": "addons/howtos/enable-report-on-view.html"
+          },
+          {
+            "title": "Logging",
+            "href": "guides/build/logging.html"
+          },
+          {
+            "title": "JSON-RPC",
+            "href": "reference/json-rpc.html"
+          },
+          {
+            "title": "Creating APIs",
+            "href": "guides/build/creating-apis.html"
+          },
+          {
+            "title": "Custom HTTP route",
+            "href": "addons/howtos/custom-http-route.html"
+          },
+          {
+            "title": "Events and cron",
+            "href": "reference/events-and-cron.html"
+          },
+          {
+            "title": "Build a module with SWC",
+            "href": "guides/build/build-module-with-swc.html"
+          },
+          {
+            "title": "View types",
+            "href": "reference/view-types.html"
+          },
+          {
+            "title": "Widget catalog",
+            "href": "reference/swc-widget-catalog.html"
+          },
+          {
+            "title": "Standard modules",
+            "href": "addons/index.html"
+          }
+        ]
+      }
+    ],
+    "maintainers": [
+      {
+        "id": "mnt-kernel",
+        "title": "Kernel",
+        "items": [
+          {
+            "title": "How the kernel runs",
+            "href": "guides/maintainers/index.html"
+          },
+          {
+            "title": "Architecture layers",
+            "href": "guides/concepts/architecture-layers.html"
+          },
+          {
+            "title": "Module loader",
+            "href": "guides/concepts/module-loader.html"
+          },
+          {
+            "title": "Kernel addons",
+            "href": "reference/kernel-addons.html"
+          },
+          {
+            "title": "ORM boundaries",
+            "href": "guides/concepts/orm-boundaries.html"
+          },
+          {
+            "title": "SDK API",
+            "href": "reference/sdk-api.html"
+          },
+          {
+            "title": "Limitations",
+            "href": "reference/limitations.html"
+          }
+        ]
+      },
+      {
+        "id": "mnt-runtime",
+        "title": "Runtime",
+        "items": [
+          {
+            "title": "Web and render",
+            "href": "guides/concepts/web-and-render.html"
+          },
+          {
+            "title": "SWC architecture",
+            "href": "guides/concepts/swc-architecture.html"
+          },
+          {
+            "title": "Arch JSON pipeline",
+            "href": "guides/concepts/arch-json-pipeline.html"
+          },
+          {
+            "title": "Sum template",
+            "href": "guides/concepts/sum-template.html"
+          },
+          {
+            "title": "SWC widgets",
+            "href": "guides/concepts/swc-widgets.html"
+          },
+          {
+            "title": "SWC API",
+            "href": "reference/swc-api.html"
+          },
+          {
+            "title": "SWC notifications",
+            "href": "reference/swc-notifications.html"
+          },
+          {
+            "title": "SWC devtools",
+            "href": "guides/concepts/swc-devtools.html"
+          },
+          {
+            "title": "HTTP routes",
+            "href": "reference/http-routes.html"
+          },
+          {
+            "title": "Render hooks",
+            "href": "reference/render-hooks.html"
+          },
+          {
+            "title": "Event bus and cron",
+            "href": "reference/events-and-cron.html"
+          },
+          {
+            "title": "Multi-instance cron",
+            "href": "reference/multi-instance-cron.html"
+          },
+          {
+            "title": "Scale",
+            "href": "guides/build/scale-architecture.html"
+          }
+        ]
+      },
+      {
+        "id": "mnt-reference",
+        "title": "Reference",
+        "items": [
+          {
+            "title": "Reference index",
+            "href": "reference/index.html"
+          },
+          {
+            "title": "Widgets and views",
+            "href": "reference/widgets-and-views.html"
+          },
+          {
+            "title": "Configuration",
+            "href": "guides/start/configuration.html"
           }
         ]
       }
     ]
   },
   "pageTrack": {
-    "index.html": "guides",
-    "guides/start/installation.html": "guides",
-    "guides/start/configuration.html": "guides",
-    "guides/start/first-boot.html": "guides",
-    "guides/start/troubleshooting.html": "guides",
-    "guides/build/build-your-first-module.html": "guides",
-    "guides/build/creating-an-addon.html": "guides",
-    "guides/build/custom-addons-workspace.html": "guides",
-    "guides/build/project-structure.html": "guides",
-    "guides/build/manifests-and-depends.html": "guides",
-    "guides/build/models-and-fields.html": "guides",
-    "guides/build/views-and-menus.html": "guides",
-    "guides/build/view-inheritance.html": "guides",
-    "guides/build/model-inheritance.html": "guides",
-    "guides/build/add-menu-and-action.html": "guides",
-    "guides/build/install-module.html": "guides",
-    "guides/build/update-module.html": "guides",
-    "guides/build/build-module-with-swc.html": "guides",
-    "guides/build/report-engine.html": "guides",
-    "guides/build/template-reports.html": "guides",
-    "guides/build/reference-erp-patterns.html": "guides",
-    "guides/build/creating-apis.html": "guides",
-    "guides/build/customization.html": "guides",
-    "guides/build/security-and-access.html": "guides",
-    "guides/build/data-xml.html": "guides",
-    "guides/build/events-and-automation.html": "guides",
-    "guides/build/json-rpc-api.html": "guides",
-    "guides/build/naming-conventions.html": "guides",
-    "guides/build/tooling.html": "guides",
-    "guides/build/testing.html": "guides",
-    "guides/build/deployment.html": "guides",
-    "guides/build/scale-architecture.html": "guides",
-    "guides/concepts/three-modules.html": "guides",
-    "guides/concepts/architecture-layers.html": "guides",
-    "guides/concepts/orm.html": "guides",
-    "guides/concepts/module-loader.html": "guides",
-    "guides/concepts/engine-and-server.html": "guides",
-    "guides/concepts/web-and-render.html": "guides",
-    "guides/concepts/swc-architecture.html": "guides",
-    "guides/concepts/swc-widgets.html": "guides",
-    "guides/concepts/arch-json-pipeline.html": "guides",
-    "guides/concepts/sum-template.html": "guides",
-    "guides/concepts/swc-devtools.html": "guides",
-    "guides/concepts/event-bus.html": "guides",
-    "guides/concepts/scheduler.html": "guides",
-    "guides/concepts/cache.html": "guides",
-    "guides/concepts/sdk.html": "guides",
-    "guides/security/overview.html": "guides",
-    "guides/security/record-rules.html": "guides",
-    "guides/security/api-keys.html": "guides",
-    "guides/security/isolation-model.html": "guides",
-    "reference/index.html": "reference",
-    "reference/http-routes.html": "reference",
-    "reference/sdk-api.html": "reference",
-    "reference/json-rpc.html": "reference",
-    "reference/swc-api.html": "reference",
-    "reference/swc-notifications.html": "reference",
-    "reference/events-and-cron.html": "reference",
-    "reference/multi-instance-cron.html": "reference",
-    "reference/render-hooks.html": "reference",
-    "reference/kernel-addons.html": "reference",
-    "reference/field-types.html": "reference",
-    "reference/field-attributes.html": "reference",
-    "reference/domain-filters.html": "reference",
-    "reference/widgets-and-views.html": "reference",
-    "reference/swc-widget-catalog.html": "reference",
-    "reference/view-types.html": "reference",
-    "reference/limitations.html": "reference",
-    "reference/platform-gaps.html": "reference",
-    "addons/index.html": "addons",
-    "addons/events-and-hooks.html": "addons",
-    "addons/cross-module-flows.html": "addons",
-    "addons/howtos/engagement-cookbook.html": "addons",
-    "addons/howtos/add-bridge-module.html": "addons",
-    "addons/howtos/enable-report-on-view.html": "addons",
-    "addons/howtos/extend-crm-pipeline.html": "addons",
-    "addons/howtos/custom-http-route.html": "addons",
-    "addons/modules/crm.html": "addons",
-    "addons/modules/sale.html": "addons",
-    "addons/modules/sale_crm.html": "addons",
-    "addons/modules/account.html": "addons",
-    "addons/modules/purchase.html": "addons",
-    "addons/modules/product.html": "addons",
-    "addons/modules/hr.html": "addons",
-    "addons/modules/utm.html": "addons",
+    "index.html": "developers",
     "using/index.html": "business",
     "using/getting-started/what-is-sumeru.html": "business",
+    "using/getting-started/demo.html": "business",
     "using/getting-started/logging-in.html": "business",
-    "guides/business/apps-and-install.html": "business",
+    "using/getting-started/installing-apps.html": "business",
     "using/feature-matrix.html": "business",
     "using/glossary.html": "business",
-    "guides/business/overview.html": "business",
+    "guides/business/editions-and-licensing.html": "business",
     "using/platform/home-and-apps.html": "business",
-    "using/platform/app-launcher.html": "business",
     "using/platform/workspace-basics.html": "business",
+    "using/platform/app-launcher.html": "business",
     "using/platform/contacts-and-partners.html": "business",
-    "using/platform/export-and-import.html": "business",
     "using/platform/settings.html": "business",
+    "guides/security/access-control.html": "developers",
+    "using/platform/export-and-import.html": "business",
+    "guides/business/multi-company.html": "business",
     "using/modules/crm.html": "business",
     "using/modules/sales.html": "business",
     "using/modules/invoicing.html": "business",
     "using/modules/purchase.html": "business",
     "using/modules/products.html": "business",
+    "using/modules/inventory.html": "business",
     "using/modules/employees.html": "business",
     "using/modules/marketing-tracking.html": "business",
-    "guides/business/lead-to-cash.html": "business",
-    "guides/business/procure-to-pay.html": "business",
+    "using/workflows/lead-to-cash.html": "business",
+    "using/workflows/procure-to-pay.html": "business",
     "guides/business/contacts-and-crm.html": "business",
     "guides/business/sales-and-invoicing.html": "business",
     "guides/business/purchase-and-hr.html": "business",
-    "guides/business/multi-company.html": "business",
-    "guides/business/editions-and-licensing.html": "business"
+    "guides/start/installation.html": "developers",
+    "guides/start/configuration.html": "maintainers",
+    "guides/start/first-run.html": "developers",
+    "guides/start/troubleshooting.html": "developers",
+    "guides/build/build-your-first-module.html": "developers",
+    "guides/build/creating-an-addon.html": "developers",
+    "guides/build/custom-addons-workspace.html": "developers",
+    "guides/build/project-structure.html": "developers",
+    "guides/build/manifests-and-depends.html": "developers",
+    "guides/build/models-and-fields.html": "developers",
+    "reference/field-types.html": "developers",
+    "reference/field-attributes.html": "developers",
+    "guides/build/views-and-menus.html": "developers",
+    "guides/build/add-menu-and-action.html": "developers",
+    "guides/build/install-module.html": "developers",
+    "guides/build/update-module.html": "developers",
+    "guides/build/naming-conventions.html": "developers",
+    "guides/build/tooling.html": "developers",
+    "guides/build/icons-and-assets.html": "developers",
+    "guides/build/model-inheritance.html": "developers",
+    "guides/build/view-inheritance.html": "developers",
+    "guides/build/xpath-cookbook.html": "developers",
+    "guides/build/customization.html": "developers",
+    "addons/howtos/add-bridge-module.html": "developers",
+    "addons/howtos/extend-crm-pipeline.html": "developers",
+    "addons/events-and-hooks.html": "developers",
+    "addons/cross-module-flows.html": "developers",
+    "guides/security/record-rules.html": "developers",
+    "guides/build/security-and-access.html": "developers",
+    "reference/domain-filters.html": "developers",
+    "addons/howtos/engagement-cookbook.html": "developers",
+    "guides/build/report-engine.html": "developers",
+    "guides/build/template-reports.html": "developers",
+    "addons/howtos/enable-report-on-view.html": "developers",
+    "guides/build/logging.html": "developers",
+    "reference/json-rpc.html": "developers",
+    "guides/build/creating-apis.html": "developers",
+    "addons/howtos/custom-http-route.html": "developers",
+    "reference/events-and-cron.html": "maintainers",
+    "guides/build/build-module-with-swc.html": "developers",
+    "reference/view-types.html": "developers",
+    "reference/swc-widget-catalog.html": "developers",
+    "addons/index.html": "developers",
+    "guides/maintainers/index.html": "maintainers",
+    "guides/concepts/architecture-layers.html": "maintainers",
+    "guides/concepts/module-loader.html": "maintainers",
+    "reference/kernel-addons.html": "maintainers",
+    "guides/concepts/orm-boundaries.html": "maintainers",
+    "reference/sdk-api.html": "maintainers",
+    "reference/limitations.html": "maintainers",
+    "guides/concepts/web-and-render.html": "maintainers",
+    "guides/concepts/swc-architecture.html": "maintainers",
+    "guides/concepts/arch-json-pipeline.html": "maintainers",
+    "guides/concepts/sum-template.html": "maintainers",
+    "guides/concepts/swc-widgets.html": "maintainers",
+    "reference/swc-api.html": "maintainers",
+    "reference/swc-notifications.html": "maintainers",
+    "guides/concepts/swc-devtools.html": "maintainers",
+    "reference/http-routes.html": "maintainers",
+    "reference/render-hooks.html": "maintainers",
+    "reference/multi-instance-cron.html": "maintainers",
+    "guides/build/scale-architecture.html": "maintainers",
+    "reference/index.html": "maintainers",
+    "reference/widgets-and-views.html": "maintainers"
   },
   "learningPaths": [
     {
@@ -679,6 +594,9 @@
         "guides/build/views-and-menus.html",
         "guides/build/install-module.html",
         "guides/build/add-menu-and-action.html",
+        "guides/build/model-inheritance.html",
+        "guides/build/xpath-cookbook.html",
+        "guides/security/access-control.html",
         "addons/howtos/engagement-cookbook.html"
       ]
     }

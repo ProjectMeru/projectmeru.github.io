@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>How to extend a view with xpath inherit</h1>
         <p class="docs-lede"><strong>Goal:</strong> change another module's stored <strong><code>sys.view.arch</code></strong> by merging an xpath fragment (see <strong><code>inherit_id</code></strong> on <strong><code>sys.view</code></strong> records in module XML).</p>
         <h2 id="when-to-use">When to use</h2>
@@ -92,7 +92,7 @@
         </ol>
         <h2 id="live-example-contacts">Live example (contacts)</h2>
         <p>The kernel <strong>contacts</strong> addon adds <strong><code>customer_rank</code></strong> to <strong><code>core.partner</code></strong>. Add the field with <strong><code>inherit=</code></strong> first — see <a href="./model-inherit.html">Model inherit</a> — then expose it in the form:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-56fd9684">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-678f18cb">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -113,16 +113,17 @@
         <h2 id="caveats">Caveats</h2>
         <ul>
         <li>The merge runs on the <strong>serialized arch</strong>; xpath expressions must match that structure.</li>
-        <li>Duplicate targets (e.g. two <code>//field[@name='phone']</code>) match the <strong>first</strong> occurrence only.</li>
+        <li>Two nodes that match the same expression are an error. Add a 1-based index, for example <code>//field[@name='phone'][2]</code>.</li>
         <li>Errors print as view-inherit warnings during sync; fix xpath and re-run <strong><code>-u</code></strong>.</li>
         </ul>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li><a href="./model-inherit.html">Model inherit</a> — add fields with <code>inherit=</code> before xpath</li>
+        <li><a href="model-inheritance.html">Model inherit</a> — add fields with <code>inherit=</code> before xpath</li>
+        <li><a href="xpath-cookbook.html">XPath cookbook</a> — positions, <code>hasclass</code>, and <code><attribute></code></li>
         <li><a href="views-and-menus.html">Views, actions, and menus</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

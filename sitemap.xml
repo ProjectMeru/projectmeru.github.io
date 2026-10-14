@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-index.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-start-installation.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-start-configuration.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-start-first-boot.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-creating-an-addon.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-project-structure.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-manifests-and-depends.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-models-and-fields.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-views-and-menus.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-report-engine.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-security-and-access.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-data-xml.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-events-and-automation.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-json-rpc-api.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-testing.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-build-deployment.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-three-modules.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-orm.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-module-loader.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-engine-and-server.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-event-bus.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-scheduler.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-cache.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-concepts-sdk.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-overview.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-apps-and-install.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-lead-to-cash.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-contacts-and-crm.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-sales-and-invoicing.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-purchase-and-hr.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-multi-company.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-business-editions-and-licensing.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-security-overview.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-security-api-keys.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/website-guides-security-isolation-model.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/http-routes.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/sdk-api.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/json-rpc.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/swc-api.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/events-and-cron.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/render-hooks.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/kernel-addons.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/overview.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/manifest-and-layout.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/events-and-hooks.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/enable-report-on-view.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/extend-crm-pipeline.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/custom-http-route.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/using/getting-started/what-is-sumeru.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/workspace-basics.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/export-and-import.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/settings.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/index.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/reference/feature-matrix.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/reference/doc-changelog.html</loc></url>
@@ -29,21 +81,9 @@
   <url><loc>https://projectmeru.github.io/sumeru/docs/howtos/view-inherit-xpath.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/howtos/custom-addons-workspace.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/howtos/troubleshooting.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/sdk-api.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/http-routes.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/json-rpc.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/events-and-cron.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/render-hooks.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/reference/kernel-addons.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/index.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/overview.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/manifest-and-layout.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/events-and-hooks.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/cross-module-flows.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/extend-crm-pipeline.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/enable-report-on-view.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/add-bridge-module.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/custom-http-route.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/modules/utm.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/modules/product.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/modules/crm.html</loc></url>
@@ -53,14 +93,10 @@
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/modules/purchase.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/addons/modules/hr.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/index.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/using/getting-started/what-is-sumeru.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/getting-started/logging-in.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/getting-started/installing-apps.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/home-and-apps.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/workspace-basics.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/export-and-import.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/app-launcher.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/settings.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/platform/contacts-and-partners.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/modules/crm.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/modules/sales.html</loc></url>
@@ -72,35 +108,37 @@
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/workflows/lead-to-cash.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/workflows/procure-to-pay.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/using/glossary.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/events-and-automation.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/testing.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/scheduler.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/apps-and-install.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/creating-an-addon.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/json-rpc-api.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/views-and-menus.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/add-menu-and-action.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/three-modules.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/security/api-keys.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/lead-to-cash.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/editions-and-licensing.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/data-xml.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/overview.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/orm.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/cache.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/start/first-boot.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/sales-and-invoicing.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/purchase-and-hr.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/project-structure.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/manifests-and-depends.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/deployment.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/module-loader.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/engine-and-server.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/security-and-access.html</loc></url>
-  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/event-bus.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/guides/security/overview.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/cache.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/security/api-keys.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/testing.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/orm.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/module-loader.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/scheduler.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/manifest-and-layout.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/security-and-access.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/data-xml.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/deployment.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/event-bus.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/contacts-and-crm.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/custom-addons-workspace.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/models-and-fields.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/json-rpc-api.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/security/isolation-model.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/my-module-cookbook.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/apps-and-install.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/lead-to-cash.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/purchase-and-hr.html</loc></url>
   <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/multi-company.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/engine-and-server.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/concepts/sdk.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/sales-and-invoicing.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/events-and-automation.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/editions-and-licensing.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/build/views-and-menus.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/start/first-boot.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/guides/business/overview.html</loc></url>
+  <url><loc>https://projectmeru.github.io/sumeru/docs/addons/howtos/scaffold-new-addon.html</loc></url>
 </urlset>

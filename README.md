@@ -14,11 +14,11 @@
 
 | Project     | Status           | Category             | Site               |
 | ----------- | ---------------- | -------------------- | ------------------ |
-| **Sumeru**  | Pre-alpha · live | ERP (Go, PostgreSQL) | [sumeru/](sumeru/) |
+| **Sumeru**  | Alpha kernel · live | ERP (Go, PostgreSQL) | [sumeru/](sumeru/) |
 | **Tooling** | Planned          | Developer utilities  | —                  |
 | **Infra**   | Planned          | Infrastructure       | —                  |
 
-**Sumeru (pre-alpha).** There is no tagged release and no supported upgrade path. Do not use it for production workloads. Source code: [sumeru](https://github.com/ProjectMeru/sumeru), [sumeru_addons](https://github.com/ProjectMeru/sumeru_addons), [sumeru_custom_addons](https://github.com/ProjectMeru/sumeru_custom_addons).
+**Sumeru (alpha platform kernel).** There is no tagged release and no supported upgrade path. Do not use it for production workloads. Source code: [sumeru](https://github.com/ProjectMeru/sumeru), [sumeru_addons](https://github.com/ProjectMeru/sumeru_addons), [sumeru_custom_addons](https://github.com/ProjectMeru/sumeru_custom_addons).
 
 ## Repository contents
 
@@ -41,4 +41,4 @@ Push to the default branch to publish on GitHub Pages.
 ## Licence
 
 - **This site:** content as marked on each page.
-- **Sumeru:** dual licensed — Community edition (Apache 2.0) and Enterprise edition (commercial licence, not yet available). See [editions](https://projectmeru.github.io/sumeru/editions.html).
+- **Sumeru:** Apache 2.0. See [license](https://projectmeru.github.io/sumeru/docs/guides/business/editions-and-licensing.html).

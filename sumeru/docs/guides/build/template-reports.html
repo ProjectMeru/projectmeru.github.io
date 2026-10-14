@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Template-driven PDF reports</h1>
         <p class="docs-lede">Sumeru ships <strong>tabular</strong> CSV/PDF/XLSX export from workspace views today (<code>core/report/export_csv.go</code>, <code>export_pdf.go</code>, <code>export_xlsx.go</code>). This guide describes the <strong>next step</strong>: layout PDFs for invoices, orders, and other printable documents — without a server-side XML template engine.</p>
         <h2 id="problem">Problem</h2>
@@ -87,7 +87,7 @@
         <tr><td>Charts in PDF</td><td>Not planned</td><td>Out of scope for v1</td></tr>
         </tbody></table>
         <h2 id="recommended-architecture-p0-spike">Recommended architecture (P0 spike)</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-206d37a3">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-f9a1948b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -116,7 +116,7 @@
         <li><strong>Serve</strong> via <code>GET /web/report/template-pdf?title=…&subtitle=…</code> (session required; spike — builds a demo layout from query params until action registration exists).</li>
         </ol>
         <h2 id="spike-api-implemented">Spike API (implemented)</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-6b921c91">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-dc6b2a53">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -147,7 +147,7 @@
         <p>Plain-text preview for tests: <code>report.RenderTemplatePDFText</code>.</p>
         <h2 id="xml-manifest-hook-future">XML / manifest hook (future)</h2>
         <p>Possible v2 declaration on views or actions:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-7a290bfc">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1d095ca6">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -172,7 +172,7 @@
         <li><a href="meta/platform-gaps.html">Platform gaps</a> — reporting roadmap</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

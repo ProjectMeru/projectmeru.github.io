@@ -69,20 +69,20 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Report engine</h1>
         <blockquote><p><strong>Website canonical copy:</strong> <a href="website/guides/build/report-engine.html">website/guides/build/report-engine.md</a> mirrors <a href="https://projectmeru.github.io/sumeru/docs/guides/build/report-engine.html">guides/build/report-engine.html</a>. Prefer editing the website HTML, then <code>make docs-mirror</code>.</p></blockquote>
         <p class="docs-lede">CSV/PDF <strong>download</strong> and CSV <strong>bulk import</strong> for workspace views. The engine lives <strong>only in <code>sumeru/</code></strong> (<code>core/report/</code>, <code>core/sdk/report.go</code>, web handlers, render + JS). Addons enable features with <strong>XML on views</strong> — no export/import Go code in <code>sumeru_addons/</code> or <code>sumeru_custom_addons/</code>.</p>
         <p>Reporting is <strong>opt-in per view</strong>. If a view has no report XML or widgets, no <strong>Report</strong> toolbar appears.</p>
         <h2 id="architecture">Architecture</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-e40294c1">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1f884e6b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -137,7 +137,7 @@
         <h2 id="enable-on-a-view-xml">Enable on a view (XML)</h2>
         <p>Three equivalent ways to declare capabilities. The parser merges them into one capability set.</p>
         <h3 id="option-1-report-child-recommended">Option 1 — <code><report></code> child (recommended)</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-d08710ad">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4f36dad4">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -156,7 +156,7 @@
 &lt;/view&gt;</code></pre></div></div>
 </div>
         <h3 id="option-2-view-attributes">Option 2 — View attributes</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-59bd37b5">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-14f34f94">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -179,7 +179,7 @@
 &lt;/view&gt;</code></pre></div></div>
 </div>
         <h3 id="option-3-header-widgets-form-or-list">Option 3 — Header widgets (form or list)</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-9fe9ba9d">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e55004db">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -227,7 +227,7 @@
         <p>List/kanban exports respect the <strong>window action domain</strong> (same rows as the current list, capped at 500). Form export uses the open record only.</p>
         <h2 id="bulk-upload-flow">Bulk upload flow</h2>
         <p>Bulk import <strong>reuses the same engine</strong> as export (field whitelist, coercion, ACL). There is <strong>no silent direct import</strong> — every upload goes through mapping and preview before data is written.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-abf767f7">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-f4ae7157">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -298,7 +298,7 @@
         </tbody></table>
         <p>To enable CRM lead export, add one line to the list view XML and update the module — <strong>no Go changes</strong> in the addon.</p>
         <p>Optional cell formatting for exports:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-ba7ad7fb">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-dae90d06">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -345,7 +345,7 @@ func init() {
         <li><a href="views-and-actions.html">Views, actions, and menus</a> — short XML summary</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>SWC widget catalog</h1>
         <p class="docs-lede">Built-in field widgets registered in <code>core/swc/src/widgets/registry.ts</code>. Reference a widget in view XML with <code>widget="…"</code> on <code><field></code>. When omitted, SWC infers a widget from the ORM field type.</p>
         <p><strong>Live form:</strong> <code>sumeru_custom_addons/addons/engagement_cookbook/views/form_view.xml</code> exercises every built-in widget — see <a href="../addons/howtos/engagement-cookbook.html">engagement_cookbook cookbook</a>.</p>
@@ -109,7 +109,7 @@
         </tbody></table>
         <h2 id="scalar-widgets">Scalar widgets</h2>
         <h3 id="default-char-email-integer-float">default / char / email / integer / float</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3cb7760f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-5d8e8feb">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -125,7 +125,7 @@
 </div>
         <p>Renders a text or number input. Email uses <code>type="email"</code>. Autocomplete tokens are inferred from field names (<code>email</code>, <code>phone</code>, <code>name</code>, …) in <code>field-shell.ts</code>.</p>
         <h3 id="text">text</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3590d2ca">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-db9ef635">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -137,7 +137,7 @@
 </div>
         <p>Multiline textarea for Text fields.</p>
         <h3 id="date-datetime">date / datetime</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-be9c013b">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-8d25a490">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -152,7 +152,7 @@
         <p>Native inline <code><input type="date"></code> or <code>datetime-local</code> with Today/Clear actions.</p>
         <h2 id="boolean-widgets">Boolean widgets</h2>
         <h3 id="boolean">boolean</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3363a7e7">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-95d18a89">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -164,7 +164,7 @@
 </div>
         <p>Standard checkbox in the field shell.</p>
         <h3 id="boolean-toggle">boolean_toggle</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-68c326ed">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-520eeeaf">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -176,7 +176,7 @@
 </div>
         <p>Compact toggle with On/Off label. Works in list and form views.</p>
         <h3 id="radio">radio</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-5c8b37c7">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fc985a69">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -189,7 +189,7 @@
         <p>Radio group for selection or boolean fields.</p>
         <h2 id="relational-widgets">Relational widgets</h2>
         <h3 id="many2one">many2one</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-21085c99">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-2847e173">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -203,7 +203,7 @@
 </div>
         <p>Autocomplete search with RPC <code>search_read</code>. Domain supports <code>$field_name$</code> placeholders.</p>
         <h3 id="many2many-tags">many2many_tags</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-22b7dc17">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-317ada53">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -215,7 +215,7 @@
 </div>
         <p>Tag chips with add/remove. Default widget for Many2many when <code>widget</code> is omitted.</p>
         <h3 id="one2many">one2many</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-96f904c0">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-cc579537">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -238,7 +238,7 @@
         <p>Embedded editable list. Opens dialog for create when configured.</p>
         <h2 id="special-widgets">Special widgets</h2>
         <h3 id="statusbar">statusbar</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-ecab9840">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3ac615a5">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -259,7 +259,7 @@
         <tr><td><code>relation</code></td><td>model name</td><td>Related model for state labels</td></tr>
         </tbody></table>
         <h3 id="priority">priority</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-a1bd54a6">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-693470f5">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -271,7 +271,7 @@
 </div>
         <p>Star rating or select dropdown. Options: <code>mode</code> (<code>stars</code> / <code>select</code>), <code>stars</code> / <code>max</code> (count).</p>
         <h3 id="image">image</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-492eded8">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c9c062c3">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -283,7 +283,7 @@
 </div>
         <p>Image upload with crop support. Use <code>options</code> for circle avatar on kanban.</p>
         <h3 id="monetary">monetary</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-f094e644">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a72f421b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -295,7 +295,7 @@
 </div>
         <p>Formatted currency display.</p>
         <h3 id="html">html</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-10c59618">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-85860694">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -307,7 +307,7 @@
 </div>
         <p>Read-only HTML preview or editable textarea depending on readonly mode.</p>
         <h3 id="binary">binary</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-4510b7c2">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-38f11d20">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -319,7 +319,7 @@
 </div>
         <p>File upload field.</p>
         <h3 id="reference">reference</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-06a0bc70">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0aa3e08f">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -331,7 +331,7 @@
 </div>
         <p>Generic model+id reference (limited v1 UI).</p>
         <h3 id="color">color</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-f45bc47d">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-a2d25707">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -343,7 +343,7 @@
 </div>
         <p>Color picker input.</p>
         <h3 id="url">url</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-fcc8f6b6">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fc7e9e02">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -355,7 +355,7 @@
 </div>
         <p>URL input with link affordance.</p>
         <h3 id="progress-progressbar">progress / progressbar</h3>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-db735e0b">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d89f193f">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -368,7 +368,7 @@
         <p>Progress bar for numeric completion fields.</p>
         <h2 id="custom-widgets">Custom widgets</h2>
         <p>Register from an addon entry module:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-df055d63">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b378e800">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -378,7 +378,7 @@
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="registry.category(&quot;fields&quot;).add(&quot;my_widget&quot;, MyWidgetClass);"><pre class="docs-pre"><code data-lang="typescript">registry.category("fields").add("my_widget", MyWidgetClass);</code></pre></div></div>
 </div>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-087581bf">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-cf251f1b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -395,7 +395,7 @@
         <li><a href="view-types.html">View types</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

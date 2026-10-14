@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Creating APIs</h1>
         <p class="docs-lede">Three ways to expose behaviour to clients and the workspace UI.</p>
         <h2 id="1-json-rpc-recommended-for-integrations">1. JSON-RPC (recommended for integrations)</h2>
@@ -85,7 +85,7 @@
         <p><strong>Methods:</strong> <code>search</code>, <code>search_read</code>, <code>read</code>, <code>create</code>, <code>write</code>, <code>unlink</code>, and batch variants.</p>
         <p>Full guide: <a href="json-rpc-api.html">JSON-RPC API</a>. Reference: <a href="../../reference/json-rpc.html">JSON-RPC</a>. API keys: <a href="../security/api-keys.html">API keys</a>.</p>
         <p>Example:</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-7b82573a">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-dc63a21e">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -110,7 +110,7 @@
         <p><strong>CSRF:</strong> Web POST handlers that mutate state require a CSRF token (<code>core/server/web/csrf.go</code>). API-key and GET routes follow different rules.</p>
         <h2 id="3-object-actions-workspace-buttons">3. Object actions (workspace buttons)</h2>
         <p>Register handlers for toolbar buttons on forms and lists:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-8b86671e">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-e2236141">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -141,7 +141,7 @@
         <li><a href="../../addons/events-and-hooks.html">Events & hooks</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

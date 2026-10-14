@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Record rules</h1>
         <p class="docs-lede">Record rules (<code>sys.rule</code>) restrict <strong>which rows</strong> a user sees or modifies, on top of model ACLs (<code>sys.access</code>). Same rules apply to the web UI and JSON-RPC.</p>
         <h2 id="when-to-use">When to use</h2>
@@ -97,7 +97,7 @@
         <p>Administrators edit rules under <strong>Settings → Security → Record rules</strong> when <code>security_admin.xml</code> is loaded.</p>
         <h2 id="loading-from-addons">Loading from addons</h2>
         <p>Place rules in <code>security/*_rules.xml</code> (or inline in <code>security.xml</code>). List the file in <code>manifest.json</code> → <code>data</code> after groups and ACLs.</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-f9c95e52">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-4ad5079a">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -130,7 +130,7 @@
         <p>Keep domains testable — overly complex rules are hard to debug.</p>
         <h2 id="multi-company-pattern">Multi-company pattern</h2>
         <p>Typical pattern for business documents:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-62ba3093">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b0841c7e">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -157,7 +157,7 @@
         <li><a href="../build/manifests-and-depends.html">Manifest & layout</a> — security load order</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

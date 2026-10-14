@@ -69,18 +69,18 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="maintainers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Arch JSON pipeline</h1>
         <p class="docs-lede">SWC never parses view XML in the browser. The Go kernel parses arch once per request and returns JSON that SWC components consume directly.</p>
         <h2 id="flow">Flow</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-85e84e0d">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-12f9add1">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -99,7 +99,7 @@
     → WorkspaceRouter → ListView / FormView / …</code></pre></div></div>
 </div>
         <h2 id="request">Request</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-586fb308">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-258ec47b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -122,7 +122,7 @@
         <tr><td><code>offset</code></td><td>List page offset</td></tr>
         </tbody></table>
         <h2 id="payload-shape">Payload shape</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-26b2ae3c">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-aa91f3e5">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -197,7 +197,7 @@
         <p>Records in the payload are ACL-redacted the same way as JSON-RPC reads.</p>
         <h2 id="kanban-extension">Kanban extension</h2>
         <p>For <code>type="kanban"</code>, the server adds grouped columns:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-d88fd554">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b9ba7c3d">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -231,7 +231,7 @@
         <li><a href="swc-architecture.html">SWC architecture</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

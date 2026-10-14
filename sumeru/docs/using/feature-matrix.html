@@ -69,23 +69,23 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
     <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-all">All</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-all">All</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Feature matrix</h1>
         <p class="docs-lede">Status of major functionality as of the last documentation review. Use this page when writing website copy or setting expectations with business users.</p>
         <table><thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead><tbody>
         <tr><td>PostgreSQL ORM + model sync</td><td><strong>Implemented</strong></td><td><code>sumeru/core/orm</code></td></tr>
         <tr><td>Addon manifests + install/update</td><td><strong>Implemented</strong></td><td><code>-i</code> / <code>-u</code> CLI flags; <code>-i all</code> supported</td></tr>
-        <tr><td>XML views (list, form, kanban, pivot, graph, calendar, gantt, map, cohort)</td><td><strong>Implemented</strong></td><td>SWC workspace; graph uses Chart.js over <code>read_group</code></td></tr>
+        <tr><td>XML views (list, form, kanban, graph, pivot, calendar, gantt, map, cohort, hierarchy, activity)</td><td><strong>Implemented</strong></td><td>SWC workspace; view inherit</td></tr>
         <tr><td>Model inherit (<code>inherit=</code> tag)</td><td><strong>Implemented</strong></td><td>Schema sync on <code>-u</code>; view xpath to expose fields</td></tr>
         <tr><td>List quick search</td><td><strong>Implemented</strong></td><td><code>?q=</code> on list views; <code>ilike</code> across visible columns</td></tr>
-        <tr><td>Security groups, ACLs, record rules</td><td><strong>Implemented</strong></td><td><code>sys.access</code>, <code>sys.rule</code></td></tr>
+        <tr><td>Groups, model ACL, field ACL, record rules</td><td><strong>Implemented</strong></td><td><code>core.group</code>, <code>sys.access</code>, <code>sys.field.access</code>, <code>sys.rule</code> (<code>$uid</code>, <code>$company_id</code>, <code>$company_ids</code>)</td></tr>
         <tr><td>Web shell (home, apps, settings)</td><td><strong>Implemented</strong></td><td><code>/web/home</code>, <code>/web/apps</code>, <code>/web/settings</code></td></tr>
         <tr><td>Pinned apps + recent apps</td><td><strong>Implemented</strong></td><td>Top bar + localStorage recents</td></tr>
         <tr><td>App launcher (Cmd+K)</td><td><strong>Implemented</strong></td><td>Menu/app name search — not AI</td></tr>
@@ -95,7 +95,7 @@
         <tr><td>Versioned SQL migrations</td><td><strong>Implemented</strong></td><td><code>migrations/*.sql</code> per module; <code>sumeru-migrate</code> CLI</td></tr>
         <tr><td>Setup wizard</td><td><strong>Implemented</strong></td><td><code>/setup</code> before first DB init</td></tr>
         <tr><td>Multi-company switch</td><td><strong>Implemented</strong></td><td>POST <code>/web/company/switch</code></td></tr>
-        <tr><td>Mail chatter + activities</td><td><strong>Implemented</strong></td><td>Requires <code>mail</code> addon</td></tr>
+        <tr><td>Mail chatter + activities</td><td><strong>Partial</strong></td><td><code>mail</code> addon: messages, followers, activities, outbound queue. No inbound IMAP</td></tr>
         <tr><td>Transactional email (SMTP)</td><td><strong>Partial</strong></td><td>Password reset when <code>smtp_host</code> / <code>smtp_from</code> configured</td></tr>
         <tr><td>Report download (CSV/PDF/XLSX)</td><td><strong>Partial</strong></td><td>CSV/PDF/XLSX list export opt-in via XML; tabular PDF only; max 500 rows</td></tr>
         <tr><td>Bulk CSV import with mapping</td><td><strong>Implemented</strong></td><td>Template → upload → <code>sys.bulk.import</code> → confirm</td></tr>
@@ -114,21 +114,21 @@
         <tr><td>sumeru_ai addon</td><td><strong>Partial</strong></td><td>Opt-in; search interceptor pass-through; placeholder UI hooks</td></tr>
         <tr><td>Natural language / AI search</td><td><strong>Planned</strong></td><td>Not shipped in core UX</td></tr>
         <tr><td>AI activity summaries</td><td><strong>Planned</strong></td><td>Chatter exists; no AI summaries</td></tr>
-        <tr><td>Production readiness</td><td><strong>Pre-alpha</strong></td><td>Not for live business use</td></tr>
+        <tr><td>Production readiness</td><td><strong>Alpha kernel</strong></td><td>Demos and custom modules. Not for production</td></tr>
         </tbody></table>
         <h2 id="platform-capability-map">Platform capability map</h2>
         <p>Mapping common ERP platform concepts to Sumeru — for implementers, not end-user parity claims. Full analysis: <a href="../reference/platform-gaps.html">Platform gaps</a>.</p>
         <table><thead><tr><th>ERP platform concept</th><th>Sumeru equivalent</th><th>Status</th></tr></thead><tbody>
-        <tr><td>Core platform / web shell</td><td><code>sumeru/addons/base</code> + <code>core/</code></td><td>Implemented (pre-alpha)</td></tr>
+        <tr><td>Core platform / web shell</td><td><code>sumeru/addons/base</code> + <code>core/</code></td><td>Implemented (alpha kernel)</td></tr>
         <tr><td>Scheduled jobs / automation</td><td><code>automation</code> + <code>core/scheduler</code></td><td>Implemented (Go handlers, declarative actions)</td></tr>
         <tr><td><code>read_group</code> aggregation</td><td><code>read_group</code> RPC + ORM</td><td>Implemented (sum/count)</td></tr>
         <tr><td>Object method RPC</td><td><code>call</code> RPC</td><td>Implemented (registered object actions only)</td></tr>
         <tr><td>Pivot / graph views</td><td>Pivot v1 (HTML table) + graph v1 (Chart.js)</td><td>Partial (read-only pivot; graph without drill-down/export)</td></tr>
         <tr><td>HTTP bind / DB pool tuning</td><td><code>http_interface</code>, pool INI keys</td><td>Implemented</td></tr>
         <tr><td>Install-all modules CLI</td><td><code>-i all</code> CLI</td><td>Implemented</td></tr>
-        <tr><td>Inventory / stock</td><td>—</td><td>Not present (deferred)</td></tr>
-        <tr><td>Website / eCommerce</td><td>—</td><td>Not present (deferred)</td></tr>
-        <tr><td>Customer portal</td><td>—</td><td>Not present (deferred)</td></tr>
+        <tr><td>Inventory / stock</td><td><code>sumeru_addons/stock</code></td><td>Minimal: warehouses, transfers, quants, lots</td></tr>
+        <tr><td>Website / eCommerce</td><td>—</td><td>Not in the kernel</td></tr>
+        <tr><td>Customer portal</td><td><code>/portal</code></td><td>Partial: shell and share links</td></tr>
         <tr><td>Country localizations</td><td>—</td><td>Not present (deferred)</td></tr>
         </tbody></table>
         <h2 id="standard-business-addons-sumeru-addons">Standard business addons (<code>sumeru_addons</code>)</h2>
@@ -141,10 +141,11 @@
         <tr><td><code>account</code></td><td><strong>Implemented</strong></td><td>SO/PO → invoice/bill; post; pay; reconcile</td></tr>
         <tr><td><code>purchase</code></td><td><strong>Implemented</strong></td><td>RFQ → PO → vendor bill (via account)</td></tr>
         <tr><td><code>hr</code></td><td><strong>Implemented</strong></td><td>Employee directory (no payroll)</td></tr>
+        <tr><td><code>stock</code></td><td><strong>Implemented</strong></td><td>Warehouses, transfers, quants, lots (not a full WMS)</td></tr>
         </tbody></table>
         <p><strong>Contacts</strong> and <strong>mail</strong> are kernel addons under <code>sumeru/addons/</code>, not in <code>sumeru_addons</code>.</p>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 
