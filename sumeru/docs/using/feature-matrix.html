@@ -89,7 +89,7 @@
         <tr><td>Web shell (home, apps, settings)</td><td><strong>Implemented</strong></td><td><code>/web/home</code>, <code>/web/apps</code>, <code>/web/settings</code></td></tr>
         <tr><td>Pinned apps + recent apps</td><td><strong>Implemented</strong></td><td>Top bar + localStorage recents</td></tr>
         <tr><td>App launcher (Cmd+K)</td><td><strong>Implemented</strong></td><td>Menu/app name search — not AI</td></tr>
-        <tr><td>JSON-RPC API</td><td><strong>Implemented</strong></td><td><code>POST /api/rpc</code>, session or API key</td></tr>
+        <tr><td>RPC API</td><td><strong>Implemented</strong></td><td><code>POST /api/rpc/{model}/{method}</code>, <code>auth.login</code>, session or API key</td></tr>
         <tr><td>JSON-RPC <code>read_group</code> / <code>call</code></td><td><strong>Implemented</strong></td><td>Aggregation + registered object actions</td></tr>
         <tr><td>Computed fields (Go registry)</td><td><strong>Partial</strong></td><td><code>RegisterCompute</code> on read; no automatic write-time dependency graph</td></tr>
         <tr><td>Versioned SQL migrations</td><td><strong>Implemented</strong></td><td><code>migrations/*.sql</code> per module; <code>sumeru-migrate</code> CLI</td></tr>

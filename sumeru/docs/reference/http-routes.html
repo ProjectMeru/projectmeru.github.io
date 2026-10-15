@@ -78,7 +78,7 @@
       <article class="docs-article">
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>HTTP routes</h1>
-        <p class="docs-lede">Route registration: <code>sumeru/core/server/web/routes_table.go</code>. Constants: <code>web_constants.go</code>. Live workspace I/O is <strong>SWC JSON</strong> (<code>GET /web/swc/workspace</code>) plus <strong>JSON-RPC</strong> (<code>POST /api/rpc</code>). Do not document removed HTML-workspace POSTs as live HTTP.</p>
+        <p class="docs-lede">Route registration: <code>sumeru/core/server/web/routes_table.go</code>. Constants: <code>web_constants.go</code>. Live workspace I/O is <strong>SWC JSON</strong> (<code>GET /web/swc/workspace</code>) plus <strong>RPC</strong> under <strong><code>/api/rpc/</code></strong> (path-based POST and model health GET). Do not document removed HTML-workspace POSTs as live HTTP.</p>
         <h2 id="auth-modes">Auth modes</h2>
         <table><thead><tr><th>Mode</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><strong>None</strong></td><td>Public (login, health, RPC with own auth)</td></tr>
@@ -90,7 +90,10 @@
         <tr><td>POST</td><td><code>/web/login</code></td><td>Submit credentials</td></tr>
         <tr><td>GET</td><td><code>/web/logout</code></td><td>End session</td></tr>
         <tr><td>GET</td><td><code>/api/health</code></td><td><code>{"ok":true}</code> liveness</td></tr>
-        <tr><td>POST</td><td><code>/api/rpc</code></td><td>JSON-RPC (session or API key)</td></tr>
+        <tr><td>GET</td><td><code>/api/ready</code></td><td>Readiness (database ping)</td></tr>
+        <tr><td>POST</td><td><code>/api/rpc/auth.login</code></td><td>Integrator login (database + tenant headers; returns API key)</td></tr>
+        <tr><td>POST</td><td><code>/api/rpc/{model}/{method}</code></td><td>Model RPC (session or API key + database + tenant headers)</td></tr>
+        <tr><td>GET</td><td><code>/api/rpc/{model}/health</code></td><td>Model registry probe (same auth as model POST)</td></tr>
         </tbody></table>
         <h2 id="setup-pre-init-only">Setup (pre-init only)</h2>
         <table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead><tbody>
@@ -109,7 +112,7 @@
         <tr><td>GET</td><td><code>/</code></td><td>Redirect → <code>/web/home</code></td></tr>
         </tbody></table>
         <h2 id="workspace">Workspace</h2>
-        <p>The <strong>live</strong> workspace is SWC: <code>GET /web/swc/workspace</code> plus JSON-RPC (<code>POST /api/rpc</code>). Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="swc-api.html">SWC API</a> and <a href="swc-notifications.html">SWC notifications</a>. Many2one typeahead and object buttons also go through RPC, not dedicated HTTP POSTs.</p>
+        <p>The <strong>live</strong> workspace is SWC: <code>GET /web/swc/workspace</code> plus <strong><code>POST /api/rpc/{model}/{method}</code></strong>. Save/delete/object feedback uses <code>env.services.notification</code> — see <a href="swc-api.html">SWC API</a> and <a href="swc-notifications.html">SWC notifications</a>. Many2one typeahead and object buttons also go through RPC, not dedicated HTTP POSTs.</p>
         <table><thead><tr><th>Method</th><th>Path</th><th>Purpose</th></tr></thead><tbody>
         <tr><td>GET</td><td><code>/web</code></td><td>Workspace shell (SWC SPA) — query: <code>action</code>, <code>menu_id</code>, <code>view_type</code>, <code>id</code>, <code>edit</code>, <code>model</code>, <code>filter</code>, <code>sort</code>, <code>offset</code>, <code>q</code></td></tr>
         <tr><td>GET</td><td><code>/web/swc/workspace</code></td><td>SWC workspace JSON (arch + records)</td></tr>

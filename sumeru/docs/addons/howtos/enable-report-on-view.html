@@ -83,7 +83,7 @@
         <blockquote><p><strong>Form toolbar:</strong> On form views, <strong>Report</strong> appears next to <strong>Save</strong> (not on list landing pages unless the list view also declares report XML). Prefer enabling report on the <strong>form</strong> when users export a single record from detail view.</p></blockquote>
         <h2 id="1-add-xml-to-the-view">1. Add XML to the view</h2>
         <p>In your module’s view file under <code>views/</code>, add a <code><report></code> child to the list or form view:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-761f2918">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b7c8982d">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -104,7 +104,7 @@
         <p>Live example: <code>sumeru_addons/crm/views/crm_lead_list_views.xml</code>.</p>
         <h3 id="shorthand-alternatives">Shorthand alternatives</h3>
         <p>View attributes:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-6df27ff7">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1fcc2b7c">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -115,7 +115,7 @@
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;list&quot; model=&quot;my_module.my_model&quot; report_download=&quot;csv,pdf&quot; bulk_upload=&quot;1&quot;&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view type="list" model="my_module.my_model" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre></div></div>
 </div>
         <p>Header widgets (forms):</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-0fd5e83b">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-686c4def">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -134,7 +134,7 @@
         <p>Full XML reference: <a href="core/guides/report-engine.md#enable-on-a-view-xml">Report engine</a>.</p>
         <h2 id="2-update-the-module">2. Update the module</h2>
         <p>From your Sumeru install directory:</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-fd4542ea">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-a00d929b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -154,7 +154,7 @@
         </ol>
         <h2 id="4-optional-custom-export-cell-text">4. Optional — custom export cell text</h2>
         <p>If a field needs special formatting in CSV/PDF (not in the UI), register a formatter in your addon <code>init()</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-810bba3a">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fb5b2eb8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
