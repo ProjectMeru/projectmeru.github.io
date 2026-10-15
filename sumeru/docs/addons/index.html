@@ -69,18 +69,18 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Addons overview</h1>
         <p class="docs-lede"><strong>Repository:</strong> <code>sumeru_addons/</code> — Tier 2 standard business apps. Depends only on <code>sumeru</code> (Go module <code>replace sumeru => ../sumeru</code>).</p>
         <h2 id="three-repo-architecture">Three-repo architecture</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-5e8270f3">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-702d3468">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -108,7 +108,7 @@ sumeru_custom_addons/   # Run server here + custom addons</code></pre></div></di
         </tbody></table>
         <p><strong>contacts</strong> is a kernel addon in <code>sumeru/addons/contacts/</code>, listed in install order but not in this repo.</p>
         <h2 id="dependency-graph">Dependency graph</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-c13e3bca">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0495fbd3">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -137,7 +137,7 @@ sumeru_custom_addons/   # Run server here + custom addons</code></pre></div></di
 │           └── sale_crm</code></pre></div></div>
 </div>
         <h2 id="typical-install-order">Typical install order</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-4b08204a">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-a44ddbc6">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -165,7 +165,7 @@ sumeru_custom_addons/   # Run server here + custom addons</code></pre></div></di
         <li><a href="modules/crm.html">Standard modules</a> — developer reference per app (CRM, Sales, Invoicing, …)</li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

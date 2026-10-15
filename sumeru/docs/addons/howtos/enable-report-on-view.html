@@ -69,21 +69,21 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Enable report download and bulk upload on a view</h1>
         <p class="docs-lede"><strong>Goal:</strong> Add CSV/PDF export and bulk CSV import to a list, form, or kanban with <strong>one line of XML</strong> — no Go code in your addon.</p>
         <p>The report <strong>engine</strong> lives in <code>sumeru/</code> only. Addons declare capabilities on views; core handles generation, staging, mapping, and import.</p>
         <blockquote><p><strong>Form toolbar:</strong> On form views, <strong>Report</strong> appears next to <strong>Save</strong> (not on list landing pages unless the list view also declares report XML). Prefer enabling report on the <strong>form</strong> when users export a single record from detail view.</p></blockquote>
         <h2 id="1-add-xml-to-the-view">1. Add XML to the view</h2>
         <p>In your module’s view file under <code>views/</code>, add a <code><report></code> child to the list or form view:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1f1c0bb8">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b7c8982d">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -104,7 +104,7 @@
         <p>Live example: <code>sumeru_addons/crm/views/crm_lead_list_views.xml</code>.</p>
         <h3 id="shorthand-alternatives">Shorthand alternatives</h3>
         <p>View attributes:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3fbf16a8">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-1fcc2b7c">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -115,7 +115,7 @@
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;view type=&quot;list&quot; model=&quot;my_module.my_model&quot; report_download=&quot;csv,pdf&quot; bulk_upload=&quot;1&quot;&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;view type="list" model="my_module.my_model" report_download="csv,pdf" bulk_upload="1"&gt;</code></pre></div></div>
 </div>
         <p>Header widgets (forms):</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-b89dc4cf">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-686c4def">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -134,7 +134,7 @@
         <p>Full XML reference: <a href="core/guides/report-engine.md#enable-on-a-view-xml">Report engine</a>.</p>
         <h2 id="2-update-the-module">2. Update the module</h2>
         <p>From your Sumeru install directory:</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-af613953">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-a00d929b">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -154,7 +154,7 @@
         </ol>
         <h2 id="4-optional-custom-export-cell-text">4. Optional — custom export cell text</h2>
         <p>If a field needs special formatting in CSV/PDF (not in the UI), register a formatter in your addon <code>init()</code>:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-64d8f253">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-fb5b2eb8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -198,7 +198,7 @@ func init() {
         <li><a href="../../guides/build/update-module.html">Update a module</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

@@ -69,19 +69,19 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="maintainers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>SWC notifications</h1>
         <p class="docs-lede">Workspace toasts are rendered by <code>NotificationService</code> (<code>core/swc/src/services/notification.ts</code>). They appear in the <strong>top-right</strong> stack (<code>#sum-toast-stack</code>), follow Sumeru <code>sum-toast-*</code> CSS, and need no extra library.</p>
         <p>Use <code>env.services.notification</code> from any SWC component. Do not POST to removed <code>/web/record/save</code> routes for save feedback.</p>
         <h2 id="api">API</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1744de59">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6cc77d9c">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -139,7 +139,7 @@ n.warning(result.warning.title, result.warning.message, result.warning.details);
         <li><a href="view-types.html">View types</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

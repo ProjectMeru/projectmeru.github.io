@@ -2,8 +2,8 @@
   {
     "title": "Cross-module flows",
     "url": "addons/cross-module-flows.html",
-    "track": "addons",
-    "section": "Addons development",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "How standard business modules connect at runtime.",
     "headings": [
       "lead-to-cash-revenue",
@@ -18,8 +18,8 @@
   {
     "title": "Events and hooks",
     "url": "addons/events-and-hooks.html",
-    "track": "addons",
-    "section": "Addons development",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "Standard business addons automate cross-module behavior through the in-process event bus and ORM extension points.",
     "headings": [
       "event-subscription",
@@ -36,8 +36,8 @@
   {
     "title": "Add a bridge module",
     "url": "addons/howtos/add-bridge-module.html",
-    "track": "addons",
-    "section": "How-tos",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "Bridge modules connect two existing apps with event-driven logic and no UI of their own. sale_crm is the reference implementation.",
     "headings": [
       "when-to-use",
@@ -51,8 +51,8 @@
   {
     "title": "Custom HTTP route",
     "url": "addons/howtos/custom-http-route.html",
-    "track": "addons",
-    "section": "How-tos",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Register addon-specific HTTP handlers from an addon controllers/ package.",
     "headings": [
       "example-invoice-print",
@@ -64,8 +64,8 @@
   {
     "title": "Enable report download and bulk upload on a view",
     "url": "addons/howtos/enable-report-on-view.html",
-    "track": "addons",
-    "section": "How-tos",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Goal: Add CSV/PDF export and bulk CSV import to a list, form, or kanban with one line of XML \u2014 no Go code in your addon.",
     "headings": [
       "1-add-xml-to-the-view",
@@ -80,8 +80,8 @@
   {
     "title": "Engagements Cookbook",
     "url": "addons/howtos/engagement-cookbook.html",
-    "track": "addons",
-    "section": "How-tos",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Tutorial business app for custom-module authors in sumeru_custom_addons/addons/engagement_cookbook/. Models a client engagements practice while teaching widgets, views, depends, model inherit, view xpath inherit, and event bridges.",
     "headings": [
       "scaffold-vs-cookbook",
@@ -101,8 +101,8 @@
   {
     "title": "Extend CRM pipeline",
     "url": "addons/howtos/extend-crm-pipeline.html",
-    "track": "addons",
-    "section": "How-tos",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "Add a custom kanban stage column or modify pipeline behavior without forking crm.",
     "headings": [
       "add-a-pipeline-stage",
@@ -115,8 +115,8 @@
   {
     "title": "Addons overview",
     "url": "addons/index.html",
-    "track": "addons",
-    "section": "Addons development",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Repository: sumeru_addons/ \u2014 Tier 2 standard business apps. Depends only on sumeru (Go module replace sumeru => ../sumeru).",
     "headings": [
       "three-repo-architecture",
@@ -129,132 +129,10 @@
     ]
   },
   {
-    "title": "Account module",
-    "url": "addons/modules/account.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Invoicing, vendor bills, chart of accounts, taxes, and payments.",
-    "headings": [
-      "models",
-      "wizards",
-      "services",
-      "object-actions",
-      "http-route",
-      "events",
-      "depends",
-      "paths"
-    ]
-  },
-  {
-    "title": "CRM module",
-    "url": "addons/modules/crm.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Leads, opportunities, pipeline, and sales teams.",
-    "headings": [
-      "models",
-      "wizards",
-      "object-actions",
-      "analysis-and-forecast",
-      "events",
-      "kanban",
-      "security-groups",
-      "depends",
-      "paths"
-    ]
-  },
-  {
-    "title": "HR module",
-    "url": "addons/modules/hr.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Employee directory \u2014 departments, jobs, and org structure. Does not include payroll or time off.",
-    "headings": [
-      "models",
-      "menus",
-      "depends",
-      "paths"
-    ]
-  },
-  {
-    "title": "Product module",
-    "url": "addons/modules/product.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Shared product catalog for Sales, Purchase, and Accounting.",
-    "headings": [
-      "models",
-      "depends",
-      "menus",
-      "integration",
-      "paths"
-    ]
-  },
-  {
-    "title": "Purchase module",
-    "url": "addons/modules/purchase.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "RFQs and purchase orders.",
-    "headings": [
-      "models",
-      "integration",
-      "menus",
-      "depends",
-      "paths"
-    ]
-  },
-  {
-    "title": "Sale module",
-    "url": "addons/modules/sale.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Quotations and sales orders.",
-    "headings": [
-      "models",
-      "states",
-      "events",
-      "menus",
-      "security",
-      "integration",
-      "depends",
-      "paths"
-    ]
-  },
-  {
-    "title": "Sale CRM bridge",
-    "url": "addons/modules/sale_crm.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Thin bridge module \u2014 no models, views, or menus.",
-    "headings": [
-      "purpose",
-      "depends",
-      "implementation",
-      "requirements",
-      "install",
-      "see-also"
-    ]
-  },
-  {
-    "title": "UTM module",
-    "url": "addons/modules/utm.html",
-    "track": "addons",
-    "section": "Standard modules",
-    "excerpt": "Marketing attribution master data. Not an application module (no Home tile).",
-    "headings": [
-      "models",
-      "depends",
-      "menus",
-      "integration",
-      "paths"
-    ]
-  },
-  {
     "title": "How to add a menu and window action",
     "url": "guides/build/add-menu-and-action.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Goal: open your model from the shell sidebar using a bound to a sys.action.window that targets your model.",
     "headings": [
       "steps",
@@ -265,8 +143,8 @@
   {
     "title": "Build a module with SWC",
     "url": "guides/build/build-module-with-swc.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Step-by-step recipe for an addon that ships Go models, XML views, and optionally a custom SWC field widget. Assumes you have Sumeru running from sumeru_custom_addons (see Creating an addon).",
     "headings": [
       "1-scaffold-the-module",
@@ -282,8 +160,8 @@
   {
     "title": "Build your first module",
     "url": "guides/build/build-your-first-module.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Follow this path when you want a custom addon in sumeru_custom_addons/addons/ without guessing the order of steps.",
     "headings": [
       "checklist",
@@ -295,8 +173,8 @@
   {
     "title": "Creating an addon",
     "url": "guides/build/creating-an-addon.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "How to use sumeru-bp, place an addon on addons_path, generate imports, install and update it.",
     "headings": [
       "overview",
@@ -310,11 +188,11 @@
   {
     "title": "Creating APIs",
     "url": "guides/build/creating-apis.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Three ways to expose behaviour to clients and the workspace UI.",
     "headings": [
-      "1-json-rpc-recommended-for-integrations",
+      "1-rpc-api-recommended-for-integrations",
       "2-custom-http-routes",
       "3-object-actions-workspace-buttons",
       "choosing-an-approach",
@@ -324,8 +202,8 @@
   {
     "title": "Custom addons workspace",
     "url": "guides/build/custom-addons-workspace.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Goal: keep sumeru/ and sumeru_addons/ read-only while you develop client modules under addons/.",
     "headings": [
       "summary",
@@ -337,8 +215,8 @@
   {
     "title": "Customization",
     "url": "guides/build/customization.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "Extend Sumeru without forking sumeru_addons. Use view xpath inherit for UI changes and inherit= Go structs for new fields on existing models.",
     "headings": [
       "custom-addon-workspace",
@@ -352,58 +230,31 @@
     ]
   },
   {
-    "title": "Data XML",
-    "url": "guides/build/data-xml.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "Data XML format, noupdate patterns and reload behaviour.",
+    "title": "Web Icons",
+    "url": "guides/build/icons-and-assets.html",
+    "track": "developers",
+    "section": "Create a module",
+    "excerpt": "Sumeru uses an SVG sprite system for menu icons. This approach is highly performant as it requires only a single HTTP request, is easily cached by the browser, and avoids the overhead of a heavy Javascript icon library.",
     "headings": [
-      "format",
-      "noupdate",
-      "reload-behaviour",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Deployment",
-    "url": "guides/build/deployment.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "Process model, PostgreSQL, config, reverse proxy and pre-alpha caveats.",
-    "headings": [
-      "process-model",
-      "postgresql",
-      "config-and-binary",
-      "reverse-proxy",
-      "checklist",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Events & automation",
-    "url": "guides/build/events-and-automation.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "record.created / updated, cron.tick, listeners and automation addon status.",
-    "headings": [
-      "in-process-bus",
-      "important-event-names",
-      "server-actions",
-      "cron-handlers",
-      "outbox",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "how-it-works",
+      "available-icons",
+      "general-navigation",
+      "finance-accounting",
+      "sales-crm",
+      "hr-people",
+      "operations-manufacturing",
+      "project-management",
+      "data-files",
+      "system-security",
+      "adding-new-icons",
+      "manifest-assets"
     ]
   },
   {
     "title": "How to install a module",
     "url": "guides/build/install-module.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Goal: register a discovered addon in sys.module and load its manifest.data XML.",
     "headings": [
       "steps",
@@ -412,26 +263,25 @@
     ]
   },
   {
-    "title": "JSON-RPC API",
-    "url": "guides/build/json-rpc-api.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "Endpoint shape, authentication, common methods and error patterns.",
+    "title": "Sumeru logging contract",
+    "url": "guides/build/logging.html",
+    "track": "developers",
+    "section": "Cookbook",
+    "excerpt": "All framework components emit structured JSON logs via sumeru/core/applog (Info, Warn, Debug, Error with an Event struct). Do not import stdlib log in server or addon code.",
     "headings": [
-      "endpoints",
-      "authentication",
-      "request-shape",
-      "methods",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "canonical-shape",
+      "failure-shape-error-code-human-message",
+      "secret-redaction",
+      "framework-roots-auto-logging",
+      "web-navigation-audit-info",
+      "usage"
     ]
   },
   {
     "title": "Manifests & depends",
     "url": "guides/build/manifests-and-depends.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Every addon root needs a manifest.json. Technical name must match the folder name. Generated zmodels.go registers models under that module.",
     "headings": [
       "standard-directory-layout",
@@ -447,8 +297,8 @@
   {
     "title": "How to extend a model with inherit=",
     "url": "guides/build/model-inheritance.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "Goal: add stored fields (and matching view xpath) to an existing ORM model from a dependent module without duplicating the base struct.",
     "headings": [
       "when-to-use",
@@ -460,42 +310,24 @@
     ]
   },
   {
-    "title": "Models & fields",
+    "title": "Models and fields",
     "url": "guides/build/models-and-fields.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "sdk.Model tags, field markers, relations, and how runtime records are maps.",
+    "track": "developers",
+    "section": "Create a module",
+    "excerpt": "Addon business models are Go structs that embed sdk.Model and declare fields with typed markers and optional sumeru struct tags.",
     "headings": [
-      "sdk-model-and-generate",
+      "minimal-model",
+      "model-inherit",
       "field-types",
-      "strings",
-      "contact-identity",
-      "boolean",
-      "integers",
-      "float-numeric",
-      "money",
-      "selection",
-      "date-time",
-      "json-media",
-      "many2one",
-      "one2many-many2many",
-      "reference-fields",
-      "related-fields",
-      "relations-and-zrefs",
-      "computed-fields",
-      "fielddefinition",
-      "runtime-records",
-      "compile-and-run",
-      "what-not-to-do",
-      "see-also",
-      "next-step"
+      "common-tags",
+      "runtime-api"
     ]
   },
   {
     "title": "Naming Conventions",
     "url": "guides/build/naming-conventions.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Sumeru uses a strict naming convention for models to ensure architectural clarity and prevent namespace collisions. This system is inspired by the need to separate framework metadata from foundational business entities.",
     "headings": [
       "namespaces",
@@ -509,8 +341,8 @@
   {
     "title": "Project structure",
     "url": "guides/build/project-structure.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Map core, standard addons and workspace directories, replace directives and what you edit day to day.",
     "headings": [
       "three-repositories",
@@ -524,8 +356,8 @@
   {
     "title": "Report engine",
     "url": "guides/build/report-engine.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "CSV/PDF download and CSV bulk import for workspace views. The engine lives only in sumeru/ (core/report/, core/sdk/report.go, web handlers, render + JS). Addons enable features with XML on views \u2014 no export/import Go code in sumeru_addons/ or sumeru_custom_addons/.",
     "headings": [
       "architecture",
@@ -548,8 +380,8 @@
   {
     "title": "Scale-out architecture",
     "url": "guides/build/scale-architecture.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Sumeru runs as one or more stateless Go replicas behind a load balancer. Sessions live in PostgreSQL (sys.session), so any replica can serve authenticated requests without sticky cookies.",
     "headings": [
       "phase-1-production-shaped-single-cluster",
@@ -559,41 +391,42 @@
     ]
   },
   {
-    "title": "Security & access",
+    "title": "Security and access",
     "url": "guides/build/security-and-access.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "security.xml, sys.access.csv and how groups gate menus and records.",
+    "track": "developers",
+    "section": "Access in modules",
+    "excerpt": "Sumeru separates who can use the UI (groups), what CRUD they have per model (access control lists), and optional row-level filters (record rules).",
     "headings": [
-      "groups-in-security-xml",
-      "sys-access-csv",
-      "load-order",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "groups-coregroup",
+      "access-rights-sysaccess",
+      "csv-bulk-load",
+      "xml-records",
+      "record-rules-sysrule",
+      "menu-visibility",
+      "practical-workflow"
     ]
   },
   {
-    "title": "Testing",
-    "url": "guides/build/testing.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "Honest status of framework vs business-addon tests and practical manual checks.",
+    "title": "Template-driven PDF reports",
+    "url": "guides/build/template-reports.html",
+    "track": "developers",
+    "section": "Cookbook",
+    "excerpt": "Sumeru ships tabular CSV/PDF/XLSX export from workspace views today (core/report/export_csv.go, export_pdf.go, export_xlsx.go). This guide describes the next step: layout PDFs for invoices, orders, and other printable documents \u2014 without a server-side XML template engine.",
     "headings": [
-      "what-exists-today",
-      "running-core-tests",
-      "integration-tests",
-      "practical-checklist",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "problem",
+      "recommended-architecture-p0-spike",
+      "spike-api-implemented",
+      "xml-manifest-hook-future",
+      "html-pdf-path-deferred",
+      "relation-to-view-report-download",
+      "see-also"
     ]
   },
   {
     "title": "Tooling",
     "url": "guides/build/tooling.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Commands and generators used every day while developing Sumeru.",
     "headings": [
       "run-the-server",
@@ -608,8 +441,8 @@
   {
     "title": "How to update a module after XML or manifest changes",
     "url": "guides/build/update-module.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Goal: reload manifest.data (views, menus, security XML, demo records) from disk without reinstalling from scratch.",
     "headings": [
       "when-to-use--u",
@@ -621,8 +454,8 @@
   {
     "title": "How to extend a view with xpath inherit",
     "url": "guides/build/view-inheritance.html",
-    "track": "guides",
-    "section": "Building an Application",
+    "track": "developers",
+    "section": "Extend a module",
     "excerpt": "Goal: change another module's stored sys.view.arch by merging an xpath fragment (see inherit_id on sys.view records in module XML).",
     "headings": [
       "when-to-use",
@@ -633,67 +466,30 @@
     ]
   },
   {
-    "title": "Views & menus",
+    "title": "Redirecting\u2026",
     "url": "guides/build/views-and-menus.html",
-    "track": "guides",
-    "section": "Building an Application",
-    "excerpt": "How XML views bind to model names, menu trees and when you need -u.",
-    "headings": [
-      "how-ui-is-wired",
-      "quick-map",
-      "view-tag",
-      "field-in-views",
-      "field-in-records",
-      "widgets",
-      "widget-boolean-toggle",
-      "widget-handle",
-      "widget-statusbar",
-      "widget-selection",
-      "widget-email",
-      "widget-priority",
-      "widget-mail-thread",
-      "button-tag",
-      "layout",
-      "action-tag",
-      "menuitem-tag",
-      "end-to-end-examples",
-      "example-tree",
-      "example-form",
-      "example-kanban",
-      "example-pivot",
-      "example-action-menu",
-      "xml-inheritance",
-      "report-exchange-on-views",
-      "kanban-view-attributes",
-      "profile-photo-and-image-fields",
-      "field-groups-acl",
-      "form-validation-and-toasts",
-      "when-to-update",
-      "what-not-to-do",
-      "swc-reference",
-      "next-step"
-    ]
+    "track": "developers",
+    "section": "Create a module",
+    "excerpt": "",
+    "headings": []
   },
   {
-    "title": "Apps & install",
-    "url": "guides/business/apps-and-install.html",
-    "track": "business",
-    "section": "Getting started",
-    "excerpt": "How installing an app adds menus, screens and permission groups.",
+    "title": "XML xpath and eval cookbook",
+    "url": "guides/build/xpath-cookbook.html",
+    "track": "developers",
+    "section": "Extend a module",
+    "excerpt": "Supported expressions:",
     "headings": [
-      "apps-screen",
-      "what-install-does",
-      "safe-order",
-      "catalogue",
-      "next-step",
-      "what-not-to-do"
+      "view-inherit-xpath",
+      "data-eval-subset",
+      "see-also"
     ]
   },
   {
     "title": "Contacts & CRM",
     "url": "guides/business/contacts-and-crm.html",
     "track": "business",
-    "section": "Workflows",
+    "section": "Business flows",
     "excerpt": "Day-to-day guide for sales operators using Contacts (kernel) and CRM (standard app).",
     "headings": [
       "prerequisites",
@@ -711,35 +507,21 @@
     "title": "Editions & licensing",
     "url": "guides/business/editions-and-licensing.html",
     "track": "business",
-    "section": "Workflows",
+    "section": "Start",
     "excerpt": "What you can use today and under which license.",
     "headings": [
-      "community-edition-today",
-      "pre-alpha-status",
-      "enterprise-commercial",
+      "license",
+      "alpha-status",
+      "one-license",
       "contributing",
       "see-also"
-    ]
-  },
-  {
-    "title": "Lead-to-cash",
-    "url": "guides/business/lead-to-cash.html",
-    "track": "business",
-    "section": "Workflows",
-    "excerpt": "The automatic path from CRM lead to posted journal entries, plus honest gaps.",
-    "headings": [
-      "the-path",
-      "what-is-automatic",
-      "gaps",
-      "next-step",
-      "what-not-to-do"
     ]
   },
   {
     "title": "Multi-company",
     "url": "guides/business/multi-company.html",
     "track": "business",
-    "section": "Workflows",
+    "section": "Run and customize",
     "excerpt": "How multiple companies work in one Sumeru database \u2014 and what this is not.",
     "headings": [
       "what-multi-company-is",
@@ -752,44 +534,10 @@
     ]
   },
   {
-    "title": "Overview",
-    "url": "guides/business/overview.html",
-    "track": "business",
-    "section": "Platform",
-    "excerpt": "What the system does once it is running, what you can change yourself, and what still needs an engineer.",
-    "headings": [
-      "who-this-is-for",
-      "three-things-to-know",
-      "the-flow-that-works",
-      "workspace-ux",
-      "what-needs-an-engineer",
-      "next-step",
-      "what-not-to-do"
-    ]
-  },
-  {
-    "title": "Procure to pay",
-    "url": "guides/business/procure-to-pay.html",
-    "track": "business",
-    "section": "Workflows",
-    "excerpt": "End-to-end path from buying products to paying vendors.",
-    "headings": [
-      "overview",
-      "step-by-step",
-      "1-maintain-products",
-      "2-request-a-quote",
-      "3-confirm-purchase-order",
-      "4-receive-vendor-bill",
-      "5-pay-the-vendor",
-      "prerequisites",
-      "see-also"
-    ]
-  },
-  {
     "title": "Purchase & HR",
     "url": "guides/business/purchase-and-hr.html",
     "track": "business",
-    "section": "Workflows",
+    "section": "Business flows",
     "excerpt": "Covers Purchase (procurement) and Employees (HR directory). These apps are largely independent \u2014 HR does not drive purchase workflows today.",
     "headings": [
       "purchase",
@@ -809,7 +557,7 @@
     "title": "Sales & invoicing",
     "url": "guides/business/sales-and-invoicing.html",
     "track": "business",
-    "section": "Workflows",
+    "section": "Business flows",
     "excerpt": "How operators work with Sales, Sales CRM Bridge, and Invoicing from quotation to payment.",
     "headings": [
       "prerequisites",
@@ -826,8 +574,8 @@
   {
     "title": "Arch JSON pipeline",
     "url": "guides/concepts/arch-json-pipeline.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "SWC never parses view XML in the browser. The Go kernel parses arch once per request and returns JSON that SWC components consume directly.",
     "headings": [
       "flow",
@@ -843,8 +591,8 @@
   {
     "title": "Sumeru layered architecture",
     "url": "guides/concepts/architecture-layers.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Kernel",
     "excerpt": "Sumeru is a modular ERP built as a Go monolith with PostgreSQL, XML-defined UI and metadata, and a hybrid web client (SWC SPA inside a server-rendered shell). This document maps the six runtime layers, how requests flow through them, and how modules extend each other without forking core code.",
     "headings": [
       "six-layers",
@@ -859,112 +607,41 @@
     ]
   },
   {
-    "title": "Cache",
-    "url": "guides/concepts/cache.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "What core/cache stores, invalidation and when not to rely on it.",
-    "headings": [
-      "what-it-is",
-      "invalidation",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Engine & server",
-    "url": "guides/concepts/engine-and-server.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "core/engine and core/server responsibilities from request to view.",
-    "headings": [
-      "split",
-      "request-path",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Event bus",
-    "url": "guides/concepts/event-bus.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "Publish/subscribe patterns and which events matter for lead-to-cash.",
-    "headings": [
-      "api",
-      "lead-to-cash-touchpoints",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Module loader",
+    "title": "Addons overview",
     "url": "guides/concepts/module-loader.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "How manifests are found, ordered and loaded into the running server.",
+    "track": "maintainers",
+    "section": "Kernel",
+    "excerpt": "An addon (module) is a directory that contains manifest.json and optional models/, views/, security/, and static/ assets.",
     "headings": [
-      "discovery",
-      "install-and-update",
-      "blank-imports",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "discovery-and-naming",
+      "manifestjson",
+      "go-side-effect-imports",
+      "typical-layout"
     ]
   },
   {
-    "title": "ORM",
-    "url": "guides/concepts/orm.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "How core/orm turns Fields into tables and how records are read and written.",
+    "title": "ORM vs ERP Boundaries",
+    "url": "guides/concepts/orm-boundaries.html",
+    "track": "maintainers",
+    "section": "Kernel",
+    "excerpt": "Sumeru keeps a hard line between ORM core and ERP behavior. Crossing that line is how frameworks become unmaintainable.",
     "headings": [
-      "role",
-      "from-fields-to-tables",
-      "records-as-maps",
-      "sdk-boundary",
-      "computed-and-aggregation",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Scheduler",
-    "url": "guides/concepts/scheduler.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "core/scheduler, cron.tick and how addons register periodic work.",
-    "headings": [
-      "sys-cron",
-      "addon-registration",
-      "register-cron-handler",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "SDK",
-    "url": "guides/concepts/sdk.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "sdk.Model tags, field markers, and generated registration.",
-    "headings": [
-      "stable-addon-surface",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "orm-core-owns",
+      "erp-modules-own-via-composition",
+      "security-is-query-shaped",
+      "values-pipeline-create-write",
+      "sql-identifiers-injection-safety",
+      "side-effects",
+      "deliberate-limits-not-bugs",
+      "structured-logging",
+      "globals-runtime"
     ]
   },
   {
     "title": "Sum template (.sum.xml)",
     "url": "guides/concepts/sum-template.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "SWC includes a compile-time template language for addon and core components. Files use the .sum.xml extension and compile to TypeScript html tagged literals via the esbuild plugin in core/swc/esbuild.config.mjs.",
     "headings": [
       "when-to-use",
@@ -979,8 +656,8 @@
   {
     "title": "Sumeru Web Client (SWC)",
     "url": "guides/concepts/swc-architecture.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "SWC is Sumeru\u2019s browser workspace client: a TypeScript 7 component runtime that renders workspace views from JSON arch and records.",
     "headings": [
       "folder-layout",
@@ -998,8 +675,8 @@
   {
     "title": "SWC Vision devtools",
     "url": "guides/concepts/swc-devtools.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "SWC ships developer tools for inspecting components, templates, and workspace payloads at runtime.",
     "headings": [
       "components",
@@ -1012,8 +689,8 @@
   {
     "title": "SWC widgets and addon entries",
     "url": "guides/concepts/swc-widgets.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Register custom field widgets and views from addons using TypeScript 7 modules.",
     "headings": [
       "manifest",
@@ -1028,24 +705,10 @@
     ]
   },
   {
-    "title": "Three modules",
-    "url": "guides/concepts/three-modules.html",
-    "track": "guides",
-    "section": "Core Concepts",
-    "excerpt": "Why the three replace-linked modules exist, and why you run from the workspace.",
-    "headings": [
-      "why-three-modules",
-      "run-from-workspace",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
     "title": "Web layer",
     "url": "guides/concepts/web-and-render.html",
-    "track": "guides",
-    "section": "Core Concepts",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Authenticated shell pages load swc.js (TypeScript 7) with window.__SWC_BOOTSTRAP__. The workspace mounts at #swc-workspace; Home, Apps, and Settings keep server-rendered HTML inner content via Go templates.",
     "headings": [
       "swc-workspace-shell-chrome",
@@ -1055,52 +718,36 @@
     ]
   },
   {
-    "title": "API keys",
-    "url": "guides/security/api-keys.html",
-    "track": "guides",
-    "section": "Security",
-    "excerpt": "Creating and using API keys for POST /api/rpc.",
+    "title": "How the kernel runs",
+    "url": "guides/maintainers/index.html",
+    "track": "maintainers",
+    "section": "Kernel",
+    "excerpt": "Sumeru is one Go process: PostgreSQL, XML metadata, and a SWC workspace inside a server-rendered shell. Addons register models. They do not fork core/.",
     "headings": [
-      "creating-a-key",
-      "using-a-key",
-      "compile-and-run",
-      "what-not-to-do",
-      "next-step"
+      "boot",
+      "request",
+      "subsystems",
+      "change"
     ]
   },
   {
-    "title": "Isolation model",
-    "url": "guides/security/isolation-model.html",
-    "track": "guides",
-    "section": "Security",
-    "excerpt": "Clarify tenancy expectations before deployment planning.",
+    "title": "Groups, ACL, and record rules",
+    "url": "guides/security/access-control.html",
+    "track": "developers",
+    "section": "Access in modules",
+    "excerpt": "Access is four checks on every search and write. There is no separate policy language.",
     "headings": [
-      "one-database-model",
-      "what-that-means",
-      "checklist",
-      "what-not-to-do",
-      "next-step"
-    ]
-  },
-  {
-    "title": "Overview",
-    "url": "guides/security/overview.html",
-    "track": "guides",
-    "section": "Security",
-    "excerpt": "Groups, API keys and the one-database isolation model.",
-    "headings": [
-      "layers",
-      "operator-vs-developer",
-      "checklist",
-      "what-not-to-do",
-      "next-step"
+      "rbac",
+      "rules",
+      "approval",
+      "see"
     ]
   },
   {
     "title": "Record rules",
     "url": "guides/security/record-rules.html",
-    "track": "guides",
-    "section": "Security",
+    "track": "developers",
+    "section": "Access in modules",
     "excerpt": "Record rules (sys.rule) restrict which rows a user sees or modifies, on top of model ACLs (sys.access). Same rules apply to the web UI and JSON-RPC.",
     "headings": [
       "when-to-use",
@@ -1116,8 +763,8 @@
   {
     "title": "Configuration",
     "url": "guides/start/configuration.html",
-    "track": "guides",
-    "section": "Start Here",
+    "track": "maintainers",
+    "section": "Reference",
     "excerpt": "How the INI config file and CLI flags control database, HTTP, addon discovery, logging, and branding.",
     "headings": [
       "the-config-file",
@@ -1139,42 +786,34 @@
     ]
   },
   {
-    "title": "First boot",
-    "url": "guides/start/first-boot.html",
-    "track": "guides",
-    "section": "Start Here",
-    "excerpt": "Initialise the database in setup mode, install the addons you need, then run the server.",
+    "title": "First Run",
+    "url": "guides/start/first-run.html",
+    "track": "developers",
+    "section": "Start",
+    "excerpt": "If PostgreSQL is reachable but Sumeru has not initialized the schema, visiting / redirects to /setup. The setup wizard collects admin credentials and company details, then initializes the database.",
     "headings": [
-      "setup-mode",
-      "install-business-addons",
-      "run",
-      "inner-loop",
-      "for-business-teams",
-      "next-step",
-      "what-not-to-do"
+      "before-the-database-exists",
+      "after-initialization",
+      "install-business-apps",
+      "verify",
+      "next-steps"
     ]
   },
   {
     "title": "Installation",
     "url": "guides/start/installation.html",
-    "track": "guides",
-    "section": "Start Here",
-    "excerpt": "Create a database, configure the workspace, and point it at the core and standard addon modules.",
+    "track": "developers",
+    "section": "Start",
+    "excerpt": "Canonical page: Installation on the public docs site (guides/start/installation.html). This extended stub is kept for cross-links only.",
     "headings": [
-      "requirements",
-      "create-the-database",
-      "workspace-config",
-      "bootstrap",
-      "verify",
-      "next-step",
-      "what-not-to-do"
+      "quick-start-workspace"
     ]
   },
   {
     "title": "Troubleshooting common development issues",
     "url": "guides/start/troubleshooting.html",
-    "track": "guides",
-    "section": "Start Here",
+    "track": "developers",
+    "section": "Start",
     "excerpt": "\u201cMy new Go model is ignored\u201d / table never appears Confirm the model struct embeds sdk.Model with sumeru:\"model=dotted.name\" . Run make generate so models/zmodels.go calls sdk.MustRegister with your manifest na",
     "headings": [
       "my-new-go-model-is-ignored-table-never-appears",
@@ -1187,37 +826,25 @@
     ]
   },
   {
-    "title": "Introduction",
+    "title": "Sumeru Documentation",
     "url": "index.html",
-    "track": "guides",
-    "section": "Start Here",
-    "excerpt": "Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL underneath, and a SWC workspace client with search, filters, and saved searches across list, form, kanban, graph, pivot, calendar, gantt, map, and cohort views.",
+    "track": "developers",
+    "section": "Start",
+    "excerpt": "Three paths through the same product: run the apps, write a module, or work on the kernel.",
     "headings": [
-      "start-here",
-      "what-sumeru-is",
-      "core-concepts",
-      "a-simple-example",
-      "what-is-already-in-place",
-      "what-can-you-build",
-      "who-is-sumeru-for",
-      "why-sumeru",
-      "comparison",
-      "how-the-pieces-fit",
-      "what-to-read-next",
-      "a-note-on-this-documentation",
-      "conventions",
-      "getting-help",
-      "prerequisites",
-      "a-first-application",
-      "next-step",
-      "what-not-to-do"
+      "choose-your-path",
+      "repository-layout",
+      "navigation",
+      "publishing",
+      "meta",
+      "quick-start-developers"
     ]
   },
   {
     "title": "Domain filters",
     "url": "reference/domain-filters.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "developers",
+    "section": "Access in modules",
     "excerpt": "Domains filter records in search, search_read, JSON-RPC, record rules, and list/kanban export windows. Source: sumeru/core/orm/crud_domain.go, domain_json.go.",
     "headings": [
       "shape",
@@ -1235,8 +862,8 @@
   {
     "title": "Events and cron",
     "url": "reference/events-and-cron.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Package: sumeru/core/event",
     "headings": [
       "event-bus",
@@ -1250,8 +877,8 @@
   {
     "title": "Field attributes",
     "url": "reference/field-attributes.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Reference for the field element inside view arch XML. The Go parser (core/engine/parser/view_xml.go) and serializer (core/engine/swcmeta/arch.go) convert these attributes into JSON on arch.fields[]; SWC field widgets read that JSON at runtime.",
     "headings": [
       "attribute-reference",
@@ -1267,8 +894,8 @@
   {
     "title": "Field types",
     "url": "reference/field-types.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "developers",
+    "section": "Create a module",
     "excerpt": "Models embed sdk.Model and use typed field markers from sumeru/core/sdk. Schema is inferred at registration from Go types and sumeru struct tags. For declaration examples see Models & fields.",
     "headings": [
       "scalar-and-relational-types",
@@ -1281,9 +908,9 @@
   {
     "title": "HTTP routes",
     "url": "reference/http-routes.html",
-    "track": "reference",
-    "section": "Reference",
-    "excerpt": "Route registration: sumeru/core/server/web/routes_table.go. Constants: web_constants.go. Live workspace I/O is SWC JSON (GET /web/swc/workspace) plus JSON-RPC (POST /api/rpc). Do not document removed HTML-workspace POSTs as live HTTP.",
+    "track": "maintainers",
+    "section": "Runtime",
+    "excerpt": "Route registration: sumeru/core/server/web/routes_table.go. Constants: web_constants.go. Live workspace I/O is SWC JSON (GET /web/swc/workspace) plus RPC under /api/rpc/ (path-based POST and model health GET). Do not document removed HTML-workspace POSTs as live HTTP.",
     "headings": [
       "auth-modes",
       "public-routes",
@@ -1306,7 +933,7 @@
   {
     "title": "Reference",
     "url": "reference/index.html",
-    "track": "reference",
+    "track": "maintainers",
     "section": "Reference",
     "excerpt": "Quick lookup for core developers: routes, SDK surface, ORM types, and kernel contracts.",
     "headings": [
@@ -1314,19 +941,42 @@
     ]
   },
   {
-    "title": "JSON-RPC",
+    "title": "RPC API",
     "url": "reference/json-rpc.html",
-    "track": "reference",
-    "section": "Reference",
-    "excerpt": "Endpoint: POST /api/rpc",
+    "track": "developers",
+    "section": "Cookbook",
+    "excerpt": "Path-based HTTP JSON under /api/rpc/ \u2014 quick start, headers, and public model methods.",
     "headings": [
-      "authentication",
-      "request-shape",
+      "quick-start",
+      "prerequisites",
+      "step-1-authenticate",
+      "step-2-call-a-model-method",
+      "step-3-optional-health-check",
+      "conventions",
+      "required-headers",
       "response-envelope",
-      "public-methods",
-      "read-group",
-      "call",
-      "read-replica",
+      "browser-clients-swc",
+      "production-checklist",
+      "what-not-to-do",
+      "operations",
+      "op-auth-login",
+      "op-model-health",
+      "model-rpc-pattern",
+      "public-methods-summary",
+      "method-details",
+      "rpc-search",
+      "rpc-search-read",
+      "rpc-read",
+      "rpc-create",
+      "rpc-write",
+      "rpc-unlink",
+      "rpc-create-many",
+      "rpc-write-many",
+      "rpc-unlink-many",
+      "rpc-read-group",
+      "rpc-onchange",
+      "rpc-call",
+      "removed-legacy-shapes",
       "security",
       "observability",
       "see-also"
@@ -1335,8 +985,8 @@
   {
     "title": "Kernel addons",
     "url": "reference/kernel-addons.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Kernel",
     "excerpt": "Built-in modules under sumeru/addons/. Installed via -i base (and dependencies) before business apps.",
     "headings": [
       "reference-layout-contacts",
@@ -1352,14 +1002,12 @@
   {
     "title": "Limitations",
     "url": "reference/limitations.html",
-    "track": "reference",
-    "section": "Reference",
-    "excerpt": "Honest status of major functionality. Sumeru is pre-alpha \u2014 do not run production workloads.",
+    "track": "maintainers",
+    "section": "Kernel",
+    "excerpt": "Honest status of major functionality. The kernel is alpha \u2014 demos and custom modules, not production workloads.",
     "headings": [
       "core-platform",
-      "standard-business-addons",
-      "reporting-v1-gaps",
-      "multi-company-vs-saas",
+      "reporting-gaps",
       "out-of-scope-for-the-kernel",
       "see-also"
     ]
@@ -1367,8 +1015,8 @@
   {
     "title": "Multi-instance cron",
     "url": "reference/multi-instance-cron.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "When you run more than one Sumeru process against the same database, each process starts the built-in scheduler (scheduler.Start in core/server/run.go).",
     "headings": [
       "safe-concurrent-execution",
@@ -1377,27 +1025,10 @@
     ]
   },
   {
-    "title": "Platform gaps",
-    "url": "reference/platform-gaps.html",
-    "track": "reference",
-    "section": "Reference",
-    "excerpt": "Sumeru is a small Go kernel for modular ERP-style apps: addons, domains, views, chatter, cron, and JSON-RPC. This page sets expectations for implementers \u2014 not a claim of feature parity with any other product.",
-    "headings": [
-      "architecture-snapshot",
-      "closed-since-august-2026-gap-plan-work",
-      "still-open-kernel-platform-p0p1",
-      "deferred-business-catalog-p2",
-      "deferred-swc-ux-document-not-stub",
-      "ui-stubs-still-visible",
-      "scale-roadmap",
-      "see-also"
-    ]
-  },
-  {
     "title": "Render hooks",
     "url": "reference/render-hooks.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Package: sumeru/core/engine/render",
     "headings": [
       "render-package-layout",
@@ -1412,8 +1043,8 @@
   {
     "title": "SDK API",
     "url": "reference/sdk-api.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Kernel",
     "excerpt": "Import sumeru/core/sdk from addon code \u2014 not sumeru/core/orm or sumeru/core/server directly.",
     "headings": [
       "model-definition",
@@ -1433,14 +1064,14 @@
   {
     "title": "SWC API reference",
     "url": "reference/swc-api.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Query params for /web/swc/workspace:",
     "headings": [
       "http-endpoints",
       "websocket-bus",
       "workspace-json-schema",
-      "json-rpc-primary-data-plane",
+      "rpc-primary-data-plane",
       "client-registry",
       "recordstore",
       "bootstrap-window-swc-bootstrap",
@@ -1450,8 +1081,8 @@
   {
     "title": "SWC notifications",
     "url": "reference/swc-notifications.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "maintainers",
+    "section": "Runtime",
     "excerpt": "Workspace toasts are rendered by NotificationService (core/swc/src/services/notification.ts). They appear in the top-right stack (#sum-toast-stack), follow Sumeru sum-toast-* CSS, and need no extra library.",
     "headings": [
       "api",
@@ -1464,8 +1095,8 @@
   {
     "title": "SWC widget catalog",
     "url": "reference/swc-widget-catalog.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Built-in field widgets registered in core/swc/src/widgets/registry.ts. Reference a widget in view XML with widget=\"\u2026\" on . When omitted, SWC infers a widget from the ORM field type.",
     "headings": [
       "registry-keys",
@@ -1499,8 +1130,8 @@
   {
     "title": "View types",
     "url": "reference/view-types.html",
-    "track": "reference",
-    "section": "Reference",
+    "track": "developers",
+    "section": "Cookbook",
     "excerpt": "Sumeru workspace views are declared in XML (type on ) and rendered by SWC components registered in core/swc/src/main.ts. Include view modes in window actions: view_mode=\"kanban,list,form\".",
     "headings": [
       "summary",
@@ -1521,7 +1152,7 @@
   {
     "title": "Widgets and views",
     "url": "reference/widgets-and-views.html",
-    "track": "reference",
+    "track": "maintainers",
     "section": "Reference",
     "excerpt": "Index for workspace view XML (parsed by core/engine/parser/view_xml.go, serialized by core/engine/swcmeta/, rendered by SWC).",
     "headings": [
@@ -1537,7 +1168,7 @@
     "title": "Feature matrix",
     "url": "using/feature-matrix.html",
     "track": "business",
-    "section": "Getting started",
+    "section": "Start",
     "excerpt": "Status of major functionality as of the last documentation review. Use this page when writing website copy or setting expectations with business users.",
     "headings": [
       "platform-capability-map",
@@ -1545,10 +1176,37 @@
     ]
   },
   {
+    "title": "Local demo",
+    "url": "using/getting-started/demo.html",
+    "track": "business",
+    "section": "Start",
+    "excerpt": "There is no hosted demo. This walkthrough runs the three repositories on your machine.",
+    "headings": [
+      "install",
+      "screens",
+      "flow",
+      "change"
+    ]
+  },
+  {
+    "title": "Installing Apps",
+    "url": "using/getting-started/installing-apps.html",
+    "track": "business",
+    "section": "Start",
+    "excerpt": "Installing apps requires administrator access.",
+    "headings": [
+      "from-the-apps-screen",
+      "recommended-order",
+      "filters",
+      "updating-an-app",
+      "next-steps"
+    ]
+  },
+  {
     "title": "Logging in",
     "url": "using/getting-started/logging-in.html",
     "track": "business",
-    "section": "Getting started",
+    "section": "Start",
     "excerpt": "Use Logout from the user menu (typically top-right).",
     "headings": [
       "sign-in",
@@ -1562,13 +1220,14 @@
     "title": "What is Sumeru?",
     "url": "using/getting-started/what-is-sumeru.html",
     "track": "business",
-    "section": "Getting started",
-    "excerpt": "Sumeru is a modular business application. Different functions \u2014 CRM, Sales, Invoicing, Purchase, Products, Employees \u2014 are separate apps you install and open from the home screen.",
+    "section": "Start",
+    "excerpt": "Sumeru is a modular business application. You install the apps the company needs \u2014 Contacts, CRM, Sales, Invoicing, Purchase, Products, Inventory, Employees \u2014 and leave the rest off. The same workspace, groups, and company switcher apply to every app, including one your team writes later.",
     "headings": [
-      "pre-alpha-notice",
+      "alpha-notice",
       "how-the-screen-is-organized",
       "key-concepts",
-      "what-sumeru-does-not-do-yet",
+      "why-this-shape-fits-a-changing-business",
+      "what-is-not-in-the-product",
       "next-steps"
     ]
   },
@@ -1576,7 +1235,7 @@
     "title": "Glossary",
     "url": "using/glossary.html",
     "track": "business",
-    "section": "Getting started",
+    "section": "Start",
     "excerpt": "Term Meaning App Installable business module (CRM, Sales, \u2026) shown on Home Partner Customer, vendor, or contact ( core.partner ) Lead Early-stage sales contact in CRM Opportunity Qualified deal in the sales pipeline Stag",
     "headings": [
       "see-also"
@@ -1586,11 +1245,11 @@
     "title": "Business guides",
     "url": "using/index.html",
     "track": "business",
-    "section": "Getting started",
-    "excerpt": "Guides for business users and administrators using installed Sumeru apps.",
+    "section": "Start",
+    "excerpt": "How a business runs on Sumeru: install the apps you need, follow a flow, and change access without rewriting the product.",
     "headings": [
       "start",
-      "platform",
+      "customize",
       "apps",
       "workflows"
     ]
@@ -1624,6 +1283,18 @@
       "create-an-employee",
       "configuration",
       "next-steps"
+    ]
+  },
+  {
+    "title": "Inventory",
+    "url": "using/modules/inventory.html",
+    "track": "business",
+    "section": "Apps",
+    "excerpt": "Inventory is the stock app in sumeru_addons. It depends on Products. It is a minimal warehouse app, not a full warehouse-management suite.",
+    "headings": [
+      "what-you-can-do",
+      "install",
+      "not-included"
     ]
   },
   {
@@ -1704,7 +1375,7 @@
     "title": "App launcher",
     "url": "using/platform/app-launcher.html",
     "track": "business",
-    "section": "Platform",
+    "section": "Run and customize",
     "excerpt": "Quickly jump to any menu or app without browsing sidebars.",
     "headings": [
       "open-the-launcher",
@@ -1718,7 +1389,7 @@
     "title": "Contacts and partners",
     "url": "using/platform/contacts-and-partners.html",
     "track": "business",
-    "section": "Platform",
+    "section": "Run and customize",
     "excerpt": "Partners are the people and organizations your business deals with \u2014 customers, vendors, and contacts.",
     "headings": [
       "before-crm-or-sales",
@@ -1732,7 +1403,7 @@
     "title": "Export and import (reports)",
     "url": "using/platform/export-and-import.html",
     "track": "business",
-    "section": "Platform",
+    "section": "Run and customize",
     "excerpt": "Download your data as CSV or PDF, or bulk-import updates from a spreadsheet \u2014 when your administrator has enabled Report on that screen.",
     "headings": [
       "when-you-see-the-report-button",
@@ -1754,7 +1425,7 @@
     "title": "Home and apps",
     "url": "using/platform/home-and-apps.html",
     "track": "business",
-    "section": "Platform",
+    "section": "Run and customize",
     "excerpt": "Home (/web/home) shows tiles for installed application modules \u2014 CRM, Sales, Invoicing, etc. Click a tile to open that app\u2019s main menu.",
     "headings": [
       "home",
@@ -1767,7 +1438,7 @@
     "title": "Settings",
     "url": "using/platform/settings.html",
     "track": "business",
-    "section": "Platform",
+    "section": "Run and customize",
     "excerpt": "Settings (/web/settings) is the hub for configuration \u2014 users, companies, security, and app-specific setup menus.",
     "headings": [
       "who-can-access-settings",
@@ -1782,13 +1453,52 @@
     "title": "Workspace basics",
     "url": "using/platform/workspace-basics.html",
     "track": "business",
-    "section": "Platform",
+    "section": "Run and customize",
     "excerpt": "The workspace is where you view and edit business records \u2014 customers, leads, invoices, products, and more.",
     "headings": [
       "opening-a-workspace",
       "view-types",
       "collection-control-bar",
       "report-toolbar"
+    ]
+  },
+  {
+    "title": "Lead to Cash",
+    "url": "using/workflows/lead-to-cash.html",
+    "track": "business",
+    "section": "Business flows",
+    "excerpt": "End-to-end path from marketing lead to collected payment.",
+    "headings": [
+      "overview",
+      "step-by-step",
+      "1-capture-the-lead",
+      "2-work-the-pipeline",
+      "3-win-the-deal",
+      "4-send-and-confirm-quotation",
+      "5-invoice-the-customer",
+      "6-collect-payment",
+      "roles-involved",
+      "prerequisites",
+      "reports-and-exports",
+      "see-also"
+    ]
+  },
+  {
+    "title": "Procure to Pay",
+    "url": "using/workflows/procure-to-pay.html",
+    "track": "business",
+    "section": "Business flows",
+    "excerpt": "End-to-end path from buying products to paying vendors.",
+    "headings": [
+      "overview",
+      "step-by-step",
+      "1-maintain-products",
+      "2-request-a-quote",
+      "3-confirm-purchase-order",
+      "4-receive-vendor-bill",
+      "5-pay-the-vendor",
+      "prerequisites",
+      "see-also"
     ]
   }
 ]

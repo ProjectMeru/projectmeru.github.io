@@ -6,8 +6,8 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON-RPC | Sumeru Docs</title>
-  <meta name="description" content="JSON-RPC">
+  <title>RPC API | Sumeru Docs</title>
+  <meta name="description" content="Sumeru RPC API: quick start, headers, response envelope, and public model methods under /api/rpc/.">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/reference/json-rpc.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -69,28 +69,427 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>JSON-RPC</h1>
-        <p class="docs-lede"><strong>Endpoint:</strong> <code>POST /api/rpc</code></p>
-        <p><strong>Source:</strong> <code>sumeru/core/server/api/dispatch.go</code></p>
-        <p>Sumeru exposes <strong>JSON-RPC only</strong> at this endpoint. There is no alternate RPC transport.</p>
-        <p><strong>SWC</strong> (Sumeru Web Client) is the primary consumer for workspace CRUD, <code>read_group</code>, and <code>call</code>. Browser code sends <code>X-CSRF-Token</code> from <code>window.__SWC_BOOTSTRAP__</code>.</p>
-        <h2 id="authentication">Authentication</h2>
-        <table><thead><tr><th>Method</th><th>Header / cookie</th></tr></thead><tbody>
-        <tr><td>Session</td><td>Cookie <code>sumeru_session</code> (from <code>/web/login</code>)</td></tr>
-        <tr><td>API key</td><td><code>X-API-Key: sk_…</code> or <code>Authorization: Bearer sk_…</code></td></tr>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
+        <h1>RPC API</h1>
+        <p class="docs-lede">Path-based HTTP JSON under <strong><code>/api/rpc/</code></strong> — authenticate once, then call <code>{{model}}/{{method}}</code> with an API key or session.</p>
+        <p><strong>Source:</strong> <code>sumeru/core/server/web/rpc_json.go</code>, <code>sumeru/core/server/api/rpc_body.go</code>, <code>sumeru/core/server/api/dispatch.go</code></p>
+        <p>Integrators use <strong>path-based HTTP JSON</strong> (not a flat <code>POST /api/rpc</code> body with <code>model</code>/<code>method</code>/<code>args</code>). The <strong>SWC</strong> browser client uses the same prefix with session cookies and CSRF.</p>
+        <p><strong>Ops probes (outside RPC):</strong> <code>GET /api/health</code> (liveness), <code>GET /api/ready</code> (database) — plain JSON, not the RPC envelope below.</p>
+
+        <h2 id="quick-start">Quick start</h2>
+        <h3 id="prerequisites">Prerequisites</h3>
+        <ul>
+        <li>Running Sumeru instance (HTTPS in production; TLS enables HTTP/2 on the Go listener when configured).</li>
+        <li>Server <strong><code>db_name</code></strong> (e.g. <code>sumeru</code>) and a company id or name for <strong><code>X-Sumeru-Tenant</code></strong> (often <code>1</code>).</li>
+        <li>A user allowed on that company with password sign-in enabled.</li>
+        </ul>
+        <p>Replace <code>https://erp.example.com</code>, database name, tenant, and credentials in the examples below.</p>
+        <h3 id="step-1-authenticate">Step 1 — Authenticate</h3>
+        <p><strong><code>POST /api/rpc/auth.login</code></strong> with database and tenant headers. <strong>Do not</strong> send <code>Authorization</code>. On success, store <strong><code>data.api_key</code></strong> (<code>sk_…</code>) — shown <strong>once</strong>.</p>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-fd119ab4">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-actions">
+              <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+            </div>
+          </div>
+          <div class="docs-codebox-panels">
+            <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="BASE=&quot;https://erp.example.com&quot;
+        DB=&quot;sumeru&quot;
+        TENANT=&quot;1&quot;
+
+        curl -sS -X POST &quot;$BASE/api/rpc/auth.login&quot; \
+          -H &quot;Content-Type: application/json&quot; \
+          -H &quot;X-Sumeru-Database: $DB&quot; \
+          -H &quot;X-Sumeru-Tenant: $TENANT&quot; \
+          -d &#x27;{
+            &quot;context&quot;: { &quot;lang&quot;: &quot;en_US&quot; },
+            &quot;login&quot;: &quot;integrator@example.com&quot;,
+            &quot;password&quot;: &quot;YOUR_PASSWORD&quot;
+          }&#x27;"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">BASE="https://erp.example.com"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">DB="sumeru"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">TENANT="1"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">curl -sS -X POST "$BASE/api/rpc/auth.login" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Content-Type: application/json" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "X-Sumeru-Database: $DB" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "X-Sumeru-Tenant: $TENANT" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -d '{</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">    "context": { "lang": "en_US" },</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">    "login": "integrator@example.com",</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">    "password": "YOUR_PASSWORD"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  }'</span></span></code></pre></div>
+          </div>
+        </div>
+        <p>Success returns <strong><code>data.api_key</code></strong> and <strong><code>data.session_id</code></strong>. Store the API key in a secret manager.</p>
+        <h3 id="step-2-call-a-model-method">Step 2 — Call a model method</h3>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-d8c1ea9e">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-actions">
+              <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+            </div>
+          </div>
+          <div class="docs-codebox-panels">
+            <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="API_KEY=&quot;sk_paste_from_login_response&quot;
+
+        curl -sS -X POST &quot;$BASE/api/rpc/core.partner/search_read&quot; \
+          -H &quot;Content-Type: application/json&quot; \
+          -H &quot;X-Sumeru-Database: $DB&quot; \
+          -H &quot;X-Sumeru-Tenant: $TENANT&quot; \
+          -H &quot;Authorization: Bearer $API_KEY&quot; \
+          -d &#x27;{
+            &quot;domain&quot;: [[&quot;active&quot;, &quot;=&quot;, true]],
+            &quot;fields&quot;: [&quot;name&quot;, &quot;email&quot;],
+            &quot;limit&quot;: 5
+          }&#x27;"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">API_KEY="sk_paste_from_login_response"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">curl -sS -X POST "$BASE/api/rpc/core.partner/search_read" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Content-Type: application/json" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "X-Sumeru-Database: $DB" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "X-Sumeru-Tenant: $TENANT" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Authorization: Bearer $API_KEY" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -d '{</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">    "domain": [["active", "=", true]],</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">    "fields": ["name", "email"],</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">    "limit": 5</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  }'</span></span></code></pre></div>
+          </div>
+        </div>
+        <p>Check <strong><code>success": true</code></strong> and read <strong><code>data</code></strong>. Errors use the same envelope — see <a href="#response-envelope">Response envelope</a>.</p>
+        <h3 id="step-3-optional-health-check">Step 3 — Optional health check</h3>
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-1709a8db">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-actions">
+              <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+            </div>
+          </div>
+          <div class="docs-codebox-panels">
+            <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="curl -sS &quot;$BASE/api/rpc/core.partner/health&quot; \
+          -H &quot;X-Sumeru-Database: $DB&quot; \
+          -H &quot;X-Sumeru-Tenant: $TENANT&quot; \
+          -H &quot;Authorization: Bearer $API_KEY&quot;"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">curl -sS "$BASE/api/rpc/core.partner/health" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "X-Sumeru-Database: $DB" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "X-Sumeru-Tenant: $TENANT" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Authorization: Bearer $API_KEY"</span></span></code></pre></div>
+          </div>
+        </div>
+        <p>Confirms the model is registered and lists public RPC method names. Details under <a href="#op-model-health">Model health</a>.</p>
+
+        <h2 id="conventions">Conventions</h2>
+        <h3 id="required-headers">Required headers</h3>
+        <table><thead><tr><th>Header</th><th>When</th><th>Rule</th></tr></thead><tbody>
+        <tr><td><code>X-Sumeru-Database</code></td><td>All <code>/api/rpc/</code> calls</td><td>Must match server <code>db_name</code> in config</td></tr>
+        <tr><td><code>X-Sumeru-Tenant</code></td><td>All <code>/api/rpc/</code> calls</td><td>Active company <strong>id</strong> (e.g. <code>1</code>) or exact <strong><code>core.company</code> name</strong></td></tr>
+        <tr><td><code>Content-Type</code></td><td>POST bodies</td><td><code>application/json</code></td></tr>
+        <tr><td><code>Authorization</code></td><td>Model RPC, health GET</td><td><code>Bearer sk_…</code> or <code>X-API-Key: sk_…</code></td></tr>
+        <tr><td><code>Authorization</code></td><td><code>auth.login</code></td><td><strong>Must be absent</strong> (400 if Bearer or session is treated as pre-auth auth)</td></tr>
+        <tr><td><code>X-CSRF-Token</code></td><td>Session cookie auth</td><td>Required for SWC; omit for API key integrations</td></tr>
         </tbody></table>
-        <p>Unauthenticated requests receive error code <code>UNAUTHORIZED</code>.</p>
-        <h2 id="request-shape">Request shape</h2>
-        <p>Flat Sumeru format:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-010fcece">
+        <p>Example header set for model RPC:</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-338852c6">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">http</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">http</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="POST /api/rpc/core.partner/search_read HTTP/1.1
+        Host: localhost:8080
+        Content-Type: application/json
+        X-Sumeru-Database: sumeru
+        X-Sumeru-Tenant: 1
+        Authorization: Bearer sk_your_key_here"><pre class="docs-pre"><code data-lang="http">POST /api/rpc/core.partner/search_read HTTP/1.1
+        Host: localhost:8080
+        Content-Type: application/json
+        X-Sumeru-Database: sumeru
+        X-Sumeru-Tenant: 1
+        Authorization: Bearer sk_your_key_here</code></pre></div></div>
+        </div>
+        <h3 id="response-envelope">Response envelope</h3>
+        <p>Every <strong><code>/api/rpc/</code></strong> response uses:</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-eae6dd83">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;success&quot;: true,
+          &quot;status_code&quot;: 200,
+          &quot;timestamp&quot;: &quot;2026-10-16T12:00:00+05:30&quot;,
+          &quot;message&quot;: &quot;OK&quot;,
+          &quot;data&quot;: {},
+          &quot;error&quot;: null
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "success": true,
+          "status_code": 200,
+          "timestamp": "2026-10-16T12:00:00+05:30",
+          "message": "OK",
+          "data": {},
+          "error": null
+        }</code></pre></div></div>
+        </div>
+        <ul>
+        <li><strong><code>success</code></strong> — business outcome (check this even when HTTP status is 200).</li>
+        <li><strong><code>status_code</code></strong> — mirrors the intended HTTP semantics on the envelope.</li>
+        <li><strong><code>data</code></strong> — method result on success; <code>null</code> on failure.</li>
+        <li><strong><code>error</code></strong> — structured failure; shape depends on auth vs model RPC.</li>
+        </ul>
+        <p><strong>Model RPC error</strong> (example):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-3b859b47">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;success&quot;: false,
+          &quot;status_code&quot;: 403,
+          &quot;timestamp&quot;: &quot;2026-10-16T12:00:00+05:30&quot;,
+          &quot;message&quot;: &quot;Access denied&quot;,
+          &quot;data&quot;: null,
+          &quot;error&quot;: {
+            &quot;code&quot;: &quot;ACCESS_DENIED&quot;,
+            &quot;name&quot;: &quot;sumeru.api.ACCESS_DENIED&quot;,
+            &quot;message&quot;: &quot;Access denied&quot;,
+            &quot;context&quot;: { &quot;code&quot;: &quot;ACCESS_DENIED&quot; }
+          }
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "success": false,
+          "status_code": 403,
+          "timestamp": "2026-10-16T12:00:00+05:30",
+          "message": "Access denied",
+          "data": null,
+          "error": {
+            "code": "ACCESS_DENIED",
+            "name": "sumeru.api.ACCESS_DENIED",
+            "message": "Access denied",
+            "context": { "code": "ACCESS_DENIED" }
+          }
+        }</code></pre></div></div>
+        </div>
+        <p>SWC reads <strong><code>error.code</code></strong> or <strong><code>error.context.code</code></strong> for redirects and messaging.</p>
+        <p><strong>Auth error</strong> (<code>auth.login</code>, tenant denial, MFA):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-7b78566a">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;success&quot;: false,
+          &quot;status_code&quot;: 401,
+          &quot;timestamp&quot;: &quot;2026-10-16T12:00:00+05:30&quot;,
+          &quot;message&quot;: &quot;Authentication failed&quot;,
+          &quot;data&quot;: null,
+          &quot;error&quot;: {
+            &quot;code&quot;: &quot;INVALID_CREDENTIALS&quot;,
+            &quot;type&quot;: &quot;AuthenticationError&quot;,
+            &quot;context&quot;: {},
+            &quot;debug&quot;: &quot;Authentication failed.&quot;
+          }
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "success": false,
+          "status_code": 401,
+          "timestamp": "2026-10-16T12:00:00+05:30",
+          "message": "Authentication failed",
+          "data": null,
+          "error": {
+            "code": "INVALID_CREDENTIALS",
+            "type": "AuthenticationError",
+            "context": {},
+            "debug": "Authentication failed."
+          }
+        }</code></pre></div></div>
+        </div>
+        <p>In <strong><code>dev_mode</code></strong>, <code>debug</code> may include more detail. Production returns a short generic debug string.</p>
+        <p>Responses may include <strong><code>X-Request-ID</code></strong> when the client sent one.</p>
+        <h3 id="browser-clients-swc">Browser clients (SWC)</h3>
+        <p>The web app signs in at <strong><code>/web/login</code></strong>, then calls <strong><code>POST /api/rpc/{{model}}/{{method}}</code></strong> with cookie <strong><code>sumeru_session</code></strong>, <strong><code>X-CSRF-Token</code></strong> from <code>window.__SWC_BOOTSTRAP__.csrfToken</code>, and database/tenant headers from bootstrap. Integrators should prefer <strong><code>auth.login</code> + Bearer</strong> instead of scraping cookies.</p>
+        <h3 id="production-checklist">Production checklist</h3>
+        <ul>
+        <li>Use <strong>HTTPS</strong>; rotate API keys via the UI or re-login; revoke compromised keys.</li>
+        <li>Do not put keys in query strings or client-side storage.</li>
+        <li>Respect ACLs: the key runs as its user — test with a dedicated integration account.</li>
+        <li>Handle <strong><code>429</code></strong> / rate limits when <code>rate_limit_rpm</code> is set.</li>
+        </ul>
+        <h3 id="what-not-to-do">What not to do</h3>
+        <ul>
+        <li>Do not use flat <strong><code>POST /api/rpc</code></strong> or legacy <code>{ok, result}</code> responses — they are removed.</li>
+        <li>Do not log raw <strong><code>api_key</code></strong> values or passwords.</li>
+        <li>Do not assume frozen error codes pre-1.0; check <strong><code>error.code</code></strong> and HTTP status.</li>
+        </ul>
+
+        <h2 id="operations">Operations</h2>
+        <p>Each operation uses the headers in <a href="#required-headers">Required headers</a> and the <a href="#response-envelope">response envelope</a>.</p>
+
+        <h3 id="op-auth-login">Authenticate</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/auth.login</span></div>
+          <p>Virtual auth endpoint (not an ORM model). <strong>POST only.</strong></p>
+          <p><strong>Request</strong></p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-7cbcd4c4">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">http</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">http</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="POST /api/rpc/auth.login HTTP/1.1
+        Content-Type: application/json
+        X-Sumeru-Database: sumeru
+        X-Sumeru-Tenant: 1"><pre class="docs-pre"><code data-lang="http">POST /api/rpc/auth.login HTTP/1.1
+        Content-Type: application/json
+        X-Sumeru-Database: sumeru
+        X-Sumeru-Tenant: 1</code></pre></div></div>
+        </div>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-64b3cee9">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;context&quot;: { &quot;lang&quot;: &quot;en_US&quot; },
+          &quot;login&quot;: &quot;user@example.com&quot;,
+          &quot;password&quot;: &quot;YOUR_PASSWORD&quot;
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "context": { "lang": "en_US" },
+          "login": "user@example.com",
+          "password": "YOUR_PASSWORD"
+        }</code></pre></div></div>
+        </div>
+          <table><thead><tr><th>Field</th><th>Required</th><th>Notes</th></tr></thead><tbody>
+          <tr><td><code>login</code></td><td>yes</td><td>Non-empty string</td></tr>
+          <tr><td><code>password</code></td><td>yes</td><td>Non-empty string</td></tr>
+          <tr><td><code>context</code></td><td>no</td><td>Optional; <code>context.lang</code> accepted for future i18n</td></tr>
+          </tbody></table>
+          <p>Respects <strong><code>auth.local_enabled</code></strong> (403 when password sign-in is disabled). Failed attempts use login lockout (same as web login). Users with TOTP required receive <strong><code>MFA_REQUIRED</code></strong> (403).</p>
+          <p><strong>Success (200)</strong></p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-75dc749e">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;success&quot;: true,
+          &quot;status_code&quot;: 200,
+          &quot;timestamp&quot;: &quot;2026-10-16T12:00:00+05:30&quot;,
+          &quot;message&quot;: &quot;User authenticated successfully&quot;,
+          &quot;data&quot;: {
+            &quot;uid&quot;: 25,
+            &quot;username&quot;: &quot;user@example.com&quot;,
+            &quot;name&quot;: &quot;API User&quot;,
+            &quot;session_id&quot;: &quot;a1b2c3…&quot;,
+            &quot;api_key&quot;: &quot;sk_…&quot;
+          },
+          &quot;error&quot;: null
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "success": true,
+          "status_code": 200,
+          "timestamp": "2026-10-16T12:00:00+05:30",
+          "message": "User authenticated successfully",
+          "data": {
+            "uid": 25,
+            "username": "user@example.com",
+            "name": "API User",
+            "session_id": "a1b2c3…",
+            "api_key": "sk_…"
+          },
+          "error": null
+        }</code></pre></div></div>
+        </div>
+          <p>A <strong><code>Set-Cookie</code></strong> for <code>sumeru_session</code> may be returned for browser clients. <strong>Never log</strong> <code>api_key</code> or raw passwords.</p>
+          <p><strong>Failure (401)</strong> — <code>error.code</code> <strong><code>INVALID_CREDENTIALS</code></strong>, <code>error.type</code> <strong><code>AuthenticationError</code></strong>.</p>
+        </div>
+
+        <h3 id="op-model-health">Model health</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-get">GET</span><span class="docs-http-path">/api/rpc/{{model}}/health</span></div>
+          <p><strong>GET only.</strong> Same database, tenant, and authentication as model POST (Bearer or session + CSRF).</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-d8802f71">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">http</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">http</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="GET /api/rpc/core.partner/health HTTP/1.1
+        X-Sumeru-Database: sumeru
+        X-Sumeru-Tenant: 1
+        Authorization: Bearer sk_your_key_here"><pre class="docs-pre"><code data-lang="http">GET /api/rpc/core.partner/health HTTP/1.1
+        X-Sumeru-Database: sumeru
+        X-Sumeru-Tenant: 1
+        Authorization: Bearer sk_your_key_here</code></pre></div></div>
+        </div>
+          <p><strong>Success (200)</strong></p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6c7a8ca0">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;success&quot;: true,
+          &quot;status_code&quot;: 200,
+          &quot;timestamp&quot;: &quot;2026-10-16T12:00:00+05:30&quot;,
+          &quot;message&quot;: &quot;Model health OK&quot;,
+          &quot;data&quot;: {
+            &quot;model&quot;: &quot;core.partner&quot;,
+            &quot;registered&quot;: true,
+            &quot;rpc_methods&quot;: [&quot;call&quot;, &quot;create&quot;, &quot;create_many&quot;, &quot;onchange&quot;, &quot;read&quot;, &quot;read_group&quot;, &quot;search&quot;, &quot;search_read&quot;, &quot;unlink&quot;, &quot;unlink_many&quot;, &quot;write&quot;, &quot;write_many&quot;]
+          },
+          &quot;error&quot;: null
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "success": true,
+          "status_code": 200,
+          "timestamp": "2026-10-16T12:00:00+05:30",
+          "message": "Model health OK",
+          "data": {
+            "model": "core.partner",
+            "registered": true,
+            "rpc_methods": ["call", "create", "create_many", "onchange", "read", "read_group", "search", "search_read", "unlink", "unlink_many", "write", "write_many"]
+          },
+          "error": null
+        }</code></pre></div></div>
+        </div>
+          <p>Unknown model → <strong>404</strong> with <code>MODEL_NOT_FOUND</code>. Wrong verb on other paths → <strong>405</strong>.</p>
+        </div>
+
+        <h3 id="model-rpc-pattern">Model RPC</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{{model}}/{{method}}</span></div>
+          <ul>
+          <li><strong><code>{{model}}</code></strong> — registered ORM name (e.g. <code>core.partner</code>, <code>crm.lead</code>).</li>
+          <li><strong><code>{{method}}</code></strong> — public allowlist below.</li>
+          </ul>
+          <p><strong>Body:</strong> flat JSON per method. Optional top-level <strong><code>context</code></strong>, and for reads <strong><code>limit</code></strong>, <strong><code>offset</code></strong>, <strong><code>order</code></strong> where supported.</p>
+          <p><strong>Auth:</strong> API key or session; then <strong><code>UserAllowedCompany</code></strong> for <code>X-Sumeru-Tenant</code>. Invalid API key → <strong>401</strong>, message <strong><code>Invalid apikey</code></strong>. Tenant not allowed → <strong>403</strong>.</p>
+          <p id="public-methods-summary"><strong>Public methods summary</strong></p>
+          <table><thead><tr><th>Method</th><th>Required body fields</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>search</code></td><td><code>domain</code></td><td><code>context</code>, <code>limit</code>, <code>offset</code> (via kwargs)</td><td><code>[{id, …}, …]</code></td></tr>
+          <tr><td><code>search_read</code></td><td><code>domain</code>, <code>fields</code></td><td><code>limit</code>, <code>offset</code>, <code>order</code>, <code>context</code></td><td>Projected records</td></tr>
+          <tr><td><code>read</code></td><td><code>ids</code></td><td><code>fields</code>, <code>context</code></td><td>Records</td></tr>
+          <tr><td><code>create</code></td><td><code>values</code></td><td><code>context</code></td><td>New id (int)</td></tr>
+          <tr><td><code>write</code></td><td><code>ids</code>, <code>values</code></td><td><code>context</code></td><td><code>true</code></td></tr>
+          <tr><td><code>unlink</code></td><td><code>ids</code></td><td><code>context</code></td><td><code>true</code></td></tr>
+          <tr><td><code>create_many</code></td><td><code>values</code> (array) or <code>records</code></td><td><code>context</code></td><td><code>[id, …]</code></td></tr>
+          <tr><td><code>write_many</code></td><td><code>ids</code>, <code>values</code></td><td><code>context</code></td><td><code>true</code></td></tr>
+          <tr><td><code>unlink_many</code></td><td><code>ids</code></td><td><code>context</code></td><td><code>true</code></td></tr>
+          <tr><td><code>read_group</code></td><td><code>domain</code>, <code>groupby</code>, <code>fields</code> (or single <code>spec</code>)</td><td><code>context</code></td><td>Group rows</td></tr>
+          <tr><td><code>onchange</code></td><td><code>values</code>, <code>field</code></td><td><code>context</code></td><td>Onchange patch object</td></tr>
+          <tr><td><code>call</code></td><td><code>id</code>, <code>method</code></td><td><code>vals</code>, <code>context</code></td><td><code>true</code> or <code>{redirect: "…"}</code></td></tr>
+          </tbody></table>
+          <p>Default <strong><code>limit</code></strong> is <strong>500</strong> (hard cap). Same ACL and record rules as the web UI.</p>
+        </div>
+
+        <h3 id="method-details">Method request bodies</h3>
+        <p>Replace <code>{{model}}</code> with any registered model (examples use <code>core.partner</code> unless noted).</p>
+        <h3 id="rpc-search">search</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/search</span></div>
+          <p>Returns matching records (all stored columns subject to field ACL redaction).</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>domain</code></td><td><code>context, limit, offset</code></td><td>Array of record maps</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-search">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -99,19 +498,25 @@
     <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
-  &quot;model&quot;: &quot;core.user&quot;,
-  &quot;method&quot;: &quot;search_read&quot;,
-  &quot;args&quot;: [[[&quot;active&quot;, &quot;=&quot;, true]], [&quot;id&quot;, &quot;login&quot;]],
-  &quot;kwargs&quot;: { &quot;limit&quot;: 50, &quot;offset&quot;: 0 }
+  &quot;domain&quot;: [[&quot;active&quot;, &quot;=&quot;, true]],
+  &quot;context&quot;: { &quot;lang&quot;: &quot;en_US&quot; },
+  &quot;limit&quot;: 50,
+  &quot;offset&quot;: 0
 }"><pre class="docs-pre"><code data-lang="json">{
-  "model": "core.user",
-  "method": "search_read",
-  "args": [[["active", "=", true]], ["id", "login"]],
-  "kwargs": { "limit": 50, "offset": 0 }
+  "domain": [["active", "=", true]],
+  "context": { "lang": "en_US" },
+  "limit": 50,
+  "offset": 0
 }</code></pre></div></div>
-</div>
-        <p>wrapper (also supported):</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-68a4e42c">
+</div>        </div>        <h3 id="rpc-search-read">search_read</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/search_read</span></div>
+          <p>Search and project fields in one call.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>domain, fields</code></td><td><code>limit, offset, order, context</code></td><td>Projected records</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-search_read">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -120,35 +525,29 @@
     <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
-  &quot;params&quot;: {
-    &quot;model&quot;: &quot;core.user&quot;,
-    &quot;method&quot;: &quot;search&quot;,
-    &quot;args&quot;: [[]],
-    &quot;kwargs&quot;: {}
-  }
+  &quot;domain&quot;: [[&quot;customer_rank&quot;, &quot;>&quot;, 0]],
+  &quot;fields&quot;: [&quot;name&quot;, &quot;email&quot;, &quot;phone&quot;, &quot;company_id&quot;],
+  &quot;limit&quot;: 20,
+  &quot;offset&quot;: 0,
+  &quot;order&quot;: &quot;name asc&quot;,
+  &quot;context&quot;: { &quot;lang&quot;: &quot;en_US&quot; }
 }"><pre class="docs-pre"><code data-lang="json">{
-  "params": {
-    "model": "core.user",
-    "method": "search",
-    "args": [[]],
-    "kwargs": {}
-  }
+  "domain": [["customer_rank", ">", 0]],
+  "fields": ["name", "email", "phone", "company_id"],
+  "limit": 20,
+  "offset": 0,
+  "order": "name asc",
+  "context": { "lang": "en_US" }
 }</code></pre></div></div>
-</div>
-        <h2 id="response-envelope">Response envelope</h2>
-        <p>Success:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-75a0ee0d">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-title">
-      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">json</span>
-    </div>
-    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
-  </div>
-  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{ &quot;ok&quot;: true, &quot;result&quot;: &lt;data&gt;, &quot;error&quot;: null }"><pre class="docs-pre"><code data-lang="json">{ "ok": true, "result": &lt;data&gt;, "error": null }</code></pre></div></div>
-</div>
-        <p>Error:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-6364808a">
+</div>        </div>        <h3 id="rpc-read">read</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/read</span></div>
+          <p>Read known ids.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>ids</code></td><td><code>fields, context</code></td><td>Records; omit fields for all allowed columns. Missing ids → NOT_FOUND.</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-read">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -157,42 +556,23 @@
     <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
-  &quot;ok&quot;: false,
-  &quot;result&quot;: null,
-  &quot;error&quot;: {
-    &quot;code&quot;: &quot;ACCESS_DENIED&quot;,
-    &quot;message&quot;: &quot;...&quot;,
-    &quot;details&quot;: {}
-  }
+  &quot;ids&quot;: [14, 15],
+  &quot;fields&quot;: [&quot;name&quot;, &quot;email&quot;],
+  &quot;context&quot;: {}
 }"><pre class="docs-pre"><code data-lang="json">{
-  "ok": false,
-  "result": null,
-  "error": {
-    "code": "ACCESS_DENIED",
-    "message": "...",
-    "details": {}
-  }
+  "ids": [14, 15],
+  "fields": ["name", "email"],
+  "context": {}
 }</code></pre></div></div>
-</div>
-        <p>Every response includes <code>X-Request-ID</code> when provided on the request.</p>
-        <h2 id="public-methods">Public methods</h2>
-        <table><thead><tr><th>Method</th><th>args</th><th>kwargs</th><th>result</th></tr></thead><tbody>
-        <tr><td><code>search</code></td><td><code>[domain?]</code></td><td><code>limit</code>, <code>offset</code></td><td><code>[{record}, …]</code></td></tr>
-        <tr><td><code>search_read</code></td><td><code>[domain, fields]</code></td><td><code>limit</code>, <code>offset</code></td><td>Projected records</td></tr>
-        <tr><td><code>read</code></td><td><code>[ids, fields?]</code></td><td>—</td><td>Records; missing ids → <code>NOT_FOUND</code></td></tr>
-        <tr><td><code>read_group</code></td><td><code>[spec]</code></td><td>—</td><td>Grouped aggregation rows</td></tr>
-        <tr><td><code>call</code></td><td><code>[id, method, vals?]</code></td><td>—</td><td><code>true</code> or <code>{redirect: "…"}</code></td></tr>
-        <tr><td><code>create</code></td><td><code>[values]</code></td><td>—</td><td>New id (int)</td></tr>
-        <tr><td><code>write</code></td><td><code>[ids, values]</code></td><td>—</td><td><code>true</code></td></tr>
-        <tr><td><code>unlink</code></td><td><code>[ids]</code></td><td>—</td><td><code>true</code></td></tr>
-        <tr><td><code>create_many</code></td><td><code>[[values], …]</code></td><td>—</td><td><code>[id, …]</code></td></tr>
-        <tr><td><code>write_many</code></td><td><code>[ids, values]</code></td><td>—</td><td><code>true</code></td></tr>
-        <tr><td><code>unlink_many</code></td><td><code>[ids]</code></td><td>—</td><td><code>true</code></td></tr>
-        </tbody></table>
-        <p>Default <code>kwargs.limit</code> is <strong>500</strong> (hard cap). Offset is applied in SQL via <code>SearchPage</code>.</p>
-        <h3 id="read-group">read_group</h3>
-        <p><code>args[0]</code> is a spec object:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-3979dcfe">
+</div>        </div>        <h3 id="rpc-create">create</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/create</span></div>
+          <p>Create one record.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>values</code></td><td><code>context</code></td><td>New integer id in data</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-create">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -201,25 +581,185 @@
     <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
-  &quot;domain&quot;: [[&quot;state&quot;, &quot;=&quot;, &quot;sale&quot;]],
-  &quot;groupby&quot;: [&quot;partner_id&quot;],
+  &quot;values&quot;: {
+    &quot;name&quot;: &quot;New Partner Ltd&quot;,
+    &quot;email&quot;: &quot;hello@newpartner.example&quot;,
+    &quot;company_id&quot;: 1
+  },
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "values": {
+    "name": "New Partner Ltd",
+    "email": "hello@newpartner.example",
+    "company_id": 1
+  },
+  "context": {}
+}</code></pre></div></div>
+</div>        </div>        <h3 id="rpc-write">write</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/write</span></div>
+          <p>Update records.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>ids, values</code></td><td><code>context</code></td><td>data: true</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-write">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;ids&quot;: [14],
+  &quot;values&quot;: { &quot;phone&quot;: &quot;+1-555-0199&quot; },
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "ids": [14],
+  "values": { "phone": "+1-555-0199" },
+  "context": {}
+}</code></pre></div></div>
+</div>        </div>        <h3 id="rpc-unlink">unlink</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/unlink</span></div>
+          <p>Delete records.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>ids</code></td><td><code>context</code></td><td>data: true</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-unlink">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;ids&quot;: [99],
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "ids": [99],
+  "context": {}
+}</code></pre></div></div>
+</div>        </div>        <h3 id="rpc-create-many">create_many</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/create_many</span></div>
+          <p>Batch create.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>values (array) or records</code></td><td><code>context</code></td><td>data: [id, …]</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-create_many">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;values&quot;: [
+    { &quot;name&quot;: &quot;Batch A&quot; },
+    { &quot;name&quot;: &quot;Batch B&quot; }
+  ],
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "values": [
+    { "name": "Batch A" },
+    { "name": "Batch B" }
+  ],
+  "context": {}
+}</code></pre></div></div>
+</div>        </div>        <h3 id="rpc-write-many">write_many</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/write_many</span></div>
+          <p>Same body shape as write (shared values for all ids).</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>ids, values</code></td><td><code>context</code></td><td>data: true</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-write_many">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;ids&quot;: [14, 15],
+  &quot;values&quot;: { &quot;active&quot;: true },
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "ids": [14, 15],
+  "values": { "active": true },
+  "context": {}
+}</code></pre></div></div>
+</div>        </div>        <h3 id="rpc-unlink-many">unlink_many</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/unlink_many</span></div>
+          <p>Same body shape as unlink.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>ids</code></td><td><code>context</code></td><td>data: true</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-unlink_many">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;ids&quot;: [14, 15],
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "ids": [14, 15],
+  "context": {}
+}</code></pre></div></div>
+</div>        </div>        <h3 id="rpc-read-group">read_group</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/read_group</span></div>
+          <p>Aggregations; measures sum or count.</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>domain, groupby, fields (or spec)</code></td><td><code>context</code></td><td>Group rows</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-read_group">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;domain&quot;: [[&quot;active&quot;, &quot;=&quot;, true]],
+  &quot;groupby&quot;: [&quot;company_id&quot;],
   &quot;fields&quot;: [
-    {&quot;name&quot;: &quot;amount_total&quot;, &quot;field&quot;: &quot;amount_total&quot;, &quot;measure&quot;: &quot;sum&quot;},
-    {&quot;name&quot;: &quot;__count&quot;, &quot;field&quot;: &quot;id&quot;, &quot;measure&quot;: &quot;count&quot;}
-  ]
+    { &quot;name&quot;: &quot;id_count&quot;, &quot;field&quot;: &quot;id&quot;, &quot;measure&quot;: &quot;count&quot; }
+  ],
+  &quot;context&quot;: {}
 }"><pre class="docs-pre"><code data-lang="json">{
-  "domain": [["state", "=", "sale"]],
-  "groupby": ["partner_id"],
+  "domain": [["active", "=", true]],
+  "groupby": ["company_id"],
   "fields": [
-    {"name": "amount_total", "field": "amount_total", "measure": "sum"},
-    {"name": "__count", "field": "id", "measure": "count"}
-  ]
+    { "name": "id_count", "field": "id", "measure": "count" }
+  ],
+  "context": {}
 }</code></pre></div></div>
-</div>
-        <p>Measures: <code>sum</code>, <code>count</code>. Uses the same ACL and record rules as <code>search</code>.</p>
-        <h3 id="call">call</h3>
-        <p>Invokes a handler registered with <code>orm.RegisterObjectAction</code> (same as form object buttons):</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-b2a099e6">
+</div>        </div>        <h3 id="rpc-onchange">onchange</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/onchange</span></div>
+          <p>Form field change hooks (SWC uses this too).</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>values, field</code></td><td><code>context</code></td><td>Onchange patch object</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>core.partner</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-onchange">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -228,30 +768,109 @@
     <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
   <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
-  &quot;model&quot;: &quot;crm.lead&quot;,
-  &quot;method&quot;: &quot;call&quot;,
-  &quot;args&quot;: [42, &quot;action_merge_wizard&quot;, { &quot;active_ids&quot;: &quot;3,7&quot; }]
+  &quot;values&quot;: { &quot;name&quot;: &quot;Partial&quot;, &quot;country_id&quot;: 233 },
+  &quot;field&quot;: &quot;country_id&quot;,
+  &quot;context&quot;: {}
 }"><pre class="docs-pre"><code data-lang="json">{
-  "model": "crm.lead",
-  "method": "call",
-  "args": [42, "action_merge_wizard", { "active_ids": "3,7" }]
+  "values": { "name": "Partial", "country_id": 233 },
+  "field": "country_id",
+  "context": {}
 }</code></pre></div></div>
-</div>
-        <p><code>args[0]</code> is the record id, <code>args[1]</code> the object-action name. Optional <code>args[2]</code> is a string map passed through to <code>orm.RunObjectAction</code> (used for list multi-select <code>active_ids</code>).</p>
-        <h2 id="read-replica">Read replica</h2>
-        <p>When <code>db_read_replica_dsn</code> is configured, <code>search</code>, <code>search_read</code>, and list workspace loads prefer the read replica connection.</p>
+</div>        </div>        <h3 id="rpc-call">call</h3>
+        <div class="docs-http-op">
+          <div class="docs-http-line"><span class="docs-http-method is-post">POST</span><span class="docs-http-path">/api/rpc/{model}/call</span></div>
+          <p>Invokes orm.RegisterObjectAction handlers (toolbar object buttons).</p>
+          <table><thead><tr><th>Required body</th><th>Optional</th><th>Typical <code>data</code></th></tr></thead><tbody>
+          <tr><td><code>id, method</code></td><td><code>vals, context</code></td><td>data: true or { redirect: "…" }</td></tr>
+          </tbody></table>
+          <p><strong>Example</strong> (<code>crm.lead</code>):</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-rpc-call-crm">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;id&quot;: 42,
+  &quot;method&quot;: &quot;action_merge_wizard&quot;,
+  &quot;vals&quot;: { &quot;active_ids&quot;: &quot;3,7&quot; },
+  &quot;context&quot;: {}
+}"><pre class="docs-pre"><code data-lang="json">{
+  "id": 42,
+  "method": "action_merge_wizard",
+  "vals": { "active_ids": "3,7" },
+  "context": {}
+}</code></pre></div></div>
+</div>        <p>Example model: <code>POST /api/rpc/crm.lead/call</code>. <code>vals</code> is a string map passed to <code>orm.RunObjectAction</code>.</p>
+        </div>
+        <p><strong><code>search_read</code> success (200)</strong> — example envelope:</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-8338ce9b">
+          <div class="docs-codebox-titlebar">
+            <div class="docs-codebox-title">
+              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+              <span class="docs-codebox-name">json</span>
+            </div>
+            <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+          </div>
+          <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+          &quot;success&quot;: true,
+          &quot;status_code&quot;: 200,
+          &quot;timestamp&quot;: &quot;2026-10-16T12:00:00+05:30&quot;,
+          &quot;message&quot;: &quot;OK&quot;,
+          &quot;data&quot;: [
+            {
+              &quot;id&quot;: 14,
+              &quot;name&quot;: &quot;Acme Corp&quot;,
+              &quot;email&quot;: &quot;contact@acme.example&quot;,
+              &quot;phone&quot;: &quot;+1-555-0100&quot;,
+              &quot;company_id&quot;: 1
+            }
+          ],
+          &quot;error&quot;: null
+        }"><pre class="docs-pre"><code data-lang="json">{
+          "success": true,
+          "status_code": 200,
+          "timestamp": "2026-10-16T12:00:00+05:30",
+          "message": "OK",
+          "data": [
+            {
+              "id": 14,
+              "name": "Acme Corp",
+              "email": "contact@acme.example",
+              "phone": "+1-555-0100",
+              "company_id": 1
+            }
+          ],
+          "error": null
+        }</code></pre></div></div>
+        </div>
+        <h2 id="removed-legacy-shapes">Removed legacy shapes</h2>
+        <p>The following are <strong>not</strong> registered on the live router:</p>
+        <ul>
+        <li>Flat <strong><code>POST /api/rpc</code></strong> with <code>model</code>, <code>method</code>, <code>args</code>, <code>kwargs</code> in one body</li>
+        <li>JSON-RPC <strong><code>params</code></strong> wrapper</li>
+        <li>Response shape <strong><code>{ "ok", "result", "error" }</code></strong></li>
+        </ul>
+        <p>Use path URLs and the envelope documented above.</p>
         <h2 id="security">Security</h2>
-        <p>RPC uses the same ACL and record rules as the web UI. The authenticated user id is taken from the session or API key owner and passed in the ORM context.</p>
+        <ul>
+        <li>RPC runs with the authenticated user (session or API key owner) and active tenant company in ORM context.</li>
+        <li>Model ACL, record rules, field ACL, and portal RPC model restrictions apply.</li>
+        <li>Rate limiting: config <strong><code>rate_limit_rpm</code></strong> applies to the <code>/api/rpc/</code> prefix and login (see <a href="getting-started/configuration-reference.html">configuration reference</a>).</li>
+        </ul>
         <h2 id="observability">Observability</h2>
-        <p>Prometheus metrics: <code>sumeru_rpc_requests_total</code>, <code>sumeru_rpc_duration_seconds</code> (see <code>GET /metrics</code>).</p>
+        <p>Prometheus: <strong><code>sumeru_rpc_requests_total</code></strong>, <strong><code>sumeru_rpc_duration_seconds</code></strong> (<code>GET /metrics</code> with system group).</p>
         <h2 id="see-also">See also</h2>
         <ul>
-        <li><a href="sumeru/README.html"><code>sumeru/README.md</code></a> — full RPC examples</li>
+        <li><a href="../guides/build/creating-apis.html">Creating APIs</a> — RPC vs custom HTTP vs object actions</li>
         <li><a href="http-routes.html">HTTP routes</a></li>
-        <li><a href="../guides/build/json-rpc-api.html">JSON-RPC API guide</a></li>
+        <li><a href="../guides/security/api-keys.html">API keys</a></li>
+        <li><a href="domain-filters.html">Domain filters</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

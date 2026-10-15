@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Build your first module</h1>
         <p class="docs-lede">Follow this path when you want a custom addon in <strong><code>sumeru_custom_addons/addons/</code></strong> without guessing the order of steps.</p>
         <h2 id="checklist">Checklist</h2>
@@ -93,7 +93,7 @@
         </tbody></table>
         <h2 id="step-3-model-view-together">Step 3 — model + view together</h2>
         <p>Your model name in Go must match the <strong><code>model=</code></strong> attribute in XML views and actions.</p>
-        <div class="docs-codebox is-pair is-wrap" data-codebox="pair-da33c8c8">
+        <div class="docs-codebox is-pair is-wrap" data-codebox="pair-cfcc20a2">
   <div class="docs-codebox-split is-50-50">
     <div class="docs-codebox-pane" data-lang="go">
       <div class="docs-codebox-titlebar">
@@ -121,7 +121,7 @@
 </div>
         <p>Run <strong><code>make generate</code></strong> after editing Go structs, then <strong><code>-u your_module</code></strong> (or reinstall) after XML changes.</p>
         <h2 id="step-7-install">Step 7 — install</h2>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-0f3edb44">
+        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-84f4874a">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-actions">
       <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
@@ -139,7 +139,7 @@ make install MODULES=my_app"><pre class="docs-pre is-shell"><code><span class="d
         <li>Reload XML with <a href="core/howtos/update-module.html">Update a module</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

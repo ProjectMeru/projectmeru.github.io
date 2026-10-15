@@ -69,19 +69,19 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="maintainers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Multi-instance cron</h1>
         <p class="docs-lede">When you run <strong>more than one Sumeru process</strong> against the same database, each process starts the built-in scheduler (<code>scheduler.Start</code> in <code>core/server/run.go</code>).</p>
         <h2 id="safe-concurrent-execution">Safe concurrent execution</h2>
         <p>Due cron rows are selected inside a transaction with:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-af8698df">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b63d9cbb">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -115,7 +115,7 @@ LIMIT 20</code></pre></div></div>
         <li><a href="../guides/concepts/scheduler.html">Scheduler concept</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

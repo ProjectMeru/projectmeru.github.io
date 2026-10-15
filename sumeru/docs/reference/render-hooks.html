@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="maintainers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Render hooks</h1>
         <p class="docs-lede"><strong>Package:</strong> <code>sumeru/core/engine/render</code></p>
         <p>The render layer turns <code>sys.view</code> records and ORM data into HTML for the workspace shell.</p>
@@ -93,7 +93,7 @@
         <p>Form <strong>Edit / Save / Cancel</strong> is owned by SWC <code>FormView.ts</code> (<code>sumeru/core/swc/src/views/FormView.ts</code>), not a Go chrome file.</p>
         <h2 id="shell-hook">Shell hook</h2>
         <p>Inject HTML into the top bar area:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-60d79cfc">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-35b402b5">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -110,7 +110,7 @@
         <p>Example: <code>sumeru/addons/sumeru_ai/init.go</code></p>
         <h2 id="notebook-hook">Notebook hook</h2>
         <p>Replace a notebook page body for a given model and tab title:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1780e428">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-93757094">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -126,7 +126,7 @@
 </div>
         <h2 id="kanban-group-expander">Kanban group expander</h2>
         <p>Custom column loader for grouped kanban boards (SWC workspace). <strong>Package:</strong> <code>sumeru/core/engine/swcmeta</code></p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-555e2f1f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-bd97e2a0">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -152,7 +152,7 @@
         <li><a href="../guides/build/views-and-menus.html">Views, actions, and menus</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

@@ -69,58 +69,64 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Account module</h1>
-        <p class="docs-lede">Invoicing, vendor bills, chart of accounts, taxes, and payments.</p>
+        <p class="docs-lede">Invoicing, vendor bills, chart of accounts, taxes, payments, financial reports, bank reconciliation, and advanced accounting.</p>
         <h2 id="models">Models</h2>
         <table><thead><tr><th>Model</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>account.account</code></td><td>Chart of accounts</td></tr>
+        <tr><td><code>account.group</code></td><td>Account groups</td></tr>
         <tr><td><code>account.journal</code></td><td>Journals</td></tr>
-        <tr><td><code>account.tax</code>, <code>account.tax.repartition.line</code></td><td>Taxes</td></tr>
+        <tr><td><code>account.tax</code>, <code>account.tax.repartition.line</code></td><td>Taxes and tax legs</td></tr>
+        <tr><td><code>account.fiscal.position</code>, <code>.tax</code></td><td>Fiscal tax mapping</td></tr>
         <tr><td><code>account.payment.term</code></td><td>Payment terms</td></tr>
-        <tr><td><code>account.move</code>, <code>account.move.line</code></td><td>Invoices, bills, entries</td></tr>
+        <tr><td><code>account.move</code>, <code>account.move.line</code></td><td>Invoices, bills, entries (includes <code>currency_id</code>, <code>analytic_account_id</code>)</td></tr>
         <tr><td><code>account.payment</code></td><td>Customer/vendor payments</td></tr>
         <tr><td><code>account.partial.reconcile</code>, <code>account.full.reconcile</code></td><td>Reconciliation</td></tr>
         <tr><td><code>account.invoice.report</code></td><td>Reporting snapshot</td></tr>
+        <tr><td><code>account.bank.statement</code>, <code>.line</code></td><td>Bank statements</td></tr>
+        <tr><td><code>account.reconcile.model</code></td><td>Bank matching rules</td></tr>
+        <tr><td><code>account.analytic.plan</code>, <code>.account</code></td><td>Analytic accounting</td></tr>
+        <tr><td><code>account.lock.date</code></td><td>Soft/hard posting locks</td></tr>
+        <tr><td><code>account.move.audit</code></td><td>Immutable post snapshots</td></tr>
+        <tr><td><code>account.recurring.template</code></td><td>Recurring entries</td></tr>
+        <tr><td><code>account.deferred.schedule</code></td><td>Deferred recognition</td></tr>
+        <tr><td><code>account.asset</code></td><td>Fixed assets / depreciation</td></tr>
+        <tr><td><code>account.budget</code></td><td>Budget vs actual</td></tr>
+        <tr><td><code>account.tax.return</code></td><td>Tax period compute</td></tr>
         </tbody></table>
         <h2 id="wizards">Wizards</h2>
         <table><thead><tr><th>Model</th><th>Purpose</th></tr></thead><tbody>
         <tr><td><code>account.payment.register</code></td><td>Register payment on invoice/bill</td></tr>
         <tr><td><code>account.move.reversal</code></td><td>Credit note / refund</td></tr>
         </tbody></table>
-        <p>Wizards compile with <code>sdk.Many2One[sdk.Any]</code> and <code>comodel=</code> for FKs across packages.</p>
-        <p>Tax invoice lines write <code>tax_origin_id</code> (the originating <code>account.tax</code>), not a <code>tax_line_id</code> column.</p>
-        <p>Post-payment and reverse actions redirect with <code>moveFormURL</code> chosen by <code>move_type</code> (<code>out_invoice</code>, <code>out_refund</code>, <code>in_invoice</code>, <code>in_refund</code>, else journal entries).</p>
-        <h2 id="services">Services</h2>
-        <table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>
-        <tr><td><code>services/hooks.go</code></td><td>SO/PO → invoice/bill on confirm</td></tr>
-        <tr><td><code>services/invoice.go</code></td><td>Create/post moves, tax/GL logic</td></tr>
-        <tr><td><code>services/payment.go</code></td><td>Post payments</td></tr>
-        <tr><td><code>services/reconcile.go</code></td><td>Reconciliation, report sync</td></tr>
-        <tr><td><code>services/actions.go</code></td><td>Object actions</td></tr>
-        </tbody></table>
+        <h2 id="reports">Reports</h2>
+        <p>URL actions open inside the workspace iframe shell (<code>sys.action.url</code>):</p>
+        <p>P&L, Balance Sheet, Trial Balance, General Ledger (optional <code>account_id</code>), Partner Ledger, Aged Receivable/Payable, Cash Flow, Annual Composite.</p>
+        <p>Routes: <code>GET /account/reports/view</code>, <code>GET /account/reports/export.csv</code>.</p>
+        <h2 id="bank">Bank</h2>
+        <p><code>GET /account/bank/reconcile</code> — two-pane workspace with suggested matches.</p>
+        <p><code>POST /account/bank/reconcile/match</code> — auto-match via reconcile models.</p>
+        <p><code>POST /account/bank/reconcile/import</code> — CSV <code>date,label,amount</code>.</p>
+        <h2 id="demo-data">Demo data</h2>
+        <p><code>data/account_data.xml</code> seeds COA, journals, taxes, terms.</p>
+        <p><code>data/account_demo.xml</code> + <code>data/account_demo_extended.xml</code> seed partners, posted invoices/bills, payments, bank statement, analytic, fiscal position, lock date, recurring/deferred/asset/budget/tax return.</p>
+        <p>Upgrade the <strong>account</strong> module after pull so XML and new tables sync.</p>
         <h2 id="object-actions">Object actions</h2>
-        <p><code>action_post</code>, <code>action_draft</code>, <code>action_cancel</code>, <code>action_register_payment</code>, <code>action_reverse</code>, <code>action_print_invoice</code>, …</p>
-        <h2 id="http-route">HTTP route</h2>
-        <p><code>GET /account/invoice/print?id=</code> — HTML print view (<code>controllers/invoice_print.go</code>)</p>
-        <h2 id="events">Events</h2>
-        <p>Auto-create customer invoice when <code>sale.order</code> → <code>state=sale</code>. Auto-create vendor bill when <code>purchase.order</code> → <code>state=purchase</code>.</p>
+        <p><code>action_post</code>, <code>action_draft</code>, <code>action_cancel</code>, <code>action_register_payment</code>, <code>action_reverse</code>, <code>action_print_invoice</code>, plus generate/recognize/depreciate/refresh/compute on advanced models.</p>
         <h2 id="depends">Depends</h2>
         <p><code>product</code>, <code>contacts</code></p>
-        <h2 id="paths">Paths</h2>
-        <ul>
-        <li><code>sumeru_addons/account/services/</code></li>
-        <li><code>sumeru_addons/account/views/menus.xml</code></li>
-        </ul>
+        <h2 id="enterprise-add-on">Enterprise add-on</h2>
+        <p><code>account_enterprise</code> (optional): bill OCR upload, UBL JSON e-invoice export, CFO KPI cache/dashboard, dunning levels.</p>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

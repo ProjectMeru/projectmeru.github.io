@@ -69,19 +69,19 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="addons" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Addons Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Events and hooks</h1>
         <p class="docs-lede">Standard business addons automate cross-module behavior through the in-process event bus and ORM extension points.</p>
         <h2 id="event-subscription">Event subscription</h2>
         <p><strong>Package:</strong> <code>sumeru/core/event</code></p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-26d16748">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-c4b064f4">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -115,7 +115,7 @@
         <p>Use <code>orm.ContextWithBypass(ctx)</code> when the handler must write records the triggering user cannot access (e.g. auto-creating a quotation).</p>
         <h2 id="object-actions">Object actions</h2>
         <p>UI buttons on forms call registered handlers:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1b0da92f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-539b79b8">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -128,7 +128,7 @@
         <p>Handler returns redirect URL or sets <code>vals["next"]</code>. See <code>sumeru_addons/crm/services/hooks.go</code> and <code>account/services/actions.go</code>.</p>
         <h2 id="kanban-expanders">Kanban expanders</h2>
         <p><strong>Package:</strong> <code>sumeru/core/engine/swcmeta</code></p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-4e905b6e">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-cc81d074">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -141,7 +141,7 @@
         <p>Used for CRM pipeline and forecast kanbans in the SWC workspace.</p>
         <h2 id="cron-handlers">Cron handlers</h2>
         <p>Register a Go handler keyed by a <strong><code>sys.cron</code> row’s <code>code</code> field</strong> that you seed yourself:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-749d7a00">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0e0f4907">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -168,7 +168,7 @@
         </ul>
         <p>See <a href="website/guides/build/events-and-automation.html">Events & automation</a> for XML examples.</p>
         <h2 id="http-routes">HTTP routes</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-b9bfcbbc">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-6410f6e9">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -193,7 +193,7 @@
         <li><a href="howtos/add-bridge-module.html">Add a bridge module</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

@@ -6,10 +6,9 @@ Hand-written HTML documentation for [Sumeru](https://projectmeru.github.io/sumer
 
 | Track | Path | Audience |
 | ----- | ---- | -------- |
-| Guides | `/docs/` | Developers (35 pages) |
-| Reference | `/docs/reference/` | Core developers |
-| Addons | `/docs/addons/` | Addons developers |
-| Business | `/docs/using/` + `/docs/guides/business/` | Business users |
+| Business | `/docs/using/` | Operators and business owners |
+| Developers | `/docs/` | Module authors |
+| Maintainers | `/docs/guides/maintainers/` | Kernel contributors |
 
 Navigation, sidebars, and search index are generated from `nav.json`. After adding or reordering pages, run **`make docs-nav`** from the monorepo root.
 

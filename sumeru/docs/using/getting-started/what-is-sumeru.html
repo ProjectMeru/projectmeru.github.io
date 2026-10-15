@@ -69,18 +69,18 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
     <aside class="docs-sidebar" data-nav-track="business" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-business">Business</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>What is Sumeru?</h1>
-        <p class="docs-lede">Sumeru is a modular business application. Different functions — <strong>CRM</strong>, <strong>Sales</strong>, <strong>Invoicing</strong>, <strong>Purchase</strong>, <strong>Products</strong>, <strong>Employees</strong> — are separate <strong>apps</strong> you install and open from the home screen.</p>
-        <h2 id="pre-alpha-notice">Pre-alpha notice</h2>
-        <p>Sumeru is <strong>pre-alpha software</strong>. It is for evaluation and training only — not for running a live business or storing critical data.</p>
+        <p class="docs-lede">Sumeru is a modular business application. You install the apps the company needs — <strong>Contacts</strong>, <strong>CRM</strong>, <strong>Sales</strong>, <strong>Invoicing</strong>, <strong>Purchase</strong>, <strong>Products</strong>, <strong>Inventory</strong>, <strong>Employees</strong> — and leave the rest off. The same workspace, groups, and company switcher apply to every app, including one your team writes later.</p>
+        <h2 id="alpha-notice">Alpha notice</h2>
+        <p>The platform kernel is <strong>alpha</strong>. Use the local demo and custom modules. Do not store live business data in it yet.</p>
         <h2 id="how-the-screen-is-organized">How the screen is organized</h2>
         <table><thead><tr><th>Area</th><th>What it is</th></tr></thead><tbody>
         <tr><td><strong>Home</strong></td><td>Shortcuts to your installed business apps</td></tr>
@@ -95,11 +95,20 @@
         <li><strong>Partner</strong> — A customer, vendor, or contact person.</li>
         <li><strong>App</strong> — A business module such as CRM or Sales.</li>
         </ul>
-        <h2 id="what-sumeru-does-not-do-yet">What Sumeru does not do yet</h2>
+        <h2 id="why-this-shape-fits-a-changing-business">Why this shape fits a changing business</h2>
         <ul>
-        <li>AI-powered natural language search (menu search via Cmd+K is available)</li>
-        <li>AI summaries in the activity panel</li>
-        <li>Full production-grade security and backups</li>
+        <li>Add purchasing or inventory by installing an app. The contacts and invoices you already have stay in place.</li>
+        <li>Groups decide who sees a menu and who can change a record. An administrator sets that in Settings.</li>
+        <li>One database can hold several companies. That is not separate customer tenants; each customer deployment is its own server.</li>
+        <li>A developer can extend a screen with inheritance instead of copying the app.</li>
+        </ul>
+        <h2 id="what-is-not-in-the-product">What is not in the product</h2>
+        <ul>
+        <li>A website builder, online shop, or point of sale</li>
+        <li>Inbound email into the chatter</li>
+        <li>A public REST API (integrations use JSON-RPC)</li>
+        <li>Studio, an offline client, or production support</li>
+        <li>AI search or AI activity summaries (Cmd+K searches menus and apps)</li>
         </ul>
         <p>See the <a href="meta/feature-matrix.html">Feature matrix</a> for details.</p>
         <h2 id="next-steps">Next steps</h2>
@@ -108,7 +117,7 @@
         <li><a href="platform/home-and-apps.html">Home and apps</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

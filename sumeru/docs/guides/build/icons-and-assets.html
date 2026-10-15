@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>guides/build/icons-and-assets.html | Sumeru Docs</title>
+  <meta name="description" content="guides/build/icons-and-assets.html">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/icons-and-assets.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Project Meru">
+  <meta name="theme-color" content="#f3f3f0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="docs-backdrop"></div>
+    <header class="docs-topbar">
+    <div class="docs-header-shell">
+      <div class="docs-header-bar">
+        <div class="docs-header-left">
+<button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+<a class="docs-brand" href="../../index.html">
+      <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
+    </a>
+          <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
+        </div>
+        <div class="docs-header-search">
+          <button type="button" class="docs-search-btn" data-search-open aria-label="Search documentation" aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+            <span class="docs-search-label">Search</span>
+            <span class="docs-search-kbd-group"><kbd class="docs-kbd docs-kbd-mod">⌘</kbd><kbd class="docs-kbd">K</kbd></span>
+          </button>
+        </div>
+        <div class="docs-header-right">
+          <a class="docs-gh-btn" href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <button type="button" class="docs-install-btn" data-copy="make setup && make run" aria-label="Copy quick start commands">
+            <span class="docs-install-prompt" aria-hidden="true">$</span>
+            <code class="docs-install-code">make setup &amp;&amp; make run</code>
+            <span class="docs-install-icon" aria-hidden="true">
+              <svg class="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <svg class="i-done" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></svg>
+            </span>
+          </button>
+          <button type="button" class="docs-icon-btn theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="docs-track-tabs" data-track-tabs aria-label="Documentation sections">
+        <div class="docs-track-rail">
+          <ul class="docs-track-list"></ul>
+          <span class="docs-track-marker" aria-hidden="true"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
+
+    <main class="docs-main" id="main">
+      <article class="docs-article">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
+        <h1>Web Icons</h1>
+        <p class="docs-lede">Sumeru uses an SVG sprite system for menu icons. This approach is highly performant as it requires only a single HTTP request, is easily cached by the browser, and avoids the overhead of a heavy Javascript icon library.</p>
+        <h2 id="how-it-works">How it works</h2>
+        <p>When you define a <code><menuitem></code> in an XML file, the <code>web_icon</code> attribute determines which icon is displayed in the sidebar or top bar:</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-0f9a1346">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">xml</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">xml</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;menuitem id=&quot;menu_my_app&quot; name=&quot;My App&quot; web_icon=&quot;package&quot;/&gt;"><pre class="docs-pre"><code data-lang="xml">&lt;menuitem id="menu_my_app" name="My App" web_icon="package"/&gt;</code></pre></div></div>
+</div>
+        <p>The system maps the <code>web_icon</code> value (e.g., <code>package</code>) to a symbol ID in the global SVG sprite file:</p>
+        <p><code>core/engine/assets/img/menu-icons.svg#i-package</code></p>
+        <h2 id="available-icons">Available Icons</h2>
+        <p>The following icons are currently available in the core sprite (based on <strong>Lucide</strong>):</p>
+        <h3 id="general-navigation">General & Navigation</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>home</code></td><td>Home / Dashboard</td></tr>
+        <tr><td><code>apps</code></td><td>App switcher / Grid</td></tr>
+        <tr><td><code>search</code></td><td>Search operations</td></tr>
+        <tr><td><code>bell</code></td><td>Notifications</td></tr>
+        <tr><td><code>chevron-down</code></td><td>Dropdown indicator</td></tr>
+        <tr><td><code>chevron-right</code></td><td>Sidebar / Nested indicator</td></tr>
+        <tr><td><code>more-horizontal</code></td><td>Actions menu</td></tr>
+        <tr><td><code>refresh-cw</code></td><td>Reload / Sync</td></tr>
+        <tr><td><code>external-link</code></td><td>Outbound links</td></tr>
+        <tr><td><code>eye</code></td><td>View / Show</td></tr>
+        <tr><td><code>eye-off</code></td><td>Hide / Private</td></tr>
+        </tbody></table>
+        <h3 id="finance-accounting">Finance & Accounting</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>banknote</code></td><td>Cash / Payments</td></tr>
+        <tr><td><code>coins</code></td><td>Currency / Change</td></tr>
+        <tr><td><code>receipt</code></td><td>Invoicing / Expenses</td></tr>
+        <tr><td><code>wallet</code></td><td>Balance / Wallets</td></tr>
+        <tr><td><code>trending-up</code></td><td>Growth / Profit</td></tr>
+        <tr><td><code>trending-down</code></td><td>Loss / Decrease</td></tr>
+        <tr><td><code>pie-chart</code></td><td>Allocation / Analysis</td></tr>
+        <tr><td><code>bar-chart-3</code></td><td>Reporting / Statistics</td></tr>
+        <tr><td><code>percent</code></td><td>Taxes / Discounts</td></tr>
+        <tr><td><code>credit-card</code></td><td>Cards / Billing</td></tr>
+        </tbody></table>
+        <h3 id="sales-crm">Sales & CRM</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>cart</code></td><td>Shopping cart</td></tr>
+        <tr><td><code>contact</code></td><td>Leads / Contacts</td></tr>
+        <tr><td><code>phone</code></td><td>Calls / Communication</td></tr>
+        <tr><td><code>message-square</code></td><td>Chat / Feedback</td></tr>
+        <tr><td><code>target</code></td><td>Goals / Leads</td></tr>
+        <tr><td><code>gift</code></td><td>Rewards / Promotions</td></tr>
+        <tr><td><code>tag</code></td><td>Pricing / Labels</td></tr>
+        <tr><td><code>ticket</code></td><td>Support / Vouchers</td></tr>
+        </tbody></table>
+        <h3 id="hr-people">HR & People</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>users</code></td><td>Groups / Teams</td></tr>
+        <tr><td><code>user</code></td><td>Individual account</td></tr>
+        <tr><td><code>user-plus</code></td><td>Onboarding / Recruitment</td></tr>
+        <tr><td><code>user-minus</code></td><td>Offboarding</td></tr>
+        <tr><td><code>user-check</code></td><td>Validation / Attendance</td></tr>
+        <tr><td><code>user-cog</code></td><td>Profile Settings</td></tr>
+        <tr><td><code>briefcase</code></td><td>Positions / Jobs</td></tr>
+        <tr><td><code>graduation-cap</code></td><td>Training / Skills</td></tr>
+        <tr><td><code>heart</code></td><td>Benefits / Health</td></tr>
+        </tbody></table>
+        <h3 id="operations-manufacturing">Operations & Manufacturing</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>inventory</code></td><td>Stock / Assets</td></tr>
+        <tr><td><code>package</code></td><td>Products / Items</td></tr>
+        <tr><td><code>truck</code></td><td>Shipping / Logistics</td></tr>
+        <tr><td><code>factory</code></td><td>Production / Plants</td></tr>
+        <tr><td><code>settings-2</code></td><td>Adjustments</td></tr>
+        <tr><td><code>wrench</code></td><td>Maintenance / Tools</td></tr>
+        <tr><td><code>hammer</code></td><td>Construction / Work</td></tr>
+        <tr><td><code>gauge</code></td><td>Performance / Metrics</td></tr>
+        <tr><td><code>timer</code></td><td>Tracking / Process</td></tr>
+        </tbody></table>
+        <h3 id="project-management">Project Management</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>clock</code></td><td>Time tracking</td></tr>
+        <tr><td><code>milestone</code></td><td>Roadmap / Stages</td></tr>
+        <tr><td><code>kanban</code></td><td>Task boards</td></tr>
+        <tr><td><code>clipboard-list</code></td><td>Audits / Tasks</td></tr>
+        <tr><td><code>check-square</code></td><td>Completion</td></tr>
+        <tr><td><code>flag</code></td><td>Priority / Markers</td></tr>
+        </tbody></table>
+        <h3 id="data-files">Data & Files</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>folder</code></td><td>Directories</td></tr>
+        <tr><td><code>file-text</code></td><td>Records / PDF</td></tr>
+        <tr><td><code>database</code></td><td>System / Servers</td></tr>
+        <tr><td><code>archive</code></td><td>History / Vault</td></tr>
+        <tr><td><code>inbox</code></td><td>Communications</td></tr>
+        <tr><td><code>send</code></td><td>Dispatch / Transmit</td></tr>
+        <tr><td><code>paperclip</code></td><td>Attachments</td></tr>
+        <tr><td><code>share-2</code></td><td>Social / Export</td></tr>
+        <tr><td><code>download</code></td><td>Export / Get</td></tr>
+        <tr><td><code>upload</code></td><td>Import / Put</td></tr>
+        </tbody></table>
+        <h3 id="system-security">System & Security</h3>
+        <table><thead><tr><th>Icon Key</th><th>Description</th></tr></thead><tbody>
+        <tr><td>:---</td><td>:---</td></tr>
+        <tr><td><code>settings</code> / <code>cog</code></td><td>Configuration</td></tr>
+        <tr><td><code>shield</code></td><td>Security / Access</td></tr>
+        <tr><td><code>lock</code></td><td>Locked / Restricted</td></tr>
+        <tr><td><code>unlock</code></td><td>Open / Public</td></tr>
+        <tr><td><code>layers</code></td><td>Framework / Stack</td></tr>
+        <tr><td><code>layout</code></td><td>UI / Blueprints</td></tr>
+        <tr><td><code>log</code></td><td>Event logs</td></tr>
+        <tr><td><code>info</code></td><td>Help / Details</td></tr>
+        <tr><td><code>alert-circle</code></td><td>Warnings</td></tr>
+        <tr><td><code>help-circle</code></td><td>FAQ</td></tr>
+        </tbody></table>
+        <h2 id="adding-new-icons">Adding New Icons</h2>
+        <p>To add a new icon to the system:</p>
+        <ol>
+        <li><strong>Find the Icon</strong>: Go to <a href="https://lucide.dev">Lucide.dev</a> and find the icon you need.</li>
+        <li><strong>Get the SVG Path</strong>: Copy the SVG paths (<code><path></code>, <code><circle></code>, etc.) from the Lucide site.</li>
+        <li><strong>Update the Sprite</strong>: Open <code>sumeru/core/engine/assets/img/menu-icons.svg</code>.</li>
+        <li><strong>Add a <code><symbol></code></strong>: Create a new symbol at the end of the <code><defs></code> section:</li>
+        </ol>
+        <p>```xml</p>
+        <p><symbol id="i-your-icon-name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></p>
+        <p><!-- Paste the paths here --></p>
+        <p></symbol></p>
+        <p>```</p>
+        <ol>
+        <li><strong>Use it</strong>: You can now use <code>web_icon="your-icon-name"</code> in any menu definition.</li>
+        </ol>
+        <blockquote><p>[!TIP]</p></blockquote>
+        <blockquote><p>Always use <code>i-</code> prefix for the symbol ID in the SVG file, but omit it when referencing the icon in the <code>web_icon</code> attribute.</p></blockquote>
+        <h2 id="manifest-assets">Manifest assets</h2>
+        <p>Addons can declare extra CSS or JS in <code>manifest.json</code>:</p>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-8f3e79fc">
+  <div class="docs-codebox-titlebar">
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">json</span>
+    </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang">json</span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
+  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="{
+  &quot;assets&quot;: [
+    &quot;static/css/custom.css&quot;,
+    &quot;static/js/widget.js&quot;
+  ]
+}"><pre class="docs-pre"><code data-lang="json">{
+  "assets": [
+    "static/css/custom.css",
+    "static/js/widget.js"
+  ]
+}</code></pre></div></div>
+</div>
+        <p>When the module is <strong>installed</strong>, each file is served at <code>/static/addon-asset/<module>/<path></code>. CSS paths are appended to the shell stylesheet list (same lifecycle as <code>static/css/theme-overrides.css</code>). JS assets are served but not auto-injected — load them from Sum templates or SWC entry modules.</p>
+        <p>See <a href="reference-erp-patterns.html">Reference ERP patterns</a> for porting asset bundles from other ERP codebases.</p>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
+      </article>
+    </main>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <p class="docs-toc-title">On this page</p>
+      <ul class="docs-toc-list"></ul>
+    </aside>
+  </div>
+  <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
+    <div class="docs-search-backdrop" data-search-close></div>
+    <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div class="docs-search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" class="docs-search-input" data-search-input placeholder="Search docs…" autocomplete="off" spellcheck="false">
+        <kbd class="docs-kbd">Esc</kbd>
+      </div>
+      <ul class="docs-search-results" data-search-results role="listbox"></ul>
+      <p class="docs-search-empty" data-search-empty hidden>No results. Try different keywords.</p>
+    </div>
+  </div>
+
+  <footer class="docs-site-footer" data-site-footer aria-label="Site"></footer>
+  <script src="../../js/docs-nav-data.js"></script>
+  <script src="../../js/fuse.min.js"></script>
+  <script src="../../js/docs-search.js"></script>
+  <script src="../../js/docs.js"></script>
+</body>
+</html>

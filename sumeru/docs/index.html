@@ -1,70 +1,59 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-
 <head>
   <meta charset="UTF-8">
-  <script>
-    (function () { try { var k = 'sumeru-theme', t = localStorage.getItem(k); if (t !== 'light' && t !== 'dark') { t = 'light'; } document.documentElement.setAttribute('data-theme', t); } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); } })();
-  </script>
+<script>
+(function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction | Sumeru Docs</title>
-  <meta name="description"
-    content="Sumeru is a modular ERP framework in Go: addons, PostgreSQL, and one kernel contract for developers and business teams.">
-  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/">
+  <title>Sumeru Documentation | Sumeru Docs</title>
+  <meta name="description" content="Unified documentation for the Sumeru ERP monorepo. Use this tree as the source of truth for the public website and for day-to-day development.">
+  <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/index.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/">
-  <meta property="og:title" content="Introduction | Sumeru Docs">
-  <meta property="og:description"
-    content="Sumeru is a modular ERP framework in Go: addons, PostgreSQL, and one kernel contract for developers and business teams.">
+  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/index.html">
+  <meta property="og:title" content="Sumeru Documentation | Sumeru Docs">
+  <meta property="og:description" content="Unified documentation for the Sumeru ERP monorepo. Use this tree as the source of truth for the public website and for day-to-day development.">
   <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Introduction | Sumeru Docs">
-  <meta name="twitter:description"
-    content="Sumeru is a modular ERP framework in Go: addons, PostgreSQL, and one kernel contract for developers and business teams.">
+  <meta name="twitter:title" content="Sumeru Documentation | Sumeru Docs">
+  <meta name="twitter:description" content="Unified documentation for the Sumeru ERP monorepo. Use this tree as the source of truth for the public website and for day-to-day development.">
   <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/docs.css">
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Introduction",
-  "description": "Sumeru is a modular ERP framework in Go: addons, PostgreSQL, and one kernel contract for developers and business teams.",
-  "url": "https://projectmeru.github.io/sumeru/docs/",
+  "headline": "Sumeru Documentation",
+  "description": "Unified documentation for the Sumeru ERP monorepo. Use this tree as the source of truth for the public website and for day-to-day development.",
+  "url": "https://projectmeru.github.io/sumeru/docs/index.html",
   "author": {"@type": "Organization", "name": "Project Meru"},
   "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
 }
   </script>
 </head>
-
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                        <header class="docs-topbar">
+        <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
 <button type="button" class="docs-menu-btn" aria-label="Open documentation menu" aria-expanded="false">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-          </button>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
 <a class="docs-brand" href="index.html">
-            <img src="../../logo.png" alt="" width="32" height="32" decoding="async">
-            <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
-          </a>
+      <img src="../../logo.png" alt="" width="32" height="32" decoding="async">
+      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+    </a>
           <a class="docs-product-link" href="../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
         <div class="docs-header-search">
@@ -101,357 +90,99 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path
-    between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span
-            class="docs-audience is-biz">Business</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Introduction</h1>
-        <p class="docs-lede">Sumeru is Go with the ERP pieces already in place: a kernel, an addon contract, PostgreSQL
-          underneath, and a SWC workspace client with search, filters, and saved searches across list, form, kanban, graph, pivot, calendar, gantt, map, and cohort views.</p>
-        <div class="docs-callout is-caution">
-          <p><strong>Pre-alpha.</strong> There is no tagged release, no upgrade path between versions, and no test suite
-            on the business addons. Do not run your business on it yet.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">All audiences</span><span class="docs-status is-prealpha">Alpha</span></div>
+        <h1>Sumeru Documentation</h1>
+        <p class="docs-lede">Three paths through the same product: run the apps, write a module, or work on the kernel.</p>
+<div class="docs-callout is-caution"><p><strong>Alpha platform kernel.</strong> Demos and custom modules. Not for production. APIs may change between releases.</p></div>
+<h2 id="choose-your-path">Choose your path</h2>
+<div class="docs-path-chooser">
+  <a class="docs-path-card" href="using/index.html">
+    <span class="docs-audience is-biz">Business</span>
+    <h3>I run the business</h3>
+    <p>Local demo, apps, lead-to-cash, and access without writing code.</p>
+  </a>
+  <a class="docs-path-card" href="guides/build/build-your-first-module.html">
+    <span class="docs-audience is-dev">Developers</span>
+    <h3>I build modules</h3>
+    <p>Scaffold, fields, xpath, record rules, reports, and logging.</p>
+  </a>
+  <a class="docs-path-card" href="guides/maintainers/index.html">
+    <span class="docs-audience is-dev">Maintainers</span>
+    <h3>I work on the kernel</h3>
+    <p>Boot order, dependencies, ORM, security checks, and the event bus.</p>
+  </a>
         </div>
-
-        <h2 id="start-here">Start here</h2>
-        <div class="docs-table-wrap">
-          <table class="docs-table">
-            <thead>
-              <tr>
-                <th>I want to…</th>
-                <th>Start here</th>
-              </tr>
-            </thead>
+<h2 id="repository-layout">Repository layout</h2>
+<div class="docs-table-wrap"><table class="docs-table">
+<thead>
+<tr>
+<th>Directory</th>
+<th>Role</th>
+</tr>
+</thead>
             <tbody>
-              <tr>
-                <td>Build a custom module</td>
-                <td><a href="guides/build/build-your-first-module.html">Build your first module</a></td>
-              </tr>
-              <tr>
-                <td>Learn SWC / views</td>
-                <td><a href="guides/build/views-and-menus.html">Views &amp; menus</a></td>
-              </tr>
-              <tr>
-                <td>Extend existing models</td>
-                <td><a href="guides/build/model-inheritance.html">Model inheritance</a></td>
-              </tr>
-              <tr>
-                <td>Use CRM / Sales as a user</td>
-                <td><a href="using/index.html">Business guides</a></td>
-              </tr>
-              <tr>
-                <td>Look up RPC / field types</td>
-                <td><a href="reference/index.html">Reference</a></td>
-              </tr>
+<tr>
+<td><a href="../sumeru/"><code>sumeru/</code></a></td>
+<td>Core engine + kernel addons (<code>base</code>, <code>contacts</code>, <code>mail</code>, <code>automation</code>, <code>sumeru_ai</code>)</td>
+</tr>
+<tr>
+<td><a href="../sumeru_addons/"><code>sumeru_addons/</code></a></td>
+<td>Standard business apps (CRM, Sales, Accounting, …)</td>
+</tr>
+<tr>
+<td><a href="../sumeru_custom_addons/"><code>sumeru_custom_addons/</code></a></td>
+<td>Your workspace: run the server from here</td>
+</tr>
             </tbody>
-          </table>
-        </div>
-
-        <h2 id="what-sumeru-is">What Sumeru Is</h2>
-        <p>Sumeru is an open-source modular ERP framework written in Go. Business functions ship as
-          <strong>addons</strong>: contacts, products, CRM, sales, invoicing. Each addon is a folder with a manifest, Go
-          models and XML views. The kernel discovers it, resolves dependencies, creates tables and wires menus.</p>
-        <p>The repository layout is three Go modules linked by <code>replace</code> directives:</p>
-        <div class="docs-table-wrap">
-          <table class="docs-table">
-            <thead>
-              <tr>
-                <th>Tier</th>
-                <th>Module</th>
-                <th>What lives there</th>
-              </tr>
-            </thead>
+</table></div>
+<h2 id="navigation">Navigation</h2>
+<p>See <strong><a href="NAVIGATION.html">NAVIGATION.md</a></strong> for the full site map. The <strong>Website sync</strong> section lists the 35 hand-written HTML pages under <code>projectmeru.github.io/sumeru/docs/</code> and their mirrors in <a href="website-.html"><code>website/</code></a>.</p>
+<h3 id="publishing">Publishing</h3>
+<div class="docs-table-wrap"><table class="docs-table">
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
             <tbody>
-              <tr>
-                <td>Core</td>
-                <td><code>sumeru</code></td>
-                <td>Kernel + in-tree apps (<code>base</code>, <code>mail</code>, <code>automation</code>,
-                  <code>sumeru_ai</code>)</td>
-              </tr>
-              <tr>
-                <td>Standard</td>
-                <td><code>sumeru_addons</code></td>
-                <td>Business addons</td>
-              </tr>
-              <tr>
-                <td>Workspace</td>
-                <td><code>sumeru_custom_addons</code></td>
-                <td>Your addons, and the module you run the server from</td>
-              </tr>
+<tr>
+<td><code>make docs-mirror</code></td>
+<td>Extract website HTML → <code>sumeru_docs/website/*.md</code></td>
+</tr>
+<tr>
+<td><code>make docs-sync-body</code></td>
+<td>Dry-run body sync (add <code>APPLY=1</code> to write). Skips <code>preserve_codeboxes: true</code>. <strong>Does not replace rich codeboxes.</strong></td>
+</tr>
+<tr>
+<td><code>make docs-site</code></td>
+<td><strong>Full regen</strong> — overwrites hand-written layout; avoid unless intentional</td>
+</tr>
             </tbody>
-          </table>
-        </div>
-        <p>A project can begin with an empty workspace pointed at the core and standard modules. From there the same
-          application model grows into CRM pipelines, quotations, invoices and custom addons without replacing the
-          architecture.</p>
-
-        <h2 id="core-concepts">Core Concepts</h2>
-        <p>Sumeru is built around a small set of concepts that appear consistently across the framework.</p>
-        <div class="docs-table-wrap">
-          <table class="docs-table">
-            <thead>
-              <tr>
-                <th>Concept</th>
-                <th>What it means</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Kernel</td>
-                <td>ORM, module loader, engine, server, events, scheduler, cache and SDK sharing one addon contract.
-                </td>
-              </tr>
-              <tr>
-                <td>Addon</td>
-                <td>A folder with <code>manifest.json</code>, <code>init.go</code>, models, views and security.
-                  Discovered on the addons path.</td>
-              </tr>
-              <tr>
-                <td>Manifest</td>
-                <td>Name, version, <code>depends</code> and data files. Install order follows depends; addons never
-                  import each other.</td>
-              </tr>
-              <tr>
-                <td>Model</td>
-                <td>Metadata: a <code>sdk.Model</code> struct with <code>sumeru</code> tags. The kernel turns that into a
-                  PostgreSQL table. Records at runtime are maps, not structs.</td>
-              </tr>
-              <tr>
-                <td>Views</td>
-                <td>XML definitions for lists, forms and menus loaded into the database on install or update.</td>
-              </tr>
-              <tr>
-                <td>Security</td>
-                <td>Groups, menu visibility and record access rules declared in XML and CSV.</td>
-              </tr>
-              <tr>
-                <td>Events</td>
-                <td>Integration bus (<code>record.created</code>, <code>record.updated</code>, <code>cron.tick</code>)
-                  so addons stay decoupled.</td>
-              </tr>
-              <tr>
-                <td>JSON-RPC</td>
-                <td>API at <code>POST /api/rpc</code> with API-key authentication.</td>
-              </tr>
-              <tr>
-                <td>Workspace</td>
-                <td><code>sumeru_custom_addons</code>: config, blank imports, your custom addons, and
-                  <code>make run</code>.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>These concepts recur in the same shape. Reading one addon teaches you how to read the next.</p>
-
-        <h2 id="a-simple-example">A Simple Example</h2>
-        <p>A model is metadata. The kernel turns it into a table, a form surface and an API resource.</p>
-        <div class="docs-codebox is-source" data-codebox="src-f5be16c4">
-          <div class="docs-codebox-titlebar">
-            <div class="docs-codebox-title">
-              <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span
-                  class="is-min"></span><span class="is-max"></span></span>
-              <span class="docs-codebox-name">account_journal.go</span>
-            </div>
-            <div class="docs-codebox-actions">
-              <span class="docs-codebox-lang">go</span>
-              <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
-            </div>
-          </div>
-          <div class="docs-codebox-panels">
-            <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main"
-              data-copy-text="package models&#10;&#10;import &quot;sumeru/core/sdk&quot;&#10;&#10;type AccountJournal struct {&#10;	sdk.Model `sumeru:&quot;model=account.journal&quot;`&#10;&#10;	Name sdk.String `sumeru:&quot;required,string=Name&quot;`&#10;	Code sdk.String `sumeru:&quot;required,string=Code&quot;`&#10;	Type sdk.String `sumeru:&quot;string=Type,selection=sale:Sales,purchase:Purchase,cash:Cash,bank:Bank,general:General&quot;`&#10;}">
-              <pre class="docs-pre is-lined"
-                data-lang="go"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">package models</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c"> </span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">import &quot;sumeru/core/sdk&quot;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c"> </span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">type AccountJournal struct {</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">	sdk.Model `sumeru:&quot;model=account.journal&quot;`</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c"> </span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">	Name sdk.String `sumeru:&quot;required,string=Name&quot;`</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">	Code sdk.String `sumeru:&quot;required,string=Code&quot;`</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c">	Type sdk.String `sumeru:&quot;string=Type,selection=sale:Sales,purchase:Purchase,cash:Cash,bank:Bank,general:General&quot;`</span></span><span class="docs-line" data-n="11"><span class="docs-line-n" aria-hidden="true">11</span><span class="docs-line-c">}</span></span></code></pre>
-            </div>
-          </div>
-        </div>
-        <p>What is happening:</p>
-        <ul>
-          <li>The <code>sumeru:"model=…"</code> tag is the stable identity used in views, security and the API.</li>
-          <li>Typed field markers plus tags declare columns; the ORM syncs schema on install. Run <code>make generate</code> after adding a struct.</li>
-          <li>Runtime records are maps keyed by field name, not Go structs.</li>
-          <li>XML views and access rules elsewhere in the addon bind UI and permissions to this name.</li>
+</table></div>
+<p>Hand-edited pages with rich <code>docs-codebox</code> blocks set <code>preserve_codeboxes: true</code> and are skipped by <code>docs-sync-body</code>.</p>
+<h2 id="meta">Meta</h2>
+<ul>
+<li><a href="reference/feature-matrix.html">Feature matrix</a> — implemented vs partial vs planned functionality</li>
+<li><a href="reference/doc-changelog.html">Documentation changelog</a> — when docs were last revised</li>
         </ul>
+<h2 id="quick-start-developers">Quick start (developers)</h2>
+<pre><code class="language-bash">cd sumeru_custom_addons
+cp sumeru.conf.example sumeru.conf   # edit db_* and addons_path
+make setup
+make run
+</code></pre>
+<p>Open <code>http://localhost:&lt;http_port&gt;</code>. After setup, <code>/</code> redirects to <code>/web/home</code>.</p>
 
-        <h2 id="what-is-already-in-place">What Is Already in Place</h2>
-        <p>First-party pieces in the framework and standard addons today:</p>
-        <ul>
-          <li>Go kernel packages: <code>core/orm</code>, <code>core/module</code>, <code>core/engine</code>,
-            <code>core/server</code>, <code>core/event</code>, <code>core/sdk</code>, <code>core/scheduler</code>,
-            <code>core/applog</code>, <code>core/cache</code>, <code>core/importgen</code></li>
-          <li>Core addons: <code>base</code>, <code>mail</code>, <code>automation</code> (partial),
-            <code>sumeru_ai</code> (placeholder)</li>
-          <li>Standard addons: <code>contacts</code>, <code>product</code>, <code>crm</code>, <code>sale</code>
-            (partial), <code>sale_crm</code>, <code>account</code>, <code>purchase</code> (partial), <code>hr</code>
-            (partial)</li>
-          <li>Setup wizard, Apps install UI, multi-company switcher</li>
-          <li>Collection control bar — search, filters, multi group-by, saved-search favorites on collection and analysis views</li>
-          <li>Workspace views — list, form, kanban, graph, pivot, calendar, gantt, map, cohort</li>
-          <li>JSON-RPC API with API keys</li>
-          <li>Lead -> won -> quotation -> sales order -> invoice -> posted journal entries</li>
-        </ul>
-
-        <h2 id="what-can-you-build">What Can You Build With Sumeru?</h2>
-        <ul>
-          <li>CRM pipelines that convert to quotations and sales orders</li>
-          <li>Customer invoicing with double-entry journal entries</li>
-          <li>Purchase orders that draft vendor bills</li>
-          <li>Custom business addons using the same manifest / model / view contract</li>
-          <li>Internal tools on the same manifest / model / view contract as full ERP apps</li>
-        </ul>
-        <p>Not available yet: taxes, payments / bank reconciliation, computed order totals, inventory, manufacturing,
-          automated tests on business addons. <strong>CSV/PDF export and bulk CSV import</strong> are available on views
-          that enable Report (see <a href="guides/build/report-engine.html">Report engine</a>).</p>
-
-        <h2 id="who-is-sumeru-for">Who Is Sumeru For?</h2>
-        <p>Sumeru is for developers and organisations building serious business software in Go.</p>
-        <p>It is especially useful for:</p>
-        <ul>
-          <li>engineers who want an ERP-shaped kernel in Go with a small operational footprint (no Docker or message broker required)</li>
-          <li>product teams extending lead-to-cash with their own addons</li>
-          <li>operators evaluating Apps, roles and multi-company once an engineer has stood the system up</li>
-          <li>agencies that want a repeatable Go backend for client operational software</li>
-        </ul>
-        <p>It is a poor fit if you need a finished commercial ERP tomorrow, multi-tenant SaaS isolation built in, or a
-          framework that only does HTTP routing.</p>
-
-        <h2 id="why-sumeru">Why Sumeru?</h2>
-        <p>Writing a form or a SQL table is rarely the hard part. The time goes into making modules agree on models,
-          menus, access rights and what happens when a lead is won.</p>
-        <p>Sumeru puts those pieces on one contract:</p>
-        <ul>
-          <li>Strong defaults, open boundaries: declare a model once; tables, forms and API follow.</li>
-          <li>Addons never import each other; they integrate through events and registry lookups.</li>
-          <li>PostgreSQL for persistence; client UI bundles built locally with Node.js (npm) — not committed to git</li>
-          <li>Documentation is part of the interface: these guides describe what the system actually does, including
-            gaps.</li>
-        </ul>
-
-        <h2 id="comparison">Comparison</h2>
-        <p>Sumeru is not a drop-in clone of another ERP. The difference is scope and stack.</p>
-        <div class="docs-table-wrap">
-          <table class="docs-table">
-            <thead>
-              <tr>
-                <th>System</th>
-                <th>Good at</th>
-                <th>Where Sumeru differs</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Traditional modular ERP</td>
-                <td>Mature modular ERP, huge ecosystem.</td>
-                <td>Go kernel, XML/Go addon contract, no JS frontend build; far earlier maturity.</td>
-              </tr>
-              <tr>
-                <td>ERPNext</td>
-                <td>Full business suite on Frappe.</td>
-                <td>Same completeness goal, built as a Go modular framework rather than a Python app suite.</td>
-              </tr>
-              <tr>
-                <td>Custom Go API</td>
-                <td>Exact control, minimal surface.</td>
-                <td>ORM metadata, views, security, Apps install and events already assembled.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>Ecosystem size and years in production are real advantages elsewhere. Sumeru's argument is coherence and a
-          small operational footprint, not maturity.</p>
-
-        <h2 id="how-the-pieces-fit">How the pieces fit</h2>
-        <p>You run the server from the workspace module. Config points at PostgreSQL and an <code>addons_path</code>. On
-          boot the module loader discovers manifests, the ORM syncs schema for installed addons, and the engine serves
-          server-rendered screens plus JSON-RPC.</p>
-        <p>Around that core sit optional subsystems: scheduler, cache, mail, automation. An application that only needs
-          contacts and CRM installs those addons and nothing else.</p>
-        <p>Addons stay isolated: <code>depends</code> orders install; runtime integration uses the event bus.</p>
-
-        <h2 id="what-to-read-next">What to read next</h2>
-        <p><strong>Developers.</strong> Installation -> Configuration -> First boot -> Creating an addon -> Models &amp;
-          fields. Add Events when addons must talk, and JSON-RPC when external systems call in.</p>
-        <p><strong>Business teams.</strong> Business overview -> Apps &amp; install -> Lead-to-cash. Then Contacts &amp;
-          CRM or Sales &amp; invoicing for the screens you will actually use.</p>
-        <p><strong>Anything going further.</strong> Security overview and Isolation model before you plan multi-company
-          or API access.</p>
-
-        <h2 id="a-note-on-this-documentation">A note on this documentation</h2>
-        <p>These guides document what the framework does, including where it is incomplete. Where a feature is partial
-          or missing, the page says so.</p>
-        <p>That is deliberate. A guide that only describes intended behaviour costs you an afternoon the first time
-          reality differs. Callouts marked caution or danger flag verified gaps and sharp edges.</p>
-
-        <h2 id="conventions">Conventions used throughout</h2>
-        <ul>
-          <li><strong>Commands run from <code>sumeru_custom_addons</code></strong> unless a page says otherwise.</li>
-          <li><strong><code>-i</code> installs, <code>-u</code> reloads.</strong> Name the addons, or use <code>-i all</code>
-            to install remaining modules in dependency order.</li>
-          <li><strong>Go changes need a rebuild</strong> (<code>make run</code>). <strong>XML and manifest data need
-              <code>-u</code></strong> because views and access rules live in the database once installed.</li>
-          <li><strong>Every page ends with "What not to do"</strong> where advice is concrete enough. Those lists are
-            the compressed version of the page.</li>
-        </ul>
-
-        <h2 id="getting-help">Getting help</h2>
-        <p>The sidebar mirrors how the product is organised: start here, build, concepts, business, security. If you
-          know whether you are installing, writing an addon or operating Apps, you can find the page.</p>
-        <p>For questions the guides do not answer: <a href="https://github.com/ProjectMeru/sumeru" target="_blank"
-            rel="noopener">GitHub</a>, the product <a href="../faq.html">FAQ</a>, and the source. Most kernel packages
-          are small enough to read.</p>
-
-        <h2 id="prerequisites">Prerequisites</h2>
-        <ul>
-          <li>Go 1.26 or newer</li>
-          <li><a href="https://nodejs.org/">Node.js</a> (npm — builds the SWC workspace UI on first <code>make setup</code> or <code>make run</code>)</li>
-          <li>PostgreSQL</li>
-          <li>Comfort with HTTP (methods, status codes) and basic SQL</li>
-        </ul>
-        <p>SWC bundles under <code>core/engine/assets/</code> are gitignored. A fresh clone needs one asset build before the workspace UI loads. Docker, a message broker, and external cache are not required.</p>
-
-        <h2 id="a-first-application">A first application</h2>
-        <p>The smallest path that runs:</p>
-        <div class="docs-codebox is-shell" data-codebox="shell-aaadaa8f">
-          <div class="docs-codebox-titlebar">
-            <span class="docs-codebox-name">Terminal</span>
-            <div class="docs-codebox-actions">
-              <span class="docs-codebox-hint">shell</span>
-              <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-            </div>
-          </div>
-          <div class="docs-codebox-panels">
-            <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main"
-              data-copy-text="psql -U postgres -c &quot;CREATE DATABASE sumeru;&quot;&#10;cd sumeru_custom_addons&#10;cp sumeru.conf.example sumeru.conf&#10;make setup&#10;make run&#10;# visit http://localhost:8080/setup">
-              <pre
-                class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "CREATE DATABASE sumeru;"</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cp sumeru.conf.example sumeru.conf</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">visit http://localhost:8080/setup</span></span></code></pre>
-            </div>
-          </div>
-        </div>
-        <p>That boots setup mode. Everything else in these guides (addons, models, events, API) is something you add
-          when you need it.</p>
-
-        <h2 id="next-step">Next step</h2>
-        <p>Continue with <a href="guides/start/installation.html">Installation</a> to wire the three modules and get a
-          database ready.</p>
-
-        <h2 id="what-not-to-do">What not to do</h2>
-        <ul>
-          <li>Do not run pre-alpha in production.</li>
-          <li>Do not expect addons to import each other; use depends and events.</li>
-          <li>Do not skip the setup wizard looking for a default admin password. There is none.</li>
-        </ul>
-        <nav class="docs-next" aria-label="Page">
-          <a class="is-next" href="guides/start/installation.html"><span class="docs-next-label">Next</span><span
-              class="docs-next-title">Installation &rarr;</span></a>
-        </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a
-            href="../../index.html">Project Meru</a>.</p>
+        <nav class="docs-next" aria-label="Page"><a class="is-prev" href="using/platform/settings.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Settings</span></a><a class="is-next" href="reference/feature-matrix.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Feature matrix &rarr;</span></a></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). <a href="https://github.com/ProjectMeru/sumeru/issues/new/choose">Was this helpful?</a> · Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 
@@ -460,6 +191,9 @@
       <ul class="docs-toc-list"></ul>
     </aside>
   </div>
+
+  <script src="js/docs.js"></script>
+  <script src="js/docs-search-index.js"></script>
   <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
     <div class="docs-search-backdrop" data-search-close></div>
     <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
@@ -479,5 +213,4 @@
   <script src="js/docs-search.js"></script>
   <script src="js/docs.js"></script>
 </body>
-
 </html>

@@ -7,7 +7,7 @@
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Installation | Sumeru Docs</title>
-  <meta name="description" content="Install Sumeru locally: PostgreSQL, workspace config, and replace-linked Go modules.">
+  <meta name="description" content="From `sumeru_custom_addons` with sibling `sumeru` and `sumeru_addons` checkouts:">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/start/installation.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
@@ -16,12 +16,12 @@
   <meta property="og:site_name" content="Sumeru Docs">
   <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/start/installation.html">
   <meta property="og:title" content="Installation | Sumeru Docs">
-  <meta property="og:description" content="Install Sumeru locally: PostgreSQL, workspace config, and replace-linked Go modules.">
+  <meta property="og:description" content="From `sumeru_custom_addons` with sibling `sumeru` and `sumeru_addons` checkouts:">
   <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Installation | Sumeru Docs">
-  <meta name="twitter:description" content="Install Sumeru locally: PostgreSQL, workspace config, and replace-linked Go modules.">
+  <meta name="twitter:description" content="From `sumeru_custom_addons` with sibling `sumeru` and `sumeru_addons` checkouts:">
   <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "Installation",
-  "description": "Install Sumeru locally: PostgreSQL, workspace config, and replace-linked Go modules.",
+  "description": "From `sumeru_custom_addons` with sibling `sumeru` and `sumeru_addons` checkouts:",
   "url": "https://projectmeru.github.io/sumeru/docs/guides/start/installation.html",
   "author": {"@type": "Organization", "name": "Project Meru"},
   "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
@@ -43,7 +43,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                                <header class="docs-topbar">
+        <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -90,110 +90,29 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core developers</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Installation</h1>
-        <p class="docs-lede">Create a database, configure the workspace, and point it at the core and standard addon modules.</p>
-<div class="docs-callout is-caution">
-          <p><strong>Pre-alpha.</strong> Sumeru has no tagged release and no upgrade path. Fine for local eval and addon work. Do not run production on it.</p>
-        </div>
-        
-<h2 id="requirements">Requirements</h2>
-        <ul>
-          <li>Go 1.26+</li>
-          <li><a href="https://nodejs.org/">Node.js</a> (npm — builds SWC workspace UI; bundles are gitignored)</li>
-          <li>PostgreSQL</li>
-          <li>Checkouts of <code>sumeru</code>, <code>sumeru_addons</code> and <code>sumeru_custom_addons</code> as sibling directories (typical layout)</li>
-        </ul>
-        <p><code>make setup</code> wires <code>go.mod</code> replaces, regenerates imports, and builds client assets when missing. Docker, a message broker, and external cache are not required.</p>
+        <blockquote>
+<p class="docs-lede"><strong>Canonical page:</strong> <a href="../../website-guides-start-installation.html">Installation</a> on the public docs site (<code>guides/start/installation.html</code>). This extended stub is kept for cross-links only.</p>
+</blockquote>
+<h2 id="quick-start-workspace">Quick start (workspace)</h2>
+<p>From <strong><code>sumeru_custom_addons</code></strong> with sibling <code>sumeru</code> and <code>sumeru_addons</code> checkouts:</p>
+<pre><code class="language-bash">cp sumeru.conf.example sumeru.conf   # edit db_* and addons_path
+make setup    # go.mod replaces, imports, SWC + login JS bundles
+make run      # regenerate imports; rebuild assets when missing or stale
+</code></pre>
+<p><strong>Prerequisites:</strong> Go 1.26.2+, <strong>Node.js</strong> (npm — builds SWC workspace UI), PostgreSQL.</p>
+<p>See also: <a href="../../howtos/custom-addons-workspace.html">Custom addons workspace</a>, <a href="configuration-reference.html">Configuration reference</a>.</p>
 
-        <h2 id="create-the-database">Create the database</h2>
-        <div class="docs-codebox is-shell" data-codebox="shell-2dbbc380">
-  <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="psql -U postgres -c &quot;CREATE DATABASE sumeru;&quot;">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "CREATE DATABASE sumeru;"</span></span></code></pre>
-    </div>
-  </div>
-</div>
-
-        <h2 id="workspace-config">Workspace config</h2>
-        <p>All commands below run from your workspace module, <code>sumeru_custom_addons</code>.</p>
-        <div class="docs-codebox is-shell" data-codebox="shell-3a14e444">
-  <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="cd sumeru_custom_addons&#10;cp sumeru.conf.example sumeru.conf&#10;# edit db_host / db_user / db_password / db_name / http_port (default 8080)">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cd sumeru_custom_addons</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">cp sumeru.conf.example sumeru.conf</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">edit db_host / db_user / db_password / db_name / http_port (default 8080)</span></span></code></pre>
-    </div>
-  </div>
-</div>
-        <p>Paths inside the INI resolve against the file itself, not your shell. The <code>addons_path</code> key decides which addons exist at all. Default listen port is <code>8080</code>. Details: <a href="configuration.html">Configuration</a>.</p>
-
-        <h2 id="bootstrap">Bootstrap the workspace</h2>
-        <div class="docs-codebox is-shell" data-codebox="shell-2d85d262">
-  <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make setup    # go.mod replaces, imports, SWC + login JS bundles&#10;make run      # regenerate imports; rebuild assets when missing or stale">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make setup</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">go.mod replaces, imports, SWC + login JS bundles</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span><span class="docs-shell-line is-comment"><span class="docs-shell-prompt" aria-hidden="true">#</span><span class="docs-shell-cmd">regenerate imports; rebuild assets when missing or stale</span></span></code></pre>
-    </div>
-  </div>
-</div>
-        <p><code>make setup</code> runs <code>replace-sumeru</code>, <code>replace-sumeru-addons</code>, <code>make generate</code> (rewrites <code>addonimports/zimports.go</code>), and <code>make assets</code> (delegates to <code>../sumeru</code> for SWC bundles). Run <code>make generate</code> again whenever you add an addon folder.</p>
-
-        <h2 id="verify">Verify the toolchain</h2>
-        <div class="docs-codebox is-shell" data-codebox="shell-30c1e957">
-  <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go version&#10;node --version&#10;npm --version&#10;psql -U postgres -c &quot;SELECT version();&quot;">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">node --version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">npm --version</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">psql -U postgres -c "SELECT version();"</span></span></code></pre>
-    </div>
-  </div>
-</div>
-
-        <h2 id="next-step">Next step</h2>
-        <p>Continue with <a href="configuration.html">Configuration</a> if you need every key explained, or jump to <a href="first-boot.html">First boot</a> to run the setup wizard.</p>
-
-        <h2 id="what-not-to-do">What not to do</h2>
-        <ul>
-          <li>Do not run server commands from the core or addons module; use the workspace.</li>
-          <li>Do not skip <code>make generate</code> after adding an addon folder.</li>
-          <li>Do not assume Docker is required; it is not.</li>
-        </ul>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../index.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Introduction</span></a>
-      <a class="is-next" href="../../guides/start/configuration.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Configuration &rarr;</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <nav class="docs-next" aria-label="Page"><a class="is-prev" href="../../build/index.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Core developer hub</span></a><a class="is-next" href="configuration.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Configuration &rarr;</span></a></nav>
+        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). <a href="https://github.com/ProjectMeru/sumeru/issues/new/choose">Was this helpful?</a> · Part of <a href="../../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 
@@ -202,6 +121,9 @@
       <ul class="docs-toc-list"></ul>
     </aside>
   </div>
+
+  <script src="../../js/docs.js"></script>
+  <script src="../../js/docs-search-index.js"></script>
   <div class="docs-search-modal" data-search-modal hidden aria-hidden="true">
     <div class="docs-search-backdrop" data-search-close></div>
     <div class="docs-search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">

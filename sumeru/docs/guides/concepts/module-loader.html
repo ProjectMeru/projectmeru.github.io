@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module loader | Sumeru Docs</title>
-  <meta name="description" content="How manifests are found, ordered and loaded into the running server.">
+  <title>guides/concepts/module-loader.html | Sumeru Docs</title>
+  <meta name="description" content="guides/concepts/module-loader.html">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/concepts/module-loader.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/concepts/module-loader.html">
-  <meta property="og:title" content="Module loader | Sumeru Docs">
-  <meta property="og:description" content="How manifests are found, ordered and loaded into the running server.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Module loader | Sumeru Docs">
-  <meta name="twitter:description" content="How manifests are found, ordered and loaded into the running server.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Module loader",
-  "description": "How manifests are found, ordered and loaded into the running server.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/concepts/module-loader.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                                <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -90,59 +69,82 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="maintainers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Module loader</h1>
-        <p class="docs-lede">How manifests are found, ordered and loaded into the running server.</p>
-<h2 id="discovery">Discovery</h2>
-<p>The loader walks each root on <code>addons_path</code>, reads <code>manifest.json</code>, and builds a dependency graph from <code>depends</code>.</p>
-<h2 id="install-and-update">Install and update</h2>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Flag</th><th>Effect</th></tr></thead>
-  <tbody>
-    <tr><td><code>-i mod1,mod2</code></td><td>Install listed modules (topo-sorted)</td></tr>
-    <tr><td><code>-u mod</code> / <code>-u all</code></td><td>Reload data from disk for installed modules</td></tr>
-    <tr><td><code>--stop-after-init</code></td><td>Exit after -i/-u without serving HTTP</td></tr>
-  </tbody>
-</table>
-</div>
-<h2 id="blank-imports">Blank imports</h2>
-<p><code>make generate</code> / <code>sumeru-import-gen</code> writes blank imports so each addon's <code>init</code> (model registration, event subscribe) runs when the process starts.</p>
-<h2 id="compile-and-run">Compile and run</h2>
-<div class="docs-codebox is-shell is-wrap" data-codebox="shell-6312d14d">
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
+        <h1>Addons overview</h1>
+        <p class="docs-lede">An <strong>addon</strong> (module) is a directory that contains <strong><code>manifest.json</code></strong> and optional <strong><code>models/</code></strong>, <strong><code>views/</code></strong>, <strong><code>security/</code></strong>, and <strong><code>static/</code></strong> assets.</p>
+        <h2 id="discovery-and-naming">Discovery and naming</h2>
+        <ul>
+        <li>Each <strong>root</strong> in <strong><code>addons_path</code></strong> (comma-separated in <code>sumeru.conf</code>) is scanned for <strong>first-level subdirectories</strong> that contain <strong><code>manifest.json</code></strong>.</li>
+        <li><strong><code>manifest.name</code></strong> is the technical module name. It must match **<code>^[a-z][a-z0-9_]*$</code><strong> (same rule as </strong><code>sumeru-bp</code>**).</li>
+        <li>If the same <strong><code>name</code></strong> appears in two roots, the <strong>later</strong> path in <strong><code>addons_path</code></strong> <strong>wins</strong> (override pattern for forks or <code>sumeru_custom_addons</code>).</li>
+        </ul>
+        <h2 id="manifestjson"><code>manifest.json</code></h2>
+        <table><thead><tr><th>Field</th><th>Notes</th></tr></thead><tbody>
+        <tr><td><code>name</code></td><td>Technical name; equals folder name in normal setups</td></tr>
+        <tr><td><code>display_name</code></td><td>Shown in Apps / UI when set</td></tr>
+        <tr><td><code>version</code></td><td>Semantic string for humans and <strong><code>sys.module</code></strong></td></tr>
+        <tr><td><code>depends</code></td><td>List of module names; topological order for install/update</td></tr>
+        <tr><td><code>author</code>, <code>description</code></td><td>Metadata</td></tr>
+        <tr><td><code>data</code></td><td>Ordered list of <strong>XML paths relative to the addon root</strong> loaded on install/update</td></tr>
+        <tr><td><code>application</code></td><td>If <strong><code>true</code></strong> or omitted, module can appear as an application in Apps; set <strong><code>false</code></strong> for technical glue modules</td></tr>
+        </tbody></table>
+        <p>Only <strong>installed</strong> modules have their <strong><code>data</code></strong> XML applied on startup sync. Uninstalled modules are still <strong>discovered</strong> (visible in Apps) but menus/views from them are not loaded.</p>
+        <h2 id="go-side-effect-imports">Go side-effect imports</h2>
+        <p>Go models register via generated <strong><code>models/zmodels.go</code></strong>, which calls <strong><code>sdk.MustRegister</code></strong>. The server binary must <strong>blank-import</strong> the addon root package so those <strong><code>init</code></strong> hooks run.</p>
+        <ul>
+        <li><strong><code>make generate</code></strong> runs <strong><code>sumeru-import-gen</code></strong>, which rewrites <strong><code>zimports.go</code></strong> and regenerates <strong><code>zmodels.go</code></strong> per addon from <strong><code>addons_path</code></strong> in your INI.</li>
+        <li>After adding a <strong>new</strong> model struct or addon, run <strong><code>make generate</code></strong> then <strong><code>-i your_module</code></strong> once.</li>
+        </ul>
+        <p>See <a href="tooling.html">Tooling</a> and <a href="howtos/install-module.html">How-to: install a module</a>.</p>
+        <h2 id="typical-layout">Typical layout</h2>
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-9f65272e">
   <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
+    <div class="docs-codebox-title">
+      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
+      <span class="docs-codebox-name">text</span>
     </div>
+    <div class="docs-codebox-actions"><span class="docs-codebox-lang"></span><button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button></div>
   </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="make generate&#10;go run . -- -c sumeru.conf -i my_module --stop-after-init&#10;make run">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make generate</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -i my_module --stop-after-init</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre>
-    </div>
-  </div>
+  <div class="docs-codebox-panels"><div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="addons/engagement_cookbook/
+  manifest.json
+  init.go                 # usually: import _ &quot;sumeru/addons/engagement_cookbook/models&quot;
+  models/
+    my_model.go           # struct + sdk.Model embed + sumeru tags
+    zmodels.go            # generated — sdk.MustRegister
+  views/
+    actions.xml
+    menus.xml
+    my_model_form.xml
+  security/
+    security.xml          # optional XML records
+    sys.access.csv        # optional CSV ACLs
+  static/
+    css/theme-overrides.css   # optional; served as /static/addon-css/&lt;module&gt;.css"><pre class="docs-pre"><code data-lang="text">addons/engagement_cookbook/
+  manifest.json
+  init.go                 # usually: import _ "sumeru/addons/engagement_cookbook/models"
+  models/
+    my_model.go           # struct + sdk.Model embed + sumeru tags
+    zmodels.go            # generated — sdk.MustRegister
+  views/
+    actions.xml
+    menus.xml
+    my_model_form.xml
+  security/
+    security.xml          # optional XML records
+    sys.access.csv        # optional CSV ACLs
+  static/
+    css/theme-overrides.css   # optional; served as /static/addon-css/&lt;module&gt;.css</code></pre></div></div>
 </div>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not hand-maintain import lists when generate already owns them.</li>
-  <li>Do not install a module whose depends are missing from <code>addons_path</code>.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Follow a request in <a href="engine-and-server.html">Engine &amp; server</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/concepts/orm.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; ORM</span></a>
-      <a class="is-next" href="../../guides/concepts/engine-and-server.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Engine & server &rarr;</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <p>The reference implementation is <strong><code>sumeru/addons/base/</code></strong>. Platform shells that own menus/ACL over kernel models (no extra Go models) live next to it — e.g. <strong><code>sumeru/addons/contacts/</code></strong> (address book over <code>core.partner</code>).</p>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

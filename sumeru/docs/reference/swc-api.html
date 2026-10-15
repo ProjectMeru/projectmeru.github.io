@@ -69,14 +69,14 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="reference" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="maintainers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>SWC API reference</h1>
         <h2 id="http-endpoints">HTTP endpoints</h2>
         <table><thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead><tbody>
@@ -98,7 +98,7 @@
         </tbody></table>
         <h3 id="websocket-bus">WebSocket bus</h3>
         <p>Upgrade <code>GET /web/swc/bus</code> with standard WebSocket headers after session login. The server forwards in-process outbox queue messages as JSON:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-b7255ce8">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-28fd56b9">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -110,7 +110,7 @@
 </div>
         <p>Non-upgrade GET requests return <strong>404</strong> (no error log). Enable in bootstrap with <code>busEnabled: true</code>; the client connects from <code>ShellLayout</code> when set.</p>
         <h2 id="workspace-json-schema">Workspace JSON schema</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-1b38118b">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-b5da6605">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -171,17 +171,23 @@
         <p><code>defaults</code> comes from the window action context keys <code>default_*</code> (for example <code>{"default_type":"opportunity"}</code> → <code>"type": "opportunity"</code>). New forms merge them into <code>record</code>; kanban quick-create merges them into <code>rpc.create</code>.</p>
         <p>Records are redacted with the same rules as ORM <code>RedactRecordForRead</code>.</p>
         <p>See <a href="../guides/arch-json-pipeline.html">Arch JSON pipeline</a> for the XML → JSON pipeline.</p>
-        <h2 id="json-rpc-primary-data-plane">JSON-RPC (primary data plane)</h2>
-        <p>SWC uses <code>POST /api/rpc</code> for:</p>
+        <h2 id="rpc-primary-data-plane">RPC (primary data plane)</h2>
+        <p>SWC calls <strong><code>POST /api/rpc/{model}/{method}</code></strong> (bootstrap <strong><code>rpcUrl</code></strong> is the base, e.g. <code>/api/rpc</code>) for:</p>
         <ul>
         <li><code>search_read</code>, <code>read</code>, <code>write</code>, <code>create</code>, <code>unlink</code></li>
         <li><code>read_group</code> (pivot/graph)</li>
-        <li><code>call</code> (object buttons; optional vals as <code>args[2]</code>)</li>
+        <li><code>call</code> (object buttons; optional <code>vals</code> in the flat JSON body)</li>
         <li><code>onchange</code></li>
         </ul>
-        <p>Send header <code>X-CSRF-Token</code> with the bootstrap <code>csrfToken</code>.</p>
+        <p>Headers on each request:</p>
+        <ul>
+        <li><strong><code>X-CSRF-Token</code></strong> — bootstrap <code>csrfToken</code> (session auth)</li>
+        <li><strong><code>X-Sumeru-Database</code></strong> — bootstrap <code>apiDatabase</code> (server <code>db_name</code>)</li>
+        <li><strong><code>X-Sumeru-Tenant</code></strong> — active company id</li>
+        </ul>
+        <p>Responses use the RPC envelope <code>{ success, data, error }</code>. See <a href="json-rpc.html">RPC API</a>.</p>
         <p>Client helper:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-2219499f">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-425f9bb4">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -196,7 +202,7 @@
 });</code></pre></div></div>
 </div>
         <h2 id="client-registry">Client registry</h2>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-5f06b962">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-dfe3bcca">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -224,7 +230,8 @@ registry.category("main_components").add("shell", ShellLayout);</code></pre></di
         <p>Write-path toasts: <a href="swc-notifications.html">SWC notifications</a>.</p>
         <h2 id="bootstrap-window-swc-bootstrap">Bootstrap (<code>window.__SWC_BOOTSTRAP__</code>)</h2>
         <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead><tbody>
-        <tr><td><code>rpcUrl</code></td><td><code>/api/rpc</code></td></tr>
+        <tr><td><code>rpcUrl</code></td><td>RPC base path (e.g. <code>/api/rpc</code>; client appends <code>/{model}/{method}</code>)</td></tr>
+        <tr><td><code>apiDatabase</code></td><td>Value for <code>X-Sumeru-Database</code> on RPC requests</td></tr>
         <tr><td><code>swcApiBase</code></td><td><code>/web/swc</code></td></tr>
         <tr><td><code>user</code>, <code>company</code>, <code>companies</code></td><td>Shell chrome</td></tr>
         <tr><td><code>topMenus</code>, <code>sidebarMenus</code></td><td>Navigation</td></tr>
@@ -241,7 +248,7 @@ registry.category("main_components").add("shell", ShellLayout);</code></pre></di
         <li><a href="swc-widget-catalog.html">SWC widget catalog</a></li>
         </ul>
     <nav class="docs-next" aria-label="Page"></nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../index.html">Project Meru</a>.</p>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

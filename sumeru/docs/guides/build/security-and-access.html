@@ -6,44 +6,22 @@
 (function(){try{var k='sumeru-theme',t=localStorage.getItem(k);if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Security & access | Sumeru Docs</title>
-  <meta name="description" content="security.xml, sys.access.csv and how groups gate menus and records.">
+  <title>guides/build/security-and-access.html | Sumeru Docs</title>
+  <meta name="description" content="guides/build/security-and-access.html">
   <link rel="canonical" href="https://projectmeru.github.io/sumeru/docs/guides/build/security-and-access.html">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Project Meru">
   <meta name="theme-color" content="#f3f3f0">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Sumeru Docs">
-  <meta property="og:url" content="https://projectmeru.github.io/sumeru/docs/guides/build/security-and-access.html">
-  <meta property="og:title" content="Security & access | Sumeru Docs">
-  <meta property="og:description" content="security.xml, sys.access.csv and how groups gate menus and records.">
-  <meta property="og:image" content="https://projectmeru.github.io/sumeru/og.png">
-  <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Security & access | Sumeru Docs">
-  <meta name="twitter:description" content="security.xml, sys.access.csv and how groups gate menus and records.">
-  <meta name="twitter:image" content="https://projectmeru.github.io/sumeru/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/docs.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314b8a6'/><path d='M22 74V26l28 26 28-26v48' fill='none' stroke='%23042f2e' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/></svg>">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Security & access",
-  "description": "security.xml, sys.access.csv and how groups gate menus and records.",
-  "url": "https://projectmeru.github.io/sumeru/docs/guides/build/security-and-access.html",
-  "author": {"@type": "Organization", "name": "Project Meru"},
-  "isPartOf": {"@type": "WebSite", "name": "Sumeru Docs", "url": "https://projectmeru.github.io/sumeru/docs/"}
-}
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="docs-backdrop"></div>
-                                                                                <header class="docs-topbar">
+    <header class="docs-topbar">
     <div class="docs-header-shell">
       <div class="docs-header-bar">
         <div class="docs-header-left">
@@ -52,7 +30,8 @@
     </button>
 <a class="docs-brand" href="../../index.html">
       <img src="../../../../logo.png" alt="" width="32" height="32" decoding="async">
-      <span class="brand-name">Sumeru</span><span class="brand-docs">Docs</span>
+      <span class="brand-name">Sumeru</span>
+      <span class="brand-docs">Docs</span>
     </a>
           <a class="docs-product-link" href="../../../index.html" aria-label="Back to Sumeru website">&larr; <span>Sumeru</span></a>
         </div>
@@ -90,98 +69,37 @@
     </div>
   </header>
 
-  <div class="docs-status-banner" role="status"><strong>Pre-alpha.</strong> No tagged release and no upgrade path between versions. Use for evaluation and development only, not production.</div>
+  <div class="docs-status-banner" role="status"><strong>Alpha (platform kernel).</strong> Suitable for demos and custom modules. Not for production or regulated workloads.</div>
 
   <div class="docs-shell">
-    <aside class="docs-sidebar" data-nav-track="guides" aria-label="Documentation"></aside>
+    <aside class="docs-sidebar" data-nav-track="developers" aria-label="Documentation"></aside>
 
     <main class="docs-main" id="main">
       <article class="docs-article">
-        <div class="docs-eyebrow"><span class="docs-audience is-dev">Developers</span><span class="docs-status is-prealpha">Pre-alpha</span></div>
-        <h1>Security & access</h1>
-        <p class="docs-lede">security.xml, sys.access.csv and how groups gate menus and records.</p>
-<h2 id="groups-in-security-xml">Groups in security.xml</h2>
-<p>Define a module category and groups that imply <code>base.group_user</code> (and a manager that implies the user group):</p>
-<div class="docs-codebox is-source is-wrap" data-codebox="src-70aeb278">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-title">
-      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">security/security.xml</span>
-    </div>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">xml</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;sumeru&gt;&#10;    &lt;data&gt;&#10;        &lt;record id=&quot;module_category_my_module&quot; model=&quot;sys.module.category&quot;&gt;&#10;            &lt;field name=&quot;name&quot;&gt;My Module&lt;/field&gt;&#10;            &lt;field name=&quot;sequence&quot;&gt;100&lt;/field&gt;&#10;        &lt;/record&gt;&#10;        &lt;record id=&quot;group_my_module_user&quot; model=&quot;core.group&quot;&gt;&#10;            &lt;field name=&quot;name&quot;&gt;User&lt;/field&gt;&#10;            &lt;field name=&quot;category_id&quot; ref=&quot;module_category_my_module&quot;/&gt;&#10;            &lt;field name=&quot;implied_ids&quot; eval=&quot;[(4, ref(&#x27;base.group_user&#x27;))]&quot;/&gt;&#10;        &lt;/record&gt;&#10;        &lt;record id=&quot;group_my_module_manager&quot; model=&quot;core.group&quot;&gt;&#10;            &lt;field name=&quot;name&quot;&gt;Manager&lt;/field&gt;&#10;            &lt;field name=&quot;category_id&quot; ref=&quot;module_category_my_module&quot;/&gt;&#10;            &lt;field name=&quot;implied_ids&quot; eval=&quot;[(4, ref(&#x27;group_my_module_user&#x27;))]&quot;/&gt;&#10;        &lt;/record&gt;&#10;    &lt;/data&gt;&#10;&lt;/sumeru&gt;">
-      <pre class="docs-pre is-lined" data-lang="xml"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">&lt;sumeru&gt;</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">    &lt;data&gt;</span></span><span class="docs-line" data-n="4"><span class="docs-line-n" aria-hidden="true">4</span><span class="docs-line-c">        &lt;record id="module_category_my_module" model="sys.module.category"&gt;</span></span><span class="docs-line" data-n="5"><span class="docs-line-n" aria-hidden="true">5</span><span class="docs-line-c">            &lt;field name="name"&gt;My Module&lt;/field&gt;</span></span><span class="docs-line" data-n="6"><span class="docs-line-n" aria-hidden="true">6</span><span class="docs-line-c">            &lt;field name="sequence"&gt;100&lt;/field&gt;</span></span><span class="docs-line" data-n="7"><span class="docs-line-n" aria-hidden="true">7</span><span class="docs-line-c">        &lt;/record&gt;</span></span><span class="docs-line" data-n="8"><span class="docs-line-n" aria-hidden="true">8</span><span class="docs-line-c">        &lt;record id="group_my_module_user" model="core.group"&gt;</span></span><span class="docs-line" data-n="9"><span class="docs-line-n" aria-hidden="true">9</span><span class="docs-line-c">            &lt;field name="name"&gt;User&lt;/field&gt;</span></span><span class="docs-line" data-n="10"><span class="docs-line-n" aria-hidden="true">10</span><span class="docs-line-c">            &lt;field name="category_id" ref="module_category_my_module"/&gt;</span></span><span class="docs-line" data-n="11"><span class="docs-line-n" aria-hidden="true">11</span><span class="docs-line-c">            &lt;field name="implied_ids" eval="[(4, ref('base.group_user'))]"/&gt;</span></span><span class="docs-line" data-n="12"><span class="docs-line-n" aria-hidden="true">12</span><span class="docs-line-c">        &lt;/record&gt;</span></span><span class="docs-line" data-n="13"><span class="docs-line-n" aria-hidden="true">13</span><span class="docs-line-c">        &lt;record id="group_my_module_manager" model="core.group"&gt;</span></span><span class="docs-line" data-n="14"><span class="docs-line-n" aria-hidden="true">14</span><span class="docs-line-c">            &lt;field name="name"&gt;Manager&lt;/field&gt;</span></span><span class="docs-line" data-n="15"><span class="docs-line-n" aria-hidden="true">15</span><span class="docs-line-c">            &lt;field name="category_id" ref="module_category_my_module"/&gt;</span></span><span class="docs-line" data-n="16"><span class="docs-line-n" aria-hidden="true">16</span><span class="docs-line-c">            &lt;field name="implied_ids" eval="[(4, ref('group_my_module_user'))]"/&gt;</span></span><span class="docs-line" data-n="17"><span class="docs-line-n" aria-hidden="true">17</span><span class="docs-line-c">        &lt;/record&gt;</span></span><span class="docs-line" data-n="18"><span class="docs-line-n" aria-hidden="true">18</span><span class="docs-line-c">    &lt;/data&gt;</span></span><span class="docs-line" data-n="19"><span class="docs-line-n" aria-hidden="true">19</span><span class="docs-line-c">&lt;/sumeru&gt;</span></span></code></pre>
-    </div>
-  </div>
-</div>
-<h2 id="sys-access-csv">sys.access.csv</h2>
-<p>ACL rows grant CRUD per group. Model column uses the dotted model name; group column uses the XML id from security.xml.</p>
-<div class="docs-codebox is-source is-wrap" data-codebox="src-b3a6ebdb">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-title">
-      <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
-      <span class="docs-codebox-name">security/sys.access.csv</span>
-    </div>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-lang">csv</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy code">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink&#10;access_my_module_user,my_module.user,my.module,group_my_module_user,1,0,0,0&#10;access_my_module_manager,my_module.manager,my.module,group_my_module_manager,1,1,1,1">
-      <pre class="docs-pre is-lined" data-lang="csv"><code><span class="docs-line" data-n="1"><span class="docs-line-n" aria-hidden="true">1</span><span class="docs-line-c">id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink</span></span><span class="docs-line" data-n="2"><span class="docs-line-n" aria-hidden="true">2</span><span class="docs-line-c">access_my_module_user,my_module.user,my.module,group_my_module_user,1,0,0,0</span></span><span class="docs-line" data-n="3"><span class="docs-line-n" aria-hidden="true">3</span><span class="docs-line-c">access_my_module_manager,my_module.manager,my.module,group_my_module_manager,1,1,1,1</span></span></code></pre>
-    </div>
-  </div>
-</div>
-<div class="docs-table-wrap">
-<table class="docs-table">
-  <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
-  <tbody>
-    <tr><td><code>perm_read</code></td><td>Search / read</td></tr>
-    <tr><td><code>perm_write</code></td><td>Update</td></tr>
-    <tr><td><code>perm_create</code></td><td>Create</td></tr>
-    <tr><td><code>perm_unlink</code></td><td>Delete</td></tr>
-  </tbody>
-</table>
-</div>
-<h2 id="load-order">Load order</h2>
-<p>List <code>security/security.xml</code> before <code>security/sys.access.csv</code> in the manifest so groups exist when ACL rows resolve.</p>
-<h2 id="compile-and-run">Compile and run</h2>
-<div class="docs-codebox is-shell is-wrap" data-codebox="shell-ccf1f56e">
-  <div class="docs-codebox-titlebar">
-    <span class="docs-codebox-name">Terminal</span>
-    <div class="docs-codebox-actions">
-      <span class="docs-codebox-hint">shell</span>
-      <button type="button" class="docs-wrap" data-wrap aria-pressed="true" title="Toggle word wrap">Wrap</button>
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="go run . -- -c sumeru.conf -u my_module --stop-after-init&#10;make run">
-      <pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">go run . -- -c sumeru.conf -u my_module --stop-after-init</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">make run</span></span></code></pre>
-    </div>
-  </div>
-</div>
-<h2 id="what-not-to-do">What not to do</h2>
-<ul>
-  <li>Do not leave manager-level write/unlink on every group "for convenience".</li>
-  <li>Do not point <code>group_id:id</code> at an id from another module without a <code>depends</code> entry.</li>
-  <li>Do not confuse multi-company record rules with multi-tenant SaaS isolation. See the Security guides.</li>
-</ul>
-<h2 id="next-step">Next step</h2>
-<p>Seed records with <a href="data-xml.html">Data XML</a>, or read <a href="../security/overview.html">Security overview</a>.</p>
-    <nav class="docs-next" aria-label="Page">
-      <a class="is-prev" href="../../guides/build/report-engine.html"><span class="docs-next-label">Previous</span><span class="docs-next-title">&larr; Report engine</span></a>
-      <a class="is-next" href="../../guides/build/data-xml.html"><span class="docs-next-label">Next</span><span class="docs-next-title">Data XML &rarr;</span></a>
-    </nav>
-        <p class="docs-footer">Sumeru is <strong>pre-alpha</strong> (no tagged release, no upgrades). Part of <a href="../../../../index.html">Project Meru</a>.</p>
+        <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
+        <h1>Security and access</h1>
+        <p class="docs-lede">Sumeru separates <strong>who</strong> can use the UI (<strong>groups</strong>), <strong>what CRUD</strong> they have per model (<strong>access control lists</strong>), and optional <strong>row-level</strong> filters (<strong>record rules</strong>).</p>
+        <h2 id="groups-coregroup">Groups (<code>core.group</code>)</h2>
+        <p>Groups bundle users for menus and ACLs. Each group has a <strong>name</strong>, optional <strong><code>category_id</code></strong> (many2one to <strong><code>sys.module.category</code></strong> for UI grouping), <strong>sequence</strong>, and <strong>implied</strong> links stored in <strong><code>core.group.implied</code></strong> (loaded from XML <strong><code>implied_ids</code></strong> eval <code>[(4, ref('xml.id')), …]</code>). Kernel groups <strong><code>base.group_system</code></strong> and <strong><code>base.group_user</code></strong> are created before module data install so addons can imply <strong><code>base.group_user</code></strong>. Admin UI for groups lives under <strong>Settings</strong> when <strong><code>security_admin.xml</code></strong> from <strong><code>base</code></strong> is loaded.</p>
+        <h2 id="access-rights-sysaccess">Access rights (<code>sys.access</code>)</h2>
+        <p>Each row ties <strong>(optional) group + model</strong> to <strong><code>perm_read</code></strong>, <strong><code>perm_write</code></strong>, <strong><code>perm_create</code></strong>, <strong><code>perm_unlink</code></strong> booleans.</p>
+        <h3 id="csv-bulk-load">CSV bulk load</h3>
+        <p>Place <strong><code>sys.access.csv</code></strong> at the addon root <strong>or</strong> under <strong><code>security/sys.access.csv</code></strong>. Columns are read by <strong><code>core/module</code></strong> during <strong><code>SyncToDB</code></strong> (see <strong><code>syncCSVModelAccess</code></strong>). Use this for repeatable ACL matrices in bulk CSV form.</p>
+        <h3 id="xml-records">XML records</h3>
+        <p>You can also declare <strong><code>sys.access</code></strong> (and related) rows as <strong><code><record model="sys.access"></code></strong> blocks in security XML—see <strong><code>addons/base/security/security_admin.xml</code></strong> for patterns.</p>
+        <h2 id="record-rules-sysrule">Record rules (<code>sys.rule</code>)</h2>
+        <p>Optional domains (JSON) restrict rows per operation. Form views expose <strong><code>domain_force</code></strong> for administrators (see <strong><code>view_sys.rule_form</code></strong> in <strong><code>security_admin.xml</code></strong>).</p>
+        <h2 id="menu-visibility">Menu visibility</h2>
+        <p><strong><code><menuitem groups="…"></code></strong> ties shell entries to groups resolved at menu load time (<code>LoadShellMenus</code> in <strong><code>core/engine/render/menus.go</code></strong>).</p>
+        <h2 id="practical-workflow">Practical workflow</h2>
+        <ol>
+        <li>Define <strong>groups</strong> your module needs.</li>
+        <li>Ship <strong><code>security/sys.access.csv</code></strong> (or XML) so each new model has sane defaults.</li>
+        <li>Add <strong>record rules</strong> only when users must not see each other’s rows.</li>
+        <li>Restrict sensitive <strong>Settings</strong> menus with <strong><code>groups</code></strong> matching <strong><code>base.group_system</code></strong> (see <strong><code>base</code></strong> security XML).</li>
+        </ol>
+    <nav class="docs-next" aria-label="Page"></nav>
+        <p class="docs-footer">Sumeru is an <strong>alpha platform kernel</strong> (not for production). Part of <a href="../../../index.html">Project Meru</a>.</p>
       </article>
     </main>
 

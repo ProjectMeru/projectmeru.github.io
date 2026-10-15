@@ -109,9 +109,8 @@
   }
 
   var TRACK_ICONS = {
-    guides: '<svg viewBox="0 0 16 16"><path d="M2 3.2A1.2 1.2 0 0 1 3.2 2H6.5A1.5 1.5 0 0 1 8 3.5v9A1.5 1.5 0 0 0 6.5 11H2Z"/><path d="M14 3.2A1.2 1.2 0 0 0 12.8 2H9.5A1.5 1.5 0 0 0 8 3.5v9A1.5 1.5 0 0 1 9.5 11H14Z"/></svg>',
-    reference: '<svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="m4.6 6.4 2 1.6-2 1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8.6 10.2h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>',
-    addons: '<svg viewBox="0 0 16 16"><path d="M8 1.6 14.5 5 8 8.4 1.5 5Z"/><path d="m1.5 8 6.5 3.4L14.5 8"/><path d="m1.5 11 6.5 3.4L14.5 11"/></svg>',
+    developers: '<svg viewBox="0 0 16 16"><path d="M2 3.2A1.2 1.2 0 0 1 3.2 2H6.5A1.5 1.5 0 0 1 8 3.5v9A1.5 1.5 0 0 0 6.5 11H2Z"/><path d="M14 3.2A1.2 1.2 0 0 0 12.8 2H9.5A1.5 1.5 0 0 0 8 3.5v9A1.5 1.5 0 0 1 9.5 11H14Z"/></svg>',
+    maintainers: '<svg viewBox="0 0 16 16"><path d="M8 1.6 14.5 5 8 8.4 1.5 5Z"/><path d="m1.5 8 6.5 3.4L14.5 8"/><path d="m1.5 11 6.5 3.4L14.5 11"/></svg>',
     business: '<svg viewBox="0 0 16 16"><rect x="2" y="5" width="12" height="9" rx="1.2"/><path d="M5 5V3.8A1.8 1.8 0 0 1 6.8 2h2.4A1.8 1.8 0 0 1 11 3.8V5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>',
   };
 
@@ -131,7 +130,7 @@
       a.setAttribute('data-track', t.id);
       var ico = document.createElement('span');
       ico.className = 'docs-track-ico';
-      ico.innerHTML = TRACK_ICONS[t.id] || TRACK_ICONS.guides;
+      ico.innerHTML = TRACK_ICONS[t.id] || TRACK_ICONS.developers;
       var label = document.createElement('span');
       label.className = 'docs-track-label';
       label.textContent = t.label;
@@ -257,10 +256,9 @@
     footer.innerHTML =
       '<div class="docs-site-footer-grid">' +
       '<div class="docs-site-footer-col"><p class="docs-site-footer-heading">Documentation</p><ul>' +
-      '<li><a href="' + resolveNavHref('index.html') + '">Guides</a></li>' +
-      '<li><a href="' + resolveNavHref('reference/index.html') + '">Reference</a></li>' +
-      '<li><a href="' + resolveNavHref('addons/index.html') + '">Addons</a></li>' +
       '<li><a href="' + resolveNavHref('using/index.html') + '">Business</a></li>' +
+      '<li><a href="' + resolveNavHref('index.html') + '">Developers</a></li>' +
+      '<li><a href="' + resolveNavHref('guides/maintainers/index.html') + '">Maintainers</a></li>' +
       '</ul></div>' +
       '<div class="docs-site-footer-col"><p class="docs-site-footer-heading">Resources</p><ul>' +
       '<li><a href="https://github.com/ProjectMeru/sumeru" target="_blank" rel="noopener">GitHub</a></li>' +
@@ -272,7 +270,7 @@
       '<li><a href="https://github.com/ProjectMeru" target="_blank" rel="noopener">Project Meru</a></li>' +
       '</ul></div>' +
       '</div>' +
-      '<p class="docs-site-footer-note"><strong>Pre-alpha.</strong> No tagged release or upgrade path. Evaluation and development only.</p>';
+      '<p class="docs-site-footer-note"><strong>Alpha platform kernel.</strong> Demos and custom modules. Not for production.</p>';
   }
 
   function flattenTrackItems(track) {
@@ -388,7 +386,7 @@
 
   if (NAV) {
     var trackEl = $('.docs-sidebar[data-nav-track]');
-    var track = trackEl ? trackEl.getAttribute('data-nav-track') : 'guides';
+    var track = trackEl ? trackEl.getAttribute('data-nav-track') : 'developers';
     fixBrandAssets();
     renderTrackTabs(track);
     renderSidebar(track);
