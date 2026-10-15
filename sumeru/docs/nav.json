@@ -337,7 +337,7 @@
             "href": "guides/build/logging.html"
           },
           {
-            "title": "JSON-RPC",
+            "title": "RPC API reference",
             "href": "reference/json-rpc.html"
           },
           {
@@ -551,6 +551,7 @@
     "addons/howtos/enable-report-on-view.html": "developers",
     "guides/build/logging.html": "developers",
     "reference/json-rpc.html": "developers",
+    "guides/build/json-rpc-api.html": "developers",
     "guides/build/creating-apis.html": "developers",
     "addons/howtos/custom-http-route.html": "developers",
     "reference/events-and-cron.html": "maintainers",

@@ -79,26 +79,8 @@
         <div class="docs-eyebrow"><span class="docs-audience is-dev">Core Dev</span><span class="docs-status is-prealpha">Alpha</span></div>
         <h1>Creating APIs</h1>
         <p class="docs-lede">Three ways to expose behaviour to clients and the workspace UI.</p>
-        <h2 id="1-json-rpc-recommended-for-integrations">1. JSON-RPC (recommended for integrations)</h2>
-        <p><strong>Endpoint:</strong> <code>POST /api/rpc</code></p>
-        <p><strong>Auth:</strong> Session cookie or <code>Authorization: Bearer <api_key></code></p>
-        <p><strong>Methods:</strong> <code>search</code>, <code>search_read</code>, <code>read</code>, <code>create</code>, <code>write</code>, <code>unlink</code>, and batch variants.</p>
-        <p>Full guide: <a href="json-rpc-api.html">JSON-RPC API</a>. Reference: <a href="../../reference/json-rpc.html">JSON-RPC</a>. API keys: <a href="../security/api-keys.html">API keys</a>.</p>
-        <p>Example:</p>
-        <div class="docs-codebox is-shell is-wrap" data-codebox="shell-dc63a21e">
-  <div class="docs-codebox-titlebar">
-    <div class="docs-codebox-actions">
-      <button type="button" class="docs-copy" data-copy aria-label="Copy commands">Copy</button>
-    </div>
-  </div>
-  <div class="docs-codebox-panels">
-    <div class="docs-codebox-panel is-active" role="tabpanel" data-panel="main" data-copy-text="curl -X POST http://localhost:8080/api/rpc \
-  -H &quot;Authorization: Bearer YOUR_KEY&quot; \
-  -H &quot;Content-Type: application/json&quot; \
-  -d &#x27;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;search_read&quot;,&quot;params&quot;:{&quot;model&quot;:&quot;crm.lead&quot;,&quot;domain&quot;:[],&quot;fields&quot;:[&quot;name&quot;,&quot;stage_id&quot;],&quot;limit&quot;:5},&quot;id&quot;:1}&#x27;"><pre class="docs-pre is-shell"><code><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">curl -X POST http://localhost:8080/api/rpc \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Authorization: Bearer YOUR_KEY" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -H "Content-Type: application/json" \</span></span><span class="docs-shell-line"><span class="docs-shell-prompt" aria-hidden="true">$</span><span class="docs-shell-cmd">  -d '{"jsonrpc":"2.0","method":"search_read","params":{"model":"crm.lead","domain":[],"fields":["name","stage_id"],"limit":5},"id":1}'</span></span></code></pre></div>
-  </div>
-</div>
-        <p>RPC enforces the same ACLs and record rules as the web UI.</p>
+        <h2 id="1-rpc-api-recommended-for-integrations">1. RPC API (recommended for integrations)</h2>
+        <p>Use path-based <code>POST /api/rpc/</code> for external CRUD and integrations: authenticate with <code>auth.login</code>, then call <code>{model}/{method}</code> with an API key. Full quick start, headers, and every public method are documented in the <a href="../../reference/json-rpc.html#quick-start">RPC API reference</a>. For UI-created keys and header forms, see <a href="../security/api-keys.html">API keys</a>. RPC enforces the same ACLs and record rules as the web UI.</p>
         <h2 id="2-custom-http-routes">2. Custom HTTP routes</h2>
         <p>Register addon routes from <code>init()</code> using <code>sumeru/core/server/router</code>:</p>
         <table><thead><tr><th>Auth mode</th><th>Use when</th></tr></thead><tbody>
@@ -110,7 +92,7 @@
         <p><strong>CSRF:</strong> Web POST handlers that mutate state require a CSRF token (<code>core/server/web/csrf.go</code>). API-key and GET routes follow different rules.</p>
         <h2 id="3-object-actions-workspace-buttons">3. Object actions (workspace buttons)</h2>
         <p>Register handlers for toolbar buttons on forms and lists:</p>
-        <div class="docs-codebox is-source is-wrap" data-codebox="src-e2236141">
+        <div class="docs-codebox is-source is-wrap" data-codebox="src-62c2c745">
   <div class="docs-codebox-titlebar">
     <div class="docs-codebox-title">
       <span class="docs-codebox-dots" aria-hidden="true"><span class="is-close"></span><span class="is-min"></span><span class="is-max"></span></span>
@@ -129,7 +111,7 @@
         <p>Wire the button in XML with <code>type="object"</code> and <code>name="action_set_won"</code>. Used heavily in CRM and Accounting modules.</p>
         <h2 id="choosing-an-approach">Choosing an approach</h2>
         <table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody>
-        <tr><td>External system CRUD</td><td>JSON-RPC + API key</td></tr>
+        <tr><td>External system CRUD</td><td>RPC API + API key</td></tr>
         <tr><td>Printable report or file download</td><td>Custom HTTP route</td></tr>
         <tr><td>User clicks button on a record</td><td>Object action</td></tr>
         <tr><td>React to another module's data change</td><td>Event bus subscription</td></tr>
